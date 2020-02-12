@@ -26,4 +26,10 @@ public class SetCharacterUIMgr : MonoBehaviour
         profilePanel.SetActive(false);
         storyPanel.SetActive(true);
     }
+
+    public void ShowProfile()
+    {
+        profilePanel.SetActive(true);
+        storyPanel.SetActive(false);
+    }
 }
