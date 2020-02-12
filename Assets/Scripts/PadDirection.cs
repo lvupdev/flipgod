@@ -7,8 +7,8 @@ using UnityEngine.EventSystems;
 public class PadDirection : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
 
-    [SerializeField] private RectTransform rect_Background;
-    [SerializeField] private RectTransform rect_Joystick;
+    private RectTransform rect_Background;
+    private RectTransform rect_Joystick;
 
     private float radius;
 
@@ -22,11 +22,13 @@ public class PadDirection : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     void Start()
     {
+        rect_Background = GameObject.Find("Background").GetComponent<RectTransform>();
+        rect_Joystick = GameObject.Find("Joystick").GetComponent<RectTransform>();
+
         radius = rect_Background.rect.width * 0.5f;
         // 너비의 반이 반지름이 된다
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isTouch)
