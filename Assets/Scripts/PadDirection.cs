@@ -3,18 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+/*
+방향 조절 패드
+*/
 public class PadDirection : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
 
-    [SerializeField] private RectTransform rect_Background;
-    [SerializeField] private RectTransform rect_Joystick;
+    private RectTransform rect_Background; //패드 중 아래에 있는것 
+    private RectTransform rect_Joystick; //패드 중 위에 있는것, 방향 조정.
 
-    private float radius;
+    private float radius; //background 패드의 반지름
 
-    private Vector2 position;
+    private Vector2 position; //joystick 패드의 위치
 
-    public Vector2 direction;
+    public Vector2 direction; //Bottle 클래스로 넘겨지는 방향 벡터
 
     public bool isTouch = false;
 
@@ -22,11 +24,13 @@ public class PadDirection : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     void Start()
     {
+        rect_Background = GameObject.Find("Background").GetComponent<RectTransform>();
+        rect_Joystick = GameObject.Find("Joystick").GetComponent<RectTransform>();
+
         radius = rect_Background.rect.width * 0.5f;
         // 너비의 반이 반지름이 된다
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isTouch)
@@ -35,11 +39,11 @@ public class PadDirection : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         }
     }
 
-    private Vector2 HandleOut()
+    private Vector2 HandleOut() //콘솔에 출력하고, 위치값 저장.
     {
         direction = position;
 
-        print(direction);
+        //print(direction);
 
         return direction;
     }
@@ -68,7 +72,7 @@ public class PadDirection : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     {
         isTouch = false;
 
-        rect_Joystick.localPosition = Vector3.zero;
+        rect_Joystick.localPosition = Vector3.zero; //방향 초기화
 
 
     }
