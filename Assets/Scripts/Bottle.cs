@@ -11,12 +11,12 @@ public class Bottle : MonoBehaviour
 
     private Rigidbody2D rb; //물병의 rigidbody 속성
 
-    public float rotateSpeed = 5.0f; //회전속도
-    private float strengthFactor; //던지는 힘
+    public float rotateSpeed; //회전속도
+    private float strengthFactor = 10; //던지는 힘. 초기값이 있어야 포물선이 있어야
 
 
     //포물선
-    public Vector2 initPos;
+    private Vector2 initPos;
     private Vector2 endPos;
     public GameObject trajectoryDot;
     private GameObject[] trajectoryDots;
@@ -37,10 +37,10 @@ public class Bottle : MonoBehaviour
 
         //값 초기화
         rb.gravityScale = 0;
+        rotateSpeed = 5.0f;
 
         //포물선
         initPos = gameObject.transform.position;
-        Debug.Log(initPos);
         trajectoryDots = new GameObject[trajectoryNumber];
         for (int i = 0; i < trajectoryNumber; i++)
         {
