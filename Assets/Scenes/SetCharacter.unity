@@ -238,7 +238,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &302002120
 RectTransform:
   m_ObjectHideFlags: 0
@@ -643,6 +643,7 @@ GameObject:
   - component: {fileID: 738941911}
   - component: {fileID: 738941910}
   - component: {fileID: 738941909}
+  - component: {fileID: 738941913}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -734,6 +735,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &738941913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738941908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61c2eea48d9277a40b31686e2659af2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &760900764
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,7 +802,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9045df9262839a94da669ed753bbd05c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8927ab80699f8a54a9280eb5d2cdd62a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -971,7 +984,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1770736511}
+      - m_Target: {fileID: 0}
         m_MethodName: ShowProfile
         m_Mode: 1
         m_Arguments:
@@ -1035,7 +1048,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1660433757
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1103,7 +1116,7 @@ GameObject:
   - component: {fileID: 1770736512}
   - component: {fileID: 1770736511}
   m_Layer: 0
-  m_Name: UIMgr
+  m_Name: GameMgr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1118,7 +1131,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1770736510}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61c2eea48d9277a40b31686e2659af2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 6142be5e02778e24ea2bc4c212a3200d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   profilePanel: {fileID: 458910557}
@@ -1259,7 +1272,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1770736511}
+      objectReference: {fileID: 0}
     - target: {fileID: 8223851331222144184, guid: d8babfaf545ed4a408e4ffc90174117d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -1437,7 +1450,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1770736511}
+      - m_Target: {fileID: 0}
         m_MethodName: ShowStory
         m_Mode: 1
         m_Arguments:

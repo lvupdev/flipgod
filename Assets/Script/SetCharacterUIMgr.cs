@@ -1,19 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class SetCharacterUIMgr : MonoBehaviour
 {
-    public GameObject profilePanel;
-    public GameObject storyPanel;
-    public GameObject upgradePanel;
+    private static SetCharacterUIMgr m_instance;
+    public static SetCharacterUIMgr instance
+    {
+        get
+        {
+            if (m_instance == null)
+            {
+                m_instance = FindObjectOfType<SetCharacterUIMgr>();
+            }
+        }
+    }
 
     private void Awake()
     {
-        profilePanel.SetActive(true);
-        upgradePanel.SetActive(false);
-        storyPanel.SetActive(false);
+        if(instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void ReturnToLobby()
@@ -21,15 +31,19 @@ public class SetCharacterUIMgr : MonoBehaviour
         SceneManager.LoadScene("Start");
     }
 
-    public void ShowStory()
+
+
+    public void SelectMenu(GameObject panel)
     {
-        profilePanel.SetActive(false);
-        storyPanel.SetActive(true);
+        bool isActive = panel.activeSelf;
+        if(isActive == false)
+        {
+            panel.SetActive(true);
+            panel.transform.SetAsFirstSibling();
+            
+        }
+
     }
 
-    public void ShowProfile()
-    {
-        profilePanel.SetActive(true);
-        storyPanel.SetActive(false);
-    }
+
 }
