@@ -3,22 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+/*
+리셋버튼 
+*/
+
 public class ResetButton : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Restart()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("SampleScene"); //씬을 불러온다.
     }
 }
