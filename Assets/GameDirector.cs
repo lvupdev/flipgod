@@ -23,7 +23,7 @@ public class GameDirector : MonoBehaviour
 
     public void Retry()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Stage");
     }
 
     public void Resume()
