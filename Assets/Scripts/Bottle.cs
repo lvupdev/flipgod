@@ -72,13 +72,14 @@ public class Bottle : MonoBehaviour
         if (isActive)
         {
             isLaunched = true;
-            Debug.Log(padStrength.totalStrength); //힘 출력
+            //Debug.Log(padStrength.totalStrength); //힘 출력
 
             rb.gravityScale = 1;
 
             //뛰면서 회전
             rb.velocity = padDirection.direction * padStrength.totalStrength;
             rb.AddTorque(rotateSpeed, ForceMode2D.Impulse);
+            Debug.Log(rotateSpeed);
 
             //포물선 삭제
             for (int i = 0; i < trajectoryNumber; i++)

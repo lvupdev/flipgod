@@ -1533,8 +1533,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1853557900}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.49, y: -3.61, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.4, z: 1}
+  m_LocalPosition: {x: -6.495, y: -3.61, z: 0}
+  m_LocalScale: {x: 0.6986, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -1552,14 +1552,11 @@ EdgeCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 2.7}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 3.938218, y: 2.5248926}
-  - {x: -3.960928, y: 2.5217016}
-  - {x: -3.1824884, y: 3.035481}
-  - {x: 3.0468438, y: 3.0369875}
-  - {x: 3.8943596, y: 2.5342891}
+  - {x: -3.6697595, y: 0.027053595}
+  - {x: 3.6542704, y: 0.00000023841858}
 --- !u!1 &1914826063
 GameObject:
   m_ObjectHideFlags: 0
@@ -1724,6 +1721,7 @@ MonoBehaviour:
   padStrength: {fileID: 1831954141}
   padDirection: {fileID: 1636684130}
   isLaunched: 0
+  isActive: 0
   trajectoryDotPrefab: {fileID: 1152180298276607188, guid: 76393c19bc2f0f8439169d036e64bbc5,
     type: 3}
   trajectoryNumber: 10
