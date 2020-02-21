@@ -15,7 +15,7 @@ public class PadStrength : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public bool isTouch = false;
     private bool isThrowing = false; //캐릭터가 물병을 던지는 동작을 진행중인가의 여부
     private float delayTime = 1f; //힘 조절 버튼에서 손가락을 때고 물병이 던져지기까지의 딜레이 타임
-    public int addStrength = 1; //시간별로 더해지는 힘 값, 조정 가능
+    public int addStrength = 7; //시간별로 더해지는 힘 값, 조정 가능
 
     //{get;set;}을 하면 코드 내에서 수정은 가능하나, 유니티에서 보여지지 않음
     public float totalStrength { get; set; }
@@ -31,7 +31,7 @@ public class PadStrength : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     void Update()
     {                                                                     
-        if (isTouch && (!bottle.isLaunched) && (!isThrowing))//패드가 눌려있고 물병을 던지는 도중이 아니며 물병이 날아가는 도중이 아니면
+        if (isTouch && (!bottle.isLaunched) && (!isThrowing) && bottle.isActive)//패드가 눌려있고 물병을 던지는 도중이 아니며 물병이 날아가는 도중이 아니면
         {
 
             totalStrength += addStrength*Time.deltaTime; // 매 초마다 일정한 힘을 더한다.
@@ -54,16 +54,22 @@ public class PadStrength : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
    
     public void OnPointerDown(PointerEventData eventData) //패드를 누르는 순간
     {
-        totalStrength = 0;
-        delayTime = 1f; //딜레이 타임 초기화
-        isTouch = true;
-        strengthGauge.gameObject.SetActive(true); //힘 게이지를 화면에 표시한다.
+        if ((!bottle.isLaunched) && (!isThrowing) && bottle.isActive)
+        {
+            totalStrength = 0;
+            delayTime = 1f; //딜레이 타임 초기화
+            isTouch = true;
+            strengthGauge.gameObject.SetActive(true); //힘 게이지를 화면에 표시한다.
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData) //패드에서 마우스를 떼는 순간
     {
-        isTouch = false;
-        if (bottle.isLaunched) isThrowing = false;
-        else isThrowing = true;
+        if (bottle.isActive)
+        {
+            isTouch = false;
+            if (bottle.isLaunched) isThrowing = false;
+            else isThrowing = true;
+        }
     }
 }

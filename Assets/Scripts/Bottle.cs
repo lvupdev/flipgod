@@ -8,13 +8,13 @@ public class Bottle : MonoBehaviour
 {
     public PadStrength padStrength;
     public PadDirection padDirection;
-    public bool isLaunched; //물병이 던져져서 날아가고 있는지의 여부
+    public bool isLaunched; //물병이 던져져서 날아가고 있는지의 여부, 어딘가에 부딪히기 전으로 한하여 공중에 있는 지의 여부
+    public bool isActive; //플레이어가 필살기를 쓰지 않고 조작할 수 있는지의 여부
 
     private float rotateSpeed; //회전속도
     private Rigidbody2D rb; //물병의 rigidbody 속성
-    private bool isActive; //플레이어가 필살기를 쓰지 않고 조작할 수 있는지의 여부
-    bool padStrengthTouched; //힘 버튼이 한 번이라도 눌렸는가
-    bool padDirectionTouched; //힘 버튼이 한 번이라도 눌렸는가
+    private bool padStrengthTouched; //힘 버튼이 한 번이라도 눌렸는가
+    private bool padDirectionTouched; //힘 버튼이 한 번이라도 눌렸는가
 
     //포물선
     public GameObject trajectoryDotPrefab;
