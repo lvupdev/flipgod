@@ -57,7 +57,6 @@ public class PadStrength : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         if ((!bottleController.isSuperPowerAvailabe) && (!isThrowing))
         {
-            bottleController = GameObject.FindWithTag("isActive").GetComponent<BottleController>();//힘을 적용할 물병을 태그에 따라 재설정
             delayTime = 1f; //딜레이 타임 초기화
             isTouch = true;
             strengthGauge.gameObject.SetActive(true); //힘 게이지를 화면에 표시한다.
@@ -69,5 +68,10 @@ public class PadStrength : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         isTouch = false;
         if (bottleController.isSuperPowerAvailabe) isThrowing = false;
         else isThrowing = true;
+    }
+
+    public void ReselectBottle()
+    {
+        bottleController = GameObject.FindWithTag("isActive").GetComponent<BottleController>();//힘을 적용할 물병을 태그에 따라 재설정
     }
 }

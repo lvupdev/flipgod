@@ -6,11 +6,16 @@ using UnityEngine.SceneManagement;
 게임 UI 관리 스크립트
 */
 public class GameDirector : MonoBehaviour
-{   
+{
+    GameObject psychokinesis;
+    GameObject membraneCreater;
+    GameObject freezer;
 
     void Start()
     {
-
+        psychokinesis = GameObject.Find("Psychokinesis");
+        //membraneCreater = GameObject.Find("MembraneCreator");
+        //freezer = GameObject.Find("Freezer");
     }
 
     void Update()
@@ -36,6 +41,14 @@ public class GameDirector : MonoBehaviour
     public void GoStageScene() // 스테이지 선택 화면으로 넘어가는 함수
     {
         SceneManager.LoadScene("SelectStage");
+    }
+
+    public void PlayerReselectBottle() // 상황에 맞춰 플레이 캐릭터가 물병을 재선택하도록 한다.
+    {
+        GameObject presentPlayer = GameObject.FindWithTag("Player");
+        if (presentPlayer == psychokinesis) psychokinesis.GetComponent<KinesisController>().ReselectBottle();
+        //else if (presentPlayer == membraneCreater) membraneCreater.GetComponent<CreatorController>().ReselectBottle();
+        //else freezer.GetComponent<FreezerController>().ReselectBottle();
     }
 
 }

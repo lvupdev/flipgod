@@ -8,13 +8,14 @@ public class BottleController : MonoBehaviour
 {
     public PadStrength padStrength;
     public PadDirection padDirection;
+    public Rigidbody2D rb; //물병의 rigidbody 속성
     public bool isSuperPowerAvailabe; //물병에 기본 초능력을 사용할 수 있는지의 여부
     public bool isStanding; //서 있는지의 여부
 
     private float rotateSpeed; //회전속도
     private int key; //물병의 회전 방향 결정 요소
-    private Rigidbody2D rb; //물병의 rigidbody 속성
     private BottleGenerator bottleGenerator;
+    private GameDirector gameDirector;
     private bool padStrengthTouched; //힘 버튼이 한 번이라도 눌렸는가
     private bool padDirectionTouched; //힘 버튼이 한 번이라도 눌렸는가
 
@@ -32,6 +33,8 @@ public class BottleController : MonoBehaviour
         {
             gameObject.tag = "Untagged";//태그가 사라짐
             bottleGenerator.GenerateBottle();//물병 생성
+            padStrength.ReselectBottle(); //물병 재선택
+            gameDirector.PlayerReselectBottle();
         }
     }
 
@@ -40,6 +43,7 @@ public class BottleController : MonoBehaviour
         //오브젝트 받아오기
         rb = GetComponent<Rigidbody2D>();
         bottleGenerator = GameObject.Find("BottleGenerator").GetComponent<BottleGenerator>();
+        gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         padDirection = GameObject.Find("Joystick").GetComponent<PadDirection>();
         bottleGenerator = GameObject.Find("BottleGenerator").GetComponent<BottleGenerator>();
