@@ -27,12 +27,10 @@ public class KinesisController : MonoBehaviour
         if (Input.mousePosition.x > Screen.width / 2.0f)
         {
             bottlePrefab.GetComponent<BottleController>().rb.AddTorque(-superPowerLV/10.0f, ForceMode2D.Impulse);
-            Debug.Log("시계방향");
         }
         if(Input.mousePosition.x <= Screen.width / 2.0f)
         {
             bottlePrefab.GetComponent<BottleController>().rb.AddTorque(superPowerLV/10.0f, ForceMode2D.Impulse);
-            Debug.Log("시계반대방향");
         }
     }
 
