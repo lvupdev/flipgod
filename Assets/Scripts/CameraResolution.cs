@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
+화면 해상도 1920 x 1080으로 고정하는 스크립트
+*/
 public class CameraResolution : MonoBehaviour
 {
     void Start()

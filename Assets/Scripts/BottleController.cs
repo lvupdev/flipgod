@@ -9,8 +9,10 @@ public class BottleController : MonoBehaviour
     public PadStrength padStrength;
     public PadDirection padDirection;
     public bool isSuperPowerAvailabe; //물병에 기본 초능력을 사용할 수 있는지의 여부
+    public bool isStanding; //서 있는지의 여부
 
     private float rotateSpeed; //회전속도
+    private int key; //물병의 회전 방향 결정 요소
     private Rigidbody2D rb; //물병의 rigidbody 속성
     private BottleGenerator bottleGenerator;
     private bool padStrengthTouched; //힘 버튼이 한 번이라도 눌렸는가
@@ -81,6 +83,9 @@ public class BottleController : MonoBehaviour
 
     public void Jump() 
     {
+        if (padDirection.direction.x >= 0) key = 1;
+        if (padDirection.direction.x < 0) key = -1;
+
         isSuperPowerAvailabe = true;
         Debug.Log(padStrength.totalStrength); //힘 출력
 
@@ -88,7 +93,7 @@ public class BottleController : MonoBehaviour
 
         //뛰면서 회전
         rb.velocity = padDirection.direction * padStrength.totalStrength;
-        rb.AddTorque(rotateSpeed, ForceMode2D.Impulse);
+        rb.AddTorque(key*rotateSpeed, ForceMode2D.Impulse);
 
         //포물선 삭제
         for (int i = 0; i < trajectoryNumber; i++)

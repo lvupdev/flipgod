@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
+물병을 생성하는 스크립트
+*/
 public class BottleGenerator : MonoBehaviour
 {
     public GameObject bottlePrefab;
