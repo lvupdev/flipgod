@@ -16,6 +16,7 @@ public class BottleController : MonoBehaviour
     private int key; //물병의 회전 방향 결정 요소
     private BottleGenerator bottleGenerator;
     private SuperPowerController superPowerController;
+    private PlayerController playerController;
     private bool padStrengthTouched; //힘 버튼이 한 번이라도 눌렸는가
     private bool padDirectionTouched; //힘 버튼이 한 번이라도 눌렸는가
 
@@ -35,6 +36,7 @@ public class BottleController : MonoBehaviour
             bottleGenerator.GenerateBottle();//물병 생성
             padStrength.ReselectBottle(); //물병 재선택
             superPowerController.ReselectBottle(); //물병 재선택
+            playerController.ReselectBottle();
         }
     }
 
@@ -44,6 +46,7 @@ public class BottleController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         bottleGenerator = GameObject.Find("BottleGenerator").GetComponent<BottleGenerator>();
         superPowerController = GameObject.Find("SuperPower").GetComponent<SuperPowerController>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         padDirection = GameObject.Find("Joystick").GetComponent<PadDirection>();
 
@@ -51,7 +54,7 @@ public class BottleController : MonoBehaviour
         rb.gravityScale = 0;
         bottleGenerator.startPosition = gameObject.transform.position;// 처음 배치한 물병의 transform을 기준으로 새로운 물병 생성
         isSuperPowerAvailabe = false; //물병에 초능력을 적용할 수 있는지의 여부
-        rotateSpeed = 2.0f; //회전속도
+        rotateSpeed = 0.5f; //회전속도
         padStrengthTouched = false;
         padDirectionTouched = false;
 

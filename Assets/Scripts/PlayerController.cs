@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public int firstSlotChr; //교체 슬롯 1번에 있는 캐릭터
     public int secondSlotChr; //교체 슬롯 2번에 있는 캐릭터
     private SpriteRenderer spriteRenderer;
+    private BottleController bottleController;
     public Sprite[] standingSprites; // 스탠딩 이미지를 담아놓는 배열
     public Sprite[] iconSprites; //아이콘 이미지를 담아놓는 배열
 
@@ -22,27 +23,38 @@ public class PlayerController : MonoBehaviour
         firstSlotChr = 1; //탄성막 생성자
         secondSlotChr = 2; //빙결자
         spriteRenderer = GetComponent<SpriteRenderer>();
+        bottleController = GameObject.Find("BottlePrefab").GetComponent<BottleController>();
         spriteRenderer.sprite = standingSprites[0];
     }
 
     public void CharacterSlot1()
     {
-        int temp;
-        temp = playingChr;
-        playingChr = firstSlotChr;
-        firstSlotChr = temp;
-        GameObject.Find("CharacterSlot1").GetComponent<Image>().sprite = iconSprites[firstSlotChr];
-        spriteRenderer.sprite = standingSprites[playingChr];
-        
+        if(!bottleController.isSuperPowerAvailabe)
+        {
+            int temp;
+            temp = playingChr;
+            playingChr = firstSlotChr;
+            firstSlotChr = temp;
+            GameObject.Find("CharacterSlot1").GetComponent<Image>().sprite = iconSprites[firstSlotChr];
+            spriteRenderer.sprite = standingSprites[playingChr];
+        }
     }
 
     public void CharacterSlot2()
     {
-        int temp;
-        temp = playingChr;
-        playingChr = secondSlotChr;
-        secondSlotChr = temp;
-        GameObject.Find("CharacterSlot2").GetComponent<Image>().sprite = iconSprites[secondSlotChr];
-        spriteRenderer.sprite = standingSprites[playingChr];
+        if (!bottleController.isSuperPowerAvailabe)
+        {
+            int temp;
+            temp = playingChr;
+            playingChr = secondSlotChr;
+            secondSlotChr = temp;
+            GameObject.Find("CharacterSlot2").GetComponent<Image>().sprite = iconSprites[secondSlotChr];
+            spriteRenderer.sprite = standingSprites[playingChr];
+        }
+    }
+
+    public void ReselectBottle()
+    {
+        bottleController = GameObject.FindWithTag("isActive").GetComponent<BottleController>();//물병을 태그에 따라 재설정
     }
 }

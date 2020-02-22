@@ -13,6 +13,8 @@ public class SuperPowerController : MonoBehaviour, IPointerDownHandler, IPointer
     private Vector2 initPos;//화면을 눌렀을 때의 위치
     private Vector2 endPos;//화면에서 손을 땠을 떄의 위치
     private bool isTouch;
+    private bool membraneAvailable; //탄성막을 생성해도 되는지의 여부
+    private int membraneNum; //생성할 수 있는 탄성막의 개수
 
 
     void Start()
@@ -21,6 +23,8 @@ public class SuperPowerController : MonoBehaviour, IPointerDownHandler, IPointer
         this.playerController = GameObject.Find("Player").GetComponent<PlayerController>();
 
         isTouch = false;
+        membraneAvailable = false;
+        membraneNum = superPowerLV[1]; //탄성막 생성자의 초능력 강화 레벨의 수치만큼 탄성막을 생성할 수 있다.
         initPos = Vector2.zero;
         endPos = Vector2.zero;
     }
@@ -36,7 +40,7 @@ public class SuperPowerController : MonoBehaviour, IPointerDownHandler, IPointer
                     Psychokinesis();
                     break;
                 case 1:
-                    Membranecreator();
+                    if((membraneNum > 0) && (membraneAvailable)) MembraneCreator(); //생성할 수 있는 탄성막의 개수가 0보다 크면
                     break;
                 case 2:
                     Freezer();
@@ -49,13 +53,17 @@ public class SuperPowerController : MonoBehaviour, IPointerDownHandler, IPointer
     {
         if(isTouch)
         {
-            if (initPos.x > Screen.width / 2.0f) bottleController.rb.AddTorque(-superPowerLV[0]/20.0f,ForceMode2D.Impulse);
-            if (initPos.x <= Screen.width / 2.0f) bottleController.rb.AddTorque(superPowerLV[0]/20.0f, ForceMode2D.Impulse);
+            if (initPos.x > Screen.width / 2.0f) bottleController.rb.AddTorque(-superPowerLV[0]/60.0f,ForceMode2D.Impulse);
+            if (initPos.x <= Screen.width / 2.0f) bottleController.rb.AddTorque(superPowerLV[0]/60.0f, ForceMode2D.Impulse);
         }
     }
 
-    private void Membranecreator()
+    private void MembraneCreator()
     {
+        Vector2 direction = endPos - initPos; //화면 드래그 방향
+        bottleController.rb.velocity = direction.normalized * 8;
+        membraneNum -= 1; //생성할 수 있는 탄성막의 개수 감소
+        membraneAvailable = false; //다시 탄성막을 생성하려면 반드시 한 번 더 화면을 터치해야 함.
 
     }
 
@@ -74,10 +82,16 @@ public class SuperPowerController : MonoBehaviour, IPointerDownHandler, IPointer
     {
         endPos = Input.mousePosition;
         isTouch = false;
+        if((playerController.playingChr == 1) && (bottleController.isSuperPowerAvailabe))
+        {
+            membraneAvailable = true; //탄성막을 한 개 생성하기 위해서는 탄성막 생성자를 조작하는 도중 한 번의 터치를 해야한다.
+        } 
     }
 
     public void ReselectBottle()
     {
         bottleController = GameObject.FindWithTag("isActive").GetComponent<BottleController>();//힘을 적용할 물병을 태그에 따라 재설정
+        membraneNum = superPowerLV[1]; //생성할 수 있는 탄성막의 개수 초기화
+        membraneAvailable = false;
     }
 }
