@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 public class PadDirection : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
 
-    private RectTransform rect_Background; //패드 중 아래에 있는것 
+    private RectTransform rect_Joypad; //패드 중 아래에 있는것 
     private RectTransform rect_Joystick; //패드 중 위에 있는것, 방향 조정.
 
     private float radius; //background 패드의 반지름
@@ -24,10 +24,10 @@ public class PadDirection : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     void Start()
     {
-        rect_Background = GameObject.Find("Background").GetComponent<RectTransform>();
+        rect_Joypad = GameObject.Find("Joypad").GetComponent<RectTransform>();
         rect_Joystick = GameObject.Find("Joystick").GetComponent<RectTransform>();
 
-        radius = rect_Background.rect.width * 0.5f;
+        radius = rect_Joypad.rect.width * 0.5f;
         // 너비의 반이 반지름이 된다
     }
 
@@ -52,7 +52,7 @@ public class PadDirection : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     {
 
 
-        Vector2 value = eventData.position - (Vector2)rect_Background.position;
+        Vector2 value = eventData.position - (Vector2)rect_Joypad.position;
 
         value = Vector2.ClampMagnitude(value, radius);
 

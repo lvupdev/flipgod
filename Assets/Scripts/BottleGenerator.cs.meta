@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Scripts/ResetButton.cs.meta
+guid: d45e9bcfa29a5fe4283ecb5a122a231a
+=======
+guid: c61a4d00db8e22e489a5a0ae0df1aaa4
+>>>>>>> cb3d5b7acf07a3025f63d4b8a4199cb39071897b:Assets/Scripts/BottleGenerator.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
