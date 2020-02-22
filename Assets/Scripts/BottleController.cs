@@ -15,7 +15,7 @@ public class BottleController : MonoBehaviour
     private float rotateSpeed; //회전속도
     private int key; //물병의 회전 방향 결정 요소
     private BottleGenerator bottleGenerator;
-    private GameDirector gameDirector;
+    private SuperPowerController superPowerController;
     private bool padStrengthTouched; //힘 버튼이 한 번이라도 눌렸는가
     private bool padDirectionTouched; //힘 버튼이 한 번이라도 눌렸는가
 
@@ -34,7 +34,7 @@ public class BottleController : MonoBehaviour
             gameObject.tag = "Untagged";//태그가 사라짐
             bottleGenerator.GenerateBottle();//물병 생성
             padStrength.ReselectBottle(); //물병 재선택
-            gameDirector.PlayerReselectBottle();
+            superPowerController.ReselectBottle(); //물병 재선택
         }
     }
 
@@ -43,10 +43,9 @@ public class BottleController : MonoBehaviour
         //오브젝트 받아오기
         rb = GetComponent<Rigidbody2D>();
         bottleGenerator = GameObject.Find("BottleGenerator").GetComponent<BottleGenerator>();
-        gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
+        superPowerController = GameObject.Find("SuperPower").GetComponent<SuperPowerController>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         padDirection = GameObject.Find("Joystick").GetComponent<PadDirection>();
-        bottleGenerator = GameObject.Find("BottleGenerator").GetComponent<BottleGenerator>();
 
         //값 초기화
         rb.gravityScale = 0;

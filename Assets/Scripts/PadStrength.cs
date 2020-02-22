@@ -12,7 +12,7 @@ public class PadStrength : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public BottleController bottleController;
     public bool isTouch = false;
-    public int addStrength = 7; //시간별로 더해지는 힘 값, 조정 가능
+    public int addStrength = 8; //시간별로 더해지는 힘 값, 조정 가능
 
     //{get;set;}을 하면 코드 내에서 수정은 가능하나, 유니티에서 보여지지 않음
     public float totalStrength { get; set; }

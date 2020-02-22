@@ -73,8 +73,6 @@ public class PadDirection : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         isTouch = false;
 
         rect_Joystick.localPosition = Vector3.zero; //방향 초기화
-
-
     }
 
 
