@@ -112,6 +112,4 @@ public class BottleController : MonoBehaviour
         return Physics2D.gravity * elapsedTime * elapsedTime * 0.5f +
                    padDirection.direction * padStrength.totalStrength * elapsedTime + new Vector2(transform.position.x, transform.position.y);
     }
-
-
 }

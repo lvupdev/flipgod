@@ -8,21 +8,32 @@ using UnityEngine.SceneManagement;
 public class GameDirector : MonoBehaviour
 {
     BottleController bottleController;
+    SPPController sppController;
     GameObject psychokinesis;
     GameObject membraneCreater;
     GameObject freezer;
+    GameObject presentPlayer;
 
     void Start()
     {
         bottleController = GameObject.Find("BottlePrefab").GetComponent<BottleController>();
+        sppController = GameObject.Find("SuperPowerPanel").GetComponent<SPPController>();
         psychokinesis = GameObject.Find("Psychokinesis");
         //membraneCreater = GameObject.Find("MembraneCreator");
         //freezer = GameObject.Find("Freezer");
+        presentPlayer = GameObject.FindWithTag("Player");
     }
 
     void Update()
     {
         if(bottleController.isSuperPowerAvailabe)
+        {
+            presentPlayer = GameObject.FindWithTag("Player");
+            if(presentPlayer == psychokinesis)
+            {
+                sppController.
+            }
+        }
     }
 
     public void ShowPausePanel() // 일시정지 메뉴 창 보여주는 함수
@@ -48,7 +59,6 @@ public class GameDirector : MonoBehaviour
     public void PlayerReselectBottle() // 상황에 맞춰 플레이 캐릭터가 물병을 재선택하도록 한다.
     {
         bottleController = GameObject.FindWithTag("Player").GetComponent<BottleController>();
-        GameObject presentPlayer = GameObject.FindWithTag("Player");
         if (presentPlayer == psychokinesis) psychokinesis.GetComponent<KinesisController>().ReselectBottle();
         //else if (presentPlayer == membraneCreater) membraneCreater.GetComponent<CreatorController>().ReselectBottle();
         //else freezer.GetComponent<FreezerController>().ReselectBottle();
