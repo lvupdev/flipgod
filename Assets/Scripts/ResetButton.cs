@@ -12,6 +12,6 @@ public class ResetButton : MonoBehaviour
 {
     public void Restart()
     {
-        SceneManager.LoadScene("SampleScene"); //씬을 불러온다.
+        SceneManager.LoadScene("Stage"); //씬을 불러온다.
     }
 }

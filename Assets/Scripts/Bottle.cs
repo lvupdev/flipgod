@@ -20,7 +20,7 @@ public class Bottle : MonoBehaviour
     private Vector2 endPos;
     public GameObject trajectoryDot;
     private GameObject[] trajectoryDots;
-    public int trajectoryNumber = 8; //포물선 점 개수
+    public int trajectoryNumber = 14; //포물선 점 개수
 
 
     //어딘가에 부딪혔을때
