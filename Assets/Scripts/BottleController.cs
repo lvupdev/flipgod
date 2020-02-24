@@ -36,7 +36,7 @@ public class BottleController : MonoBehaviour
             bottleGenerator.GenerateBottle();//물병 생성
             padStrength.ReselectBottle(); //물병 재선택
             superPowerController.ReselectBottle(); //물병 재선택
-            playerController.ReselectBottle();
+            playerController.ReselectBottle(); //물병 재선택
         }
     }
 
@@ -85,6 +85,20 @@ public class BottleController : MonoBehaviour
             if (distance.magnitude < 2) gameObject.SetActive(false);
 
         }
+
+        if(gameObject.transform.position.y<-8) // 물병이 화면 밖으로 날아갔을 때
+        {
+            if (gameObject.CompareTag("Untagged")) Destroy(gameObject); // 어딘가 부딪히고 화면 밖으로 튕겨나갔을 때
+            else
+            {
+                gameObject.tag = "Untagged";//태그가 사라짐
+                bottleGenerator.GenerateBottle();//물병 생성
+                padStrength.ReselectBottle(); //물병 재선택
+                superPowerController.ReselectBottle(); //물병 재선택
+                playerController.ReselectBottle(); //물병 재선택
+                Destroy(gameObject); //해당 물병 파괴
+            }
+        }
     }
 
     public void Jump() 
@@ -96,6 +110,8 @@ public class BottleController : MonoBehaviour
         Debug.Log(padStrength.totalStrength); //힘 출력
 
         rb.gravityScale = 1;
+
+        superPowerController.presentStrength = padStrength.totalStrength; //물병에 현재 가해진 힘 전달
 
         //뛰면서 회전
         rb.velocity = padDirection.direction * padStrength.totalStrength;

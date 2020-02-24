@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public int secondSlotChr; //교체 슬롯 2번에 있는 캐릭터
     private SpriteRenderer spriteRenderer;
     private BottleController bottleController;
+    private PadStrength padStrength;
     public Sprite[] standingSprites; // 스탠딩 이미지를 담아놓는 배열
     public Sprite[] iconSprites; //아이콘 이미지를 담아놓는 배열
 
@@ -24,12 +25,13 @@ public class PlayerController : MonoBehaviour
         secondSlotChr = 2; //빙결자
         spriteRenderer = GetComponent<SpriteRenderer>();
         bottleController = GameObject.Find("BottlePrefab").GetComponent<BottleController>();
+        padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         spriteRenderer.sprite = standingSprites[0];
     }
 
     public void CharacterSlot1()
     {
-        if(!bottleController.isSuperPowerAvailabe)
+        if((!bottleController.isSuperPowerAvailabe) && (!padStrength.isThrowing) &&(!padStrength.isTouch))
         {
             int temp;
             temp = playingChr;
@@ -42,7 +44,7 @@ public class PlayerController : MonoBehaviour
 
     public void CharacterSlot2()
     {
-        if (!bottleController.isSuperPowerAvailabe)
+        if ((!bottleController.isSuperPowerAvailabe) && (!padStrength.isThrowing) && (!padStrength.isTouch))
         {
             int temp;
             temp = playingChr;

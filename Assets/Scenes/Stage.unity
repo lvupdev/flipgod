@@ -744,8 +744,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b198ba188ebd854a80fb3ba206c3553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  superPowerLV: 010000000100000001000000
+  superPowerLV: 030000000300000001000000
   skillLV: 010000000100000001000000
+  presentStrength: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1876,6 +1877,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottleController: {fileID: 0}
   isTouch: 0
+  isThrowing: 0
   addStrength: 8
 --- !u!1 &1853557900
 GameObject:

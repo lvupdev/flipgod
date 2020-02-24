@@ -12,13 +12,13 @@ public class PadStrength : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public BottleController bottleController;
     public bool isTouch = false;
+    public bool isThrowing = false; //캐릭터가 물병을 던지는 동작을 진행중인가의 여부
     public int addStrength = 8; //시간별로 더해지는 힘 값, 조정 가능
 
     //{get;set;}을 하면 코드 내에서 수정은 가능하나, 유니티에서 보여지지 않음
     public float totalStrength { get; set; }
 
     private GameObject strengthGauge; //힘 게이지 스프라이트
-    private bool isThrowing = false; //캐릭터가 물병을 던지는 동작을 진행중인가의 여부
     private float delayTime = 1f; //힘 조절 버튼에서 손가락을 때고 물병이 던져지기까지의 딜레이 타임
 
     void Start()

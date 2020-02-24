@@ -7,6 +7,7 @@ public class SuperPowerController : MonoBehaviour, IPointerDownHandler, IPointer
 {
     public int[] superPowerLV; //초능력 강화 레벨
     public int[] skillLV; //필살기 강화 레벨
+    public float presentStrength; //현재 물병에 가해진 힘
 
     private BottleController bottleController;
     private PlayerController playerController;
@@ -53,15 +54,21 @@ public class SuperPowerController : MonoBehaviour, IPointerDownHandler, IPointer
     {
         if(isTouch)
         {
-            if (initPos.x > Screen.width / 2.0f) bottleController.rb.AddTorque(-superPowerLV[0]/60.0f,ForceMode2D.Impulse);
-            if (initPos.x <= Screen.width / 2.0f) bottleController.rb.AddTorque(superPowerLV[0]/60.0f, ForceMode2D.Impulse);
+            if (initPos.x > Screen.width / 2.0f) //화면 터치 위치가 스크린 오른편이면 시계방향으로 회전 힘을 가한다.
+            {
+                bottleController.rb.AddTorque(-superPowerLV[0] / 60.0f, ForceMode2D.Impulse); //가하는 힘은 초능력 강화 레벨을 60으로 나눈 수치
+            }
+            if (initPos.x <= Screen.width / 2.0f)//화면 터치 위치가 스크린 왼편이면 시계반대방향으로 회전 힘을 가한다.
+            {
+                bottleController.rb.AddTorque(superPowerLV[0] / 60.0f, ForceMode2D.Impulse);
+            }
         }
     }
 
     private void MembraneCreator()
     {
         Vector2 direction = endPos - initPos; //화면 드래그 방향
-        bottleController.rb.velocity = direction.normalized * 8;
+        bottleController.rb.velocity = direction.normalized * presentStrength; // 물병을 던졌을 때의 힘만큼 속도를 가한다.
         membraneNum -= 1; //생성할 수 있는 탄성막의 개수 감소
         membraneAvailable = false; //다시 탄성막을 생성하려면 반드시 한 번 더 화면을 터치해야 함.
 
