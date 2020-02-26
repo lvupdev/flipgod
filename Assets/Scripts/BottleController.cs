@@ -83,7 +83,6 @@ public class BottleController : MonoBehaviour
         if (padDirection.direction.x < 0) key = -1;
 
         isSuperPowerAvailabe = true;
-        Debug.Log(padStrength.totalStrength); //힘 출력
 
         rb.gravityScale = 1;
 

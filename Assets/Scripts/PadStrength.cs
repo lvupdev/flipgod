@@ -21,6 +21,15 @@ public class PadStrength : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private GameObject strengthGauge; //힘 게이지 스프라이트
     private float delayTime = 1f; //힘 조절 버튼에서 손가락을 때고 물병이 던져지기까지의 딜레이 타임
 
+    void OnGUI() //NEW: 유니티 GUI 함수 오버라이딩
+    {
+        GUILayout.BeginArea(new Rect(100,0,100,90));
+
+        GUILayout.Label("Strength: " + (int)totalStrength);
+
+        GUILayout.EndArea();
+    }
+
     void Start()
     {
         this.strengthGauge = GameObject.Find("StrengthGauge");
