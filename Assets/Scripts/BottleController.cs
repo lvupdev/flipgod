@@ -41,6 +41,7 @@ public class BottleController : MonoBehaviour
         rotateSpeed = 0.5f; //회전속도
         padStrengthTouched = false;
         padDirectionTouched = false;
+        trajectoryLine.Start();
 
     }
 

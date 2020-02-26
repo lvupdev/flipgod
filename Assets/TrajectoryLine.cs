@@ -14,7 +14,7 @@ public class TrajectoryLine : MonoBehaviour
     private int directionNumber = 5;
     private float normalStrength = 10.0f; //NEW: 포물선에 적용되는 기본 힘
 
-    void Start()
+    public void Start()
     {
 
 
