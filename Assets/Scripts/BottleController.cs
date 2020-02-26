@@ -20,14 +20,8 @@ public class BottleController : MonoBehaviour
     private bool padStrengthTouched; //힘 버튼이 한 번이라도 눌렸는가
     private bool padDirectionTouched; //힘 버튼이 한 번이라도 눌렸는가
 
-    //포물선
-    public GameObject trajectoryDotPrefab;
-    private GameObject[] trajectoryDots;
-    private GameObject[] directionDots;
-    private int trajectoryNumber = 13; //포물선 점 개수
-    private int directionNumber = 5;
-    private float normalStrength = 10.0f; //NEW: 포물선에 적용되는 기본 힘
-    
+
+    private TrajectoryLine trajectoryLine; //NEW: 포물선 스크립트 분리
 
     void Start()
     {
@@ -38,6 +32,7 @@ public class BottleController : MonoBehaviour
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         padDirection = GameObject.Find("Joystick").GetComponent<PadDirection>();
+        trajectoryLine = GameObject.Find("Trajectory").GetComponent<TrajectoryLine>();
 
         //값 초기화
         rb.gravityScale = 0;
@@ -47,20 +42,6 @@ public class BottleController : MonoBehaviour
         padStrengthTouched = false;
         padDirectionTouched = false;
 
-       //포물선
-        trajectoryDots = new GameObject[trajectoryNumber];
-        for (int i = 0; i < trajectoryNumber; i++)
-        {
-            trajectoryDots[i] = Instantiate(trajectoryDotPrefab, gameObject.transform);
-        }
-
-
-        //NEW: 방향포물선
-        directionDots = new GameObject[directionNumber];
-        for (int i = 0; i < directionNumber; i++)
-        {
-            directionDots[i] = Instantiate(trajectoryDotPrefab, gameObject.transform);
-        }
     }
 
     void Update()
@@ -70,22 +51,7 @@ public class BottleController : MonoBehaviour
         if ((padStrength.isTouch || padDirectionTouched) && (!isSuperPowerAvailabe) && gameObject.CompareTag("isActive"))
         // NEW: 방향 패드만 눌렸을 때 기본 힘으로 포물선 그리기, 후에 힘버튼으로 포물선 조정
         {
-            // 포물선 그리기
-            if (!padStrengthTouched)
-            {
-                for (int i = 0; i < directionNumber; i++)
-                {
-                    directionDots[i].transform.position = CalculatePosition(i * 0.1f);
-                }
-            }
-            else //NEW: 방향 포물선 그리기
-            {
-                for (int i = 0; i < trajectoryNumber; i++)
-                {
-                    trajectoryDots[i].transform.position = CalculatePosition(i * 0.1f);
-                }
-            }
-            
+            trajectoryLine.draw(padStrengthTouched, padDirection.direction, padStrength.totalStrength);
         }
 
         if (gameObject.CompareTag("Untagged")) //던져진 물병이 물병 생성 위치와 너무 가까이 있으면 비활성화
@@ -126,25 +92,8 @@ public class BottleController : MonoBehaviour
         rb.velocity = padDirection.direction * padStrength.totalStrength;
         rb.AddTorque(key*rotateSpeed, ForceMode2D.Impulse);
 
-        //포물선 삭제
-        for (int i = 0; i < trajectoryNumber; i++)
-        {
-                Destroy(trajectoryDots[i]);
-        }
-        for (int i = 0; i < directionNumber; i++)
-        {
-            Destroy(directionDots[i]);
-        }
-
+        trajectoryLine.delete();
     }
 
-    private Vector2 CalculatePosition(float elapsedTime)
-    {
-        float strengthFactor;
-        if (!padStrengthTouched) strengthFactor = normalStrength; 
-        //NEW: 힘패드 터치가 안되어있을때. 방향 포물선에 적용
-        else strengthFactor = padStrength.totalStrength;
-        return Physics2D.gravity * elapsedTime * elapsedTime * 0.5f +
-                   padDirection.direction * strengthFactor * elapsedTime + new Vector2(transform.position.x, transform.position.y);
-    }
+    
 }
