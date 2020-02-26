@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 8661927605914885502}
   - component: {fileID: 8661927605914885497}
   - component: {fileID: 8661927605914885499}
-  - component: {fileID: 8661927605914885498}
   - component: {fileID: 8661927605914885503}
+  - component: {fileID: 8661927605914885498}
   - component: {fileID: 8661927605914885496}
+  - component: {fileID: 4042516665611638386}
   m_Layer: 8
   m_Name: BottlePrefab
   m_TagString: isActive
@@ -110,6 +111,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &8661927605914885503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8661927605914885476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07c5534e21046154f8ee598337a612f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  padStrength: {fileID: 0}
+  padDirection: {fileID: 0}
+  rb: {fileID: 0}
+  isSuperPowerAvailabe: 0
+  isStanding: 0
 --- !u!60 &8661927605914885498
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -160,26 +178,6 @@ PolygonCollider2D:
       - {x: -4.850767, y: -14.0285635}
       - {x: 0.27167046, y: -0.39339742}
       - {x: 0.45330602, y: 0.16561961}
---- !u!114 &8661927605914885503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8661927605914885476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c5534e21046154f8ee598337a612f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  padStrength: {fileID: 0}
-  padDirection: {fileID: 0}
-  rb: {fileID: 0}
-  isSuperPowerAvailabe: 0
-  isStanding: 0
-  trajectoryDotPrefab: {fileID: 1152180298276607188, guid: 76393c19bc2f0f8439169d036e64bbc5,
-    type: 3}
-  trajectoryNumber: 15
 --- !u!222 &8661927605914885496
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -188,3 +186,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8661927605914885476}
   m_CullTransparentMesh: 0
+--- !u!114 &4042516665611638386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8661927605914885476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0ba7298a2ea014391e40b145eb8db3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  padStrength: {fileID: 0}
