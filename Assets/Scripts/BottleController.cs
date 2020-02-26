@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 /*
-물병에 작용되는 함수
+물병을 점프시키는 스크립트
 */
 public class BottleController : MonoBehaviour
 {
@@ -28,20 +28,6 @@ public class BottleController : MonoBehaviour
     private int directionNumber = 5;
     private float normalStrength = 10.0f; //NEW: 포물선에 적용되는 기본 힘
     
-
-    //어딘가에 부딪혔을때
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        this.isSuperPowerAvailabe = false; //더 이상 초능력을 적용할 수 없음
-        if (gameObject.CompareTag("isActive")) 
-        {
-            gameObject.tag = "Untagged";//태그가 사라짐
-            bottleGenerator.GenerateBottle();//물병 생성
-            padStrength.ReselectBottle(); //물병 재선택
-            superPowerController.ReselectBottle(); //물병 재선택
-            playerController.ReselectBottle(); //물병 재선택
-        }
-    }
 
     void Start()
     {

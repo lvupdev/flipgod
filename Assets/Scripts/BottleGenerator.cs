@@ -13,5 +13,6 @@ public class BottleGenerator : MonoBehaviour
     {
         GameObject bottle = Instantiate(bottlePrefab) as GameObject;
         bottle.transform.position = startPosition;
+        bottle.tag = "isActive"; //NEW: PadStrength.cs 75번째 줄 오류 때문에 수정
     }
 }
