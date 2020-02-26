@@ -43,7 +43,10 @@ public class BottleCollision : MonoBehaviour
         if (gameObject.CompareTag("isActive"))
         {
 
+<<<<<<< HEAD
             rb.centerOfMass = new Vector3(0, -0.5f, 0);
+=======
+>>>>>>> 0cd9319ced00e74cbc8b7dda0a2b42efb46063b4
             gameObject.tag = "Untagged";//태그가 사라짐
             bottleGenerator.GenerateBottle();//물병 생성
             padStrength.ReselectBottle(); //물병 재선택
