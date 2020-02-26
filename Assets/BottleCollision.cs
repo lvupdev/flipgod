@@ -42,11 +42,7 @@ public class BottleCollision : MonoBehaviour
         bottleContrlloer.isSuperPowerAvailabe = false; //더 이상 초능력을 적용할 수 없음
         if (gameObject.CompareTag("isActive"))
         {
-
-<<<<<<< HEAD
-            rb.centerOfMass = new Vector3(0, -0.5f, 0);
-=======
->>>>>>> 0cd9319ced00e74cbc8b7dda0a2b42efb46063b4
+            rb.centerOfMass = new Vector3(0, -0.3f, 0);
             gameObject.tag = "Untagged";//태그가 사라짐
             bottleGenerator.GenerateBottle();//물병 생성
             padStrength.ReselectBottle(); //물병 재선택
