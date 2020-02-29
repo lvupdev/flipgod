@@ -30,7 +30,7 @@ public class SuperPowerController : MonoBehaviour, IPointerDownHandler, IPointer
         isTouch = false;
         membraneAvailable = false;
         membraneNum = superPowerLV[1]; //탄성막 생성자의 초능력 강화 레벨의 수치만큼 탄성막을 생성할 수 있다.
-        freezeRad = superPowerLV[2] * 2; //빙결자의 초능력 강화 레벨 수치의 두 배 만큼이 빙결 가능 범위의 반지름이 된다.
+        freezeRad = superPowerLV[2] * 3; //빙결자의 초능력 강화 레벨 수치의 두 배 만큼이 빙결 가능 범위의 반지름이 된다.
         initPos = Vector2.zero;
         endPos = Vector2.zero;
     }
@@ -83,13 +83,14 @@ public class SuperPowerController : MonoBehaviour, IPointerDownHandler, IPointer
     {
         if(isTouch && (freezeNum==1))
         {
-            GameObject[] dynamicStructures = GameObject.FindGameObjectsWithTag("dynamic");
-            for(int i=0; i< dynamicStructures.Length; i++)
+            GameObject dynamicStructures = GameObject.Find("DynamicStructures");
+            for(int i=0; i< dynamicStructures.transform.childCount; i++)
             {
-                float distance = (dynamicStructures[i].transform.position - bottle.transform.position).magnitude;
+                float distance = (dynamicStructures.transform.GetChild(i).position - bottle.transform.position).magnitude;
                 if (distance<=freezeRad)
                 {
-                    Debug.Log("얼었다!!");
+                    dynamicStructures.transform.GetChild(i).GetComponent<DSController>().isFreezed = true;
+                    Debug.Log("얼어라!!");
                 }
             }
             freezeNum = 0;
@@ -114,7 +115,7 @@ public class SuperPowerController : MonoBehaviour, IPointerDownHandler, IPointer
 
     public void ReselectBottle()
     {
-        bottle = GameObject.FindWithTag("isActive");
+        bottle = GameObject.FindWithTag("isActBottle");
         bottleController = bottle.GetComponent<BottleController>();//힘을 적용할 물병을 태그에 따라 재설정
         membraneNum = superPowerLV[1]; //생성할 수 있는 탄성막의 개수 초기화
         membraneAvailable = false;

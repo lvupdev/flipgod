@@ -18,7 +18,7 @@ public class TrajectoryLine : MonoBehaviour
     {
 
 
-        bottle = GameObject.FindWithTag("isActive");
+        bottle = GameObject.FindWithTag("isActBottle");
 
         trajectoryDots = new GameObject[trajectoryNumber];
         for (int i = 0; i < trajectoryNumber; i++)

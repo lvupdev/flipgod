@@ -19,7 +19,7 @@ public class BottleCollision : MonoBehaviour
         superPowerController = GameObject.Find("SuperPower").GetComponent<SuperPowerController>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
-        bottleController = GameObject.FindWithTag("isActive").GetComponent<BottleController>(); //NEW: 처음에 시작할 때 태그로 찾아줘야 함
+        bottleController = GameObject.FindWithTag("isActBottle").GetComponent<BottleController>(); //NEW: 처음에 시작할 때 태그로 찾아줘야 함
     }
 
     //동전에 부딪혔을때. 동전은 isTrigger= True 상태여야함
@@ -38,9 +38,9 @@ public class BottleCollision : MonoBehaviour
     {
         bottleController.isSuperPowerAvailabe = false; //더 이상 초능력을 적용할 수 없음
 
-        if (gameObject.CompareTag("isActive"))
+        if (gameObject.CompareTag("isActBottle"))
         {
-            gameObject.tag = "Untagged";//태그가 사라짐
+            gameObject.tag = "unActBottle";//태그 변경
             bottleGenerator.GenerateBottle();//물병 생성
             padStrength.ReselectBottle(); //물병 재선택
             superPowerController.ReselectBottle(); //물병 재선택

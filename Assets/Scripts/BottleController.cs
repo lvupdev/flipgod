@@ -57,13 +57,13 @@ public class BottleController : MonoBehaviour
     {
         if (padStrength.isTouch) padStrengthTouched = true;
         if (padDirection.isTouch) padDirectionTouched = true; //오타 수정
-        if ((padStrength.isTouch || padDirectionTouched) && (!isSuperPowerAvailabe) && gameObject.CompareTag("isActive"))
+        if ((padStrength.isTouch || padDirectionTouched) && (!isSuperPowerAvailabe) && gameObject.CompareTag("isActBottle"))
         // 방향 패드만 눌렸을 때 기본 힘으로 포물선 그리기, 후에 힘버튼으로 포물선 조정
         {
             trajectoryLine.Draw(padStrengthTouched, padDirection.direction, padStrength.totalStrength);
         }
 
-        if (gameObject.CompareTag("Untagged"))
+        if (gameObject.CompareTag("unActBottle"))
         {
             Vector2 distance = gameObject.transform.position - bottleGenerator.startPosition;
             zRotation = gameObject.transform.eulerAngles.z;
@@ -72,7 +72,7 @@ public class BottleController : MonoBehaviour
 
             if ((delta < 1f) && ((zRotation > 330) || (zRotation < 30))) //NEW: 처음 충돌했을 때 각도가 10도 이상 30도 이하 또는 330도 이상 350도 이하이면 1초동안
             {
-                rb.centerOfMass = new Vector3(0, -0.5f, 0); //물병의 무게 중심
+                rb.centerOfMass = new Vector3(0, -0.55f, 0); //물병의 무게 중심
                 rb.mass = 3; //무게를 올리지 않으면 특정 각도에서 튕겨져 나감
             }
 
@@ -92,10 +92,10 @@ public class BottleController : MonoBehaviour
 
         if(gameObject.transform.position.y<-8) // 물병이 화면 밖으로 날아갔을 때
         {
-            if (gameObject.CompareTag("Untagged")) Destroy(gameObject); // 어딘가 부딪히고 화면 밖으로 튕겨나갔을 때
+            if (gameObject.CompareTag("unActBottle")) Destroy(gameObject); // 어딘가 부딪히고 화면 밖으로 튕겨나갔을 때
             else
             {
-                gameObject.tag = "Untagged";//태그가 사라짐
+                gameObject.tag = "unActBottle";//태그가 사라짐
                 bottleGenerator.GenerateBottle();//물병 생성
                 padStrength.ReselectBottle(); //물병 재선택
                 superPowerController.ReselectBottle(); //물병 재선택

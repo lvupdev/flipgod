@@ -14,12 +14,11 @@ GameObject:
   - component: {fileID: 8661927605914885503}
   - component: {fileID: 8661927605914885498}
   - component: {fileID: 8661927605914885496}
-
   - component: {fileID: 7826273591399247136}
-
+  - component: {fileID: 4042516665611638386}
   m_Layer: 8
   m_Name: BottlePrefab
-  m_TagString: isActive
+  m_TagString: isActBottle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,6 +129,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   isSuperPowerAvailabe: 0
   isStanding: 0
+  onFloor: 0
 --- !u!60 &8661927605914885498
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -188,32 +188,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8661927605914885476}
   m_CullTransparentMesh: 0
---- !u!114 &4042516665611638386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8661927605914885476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff0ba7298a2ea014391e40b145eb8db3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  padStrength: {fileID: 0}
-
-  padDirection: {fileID: 0}
-  rb: {fileID: 0}
-  isSuperPowerAvailabe: 0
-  isStanding: 0
---- !u!222 &8661927605914885496
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8661927605914885476}
-  m_CullTransparentMesh: 0
 --- !u!114 &7826273591399247136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,4 +201,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   padStrength: {fileID: 0}
-
+--- !u!114 &4042516665611638386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8661927605914885476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0ba7298a2ea014391e40b145eb8db3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  padStrength: {fileID: 0}
