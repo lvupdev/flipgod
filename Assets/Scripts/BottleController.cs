@@ -44,7 +44,6 @@ public class BottleController : MonoBehaviour
         trajectoryLine.Start();
 
     }
-
     void Update()
     {
         if (padStrength.isTouch) padStrengthTouched = true;
