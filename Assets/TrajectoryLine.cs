@@ -12,7 +12,7 @@ public class TrajectoryLine : MonoBehaviour
     private GameObject[] directionDots;
     private int trajectoryNumber = 13; //포물선 점 개수
     private int directionNumber = 5;
-    private float normalStrength = 10.0f; //NEW: 포물선에 적용되는 기본 힘
+    private float normalStrength = 10.0f; //포물선에 적용되는 기본 힘
 
     public void Start()
     {
@@ -34,10 +34,10 @@ public class TrajectoryLine : MonoBehaviour
     }
 
 
-    public void draw(bool padStrengthTouched, Vector2 direction, float strengthFactor)
+    public void Draw(bool padStrengthTouched, Vector2 direction, float strengthFactor)
     {
         // 포물선 그리기
-        if (!padStrengthTouched) //NEW: 방향 포물선 그리기
+        if (!padStrengthTouched) //방향 포물선 그리기
         {
             strengthFactor = normalStrength;
             for (int i = 0; i < directionNumber; i++)
@@ -54,7 +54,7 @@ public class TrajectoryLine : MonoBehaviour
         }
     }
 
-    public void delete()
+    public void Delete()
     {
         for (int i = 0; i < trajectoryNumber; i++)
         {

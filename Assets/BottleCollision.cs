@@ -10,19 +10,16 @@ public class BottleCollision : MonoBehaviour
     private BottleGenerator bottleGenerator;
     private SuperPowerController superPowerController;
     private PlayerController playerController;
-    private Rigidbody2D rb;
-    private BottleController bottleContrlloer;
+    private BottleController bottleController; //NEW: 오타 수정
 
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         bottleGenerator = GameObject.Find("BottleGenerator").GetComponent<BottleGenerator>();
         superPowerController = GameObject.Find("SuperPower").GetComponent<SuperPowerController>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
-        bottleContrlloer = GameObject.Find("BottlePrefab").GetComponent<BottleController>();
-
+        bottleController = GameObject.FindWithTag("isActive").GetComponent<BottleController>(); //NEW: 처음에 시작할 때 태그로 찾아줘야 함
     }
 
     //동전에 부딪혔을때. 동전은 isTrigger= True 상태여야함
@@ -39,15 +36,17 @@ public class BottleCollision : MonoBehaviour
     //어딘가에 부딪혔을때
     void OnCollisionEnter2D(Collision2D col)
     {
-        bottleContrlloer.isSuperPowerAvailabe = false; //더 이상 초능력을 적용할 수 없음
+        bottleController.isSuperPowerAvailabe = false; //더 이상 초능력을 적용할 수 없음
+
         if (gameObject.CompareTag("isActive"))
         {
-            rb.centerOfMass = new Vector3(0, -0.3f, 0);
             gameObject.tag = "Untagged";//태그가 사라짐
             bottleGenerator.GenerateBottle();//물병 생성
             padStrength.ReselectBottle(); //물병 재선택
             superPowerController.ReselectBottle(); //물병 재선택
             playerController.ReselectBottle(); //물병 재선택
         }
+
+        if (col.gameObject.CompareTag("floor")) bottleController.onFloor = true;
     }
 }
