@@ -10,14 +10,17 @@ public class DSController : MonoBehaviour
 
     // 동적 구조물이 얼었는지 저장
     public bool isFreezed = false;
+
     // 동적 구조물의 언 상태가 지속된 시간
     private float delta;
+
 
     // 동적 구조물의 움직임
     // minVec2 ~ maxVec2 사이에서 동작
     public Vector2 minVec2;
     public Vector2 maxVec2;
     public float moveSpeed;
+    private int direction = 1;
 
     void Start()
     {
@@ -61,26 +64,32 @@ public class DSController : MonoBehaviour
         // dynamic structure의 spriteRenderer
         SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
-        if (currPos.x <= maxVec2.x)
+
+
+
+
+
+
+        gameObject.transform.position += new Vector3(direction * moveSpeed * Time.deltaTime * 1, 0);
+        //            rigidbody2D.velocity = new Vector2(moveSpeed * 1, 0);
+
+        if (currPos.x >= maxVec2.x)
         {
+            direction = -1;
             spriteRenderer.flipX = false;
-            gameObject.transform.position += new Vector3(moveSpeed * Time.deltaTime * 1, 0);
-            //            rigidbody2D.velocity = new Vector2(moveSpeed * 1, 0);
+
+
         }
-        else if (currPos.x >= minVec2.x)
+
+        if (currPos.x <= minVec2.x)
         {
+            direction = 1;
             spriteRenderer.flipX = true;
-            gameObject.transform.position += new Vector3(moveSpeed * Time.deltaTime * -1, 0);
-            //            gameObject.transform.Translate(new Vector3(moveSpeed * Time.deltaTime * -1, 0));
-            //            rigidbody2D.velocity = new Vector2(moveSpeed * -1, 0);
+
+
         }
 
-
-        /*
-         * if (currPos.x <= minVec2.x || currPos.x >= minVec2.y)
-         * {
-         *    sign *= -1;
-         * }
-         */
     }
+
+
 }

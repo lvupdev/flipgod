@@ -18,8 +18,7 @@ public class DSGenerator : MonoBehaviour
     // 동적 구조물을 생성하고 이름을 변경
     public void GenerateDynamicStructure(string dSName)
     {
-        GameObject childDS =
-            Instantiate(Resources.Load(dSName)) as GameObject;
+        GameObject childDS = Instantiate(Resources.Load(dSName)) as GameObject;
         childDS.name = dSName;
         childDS.transform.SetParent(parentDS.transform);
         SetDynamicStructure(childDS);
@@ -34,14 +33,15 @@ public class DSGenerator : MonoBehaviour
         SpriteRenderer spriteRenderer = childDS.GetComponent<SpriteRenderer>();
         rigidbody2D.gravityScale = 1;
         spriteRenderer.sortingOrder = 1;
+        rigidbody2D.mass = 10;
 
         switch (childDS.name)
         {
             case "Car":
                 Debug.Log("이 동적 구조물의 이름은" + childDS.name + "입니다");
                 dSController.moveSpeed = 2f;
-                dSController.minVec2 = new Vector2(-8.2f, -2.26f);
-                dSController.maxVec2 = new Vector2(-4.59f, -2.26f);
+                dSController.minVec2 = new Vector2(-8.0f, -2.26f);
+                dSController.maxVec2 = new Vector2(-4.5f, -2.26f);
                 break;
             case "Ex":
                 break;
