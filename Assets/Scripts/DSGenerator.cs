@@ -29,13 +29,19 @@ public class DSGenerator : MonoBehaviour
     public void SetDynamicStructure(GameObject childDS)
     {
         DSController dSController = childDS.AddComponent<DSController>();
-        Rigidbody2D rigidbody2D = childDS.GetComponent<Rigidbody2D>();
+        Rigidbody2D rigidbody2D = childDS.AddComponent<Rigidbody2D>();
+        PolygonCollider2D polygonCollider2D = childDS.AddComponent<PolygonCollider2D>();
+        SpriteRenderer spriteRenderer = childDS.GetComponent<SpriteRenderer>();
+        rigidbody2D.gravityScale = 1;
+        spriteRenderer.sortingOrder = 1;
 
-        switch(childDS.name)
+        switch (childDS.name)
         {
             case "Car":
                 Debug.Log("이 동적 구조물의 이름은" + childDS.name + "입니다");
-                dSController.moveSpeed = 4f;
+                dSController.moveSpeed = 2f;
+                dSController.minVec2 = new Vector2(-8.2f, -2.26f);
+                dSController.maxVec2 = new Vector2(-4.59f, -2.26f);
                 break;
             case "Ex":
                 break;
