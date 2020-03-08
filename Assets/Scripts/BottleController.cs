@@ -43,6 +43,7 @@ public class BottleController : MonoBehaviour
         rb.gravityScale = 0;
         bottleGenerator.startPosition = gameObject.transform.position;// 처음 배치한 물병의 transform을 기준으로 새로운 물병 생성
         isSuperPowerAvailabe = false; //물병에 초능력을 적용할 수 있는지의 여부
+        isStanding = false;
         onFloor = false;
         rotateSpeed = 0.5f; //회전속도
         delta = 0;
@@ -80,6 +81,9 @@ public class BottleController : MonoBehaviour
                 rb.mass = 1;
                 rb.centerOfMass = new Vector3(0, (-0.4f / (180f * 180f)) * (zRotation - 180) * (zRotation - 180) + 0.2f, 0); //NEW: 1초 후에 물병의 무게 중심이 각도에 따라 변함
             }
+
+            if ((delta > 2f) && ((zRotation > 330) || (zRotation < 30))) // 세워져 있는지의 여부 수정
+                isStanding = true;
         }
 
         if(onFloor) //NEW: 땅바닥에 닿았을 때 물병 파괴
