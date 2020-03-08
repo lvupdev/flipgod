@@ -83,7 +83,7 @@ public class SuperPowerController : MonoBehaviour, IPointerDownHandler, IPointer
     {
         if(isTouch && (freezeNum==1))
         {
-            GameObject dynamicStructures = GameObject.Find("DynamicStructures");
+            GameObject dynamicStructures = GameObject.Find("Dynamic Structure");
             for(int i=0; i< dynamicStructures.transform.childCount; i++)
             {
                 float distance = (dynamicStructures.transform.GetChild(i).position - bottle.transform.position).magnitude;
