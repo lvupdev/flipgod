@@ -81,6 +81,6 @@ public class PadStrength : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void ReselectBottle()
     {
-        bottleController = GameObject.FindWithTag("isActive").GetComponent<BottleController>();//힘을 적용할 물병을 태그에 따라 재설정
+        bottleController = GameObject.FindWithTag("isActBottle").GetComponent<BottleController>();//힘을 적용할 물병을 태그에 따라 재설정
     }
 }
