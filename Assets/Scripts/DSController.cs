@@ -28,6 +28,7 @@ public class DSController : MonoBehaviour
     void Update()
     {
         ThawDynamicStructure(isFreezed);
+        MoveDynamicStructure(minVec2, maxVec2, moveSpeed);
     }
 
     // 동적 구조물 해동 메서드
@@ -74,10 +75,5 @@ public class DSController : MonoBehaviour
          *    sign *= -1;
          * }
          */
-    }
-
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        // empty
     }
 }
