@@ -20,7 +20,7 @@ public class BottleController : MonoBehaviour
     private float destroyDelay; //NEW: 물병이 땅에 닿고 파괴되기까지의 딜레이 시간
     private BottleGenerator bottleGenerator;
     private SuperPowerController superPowerController;
-    private PlayerController playerController;
+    private PlayerChange playerChange;
     private bool padStrengthTouched; //힘 버튼이 한 번이라도 눌렸는가
     private bool padDirectionTouched; //힘 버튼이 한 번이라도 눌렸는가
 
@@ -32,8 +32,8 @@ public class BottleController : MonoBehaviour
         //오브젝트 받아오기
         rb = GetComponent<Rigidbody2D>();
         bottleGenerator = GameObject.Find("BottleGenerator").GetComponent<BottleGenerator>();
-        superPowerController = GameObject.Find("SuperPower").GetComponent<SuperPowerController>();
-        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        superPowerController = GameObject.Find("Player").GetComponent<SuperPowerController>();
+        playerChange = GameObject.Find("Player").GetComponent<PlayerChange>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         padDirection = GameObject.Find("Joystick").GetComponent<PadDirection>();
         trajectoryLine = GameObject.Find("Trajectory").GetComponent<TrajectoryLine>();
@@ -72,17 +72,21 @@ public class BottleController : MonoBehaviour
 
             if ((delta < 1f) && ((zRotation > 330) || (zRotation < 30))) //NEW: 처음 충돌했을 때 각도가 10도 이상 30도 이하 또는 330도 이상 350도 이하이면 1초동안
             {
-                rb.centerOfMass = new Vector3(0, -0.55f, 0); //물병의 무게 중심
-                rb.mass = 3; //무게를 올리지 않으면 특정 각도에서 튕겨져 나감
+                rb.centerOfMass = new Vector3(0, -0.75f, 0); //물병의 무게 중심
+                rb.mass = 4f;
             }
 
             else
             {
-                rb.mass = 1;
-                rb.centerOfMass = new Vector3(0, (-0.4f / (180f * 180f)) * (zRotation - 180) * (zRotation - 180) + 0.2f, 0); //NEW: 1초 후에 물병의 무게 중심이 각도에 따라 변함
+                rb.mass = 1f;
+                rb.centerOfMass = new Vector3(0, (-0.5f / (180f * 180f)) * (zRotation - 180) * (zRotation - 180) + 0.25f, 0); //NEW: 1초 후에 물병의 무게 중심이 각도에 따라 변함
             }
 
-            if ((delta > 2f) && ((zRotation > 330) || (zRotation < 30))) // 세워져 있는지의 여부 수정
+
+            // 세워져 있는지의 여부 수정
+            if ((delta > 2f) && !((zRotation > 330) || (zRotation < 30)))
+                isStanding = false;
+            else if ((delta > 2f) && ((zRotation > 330) || (zRotation < 30)))
                 isStanding = true;
         }
 
@@ -102,7 +106,7 @@ public class BottleController : MonoBehaviour
                 bottleGenerator.GenerateBottle();//물병 생성
                 padStrength.ReselectBottle(); //물병 재선택
                 superPowerController.ReselectBottle(); //물병 재선택
-                playerController.ReselectBottle(); //물병 재선택
+                playerChange.ReselectBottle(); //물병 재선택
                 Destroy(gameObject); //해당 물병 파괴
             }
         }

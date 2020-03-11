@@ -6,7 +6,7 @@ using UnityEngine.UI;
  * 플레이어 관리 스크립트입니다.
  * 염동력자, 탄성막 생성자, 빙결자에게 배정한 숫자는 순서대로 0, 1, 2 입니다.
 */
-public class PlayerController : MonoBehaviour
+public class PlayerChange : MonoBehaviour
 {
     public int playingChr; //조작할 수 있는 캐릭터
     public int firstSlotChr; //교체 슬롯 1번에 있는 캐릭터

@@ -9,15 +9,15 @@ public class BottleCollision : MonoBehaviour
     public PadStrength padStrength;
     private BottleGenerator bottleGenerator;
     private SuperPowerController superPowerController;
-    private PlayerController playerController;
+    private PlayerChange playerController;
     private BottleController bottleController; //NEW: 오타 수정
 
 
     void Start()
     {
         bottleGenerator = GameObject.Find("BottleGenerator").GetComponent<BottleGenerator>();
-        superPowerController = GameObject.Find("SuperPower").GetComponent<SuperPowerController>();
-        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        superPowerController = GameObject.Find("Player").GetComponent<SuperPowerController>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerChange>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         bottleController = GameObject.FindWithTag("isActBottle").GetComponent<BottleController>(); //NEW: 처음에 시작할 때 태그로 찾아줘야 함
     }
