@@ -9,7 +9,8 @@ public class BottleCollision : MonoBehaviour
     public PadStrength padStrength;
     private BottleGenerator bottleGenerator;
     private SuperPowerController superPowerController;
-    private PlayerChange playerController;
+    private PlayerImageController playerImageController;
+    private SuperPowerPanelController superPowerPanelController;
     private BottleController bottleController; //NEW: 오타 수정
 
 
@@ -17,7 +18,8 @@ public class BottleCollision : MonoBehaviour
     {
         bottleGenerator = GameObject.Find("BottleGenerator").GetComponent<BottleGenerator>();
         superPowerController = GameObject.Find("Player").GetComponent<SuperPowerController>();
-        playerController = GameObject.Find("Player").GetComponent<PlayerChange>();
+        playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
+        superPowerPanelController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         bottleController = GameObject.FindWithTag("isActBottle").GetComponent<BottleController>(); //NEW: 처음에 시작할 때 태그로 찾아줘야 함
     }
@@ -45,7 +47,8 @@ public class BottleCollision : MonoBehaviour
             bottleGenerator.GenerateBottle();//물병 생성
             padStrength.ReselectBottle(); //물병 재선택
             superPowerController.ReselectBottle(); //물병 재선택
-            playerController.ReselectBottle(); //물병 재선택
+            playerImageController.ReselectBottle(); //물병 재선택
+            superPowerPanelController.ReselectBottle(); //물병 재선택
         }
 
         if (col.gameObject.CompareTag("floor")) bottleController.onFloor = true;

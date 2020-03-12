@@ -20,7 +20,7 @@ public class BottleController : MonoBehaviour
     private float destroyDelay; //NEW: 물병이 땅에 닿고 파괴되기까지의 딜레이 시간
     private BottleGenerator bottleGenerator;
     private SuperPowerController superPowerController;
-    private PlayerChange playerChange;
+    private PlayerImageController playerImageController;
     private bool padStrengthTouched; //힘 버튼이 한 번이라도 눌렸는가
     private bool padDirectionTouched; //힘 버튼이 한 번이라도 눌렸는가
 
@@ -33,7 +33,7 @@ public class BottleController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         bottleGenerator = GameObject.Find("BottleGenerator").GetComponent<BottleGenerator>();
         superPowerController = GameObject.Find("Player").GetComponent<SuperPowerController>();
-        playerChange = GameObject.Find("Player").GetComponent<PlayerChange>();
+        playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         padDirection = GameObject.Find("Joystick").GetComponent<PadDirection>();
         trajectoryLine = GameObject.Find("Trajectory").GetComponent<TrajectoryLine>();
@@ -41,7 +41,7 @@ public class BottleController : MonoBehaviour
 
         //값 초기화
         rb.gravityScale = 0;
-        bottleGenerator.startPosition = gameObject.transform.position;// 처음 배치한 물병의 transform을 기준으로 새로운 물병 생성
+        transform.position = playerImageController.GetBottlePosition();
         isSuperPowerAvailabe = false; //물병에 초능력을 적용할 수 있는지의 여부
         isStanding = false;
         onFloor = false;
@@ -61,25 +61,28 @@ public class BottleController : MonoBehaviour
         // 방향 패드만 눌렸을 때 기본 힘으로 포물선 그리기, 후에 힘버튼으로 포물선 조정
         {
             trajectoryLine.Draw(padStrengthTouched, padDirection.direction, padStrength.totalStrength);
+            transform.position = playerImageController.GetBottlePosition(); // 물병 위치 갱신
         }
 
         if (gameObject.CompareTag("unActBottle"))
         {
-            Vector2 distance = gameObject.transform.position - bottleGenerator.startPosition;
+            Vector2 distance = gameObject.transform.position - playerImageController.GetBottlePosition();
             zRotation = gameObject.transform.eulerAngles.z;
             delta += Time.deltaTime;
             if (distance.magnitude < 2) gameObject.SetActive(false); //던져진 물병이 물병 생성 위치와 너무 가까이 있으면 비활성화
 
-            if ((delta < 1f) && ((zRotation > 330) || (zRotation < 30))) //NEW: 처음 충돌했을 때 각도가 10도 이상 30도 이하 또는 330도 이상 350도 이하이면 1초동안
+            if ((delta < 1f) && (zRotation > 340) || (zRotation < 20)) //NEW: 처음 충돌했을 때 각도가 30도 이하 또는 330도 이상이면 1초동안
             {
-                rb.centerOfMass = new Vector3(0, -0.75f, 0); //물병의 무게 중심
-                rb.mass = 4f;
+                rb.centerOfMass = new Vector3(0, -0.6f, 0); //물병의 무게 중심
+                rb.drag = 5f;
+                rb.angularDrag = 4.5f;
             }
 
             else
             {
-                rb.mass = 1f;
-                rb.centerOfMass = new Vector3(0, (-0.5f / (180f * 180f)) * (zRotation - 180) * (zRotation - 180) + 0.25f, 0); //NEW: 1초 후에 물병의 무게 중심이 각도에 따라 변함
+                rb.centerOfMass = new Vector3(0, (-0.4f / (180f * 180f)) * (zRotation - 180) * (zRotation - 180) + 0.2f, 0); //NEW: 1초 후에 물병의 무게 중심이 각도에 따라 변함
+                rb.drag = 0;
+                rb.angularDrag = 0.05f;
             }
 
 
@@ -106,7 +109,7 @@ public class BottleController : MonoBehaviour
                 bottleGenerator.GenerateBottle();//물병 생성
                 padStrength.ReselectBottle(); //물병 재선택
                 superPowerController.ReselectBottle(); //물병 재선택
-                playerChange.ReselectBottle(); //물병 재선택
+                playerImageController.ReselectBottle(); //물병 재선택
                 Destroy(gameObject); //해당 물병 파괴
             }
         }

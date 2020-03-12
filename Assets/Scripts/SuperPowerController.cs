@@ -11,7 +11,7 @@ public class SuperPowerController : MonoBehaviour
 
     private BottleController bottleController;
     private GameObject bottle;
-    private PlayerChange playerChange;
+    private PlayerImageController playerImageController;
     private SuperPowerPanelController SPPController;
     private bool membraneAvailable; //탄성막을 생성해도 되는지의 여부
     private int membraneNum; //생성할 수 있는 탄성막의 개수
@@ -29,7 +29,7 @@ public class SuperPowerController : MonoBehaviour
     {
         bottle = GameObject.Find("BottlePrefab");
         bottleController = bottle.GetComponent<BottleController>(); ;
-        playerChange = GameObject.Find("Player").GetComponent<PlayerChange>();
+        playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
         SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
 
 
@@ -50,13 +50,13 @@ public class SuperPowerController : MonoBehaviour
 
         if (bottleController.isSuperPowerAvailabe)
         {
-            switch (playerChange.playingChr)//플레이어에 따라 실행되는 스킬이 달라진다.
+            switch (playerImageController.playingChr)//플레이어에 따라 실행되는 스킬이 달라진다.
             {
                 case 0:
                     Psychokinesis();
                     break;
                 case 1:
-                    if ((membraneNum > 0) && (membraneAvailable)) MembraneCreator(); //생성할 수 있는 탄성막의 개수가 0보다 크면
+                    if ((membraneNum > 0) && membraneAvailable) MembraneCreator(); //생성할 수 있는 탄성막의 개수가 0보다 크면
                     break;
                 case 2:
                     Freezer();
