@@ -53,7 +53,7 @@ public class BottleController : MonoBehaviour
         trajectoryLine.Start();
 
     }
-    void Update()
+    void FixedUpdate()
     {
         if (padStrength.isTouch) padStrengthTouched = true;
         if (padDirection.isTouch) padDirectionTouched = true; //오타 수정
@@ -68,14 +68,15 @@ public class BottleController : MonoBehaviour
         {
             Vector2 distance = gameObject.transform.position - playerImageController.GetBottlePosition();
             zRotation = gameObject.transform.eulerAngles.z;
-            delta += Time.deltaTime;
+            delta += Time.fixedDeltaTime;
             if (distance.magnitude < 2) gameObject.SetActive(false); //던져진 물병이 물병 생성 위치와 너무 가까이 있으면 비활성화
 
-            if ((delta < 1f) && (zRotation > 340) || (zRotation < 20)) //NEW: 처음 충돌했을 때 각도가 30도 이하 또는 330도 이상이면 1초동안
+            if ((delta < 0.11f) && ((zRotation > 340) || (zRotation < 20))) //NEW: 처음 충돌했을 때 각도가 30도 이하 또는 330도 이상이면 1초동안
             {
-                rb.centerOfMass = new Vector3(0, -0.6f, 0); //물병의 무게 중심
-                rb.drag = 5f;
-                rb.angularDrag = 4.5f;
+                Debug.Log(delta);
+                rb.centerOfMass = new Vector3(0, -0.7f, 0); //물병의 무게 중심
+                rb.drag = 10f;
+                rb.angularDrag = 30f;
             }
 
             else

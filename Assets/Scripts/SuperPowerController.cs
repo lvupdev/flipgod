@@ -11,10 +11,14 @@ public class SuperPowerController : MonoBehaviour
 
     private BottleController bottleController;
     private GameObject bottle;
+    private GameObject redAura;
+    private Color redAuraColor;
     private PlayerImageController playerImageController;
     private SuperPowerPanelController SPPController;
+    private ShadowThresholdCustomEffect effect;
     private bool membraneAvailable; //탄성막을 생성해도 되는지의 여부
     private int membraneNum; //생성할 수 있는 탄성막의 개수
+    private int kinesisNum = 1; //염력 모드
     private int freezeNum = 1; //빙결 능력을 사용할 수 있는 횟수
     private float freezeRad; //빙결 가능 범위 반지름
     private Vector2 initPos;//화면을 눌렀을 때의 위치
@@ -28,9 +32,12 @@ public class SuperPowerController : MonoBehaviour
     void Start()
     {
         bottle = GameObject.Find("BottlePrefab");
-        bottleController = bottle.GetComponent<BottleController>(); ;
+        bottleController = bottle.GetComponent<BottleController>();
+        redAura = bottle.transform.Find("RedAura").gameObject;
+        redAuraColor = redAura.GetComponent<SpriteRenderer>().color;
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
         SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
+        effect = GameObject.Find("Main Camera").GetComponent<ShadowThresholdCustomEffect>();
 
 
         membraneAvailable = false;
@@ -46,7 +53,6 @@ public class SuperPowerController : MonoBehaviour
         initPos = SPPController.GetInitPos();
         endPos = SPPController.GetEndPos();
         isTouch = SPPController.GetIsTouch();
-  
 
         if (bottleController.isSuperPowerAvailabe)
         {
@@ -69,6 +75,15 @@ public class SuperPowerController : MonoBehaviour
     {
         if (isTouch)
         {
+            if (kinesisNum == 1)//염력 특수효과 발동
+            {
+                effect.enabled = true;
+                Time.timeScale = 0.6f;
+                Time.fixedDeltaTime = 0.02f * Time.timeScale;
+                kinesisNum = 0;
+                redAura.SetActive(true);//빨간 오러 켜기
+            }
+
             if (initPos.x > Screen.width / 2.0f) //화면 터치 위치가 스크린 오른편이면 시계방향으로 회전 힘을 가한다.
             {
                 bottleController.rb.AddTorque(-superPowerLV[0] / 60.0f, ForceMode2D.Impulse); //가하는 힘은 초능력 강화 레벨을 60으로 나눈 수치
@@ -111,8 +126,17 @@ public class SuperPowerController : MonoBehaviour
     {
         bottle = GameObject.FindWithTag("isActBottle");
         bottleController = bottle.GetComponent<BottleController>();//힘을 적용할 물병을 태그에 따라 재설정
+        redAura = bottle.transform.Find("RedAura").gameObject;
         membraneNum = superPowerLV[1]; //생성할 수 있는 탄성막의 개수 초기화
         membraneAvailable = false;
         freezeNum = 1;
+        kinesisNum = 1;
+
+        if (Time.timeScale == 0.6f) //화면 원상복귀
+        {
+            Time.timeScale = 1;
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
+            effect.enabled = false;
+        }
     }
 }

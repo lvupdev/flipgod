@@ -47,9 +47,9 @@ public class PlayerImageController : MonoBehaviour
     {
         if (padDirection.direction.x <= 0) key = 1;
         if (padDirection.direction.x > 0) key = -1;
-        transform.localScale = new Vector3(key * 2, 2, 2); //패드 위치에 따라 캐릭터가 향하는 방향이 바뀜
+        transform.localScale = new Vector3(key * 0.4f, 0.4f, 1); //패드 위치에 따라 캐릭터가 향하는 방향이 바뀜
 
-        bottlePosition = transform.GetChild(playingChr).transform.position; //  물병 위치 결정
+        bottlePosition = transform.GetChild(playingChr).transform.position;
     }
 
     public void CharacterSlot1()
@@ -63,7 +63,8 @@ public class PlayerImageController : MonoBehaviour
             GameObject.Find("CharacterSlot1").GetComponent<Image>().sprite = iconSprites[firstSlotChr];
             spriteRenderer.sprite = standingSprites[playingChr];
 
-            bottle.transform.position = bottlePosition;
+            bottle.transform.position = transform.GetChild(playingChr).transform.position;
+            bottlePosition = transform.GetChild(playingChr).transform.position; //  물병 위치 결정
         }
     }
 
@@ -78,7 +79,8 @@ public class PlayerImageController : MonoBehaviour
             GameObject.Find("CharacterSlot2").GetComponent<Image>().sprite = iconSprites[secondSlotChr];
             spriteRenderer.sprite = standingSprites[playingChr];
 
-            bottle.transform.position = bottlePosition;
+            bottle.transform.position = transform.GetChild(playingChr).transform.position;
+            bottlePosition = transform.GetChild(playingChr).transform.position; //  물병 위치 결정
         }
     }
 
