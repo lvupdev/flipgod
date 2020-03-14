@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class FreezerController : SuperPowerController
 {
@@ -10,22 +11,31 @@ public class FreezerController : SuperPowerController
     // Start is called before the first frame update
     void Start()
     {
+        bottle = GameObject.Find("BottlePrefab");
+        bottleController = bottle.GetComponent<BottleController>();
+        playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
+        SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
+        blurEffect = GameObject.Find("Main Camera").GetComponent<RadialBlurImageEffect>();
+        height = 2 * Camera.main.orthographicSize;
+        width = height * Camera.main.aspect;
+        blurTime = 1;
         freezeRad = superPowerLV * 3; //빙결자의 초능력 강화 레벨 수치의 두 배 만큼이 빙결 가능 범위의 반지름이 된다.
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        //SuperPowePanelController 값 가져오기
-        initPos = SPPController.GetInitPos();
-        endPos = SPPController.GetEndPos();
-        isTouch = SPPController.GetIsTouch();
 
         if (bottleController.isSuperPowerAvailabe && (playerImageController.playingChr == 2)) Activate();
     }
 
     protected void Activate()
     {
+        //SuperPowePanelController 값 가져오기
+        initPos = SPPController.GetInitPos();
+        endPos = SPPController.GetEndPos();
+        isTouch = SPPController.GetIsTouch();
+
         if (isTouch && (freezeNum == 1))
         {
             GameObject dynamicStructures = GameObject.Find("Dynamic Structure");

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PsychokinesisController : SuperPowerController
 {
@@ -11,6 +12,14 @@ public class PsychokinesisController : SuperPowerController
 
     void Start()
     {
+        bottle = GameObject.Find("BottlePrefab");
+        bottleController = bottle.GetComponent<BottleController>();
+        playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
+        SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
+        blurEffect = GameObject.Find("Main Camera").GetComponent<RadialBlurImageEffect>();
+        height = 2 * Camera.main.orthographicSize;
+        width = height * Camera.main.aspect;
+        blurTime = 1;
         superPowerLV = 1;
         redAura = bottle.transform.Find("RedAura").gameObject;
         shadowEffect = GameObject.Find("Main Camera").GetComponent<ShadowThresholdCustomEffect>();
@@ -18,10 +27,6 @@ public class PsychokinesisController : SuperPowerController
 
     void FixedUpdate()
     {
-        //SuperPowePanelController 값 가져오기
-        initPos = SPPController.GetInitPos();
-        endPos = SPPController.GetEndPos();
-        isTouch = SPPController.GetIsTouch();
         if (bottleController.isSuperPowerAvailabe && (playerImageController.playingChr == 0)) Activate();
 
         if ((!shadowEffect.enabled) && (blurEffect.samples > 1))
@@ -33,6 +38,11 @@ public class PsychokinesisController : SuperPowerController
 
     protected void Activate()
     {
+        //SuperPowePanelController 값 가져오기
+        initPos = SPPController.GetInitPos();
+        endPos = SPPController.GetEndPos();
+        isTouch = SPPController.GetIsTouch();
+
         if (isTouch)
         {
             if (kinesisNum == 1)//염력 특수효과 발동

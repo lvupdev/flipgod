@@ -137,7 +137,7 @@ public class BottleController : MonoBehaviour
 
         rb.gravityScale = 1;
 
-        superPowerController.presentStrength = padStrength.totalStrength; //물병에 현재 가해진 힘 전달
+        player.transform.GetChild(1).GetComponent<MembraneCreatorController>().presentStrength = padStrength.totalStrength; //물병에 현재 가해진 힘 전달
 
         //뛰면서 회전
         rb.velocity = padDirection.direction * padStrength.totalStrength;
