@@ -38,7 +38,7 @@ public class SuperPowerPanelController : MonoBehaviour, IPointerDownHandler, IPo
     {
         endPos = Input.mousePosition;
         isTouch = false;
-        if((playerImageController.playingChr == 1) && (bottleController.isSuperPowerAvailabe))
+        if ((playerImageController.playingChr == 1) && (bottleController.isSuperPowerAvailabe))
         {
             membraneCreatorController.SetMembraneAvailable(true); //탄성막을 한 개 생성하기 위해서는 탄성막 생성자를 조작하는 도중 한 번의 터치를 해야한다.
         } 

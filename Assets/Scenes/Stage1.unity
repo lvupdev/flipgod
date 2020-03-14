@@ -3374,6 +3374,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1761940515}
+  - component: {fileID: 1761940516}
   m_Layer: 8
   m_Name: Freezer
   m_TagString: Untagged
@@ -3395,6 +3396,18 @@ Transform:
   m_Father: {fileID: 2138801018}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1761940516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761940514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f84120cf19a4c4190e1dc499f37ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1777580573
 GameObject:
   m_ObjectHideFlags: 0
@@ -4048,6 +4061,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2021239009}
   - component: {fileID: 2021239010}
+  - component: {fileID: 2021239011}
   m_Layer: 8
   m_Name: Psychokinesis
   m_TagString: Untagged
@@ -4118,6 +4132,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2021239011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021239008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3cca1242abecf84088e7ad76f6bd8db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2040291899
 GameObject:
   m_ObjectHideFlags: 0
@@ -4292,6 +4318,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2138695613}
+  - component: {fileID: 2138695614}
   m_Layer: 8
   m_Name: MembraneCreator
   m_TagString: Untagged
@@ -4313,6 +4340,18 @@ Transform:
   m_Father: {fileID: 2138801018}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2138695614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138695612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2081943d2174db94dab489d885b1d0e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2138801015
 GameObject:
   m_ObjectHideFlags: 0
@@ -4324,7 +4363,6 @@ GameObject:
   - component: {fileID: 2138801018}
   - component: {fileID: 2138801017}
   - component: {fileID: 2138801019}
-  - component: {fileID: 2138801020}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -4422,15 +4460,3 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0c8acd37daf03b34e811c23ec65ec4de, type: 3}
   - {fileID: 21300000, guid: c96d414ee10066947a5187e154a4ec59, type: 3}
   - {fileID: 21300000, guid: 57a0c6e3c022f0748b287f15aa7e6022, type: 3}
---- !u!114 &2138801020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2138801015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff894616bfbf1d3458cb6df405d9b44d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

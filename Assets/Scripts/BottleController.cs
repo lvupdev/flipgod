@@ -20,6 +20,7 @@ public class BottleController : MonoBehaviour
     private float destroyDelay; //NEW: 물병이 땅에 닿고 파괴되기까지의 딜레이 시간
     private BottleGenerator bottleGenerator;
     private SuperPowerController superPowerController;
+    private SuperPowerPanelController SPPController;
     private PlayerImageController playerImageController;
     private GameObject player;
     private bool padStrengthTouched; //힘 버튼이 한 번이라도 눌렸는가
@@ -34,6 +35,7 @@ public class BottleController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         bottleGenerator = GameObject.Find("BottleGenerator").GetComponent<BottleGenerator>();
         superPowerController = GameObject.Find("Player").GetComponent<SuperPowerController>();
+        SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
         player = GameObject.Find("Player");
         playerImageController = player.GetComponent<PlayerImageController>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
@@ -111,6 +113,7 @@ public class BottleController : MonoBehaviour
                 bottleGenerator.GenerateBottle();//물병 생성
                 padStrength.ReselectBottle(); //물병 재선택
                 playerImageController.ReselectBottle(); //물병 재선택
+                SPPController.ReselectBottle(); //물병 재선택
                 switch (playerImageController.playingChr)
                 {
                     case 0:

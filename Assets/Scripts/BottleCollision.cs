@@ -10,7 +10,7 @@ public class BottleCollision : MonoBehaviour
     private BottleGenerator bottleGenerator;
     private SuperPowerController superPowerController;
     private PlayerImageController playerImageController;
-    private SuperPowerPanelController superPowerPanelController;
+    private SuperPowerPanelController SPPController;
     private BottleController bottleController; //NEW: 오타 수정
     private GameObject redAura;
     private GameObject player;
@@ -22,7 +22,7 @@ public class BottleCollision : MonoBehaviour
         player = GameObject.Find("Player");
         superPowerController = player.GetComponent<SuperPowerController>();
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
-        superPowerPanelController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
+        SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         bottleController = GameObject.FindWithTag("isActBottle").GetComponent<BottleController>(); //NEW: 처음에 시작할 때 태그로 찾아줘야 함
         redAura = transform.Find("RedAura").gameObject;
@@ -52,6 +52,7 @@ public class BottleCollision : MonoBehaviour
             bottleGenerator.GenerateBottle();//물병 생성
             padStrength.ReselectBottle(); //물병 재선택
             playerImageController.ReselectBottle(); //물병 재선택
+            SPPController.ReselectBottle(); //물병 재선택
             switch (playerImageController.playingChr)
             {
                 case 0:

@@ -36,7 +36,7 @@ public class PsychokinesisController : SuperPowerController
         }
     }
 
-    protected void Activate()
+    private void Activate()
     {
         //SuperPowePanelController 값 가져오기
         initPos = SPPController.GetInitPos();
