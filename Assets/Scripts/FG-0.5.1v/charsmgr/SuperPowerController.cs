@@ -5,22 +5,21 @@ using UnityEngine.EventSystems;
 
 public class SuperPowerController : MonoBehaviour
 {
-    protected int[] superPowerLV; //초능력 강화 레벨
-    protected int[] skillLV; //필살기 강화 레벨
-    protected float presentStrength; //현재 물병에 가해진 힘
+    protected int superPowerLV; //초능력 강화 레벨
+    protected int skillLV; //필살기 강화 레벨
+    public float presentStrength; //현재 물병에 가해진 힘
 
     protected BottleController bottleController;
     protected GameObject bottle;
-    //private GameObject redAura;
     protected PlayerImageController playerImageController;
     protected SuperPowerPanelController SPPController;
     //private ShadowThresholdCustomEffect shadowEffect;
     protected RadialBlurImageEffect blurEffect;
-    private bool membraneAvailable; //탄성막을 생성해도 되는지의 여부
-    private int membraneNum; //생성할 수 있는 탄성막의 개수
+    //private bool membraneAvailable; //탄성막을 생성해도 되는지의 여부
+    //private int membraneNum; //생성할 수 있는 탄성막의 개수
     //private int kinesisNum = 1; //염력 모드
-    private int freezeNum = 1; //빙결 능력을 사용할 수 있는 횟수
-    private float freezeRad; //빙결 가능 범위 반지름
+    //private int freezeNum = 1; //빙결 능력을 사용할 수 있는 횟수
+    //private float freezeRad; //빙결 가능 범위 반지름
     protected float blurTime; //블러가 적용되는 시간
     protected float height; //게임화면 높이
     protected float width; //게임화면 넓이
@@ -29,7 +28,7 @@ public class SuperPowerController : MonoBehaviour
     protected bool isTouch;
 
     //값 수정 함수
-    public void SetMembraneAvailable(bool x) { membraneAvailable = x; }
+    //public void SetMembraneAvailable(bool x) { membraneAvailable = x; }
 
 
     void Start()
@@ -37,22 +36,23 @@ public class SuperPowerController : MonoBehaviour
         bottle = GameObject.Find("BottlePrefab");
         bottleController = bottle.GetComponent<BottleController>();
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
-        SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
+        SPPController = GameObject.Find("SuperPowerPanelController").GetComponent<SuperPowerPanelController>();
         //shadowEffect = GameObject.Find("Main Camera").GetComponent<ShadowThresholdCustomEffect>();
         blurEffect = GameObject.Find("Main Camera").GetComponent<RadialBlurImageEffect>();
         height = 2 * Camera.main.orthographicSize;
         width = height * Camera.main.aspect;
 
-        membraneAvailable = false;
+        //membraneAvailable = false;
         blurTime = 1;
-        membraneNum = superPowerLV[1]; //탄성막 생성자의 초능력 강화 레벨의 수치만큼 탄성막을 생성할 수 있다.
-        freezeRad = superPowerLV[2] * 3; //빙결자의 초능력 강화 레벨 수치의 두 배 만큼이 빙결 가능 범위의 반지름이 된다.
+        //membraneNum = superPowerLV; //탄성막 생성자의 초능력 강화 레벨의 수치만큼 탄성막을 생성할 수 있다.
+        //freezeRad = superPowerLV * 3; //빙결자의 초능력 강화 레벨 수치의 두 배 만큼이 빙결 가능 범위의 반지름이 된다.
 
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        /*
         //SuperPowePanelController 값 가져오기
         initPos = SPPController.GetInitPos();
         endPos = SPPController.GetEndPos();
@@ -73,6 +73,8 @@ public class SuperPowerController : MonoBehaviour
                     break;
             }
         }
+        */
+
         /*
         if ((!shadowEffect.enabled) && (blurEffect.samples > 1))
         {
@@ -118,7 +120,7 @@ public class SuperPowerController : MonoBehaviour
         }
     }
     */
-
+    /*
     private void MembraneCreator()
     {
         Vector2 direction = endPos - initPos; //화면 드래그 방향
@@ -127,7 +129,8 @@ public class SuperPowerController : MonoBehaviour
         membraneAvailable = false; //다시 탄성막을 생성하려면 반드시 한 번 더 화면을 터치해야 함.
 
     }
-
+    */
+    /*
     private void Freezer()
     {
         if (isTouch && (freezeNum == 1))
@@ -145,22 +148,6 @@ public class SuperPowerController : MonoBehaviour
             freezeNum = 0;
         }
     }
+    */
 
-    public void ReselectBottle()
-    {
-        bottle = GameObject.FindWithTag("isActBottle");
-        bottleController = bottle.GetComponent<BottleController>();//힘을 적용할 물병을 태그에 따라 재설정
-        redAura = bottle.transform.Find("RedAura").gameObject;
-        membraneNum = superPowerLV[1]; //생성할 수 있는 탄성막의 개수 초기화
-        membraneAvailable = false;
-        freezeNum = 1;
-
-        if (Time.timeScale < 1) //화면속도 원상복귀
-        {
-            Time.timeScale = 1;
-            Time.fixedDeltaTime = 0.02f * Time.timeScale;
-            kinesisNum = 1;
-            shadowEffect.enabled = false;
-        }
-    }
 }

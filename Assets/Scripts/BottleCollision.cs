@@ -13,12 +13,14 @@ public class BottleCollision : MonoBehaviour
     private SuperPowerPanelController superPowerPanelController;
     private BottleController bottleController; //NEW: 오타 수정
     private GameObject redAura;
+    private GameObject player;
 
 
     void Start()
     {
         bottleGenerator = GameObject.Find("BottleGenerator").GetComponent<BottleGenerator>();
-        superPowerController = GameObject.Find("Player").GetComponent<SuperPowerController>();
+        player = GameObject.Find("Player");
+        superPowerController = player.GetComponent<SuperPowerController>();
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
         superPowerPanelController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
@@ -49,9 +51,19 @@ public class BottleCollision : MonoBehaviour
             gameObject.tag = "unActBottle";//태그 변경
             bottleGenerator.GenerateBottle();//물병 생성
             padStrength.ReselectBottle(); //물병 재선택
-            superPowerController.ReselectBottle(); //물병 재선택
             playerImageController.ReselectBottle(); //물병 재선택
-            superPowerPanelController.ReselectBottle(); //물병 재선택
+            switch (playerImageController.playingChr)
+            {
+                case 0:
+                    player.transform.GetChild(0).GetComponent<PsychokinesisController>().ReselectBottle();
+                    break;
+                case 1:
+                    player.transform.GetChild(1).GetComponent<MembraneCreatorController>().ReselectBottle();
+                    break;
+                case 2:
+                    player.transform.GetChild(2).GetComponent<FreezerController>().ReselectBottle();
+                    break;
+            }
         }
 
         if (col.gameObject.CompareTag("floor")) bottleController.onFloor = true;

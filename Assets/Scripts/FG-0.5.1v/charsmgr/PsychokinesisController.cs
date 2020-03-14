@@ -9,14 +9,13 @@ public class PsychokinesisController : SuperPowerController
     private ShadowThresholdCustomEffect shadowEffect;
     private int kinesisNum = 1; //염력 모드
 
-    // Start is called before the first frame update
     void Start()
     {
+        superPowerLV = 1;
         redAura = bottle.transform.Find("RedAura").gameObject;
         shadowEffect = GameObject.Find("Main Camera").GetComponent<ShadowThresholdCustomEffect>();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         //SuperPowePanelController 값 가져오기
@@ -48,11 +47,11 @@ public class PsychokinesisController : SuperPowerController
 
             if (initPos.x > Screen.width / 2.0f) //화면 터치 위치가 스크린 오른편이면 시계방향으로 회전 힘을 가한다.
             {
-                bottleController.rb.AddTorque(-superPowerLV[0] / 60.0f, ForceMode2D.Impulse); //가하는 힘은 초능력 강화 레벨을 60으로 나눈 수치
+                bottleController.rb.AddTorque(-superPowerLV / 60.0f, ForceMode2D.Impulse); //가하는 힘은 초능력 강화 레벨을 60으로 나눈 수치
             }
             if (initPos.x <= Screen.width / 2.0f)//화면 터치 위치가 스크린 왼편이면 시계반대방향으로 회전 힘을 가한다.
             {
-                bottleController.rb.AddTorque(superPowerLV[0] / 60.0f, ForceMode2D.Impulse);
+                bottleController.rb.AddTorque(superPowerLV / 60.0f, ForceMode2D.Impulse);
             }
         }
 
@@ -65,5 +64,17 @@ public class PsychokinesisController : SuperPowerController
             }
             blurEffect.blurCenterPos = new Vector2(0.5f + 0.5f * bottle.transform.position.x / (width / 2.0f), 0.5f + 0.5f * bottle.transform.position.y / (height / 2.0f));
         }
+    }
+
+    public void ReselectBottle()
+    {
+        bottle = GameObject.FindWithTag("isActBottle");
+        bottleController = bottle.GetComponent<BottleController>();//힘을 적용할 물병을 태그에 따라 재설정
+        redAura = bottle.transform.Find("RedAura").gameObject;
+
+        Time.timeScale = 1;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        kinesisNum = 1;
+        shadowEffect.enabled = false;
     }
 }

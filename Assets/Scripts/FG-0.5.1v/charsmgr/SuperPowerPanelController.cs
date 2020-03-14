@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class SuperPowerPanelController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    private SuperPowerController superPowerController;
+    private MembraneCreatorController membraneCreatorController;
     private BottleController bottleController;
     private PlayerImageController playerImageController;
     private Vector2 initPos;//화면을 눌렀을 때의 위치
@@ -21,7 +21,7 @@ public class SuperPowerPanelController : MonoBehaviour, IPointerDownHandler, IPo
     {
         bottleController = GameObject.Find("BottlePrefab").GetComponent<BottleController>(); ;
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
-        superPowerController = GameObject.Find("Player").GetComponent<SuperPowerController>();
+        membraneCreatorController = GameObject.Find("MembraneCreator").GetComponent<MembraneCreatorController>();
 
         isTouch = false;
         initPos = Vector2.zero;
@@ -40,7 +40,7 @@ public class SuperPowerPanelController : MonoBehaviour, IPointerDownHandler, IPo
         isTouch = false;
         if((playerImageController.playingChr == 1) && (bottleController.isSuperPowerAvailabe))
         {
-            superPowerController.SetMembraneAvailable(true); //탄성막을 한 개 생성하기 위해서는 탄성막 생성자를 조작하는 도중 한 번의 터치를 해야한다.
+            membraneCreatorController.SetMembraneAvailable(true); //탄성막을 한 개 생성하기 위해서는 탄성막 생성자를 조작하는 도중 한 번의 터치를 해야한다.
         } 
     }
 

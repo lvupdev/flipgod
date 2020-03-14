@@ -3375,7 +3375,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1761940515}
   m_Layer: 8
-  m_Name: BottlePosition2
+  m_Name: Freezer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4049,7 +4049,7 @@ GameObject:
   - component: {fileID: 2021239009}
   - component: {fileID: 2021239010}
   m_Layer: 8
-  m_Name: BottlePosition0
+  m_Name: Psychokinesis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4293,7 +4293,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2138695613}
   m_Layer: 8
-  m_Name: BottlePosition1
+  m_Name: MembraneCreator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4324,7 +4324,6 @@ GameObject:
   - component: {fileID: 2138801018}
   - component: {fileID: 2138801017}
   - component: {fileID: 2138801019}
-  - component: {fileID: 2138801016}
   - component: {fileID: 2138801020}
   m_Layer: 8
   m_Name: Player
@@ -4333,21 +4332,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2138801016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2138801015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ddee5f29c3aae9489e2b1928bbf05a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  superPowerLV: 010000000100000001000000
-  skillLV: 010000000100000001000000
-  presentStrength: 0
 --- !u!212 &2138801017
 SpriteRenderer:
   m_ObjectHideFlags: 0
