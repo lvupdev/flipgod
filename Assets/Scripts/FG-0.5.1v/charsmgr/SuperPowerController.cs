@@ -5,28 +5,28 @@ using UnityEngine.EventSystems;
 
 public class SuperPowerController : MonoBehaviour
 {
-    public int[] superPowerLV; //초능력 강화 레벨
-    public int[] skillLV; //필살기 강화 레벨
-    public float presentStrength; //현재 물병에 가해진 힘
+    protected int[] superPowerLV; //초능력 강화 레벨
+    protected int[] skillLV; //필살기 강화 레벨
+    protected float presentStrength; //현재 물병에 가해진 힘
 
-    private BottleController bottleController;
-    private GameObject bottle;
-    private GameObject redAura;
-    private PlayerImageController playerImageController;
-    private SuperPowerPanelController SPPController;
-    private ShadowThresholdCustomEffect shadowEffect;
-    private RadialBlurImageEffect blurEffect;
+    protected BottleController bottleController;
+    protected GameObject bottle;
+    //private GameObject redAura;
+    protected PlayerImageController playerImageController;
+    protected SuperPowerPanelController SPPController;
+    //private ShadowThresholdCustomEffect shadowEffect;
+    protected RadialBlurImageEffect blurEffect;
     private bool membraneAvailable; //탄성막을 생성해도 되는지의 여부
     private int membraneNum; //생성할 수 있는 탄성막의 개수
-    private int kinesisNum = 1; //염력 모드
+    //private int kinesisNum = 1; //염력 모드
     private int freezeNum = 1; //빙결 능력을 사용할 수 있는 횟수
     private float freezeRad; //빙결 가능 범위 반지름
-    private float blurTime; //블러가 적용되는 시간
-    private float height; //게임화면 높이
-    private float width; //게임화면 넓이
-    private Vector2 initPos;//화면을 눌렀을 때의 위치
-    private Vector2 endPos;//화면에서 손을 땠을 떄의 위치
-    private bool isTouch;
+    protected float blurTime; //블러가 적용되는 시간
+    protected float height; //게임화면 높이
+    protected float width; //게임화면 넓이
+    protected Vector2 initPos;//화면을 눌렀을 때의 위치
+    protected Vector2 endPos;//화면에서 손을 땠을 떄의 위치
+    protected bool isTouch;
 
     //값 수정 함수
     public void SetMembraneAvailable(bool x) { membraneAvailable = x; }
@@ -36,10 +36,9 @@ public class SuperPowerController : MonoBehaviour
     {
         bottle = GameObject.Find("BottlePrefab");
         bottleController = bottle.GetComponent<BottleController>();
-        redAura = bottle.transform.Find("RedAura").gameObject;
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
         SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
-        shadowEffect = GameObject.Find("Main Camera").GetComponent<ShadowThresholdCustomEffect>();
+        //shadowEffect = GameObject.Find("Main Camera").GetComponent<ShadowThresholdCustomEffect>();
         blurEffect = GameObject.Find("Main Camera").GetComponent<RadialBlurImageEffect>();
         height = 2 * Camera.main.orthographicSize;
         width = height * Camera.main.aspect;
@@ -74,14 +73,16 @@ public class SuperPowerController : MonoBehaviour
                     break;
             }
         }
-
+        /*
         if ((!shadowEffect.enabled) && (blurEffect.samples > 1))
         {
             blurTime -= 20.0f * Time.fixedDeltaTime;
             blurEffect.samples = (int)blurTime;
         }
+        */
     }
 
+    /*
     private void Psychokinesis()
     {
         if (isTouch)
@@ -113,9 +114,10 @@ public class SuperPowerController : MonoBehaviour
                 blurTime += 20 * Time.fixedDeltaTime;
                 blurEffect.samples = (int)blurTime;
             }
-            blurEffect.blurCenterPos = new Vector2(0.5f + bottle.transform.position.x/(width/2), 0.5f + bottle.transform.position.y/(height/2)); 
+            blurEffect.blurCenterPos = new Vector2(0.5f + 0.5f * bottle.transform.position.x/(width/2.0f), 0.5f + 0.5f * bottle.transform.position.y/(height/2.0f)); 
         }
     }
+    */
 
     private void MembraneCreator()
     {
