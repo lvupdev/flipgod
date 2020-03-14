@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ingame;
+
 /*
  * 동적 구조물 생성 스크립트
  */
