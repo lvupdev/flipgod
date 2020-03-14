@@ -1,3 +1,4 @@
+using UnityEngine;
 
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,18 @@ namespace charsmgr{
 
         public float correction;
 
+
+
+        override
+        public void activate()
+        {
+            // TODO implement here
+        }
+
+        override
+        public void specialmove()
+        {
+            // TODO implement here
+        }
     }
 }

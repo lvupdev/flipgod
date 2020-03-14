@@ -1,3 +1,4 @@
+using UnityEngine;
 
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace ingame{
         public Coin() {
         }
 
-        public void value { get; set; }
+        public int value { get; set; }
 
 
     }

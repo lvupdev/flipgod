@@ -1,3 +1,4 @@
+using UnityEngine;
 
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,9 @@ namespace charsmgr{
         public int specNum { get; set; }
 
 
-        public void activate() {
-            // TODO implement here
-        }
+        public abstract void activate();
 
-        public void specialmove() {
-            // TODO implement here
-        }
+        public abstract void specialmove();
 
     }
 }

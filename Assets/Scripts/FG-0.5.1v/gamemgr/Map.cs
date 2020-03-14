@@ -1,3 +1,4 @@
+using UnityEngine;
 
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,8 @@ namespace gamemgr{
 
         public int id;
 
-        private int MAX_STG = 100;
-        private int stageList = new int[MAX_STG];
+        
+        private int stageList;
 
 
     }

@@ -1,3 +1,4 @@
+using UnityEngine;
 
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ namespace gamemgr{
         public Goods() {
         }
 
-        public void id;
+        public int id;
 
-        public void price { get; set; }
+        public int price { get; set; }
 
 
         public void operate() {

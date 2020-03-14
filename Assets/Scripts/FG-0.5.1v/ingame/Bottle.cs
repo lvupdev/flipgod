@@ -12,9 +12,8 @@ namespace ingame{
 
         public bool isStanding;
 
-        public void throw() {
+        public void throwbottle() {
             // TODO implement here
         }
-
     }
 }

@@ -1,3 +1,4 @@
+using UnityEngine;
 
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,7 @@ namespace gamemgr{
         public Store() {
         }
 
-        private int MAX_GDS = 100;
-        private int goodsList = new int [MAX_GDS];
+        private int goodsList;
 
 
     }
