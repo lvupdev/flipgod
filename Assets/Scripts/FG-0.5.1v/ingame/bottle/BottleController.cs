@@ -73,6 +73,7 @@ public class BottleController : MonoBehaviour
 
             if ((delta < 0.11f) && ((zRotation > 340) || (zRotation < 20))) //NEW: 처음 충돌했을 때 각도가 30도 이하 또는 330도 이상이면 1초동안
             {
+                Debug.Log(delta);
                 rb.centerOfMass = new Vector3(0, -0.7f, 0); //물병의 무게 중심
                 rb.drag = 10f;
                 rb.angularDrag = 30f;
