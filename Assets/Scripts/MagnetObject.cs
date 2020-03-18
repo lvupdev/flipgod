@@ -18,7 +18,7 @@ public class MagnetObject : MonoBehaviour
 
     void Awake()
     {
-        this.bottle = GameObject.Find("BottlePrefab");
+        this.bottle = GameObject.FindWithTag("isActBottle");
         trans = this.bottle.transform;
         thisRb = bottle.GetComponent<Rigidbody2D>();
     }

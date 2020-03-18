@@ -11,6 +11,7 @@ TagManager:
   - unActBottle
   - Magnet
   - Coin
+  - Fan
   layers:
   - Default
   - TransparentFX
