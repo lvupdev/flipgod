@@ -1112,6 +1112,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1214,6 +1215,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowMaterial: {fileID: 2100000, guid: f732baa0663eaea47b91bc86fab8fefa, type: 2}
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9be6224d3bb13474dab2cdaf4b0bc3e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shadowEffect: {fileID: 0}
+  redAura: {fileID: 0}
 --- !u!1001 &679646801
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2479,6 +2494,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1360127333}
   - component: {fileID: 1360127334}
+  - component: {fileID: 1360127335}
   m_Layer: 0
   m_Name: BottleManager
   m_TagString: Untagged
@@ -2514,6 +2530,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottlePrefab: {fileID: 8661927605914885476, guid: 30e7495430d55214e928784e42802779,
     type: 3}
+--- !u!114 &1360127335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360127332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72a85c59c26b8d544b5c43429eb851a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottle: {fileID: 0}
+  reload: 0
 --- !u!1 &1363039740
 GameObject:
   m_ObjectHideFlags: 0
@@ -4317,8 +4347,8 @@ GameObject:
   - component: {fileID: 2138801019}
   - component: {fileID: 2138801021}
   - component: {fileID: 2138801020}
-  - component: {fileID: 2138801016}
   - component: {fileID: 2138801022}
+  - component: {fileID: 2138801016}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -4338,9 +4368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3cca1242abecf84088e7ad76f6bd8db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  redAura: {fileID: 0}
-  shadowEffect: {fileID: 0}
-  kinesisNum: 1
+  screenEffectNum: 0
 --- !u!212 &2138801017
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4467,7 +4495,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2138801015}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72a85c59c26b8d544b5c43429eb851a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ddee5f29c3aae9489e2b1928bbf05a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bottle: {fileID: 0}
