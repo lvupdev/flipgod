@@ -5,14 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ingame{
-    public class Trigger {
+namespace ingame {
+    // Component/MonoBehaviour 상속?
+    // AddComponent 하려면 상속받아야 함.
+    public class Trigger : MonoBehaviour {
 
         public Trigger() {
+            
         }
 
         public int id;
 
+        // 해결해야 함.
         public string name { get; set; }
 
         public string expl { get; set; }
@@ -24,19 +28,19 @@ namespace ingame{
         public TrgDeact deactCond { get; set; }
 
 
-
-
-
-        public void activate() {
+        public void Activate() {
             // TODO implement here
+            actCond.Activate();
         }
 
-        public void effectOn() {
+        public void EffectOn() {
             // TODO implement here
+            effect.EffectOn();
         }
 
-        public void deactivate() {
+        public void Deactivate() {
             // TODO implement here
+            deactCond.Deactivate();
         }
 
     }

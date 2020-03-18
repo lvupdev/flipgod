@@ -5,12 +5,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ingame{
-    public class TrgDeact {
+namespace ingame {
+    public class TrgDeact : MonoBehaviour {
 
-        public TrgDeact() {
+        string deactCond;
+        bool isDogSnackInTheScene;
+
+        public TrgDeact(string deactCondName) 
+        {
+            this.deactCond = deactCondName;
         }
 
+        public void Deactivate() 
+        {
+            switch (deactCond)
+            {
+                case "개 간식":
+                    Debug.Log("개 간식");
+                    if (isDogSnackInTheScene)
+                    {
 
+                    }
+                    break;
+                default:
+                    Debug.Log("해제 조건 없음");
+                    break;
+            }
+
+        }
     }
 }
