@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ingame;
+
 /*
  * 스테이지 레벨 매니저
  */
@@ -15,7 +15,7 @@ public class StageManager : MonoBehaviour
     void Start()
     {
         dSGenerator = GameObject.Find("Dynamic Structure").GetComponent<DSGenerator>();
-        //dSGenerator.GenerateDynamicStructure("Car"); //ERROR
+        dSGenerator.GenerateDynamicStructure("Car");
     }
 
     // Update is called once per frame

@@ -20,6 +20,7 @@ public class BottleStanding : MonoBehaviour
     {
 
     }
+    
 
     public int countBottle()
     {
