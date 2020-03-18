@@ -14,7 +14,6 @@ public class BottleGenerator : MonoBehaviour
 
         bottle.tag = "isActBottle"; //PadStrength.cs 75번째 줄 오류 때문에 수정
 
-
         StageGameMgr.instance.CountUsedBottle();    // (0229) 보틀 하나 생성할 때마다 보틀 사용했음을 UI에 표시
 
     }

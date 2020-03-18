@@ -6,7 +6,7 @@ public class RadialBlurImageEffect : MonoBehaviour
 {
     public float blurSize = 0.1f;
     public Vector2 blurCenterPos = new Vector2(0.5f, 0.5f);
-    [Range(1, 48)]
+    [Range(1, 250)]
     public int samples;
     public Material radialBlurMaterial = null;
 

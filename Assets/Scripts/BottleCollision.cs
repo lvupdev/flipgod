@@ -7,6 +7,7 @@ using UnityEngine;
 public class BottleCollision : MonoBehaviour
 {
     public PadStrength padStrength;
+    BottleSelectController bottleSelectController;
     private BottleGenerator bottleGenerator;
     private SuperPowerController superPowerController;
     private PlayerImageController playerImageController;
@@ -18,7 +19,8 @@ public class BottleCollision : MonoBehaviour
 
     void Start()
     {
-        bottleGenerator = GameObject.Find("BottleGenerator").GetComponent<BottleGenerator>();
+        bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
+        bottleGenerator = GameObject.Find("BottleManager").GetComponent<BottleGenerator>();
         player = GameObject.Find("Player");
         superPowerController = player.GetComponent<SuperPowerController>();
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
@@ -44,27 +46,13 @@ public class BottleCollision : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         bottleController.isSuperPowerAvailabe = false; //더 이상 초능력을 적용할 수 없음
-        redAura.SetActive(false);
 
         if (gameObject.CompareTag("isActBottle"))
         {
             gameObject.tag = "unActBottle";//태그 변경
+            redAura.SetActive(false);
             bottleGenerator.GenerateBottle();//물병 생성
-            padStrength.ReselectBottle(); //물병 재선택
-            playerImageController.ReselectBottle(); //물병 재선택
-            SPPController.ReselectBottle(); //물병 재선택
-            switch (playerImageController.playingChr)
-            {
-                case 0:
-                    player.transform.GetChild(0).GetComponent<PsychokinesisController>().ReselectBottle();
-                    break;
-                case 1:
-                    player.transform.GetChild(1).GetComponent<MembraneCreatorController>().ReselectBottle();
-                    break;
-                case 2:
-                    player.transform.GetChild(2).GetComponent<FreezerController>().ReselectBottle();
-                    break;
-            }
+            bottleSelectController.ReselectBottle(); //물병 재선택
         }
 
         if (col.gameObject.CompareTag("floor")) bottleController.onFloor = true;

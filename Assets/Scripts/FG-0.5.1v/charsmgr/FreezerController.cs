@@ -3,15 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class FreezerController : SuperPowerController
+public class FreezerController : MonoBehaviour
 {
-    private int freezeNum = 1; //빙결 능력을 사용할 수 있는 횟수
+    private int superPowerLV; //초능력 강화 레벨
+    private int skillLV; //필살기 강화 레벨
+    private BottleSelectController bottleSelectController;
+    private BottleController bottleController;
+    private GameObject bottle;
+    private PlayerImageController playerImageController;
+    private SuperPowerPanelController SPPController;
+    private RadialBlurImageEffect blurEffect;
+    private float blurTime; //블러가 적용되는 시간
+    private float height; //게임화면 높이
+    private float width; //게임화면 넓이
+    private Vector2 initPos;//화면을 눌렀을 때의 위치
+    private Vector2 endPos;//화면에서 손을 땠을 떄의 위치
+    private bool isTouch;
+    private bool isScreenEffect; //화면 특수 효과가 적용되는지의 여부
+
+    public int freezeNum = 1; //빙결 능력을 사용할 수 있는 횟수
     private float freezeRad; //빙결 가능 범위 반지름
 
     // Start is called before the first frame update
     void Start()
     {
-        bottle = GameObject.Find("BottlePrefab");
+        bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
+        bottle = bottleSelectController.bottle;
         bottleController = bottle.GetComponent<BottleController>();
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
         SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
@@ -26,6 +43,11 @@ public class FreezerController : SuperPowerController
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (bottleSelectController.reload)
+        {
+            bottle = bottleSelectController.bottle;
+            bottleController = bottle.GetComponent<BottleController>();
+        }
 
         if (bottleController.isSuperPowerAvailabe && (playerImageController.playingChr == 2)) Activate();
     }
@@ -49,12 +71,5 @@ public class FreezerController : SuperPowerController
             }
             freezeNum = 0;
         }
-    }
-
-    public void ReselectBottle()
-    {
-        bottle = GameObject.FindWithTag("isActBottle");
-        bottleController = bottle.GetComponent<BottleController>();//힘을 적용할 물병을 태그에 따라 재설정
-        freezeNum = 1;
     }
 }

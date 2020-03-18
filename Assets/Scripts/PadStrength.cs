@@ -9,7 +9,8 @@ using UnityEngine.UI;
 public class PadStrength : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
 
-
+    private BottleSelectController bottleSelectController;
+    private GameObject bottle;
     public BottleController bottleController;
     public bool isTouch = false;
     public bool isThrowing = false; //캐릭터가 물병을 던지는 동작을 진행중인가의 여부
@@ -32,13 +33,21 @@ public class PadStrength : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     void Start()
     {
-        this.strengthGauge = GameObject.Find("StrengthGauge");
-        this.bottleController = GameObject.Find("BottlePrefab").GetComponent<BottleController>();
+        strengthGauge = GameObject.Find("StrengthGauge");
+        bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
+        bottle = bottleSelectController.bottle;
+        bottleController = bottle.GetComponent<BottleController>();
     }
 
 
     void FixedUpdate()
-    {                                                                     
+    {
+        if (bottleSelectController.reload)
+        {
+            bottle = bottleSelectController.bottle;
+            bottleController = bottle.GetComponent<BottleController>();
+        }
+
         if (isTouch && (!bottleController.isSuperPowerAvailabe) && (!isThrowing) && (totalStrength < 2 * addStrength))//패드가 눌려있고 물병을 던지는 도중이 아니며 물병이 날아가는 도중이 아니면
         {
 
@@ -46,7 +55,7 @@ public class PadStrength : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             this.strengthGauge.GetComponent<Image>().fillAmount += 1.0f / 2 * Time.fixedDeltaTime; // 매 초마다 힘 게이지가 1/2 씩 차오른다.
         }
 
-        if (isThrowing || (totalStrength >= 2*addStrength)) //패드에서 마우스를 뗐거나 힘 버튼을 2초 이상 눌렀을 때
+        if (isThrowing || (totalStrength >= 2 * addStrength)) //패드에서 마우스를 뗐거나 힘 버튼을 2초 이상 눌렀을 때
         {
             delayTime -= Time.fixedDeltaTime; //딜레이 타임만큼 던지는 동작이 지연된다.
 
@@ -75,12 +84,7 @@ public class PadStrength : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerUp(PointerEventData eventData) //패드에서 마우스를 떼는 순간
     {
         isTouch = false;
-        if (bottleController.isSuperPowerAvailabe) isThrowing = false;
+        if (bottleController.isSuperPowerAvailabe || totalStrength == 0) isThrowing = false;
         else isThrowing = true;
-    }
-
-    public void ReselectBottle()
-    {
-        bottleController = GameObject.FindWithTag("isActBottle").GetComponent<BottleController>();//힘을 적용할 물병을 태그에 따라 재설정
     }
 }

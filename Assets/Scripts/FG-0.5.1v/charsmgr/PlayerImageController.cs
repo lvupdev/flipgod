@@ -16,6 +16,7 @@ public class PlayerImageController : MonoBehaviour
     private BottleController bottleController;
     private PadStrength padStrength;
     public PadDirection padDirection;
+    private BottleSelectController bottleSelectController;
     public Sprite[] standingSprites; // 스탠딩 이미지를 담아놓는 배열
     public Sprite[] iconSprites; //아이콘 이미지를 담아놓는 배열
 
@@ -36,7 +37,8 @@ public class PlayerImageController : MonoBehaviour
         firstSlotChr = 1; //탄성막 생성자
         secondSlotChr = 2; //빙결자
         spriteRenderer = GetComponent<SpriteRenderer>();
-        bottle = GameObject.Find("BottlePrefab");
+        bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
+        bottle = bottleSelectController.bottle;
         bottleController = bottle.GetComponent<BottleController>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         padDirection = GameObject.Find("Joystick").GetComponent<PadDirection>();
@@ -45,6 +47,12 @@ public class PlayerImageController : MonoBehaviour
 
     private void Update()
     {
+        if (bottleSelectController.reload)
+        {
+            bottle = bottleSelectController.bottle;
+            bottleController = bottle.GetComponent<BottleController>();
+        }
+
         if (padDirection.direction.x <= 0) key = 1;
         if (padDirection.direction.x > 0) key = -1;
         transform.localScale = new Vector3(key * 0.4f, 0.4f, 1); //패드 위치에 따라 캐릭터가 향하는 방향이 바뀜
@@ -82,11 +90,5 @@ public class PlayerImageController : MonoBehaviour
             bottle.transform.position = transform.GetChild(playingChr).transform.position;
             bottlePosition = transform.GetChild(playingChr).transform.position; //  물병 위치 결정
         }
-    }
-
-    public void ReselectBottle()
-    {
-        bottle = GameObject.FindWithTag("isActBottle");//물병을 태그에 따라 재설정
-        bottleController = bottle.GetComponent<BottleController>();
     }
 }

@@ -33,7 +33,7 @@ public class BottleController : MonoBehaviour
     {
         //오브젝트 받아오기
         rb = GetComponent<Rigidbody2D>();
-        bottleGenerator = GameObject.Find("BottleGenerator").GetComponent<BottleGenerator>();
+        bottleGenerator = GameObject.Find("BottleManager").GetComponent<BottleGenerator>();
         superPowerController = GameObject.Find("Player").GetComponent<SuperPowerController>();
         SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
         player = GameObject.Find("Player");
@@ -111,21 +111,6 @@ public class BottleController : MonoBehaviour
             {
                 gameObject.tag = "unActBottle";//태그가 사라짐
                 bottleGenerator.GenerateBottle();//물병 생성
-                padStrength.ReselectBottle(); //물병 재선택
-                playerImageController.ReselectBottle(); //물병 재선택
-                SPPController.ReselectBottle(); //물병 재선택
-                switch (playerImageController.playingChr)
-                {
-                    case 0:
-                        player.transform.GetChild(0).GetComponent<PsychokinesisController>().ReselectBottle();
-                        break;
-                    case 1:
-                        player.transform.GetChild(1).GetComponent<MembraneCreatorController>().ReselectBottle();
-                        break;
-                    case 2:
-                        player.transform.GetChild(2).GetComponent<FreezerController>().ReselectBottle();
-                        break;
-                }
                 Destroy(gameObject); //해당 물병 파괴
             }
         }
@@ -140,7 +125,7 @@ public class BottleController : MonoBehaviour
 
         rb.gravityScale = 1;
 
-        player.transform.GetChild(1).GetComponent<MembraneCreatorController>().presentStrength = padStrength.totalStrength; //물병에 현재 가해진 힘 전달
+        player.GetComponent<MembraneCreatorController>().presentStrength = padStrength.totalStrength; //물병에 현재 가해진 힘 전달
 
         //뛰면서 회전
         rb.velocity = padDirection.direction * padStrength.totalStrength;
