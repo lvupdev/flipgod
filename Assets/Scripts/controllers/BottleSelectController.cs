@@ -35,7 +35,6 @@ public class BottleSelectController : MonoBehaviour
         bottleController = bottle.GetComponent<BottleController>();//힘을 적용할 물병을 태그에 따라 재설정
         membraneCreator.membraneNum = membraneCreator.getSuperPowerLV();
         membraneCreator.membraneAvailable = false;
-        screenEffectController.screenEffectNum = 1;
         reload = true;
 
         if (Time.timeScale != 1)
@@ -43,6 +42,7 @@ public class BottleSelectController : MonoBehaviour
             Time.timeScale = 1;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
             screenEffectController.shadowEffect.enabled = false;
+            screenEffectController.screenEffectNum = 1;
         }
     }
 }
