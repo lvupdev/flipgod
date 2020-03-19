@@ -943,16 +943,16 @@ GameObject:
   m_Component:
   - component: {fileID: 498954464}
   - component: {fileID: 498954463}
-  - component: {fileID: 498954462}
   - component: {fileID: 498954466}
   - component: {fileID: 498954465}
+  - component: {fileID: 498954462}
   m_Layer: 0
   m_Name: Fan
   m_TagString: Fan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &498954462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2534,6 +2534,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8661927605914885476, guid: 30e7495430d55214e928784e42802779,
         type: 3}
       propertyPath: m_Name
@@ -2644,12 +2648,8 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 5298349703096496828, guid: 30e7495430d55214e928784e42802779,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7589587340959443772, guid: 30e7495430d55214e928784e42802779, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 30e7495430d55214e928784e42802779, type: 3}
 --- !u!1 &1360127332
 GameObject:
@@ -2952,7 +2952,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1469611161}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cd0af3bdb60e474d84dabcd0a827b7b, type: 3}
   m_Name: 
