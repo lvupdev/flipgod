@@ -11,8 +11,6 @@ public class BottleSelectController : MonoBehaviour
     public GameObject bottle;
     public BottleController bottleController;
     private GameObject redAura;
-    private float delta; //시간 변수
-    public bool reload;
 
 
 
@@ -25,8 +23,6 @@ public class BottleSelectController : MonoBehaviour
         bottle = GameObject.Find("BottlePrefab");
         bottleController = bottle.GetComponent<BottleController>();
         redAura = bottle.transform.Find("RedAura").gameObject;
-        reload = false;
-        delta = 0;
     }
 
     public void ReselectBottle()
@@ -35,7 +31,6 @@ public class BottleSelectController : MonoBehaviour
         bottleController = bottle.GetComponent<BottleController>();//힘을 적용할 물병을 태그에 따라 재설정
         membraneCreator.membraneNum = membraneCreator.getSuperPowerLV();
         membraneCreator.membraneAvailable = false;
-        reload = true;
 
         if (Time.timeScale != 1)
         {

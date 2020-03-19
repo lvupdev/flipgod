@@ -9,6 +9,9 @@ TagManager:
   - floor
   - isActBottle
   - unActBottle
+  - Magnet
+  - Coin
+  - Fan
   layers:
   - Default
   - TransparentFX

@@ -6,8 +6,6 @@ using UnityEngine.EventSystems;
 public class SuperPowerController : MonoBehaviour
 {
     private BottleSelectController bottleSelectController;
-    private GameObject bottle;
-    private BottleController bottleController;
     private Psychokinesis psychokinesis;
     private MembraneCreator membraneCreator;
     private Freezer freezer;
@@ -17,8 +15,6 @@ public class SuperPowerController : MonoBehaviour
     private void Start()
     {
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
-        bottle = GameObject.Find("BottlePrefab");
-        bottleController = bottle.GetComponent<BottleController>();
         psychokinesis = GameObject.Find("Player").GetComponent<Psychokinesis>();
         membraneCreator = GameObject.Find("Player").GetComponent<MembraneCreator>();
         freezer = GameObject.Find("Player").GetComponent<Freezer>();
@@ -28,13 +24,7 @@ public class SuperPowerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (bottleSelectController.reload) // 물병 관련 값들 갱신
-        {
-            bottle = bottleSelectController.bottle;
-            bottleController = bottle.GetComponent<BottleController>();
-        }
-
-        if (bottleController.isSuperPowerAvailabe) //초능력 실행
+        if (bottleSelectController.bottleController.isSuperPowerAvailabe) //초능력 실행
         {
             switch (playerImageController.playingChr)
             {
@@ -48,7 +38,7 @@ public class SuperPowerController : MonoBehaviour
                     }
                     break;
                 case 2:
-                    freezer.Activate();
+                    if(SPPController.GetIsTouch()) freezer.Activate();
                     break;
             }
         }
