@@ -92,18 +92,10 @@ GameObject:
   - component: {fileID: 8661927605914885497}
   - component: {fileID: 8661927605914885499}
   - component: {fileID: 8661927605914885503}
-<<<<<<< HEAD
-  - component: {fileID: 8661927605914885498}
-  - component: {fileID: 7772243585635091453}
-  - component: {fileID: 8661927605914885496}
-  - component: {fileID: 7826273591399247136}
-  - component: {fileID: 4042516665611638386}
-=======
   - component: {fileID: 8661927605914885496}
   - component: {fileID: 7826273591399247136}
   - component: {fileID: 6099797927202651921}
   - component: {fileID: 367686762478548751}
->>>>>>> 43c7967a1457907c64a083726e4a07ad5cbf642b
   m_Layer: 8
   m_Name: BottlePrefab
   m_TagString: isActBottle
@@ -265,71 +257,6 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-<<<<<<< HEAD
-    - - {x: -0.02222222, y: 0.511111}
-      - {x: -4.7894864, y: -14.018751}
-      - {x: -4.323655, y: -14.289762}
-      - {x: 0.049659014, y: -14.246339}
-      - {x: 2.958937, y: -14.467876}
-      - {x: 4.487991, y: -14.069998}
-      - {x: 5.835078, y: -10.37507}
-      - {x: 5.4997582, y: 7.1617455}
-      - {x: 3.9710925, y: 9.397997}
-      - {x: 2.6169715, y: 10.222631}
-      - {x: 2.4167273, y: 10.837136}
-      - {x: 2.2022626, y: 14.074849}
-      - {x: -2.9855416, y: 14.019642}
-      - {x: -3.1918504, y: 12.200106}
-      - {x: -3.2710433, y: 10.471863}
-      - {x: -5.2816577, y: 8.904606}
-      - {x: -6.1979904, y: 6.690441}
-      - {x: -6.417552, y: -0.016320955}
-      - {x: -6.3003135, y: -5.126642}
-      - {x: -5.9811807, y: -7.026884}
-      - {x: -6.5196066, y: -9.877284}
-      - {x: -5.9139543, y: -12.455644}
-      - {x: -4.850767, y: -14.0285635}
-      - {x: 0.27167046, y: -0.39339742}
-      - {x: 0.45330602, y: 0.16561961}
---- !u!114 &7772243585635091453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8661927605914885476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b78c0040cb8407f4a811d1de5d435a5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  magnetStrength: 5
-  distanceStretch: 10
-  magnetDirection: -1
-  looseMagnet: 1
---- !u!222 &8661927605914885496
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8661927605914885476}
-  m_CullTransparentMesh: 0
---- !u!114 &7826273591399247136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8661927605914885476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff0ba7298a2ea014391e40b145eb8db3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  padStrength: {fileID: 0}
---- !u!114 &4042516665611638386
-=======
     - - {x: 0.31879026, y: 0.32975677}
       - {x: 0.16312473, y: 0.4939351}
       - {x: 0.1648159, y: 0.7498486}
@@ -346,7 +273,6 @@ MonoBehaviour:
       - {x: 0.3257774, y: -0.49224648}
       - {x: 0.29750437, y: -0.29601303}
 --- !u!114 &367686762478548751
->>>>>>> 43c7967a1457907c64a083726e4a07ad5cbf642b
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
