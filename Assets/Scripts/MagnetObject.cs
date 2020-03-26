@@ -36,18 +36,19 @@ public class MagnetObject : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other) //collider에 충돌체가 빠져 들어가는 순간 호출되는 함수이다.
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Fan")
+        if (other.transform.tag == "Fan")
         {
             magnetTrans = other.transform;
             magnetInZone = true;
         }
     }
 
-    void OnTriggerExit2D(Collider2D other) //OnTriggerExit는 collider에 충돌체가 빠져 나오는 순간 호출되는 함수이다.
+    private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "Fan" && looseMagnet)
+        if (other.transform.tag == "Fan" && looseMagnet)
         {
             magnetInZone = false;
         }

@@ -14,7 +14,7 @@ public class Freezer : MonoBehaviour
     private Vector2 initPos;//화면을 눌렀을 때의 위치
     private Vector2 endPos;//화면에서 손을 땠을 떄의 위치
 
-    public int freezeNum = 1; //빙결 능력을 사용할 수 있는 횟수
+    public bool freezeAvailable = true; //빙결 능력을 사용할 수 있는 횟수
     private float freezeRad; //빙결 가능 범위 반지름
 
     // Start is called before the first frame update
@@ -31,19 +31,16 @@ public class Freezer : MonoBehaviour
 
     public void Activate()
     {
-        if (freezeNum == 1)
+        GameObject dynamicStructures = GameObject.Find("Dynamic Structure");
+        for (int i = 0; i < dynamicStructures.transform.childCount; i++)
         {
-            GameObject dynamicStructures = GameObject.Find("Dynamic Structure");
-            for (int i = 0; i < dynamicStructures.transform.childCount; i++)
+            float distance = (dynamicStructures.transform.GetChild(i).position - bottleSelectController.bottle.transform.position).magnitude;
+            if (distance <= freezeRad)
             {
-                float distance = (dynamicStructures.transform.GetChild(i).position - bottleSelectController.bottle.transform.position).magnitude;
-                if (distance <= freezeRad)
-                {
-                    dynamicStructures.transform.GetChild(i).GetComponent<DSController>().isFreezed = true;
-                    Debug.Log("얼어라!!");
-                }
+                dynamicStructures.transform.GetChild(i).GetComponent<DSController>().isFreezed = true;
+                Debug.Log("얼어라!!");
             }
-            freezeNum = 0;
         }
+        freezeAvailable = false;
     }
 }
