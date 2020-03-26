@@ -11,18 +11,26 @@ public class FanController : TriggerFunction
 
     void Update()
     {
-
         if (isActTrigger)
         {
             // 트리거 발동 조건 함수
-            Always();
-        }
+            if (Always())
+            {
+                conditionFullfilled = true; //트리거 작동 권한 부여
+            }
 
+            if (conditionFullfilled)
+            {
+                //트리거 발동 효과 함수
+                BottleMagnet(1, 30);
+            }
 
-        if (conditionFullfilled)
-        {
-            //트리거 발동 효과 함수
-            BottleMagnet(1, 30);
+            /*
+            if(트리거 발동 중단 함수)
+            {
+                conditionFullfilled = false;
+            }
+            */
         }
     }
 }
