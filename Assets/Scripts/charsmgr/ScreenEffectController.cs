@@ -59,7 +59,7 @@ public class ScreenEffectController : MonoBehaviour
                         break;
                     case 2:   // 화면 효과 1단계 = 화면 줌
                         if (blurTime > 20) screenEffectNum = 3;
-                        blurTime += 120 * Time.fixedDeltaTime;
+                        blurTime += 90 * Time.fixedDeltaTime;
                         blurEffect.samples = (int)blurTime;
                         Camera.allCameras[0].orthographicSize -= 3 * Time.fixedDeltaTime;
                         Camera.allCameras[1].orthographicSize -= 3 * Time.fixedDeltaTime;
