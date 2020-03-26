@@ -46,9 +46,16 @@ public class TriggerFunction : MonoBehaviour
      * n초 주기 발동
      * time(초)을 주기로 트리거 작동 권한을 부여한다.
      */
-    public void TimeInterval(float time)
+    public bool TimeInterval(float time)
     {
-
+        intervalTime += Time.deltaTime;
+        if (time < intervalTime)
+        {
+            intervalTime = 0;
+            return true;
+        }
+        else
+            return false;
     }
 
 
@@ -90,7 +97,6 @@ public class TriggerFunction : MonoBehaviour
     //트리거 발동 중단 함수
 
 
-
     /*
      * n초 경과
      * time(초)만큼의 시간이 지나면 트리거의 발동을 중단시킨다.
@@ -109,11 +115,11 @@ public class TriggerFunction : MonoBehaviour
 
     /*
      * n번 충돌 중단
-     * num 횟수 만큼 충돌하면 트리거의 발동을 중단시킨다.
+     * 트리거 발동 이후 num 횟수 만큼 충돌하면 트리거의 발동을 중단시킨다.
      */
     public bool ToMuchCrash(int num)
     {
-        if (collisionNum == num)
+        if (conditionFullfilled && (collisionNum == num))
         {
             collisionNum = 0;
             return true;
