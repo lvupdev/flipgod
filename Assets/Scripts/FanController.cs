@@ -22,7 +22,7 @@ public class FanController : TriggerFunction
             if (conditionFullfilled)
             {
                 //트리거 발동 효과 함수
-                BottleMagnet(1, 30);
+                BottleMagnet(1, 10);
             }
 
             /*
