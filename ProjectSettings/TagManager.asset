@@ -9,8 +9,8 @@ TagManager:
   - floor
   - isActBottle
   - unActBottle
-  - Coin
   - Magnet
+  - Coin
   - Fan
   layers:
   - Default
@@ -21,7 +21,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Color
   - 
   - 
   - 
