@@ -10,7 +10,6 @@ using UnityEngine.UI;
 
 public class TensionGaugeManager : MonoBehaviour
 {
-
     /* =====<시스템 기획 -텐션 게이지>==================================================================================
      * 각 캐릭터는 각자 고유 필살기를 사용할 수 있는데, 필살기를 쓰기 위해서는 텐션 게이지를 소모해야 한다. 
      * 필살기는 텐션 게이지가 꽉 찼을 때 발동할 수 있으며, 텐션 게이지는 세 명의 캐릭터가 공유한다. 
@@ -28,7 +27,6 @@ public class TensionGaugeManager : MonoBehaviour
      =================================================================================================*/
 
     private Image Img_tensionGauage;        // 텐션 게이지를 표시하는 이미지
-    private Image Img_Character;            // 선택된 캐릭터의 프로필 이미지 : 캐릭터 슬롯 스크립트 참고
 
     private static float tensionValue;
 
