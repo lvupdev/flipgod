@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -872,6 +873,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -943,16 +945,16 @@ GameObject:
   m_Component:
   - component: {fileID: 498954464}
   - component: {fileID: 498954463}
-  - component: {fileID: 498954462}
   - component: {fileID: 498954466}
   - component: {fileID: 498954465}
+  - component: {fileID: 498954462}
   m_Layer: 0
   m_Name: Fan
   m_TagString: Fan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &498954462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -962,10 +964,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 498954461}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06c297f4e25d3f343b99a188fae61a1f, type: 3}
+  m_Script: {fileID: 11500000, guid: b3da629c394e1804eb66563e5a736072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newPosition: {x: 7.5, y: -0.9}
+  bottleSelectController: {fileID: 0}
+  TargetObject: []
+  conditionFullfilled: 0
+  isActTrigger: 0
+  isFreezed: 0
+  collisionNum: 0
+  intervalTime: 0
+  operatingTime: 0
+  freezedTime: 0
 --- !u!212 &498954463
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -980,6 +990,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1244,7 +1255,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 0
   m_HDR: 1
-  m_AllowMSAA: 0
+  m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 0
@@ -1471,6 +1482,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2534,6 +2546,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5298349703096496828, guid: 30e7495430d55214e928784e42802779,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8661927605914885476, guid: 30e7495430d55214e928784e42802779,
         type: 3}
       propertyPath: m_Name
@@ -2643,11 +2660,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5298349703096496828, guid: 30e7495430d55214e928784e42802779,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30e7495430d55214e928784e42802779, type: 3}
@@ -3504,6 +3516,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3644,6 +3657,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3837,6 +3851,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4270,6 +4285,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4449,6 +4465,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4552,7 +4569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42f84120cf19a4c4190e1dc499f37ff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  freezeNum: 1
+  freezeAvailable: 0
 --- !u!114 &2138801022
 MonoBehaviour:
   m_ObjectHideFlags: 0
