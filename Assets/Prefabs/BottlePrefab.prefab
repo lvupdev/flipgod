@@ -93,9 +93,9 @@ GameObject:
   - component: {fileID: 8661927605914885499}
   - component: {fileID: 8661927605914885503}
   - component: {fileID: 8661927605914885496}
+  - component: {fileID: 5298349703096496828}
   - component: {fileID: 7826273591399247136}
   - component: {fileID: 6099797927202651921}
-  - component: {fileID: 367686762478548751}
   m_Layer: 8
   m_Name: BottlePrefab
   m_TagString: isActBottle
@@ -219,6 +219,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8661927605914885476}
   m_CullTransparentMesh: 0
+--- !u!114 &5298349703096496828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8661927605914885476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b64af9a49d273e643a649c63ab9a86bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magnetStrength: 3
+  distanceStretch: 7
+  magnetDirection: -1
+  looseMagnet: 1
 --- !u!114 &7826273591399247136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,19 +288,3 @@ PolygonCollider2D:
       - {x: 0.34233123, y: -0.63593084}
       - {x: 0.3257774, y: -0.49224648}
       - {x: 0.29750437, y: -0.29601303}
---- !u!114 &367686762478548751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8661927605914885476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b64af9a49d273e643a649c63ab9a86bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  magnetStrength: 3
-  distanceStretch: 7
-  magnetDirection: -1
-  looseMagnet: 1

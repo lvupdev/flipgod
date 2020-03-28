@@ -42,12 +42,8 @@ public class DSGenerator : MonoBehaviour
             case "Car":
                 Debug.Log("이 동적 구조물의 이름은" + childDS.name + "입니다");
                 dSController.moveSpeed = 2f;
-                dSController.minVec2 = new Vector2(-8.0f, -2.26f); //만들 때 어느 구조물 위에 있느냐에 따라 달라지니까 수정이 필요함.
-                dSController.maxVec2 = new Vector2(-4.5f, -2.26f); 
-                /* 구조물에 붙어있다면 collider box가 적용될텐데 그 collider를 감지해서
-                그 구조물의 x의 최대 최소를 입력받아서 어떤 구조물 위에서도 떨어지지 않는 차가 될 수 있도록
-                해야함
-                */
+                dSController.minVec2 = new Vector2(-8.0f, -2.26f);
+                dSController.maxVec2 = new Vector2(-4.5f, -2.26f);
                 break;
             case "Ex":
                 break;
