@@ -29,20 +29,30 @@ public class TensionGaugeManager : MonoBehaviour
     private Image Img_tensionGauage;        // 텐션 게이지를 표시하는 이미지
     private float lerpSpeed = 0.5f;
 
-    private static float tensionValue;
+    public static float tensionValue;       // 텐션 게이지 값
 
+    // if values of these variables is true, Update tension value
     private bool isBottleThrown;
     private bool isBottleStanding;
     private bool isComboOngoing;
     private bool isTriggerAct;
     private bool isSucceedToFreeze;
 
+    private int ComboCount;
+    private int freezedDSCount;
+
+    // state of bottle
+    BottleController bottleController;
+
+
     private void Awake()
     {
+        // initialize tension value/gague
         Img_tensionGauage = gameObject.GetComponent<Image>();
-        Img_tensionGauage.fillAmount = 0f;  // 텐션 게이지 이미지 초기화
+        tensionValue = 0f;
+        Img_tensionGauage.fillAmount = 0f;
 
-
+        // initialize state of condition
         isBottleThrown = false;
         isBottleStanding = false;
         isComboOngoing = false;
@@ -53,23 +63,25 @@ public class TensionGaugeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tensionValue = Img_tensionGauage.fillAmount;
+        bottleController = GameObject.Find("Bottles")
+                                     .GetComponent<Transform>()
+                                     .GetChild(0)
+                                     .gameObject
+                                     .GetComponent<BottleController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        tensionValue = Img_tensionGauage.fillAmount;
-
         if (isBottleThrown == true)
         {
             if (isBottleStanding == true)
             {
-                UpdateTensionGauge(2);
+                UpdateTensionValue(2);
             }
             else
             {
-                UpdateTensionGauge(1);
+                UpdateTensionValue(1);
             }
 
             isBottleStanding = false;
@@ -78,42 +90,59 @@ public class TensionGaugeManager : MonoBehaviour
 
         if (isComboOngoing == true)
         {
-
+            UpdateTensionValue(ComboCount);
             isComboOngoing = false;
         }
 
         if (isTriggerAct == true)
         {
-            UpdateTensionGauge(1);
+            UpdateTensionValue(1);
             isTriggerAct = false;
         }
 
         if (isSucceedToFreeze == true)
         {
-            UpdateTensionGauge(1);
+            UpdateTensionValue(freezedDSCount);
+            isSucceedToFreeze = false;
         }
+
+
+        UpdateTensionGauge();
     }
 
-    public void UpdateTensionGauge(int fillCount)
+    public void UpdateTensionValue(int fillCount)
     {
         if (tensionValue < 1.0f)
         {
-            // Img_tensionGauage.fillAmount += 0.1f * fillCount;
-            Img_tensionGauage.fillAmount = 
-                Mathf.Lerp(tensionValue, tensionValue + 0.1f * fillCount, Time.deltaTime * lerpSpeed);
+            tensionValue += 0.1f * fillCount;
         }
     }
 
+    public void UpdateTensionGauge()
+    {
+        if (Img_tensionGauage.fillAmount != tensionValue)
+        {
+            Img_tensionGauage.fillAmount =
+                Mathf.Lerp(Img_tensionGauage.fillAmount, tensionValue, Time.deltaTime * lerpSpeed);
+        }
+    }
 
+    public void UpdateActBottle()
+    {
+
+    }
 
     /*===========<call-back method>===================================================*/
-    public void UseTensionGaue()
+    public void UseTensionGauge()
     {
-        if (tensionValue == 1.0f)
+        if (tensionValue >= 0.9999f)
         {
-            // Img_tensionGauage.fillAmount = 0f;
             Img_tensionGauage.fillAmount =
                 Mathf.Lerp(tensionValue, 0f, Time.deltaTime * lerpSpeed);
+        }
+        else
+        {
+            
         }
     }
 
