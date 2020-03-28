@@ -27,6 +27,7 @@ public class TensionGaugeManager : MonoBehaviour
      =================================================================================================*/
 
     private Image Img_tensionGauage;        // 텐션 게이지를 표시하는 이미지
+    private float lerpSpeed = 0.5f;
 
     private static float tensionValue;
 
@@ -36,11 +37,11 @@ public class TensionGaugeManager : MonoBehaviour
     private bool isTriggerAct;
     private bool isSucceedToFreeze;
 
-
     private void Awake()
     {
         Img_tensionGauage = gameObject.GetComponent<Image>();
         Img_tensionGauage.fillAmount = 0f;  // 텐션 게이지 이미지 초기화
+
 
         isBottleThrown = false;
         isBottleStanding = false;
@@ -52,7 +53,7 @@ public class TensionGaugeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        tensionValue = Img_tensionGauage.fillAmount;
     }
 
     // Update is called once per frame
@@ -95,9 +96,11 @@ public class TensionGaugeManager : MonoBehaviour
 
     public void UpdateTensionGauge(int fillCount)
     {
-        if (Img_tensionGauage.fillAmount < 1.0f)
+        if (tensionValue < 1.0f)
         {
-            Img_tensionGauage.fillAmount += 0.1f * fillCount;
+            // Img_tensionGauage.fillAmount += 0.1f * fillCount;
+            Img_tensionGauage.fillAmount = 
+                Mathf.Lerp(tensionValue, tensionValue + 0.1f * fillCount, Time.deltaTime * lerpSpeed);
         }
     }
 
@@ -106,7 +109,12 @@ public class TensionGaugeManager : MonoBehaviour
     /*===========<call-back method>===================================================*/
     public void UseTensionGaue()
     {
-        Img_tensionGauage.fillAmount = 0f;
+        if (tensionValue == 1.0f)
+        {
+            // Img_tensionGauage.fillAmount = 0f;
+            Img_tensionGauage.fillAmount =
+                Mathf.Lerp(tensionValue, 0f, Time.deltaTime * lerpSpeed);
+        }
     }
 
 
