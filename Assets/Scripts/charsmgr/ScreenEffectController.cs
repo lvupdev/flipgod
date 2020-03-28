@@ -11,7 +11,6 @@ public class ScreenEffectController : MonoBehaviour
 
     public ShadowThresholdCustomEffect shadowEffect;
     public GameObject redAura;
-    public GameObject membrane;
 
     private float blurTime; //블러가 적용되는 시간
     private float height; //게임화면 높이
@@ -66,7 +65,6 @@ public class ScreenEffectController : MonoBehaviour
                         blurEffect.samples = (int)blurTime;
                         Camera.allCameras[0].orthographicSize -= Time.fixedDeltaTime;
                         Camera.allCameras[1].orthographicSize -= Time.fixedDeltaTime;
-                        membrane.transform.localScale += new Vector3 (0.7f* Time.fixedDeltaTime, 0.7f *Time.fixedDeltaTime, 0.7f * Time.fixedDeltaTime);
                         break;
                     case 3: // 화면효과 2단계 = 화면 정상화
                         blurTime -= 120 * Time.fixedDeltaTime;
@@ -77,14 +75,12 @@ public class ScreenEffectController : MonoBehaviour
                             blurEffect.blurSize = 10;
                             Camera.allCameras[0].orthographicSize = height / 2;
                             Camera.allCameras[1].orthographicSize = height / 2;
-                            Destroy(membrane);
                         }
                         else
                         {
                             blurEffect.samples = (int)blurTime;
                             Camera.allCameras[0].orthographicSize += Time.fixedDeltaTime;
                             Camera.allCameras[1].orthographicSize += Time.fixedDeltaTime;
-                            membrane.transform.localScale -= new Vector3(0.4f * Time.fixedDeltaTime, 0.4f * Time.fixedDeltaTime, 0.4f * Time.fixedDeltaTime);
                         }
                         break;
 
@@ -119,7 +115,7 @@ public class ScreenEffectController : MonoBehaviour
         {
             angle = Mathf.Atan2(SPPController.getDragDirection().x, SPPController.getDragDirection().y)*(180.0/Mathf.PI);
         }
-        membrane = Instantiate(Resources.Load("Membrane"), bottleSelectController.bottle.gameObject.transform.position, Quaternion.Euler(0, 0, -(float)angle)) as GameObject; //탄성막 이미지 생성
+        GameObject membrane = Instantiate(Resources.Load("Membrane"), bottleSelectController.bottle.gameObject.transform.position, Quaternion.Euler(0, 0, -(float)angle)) as GameObject; //탄성막 이미지 생성
         screenEffectNum = 2;
     }
 }

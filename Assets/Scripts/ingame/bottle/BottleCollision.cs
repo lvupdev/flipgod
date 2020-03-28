@@ -14,6 +14,7 @@ public class BottleCollision : MonoBehaviour
     private SuperPowerPanelController SPPController;
     private BottleController bottleController; //NEW: 오타 수정
     private GameObject redAura;
+    private GameObject freezeRange;
     private GameObject player;
 
 
@@ -28,6 +29,7 @@ public class BottleCollision : MonoBehaviour
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         bottleController = GameObject.FindWithTag("isActBottle").GetComponent<BottleController>(); //NEW: 처음에 시작할 때 태그로 찾아줘야 함
         redAura = transform.Find("RedAura").gameObject;
+        freezeRange = transform.Find("FreezeRange").gameObject;
     }
 
     //동전에 부딪혔을때. 동전은 isTrigger= True 상태여야함
@@ -51,6 +53,8 @@ public class BottleCollision : MonoBehaviour
         {
             gameObject.tag = "unActBottle";//태그 변경
             redAura.SetActive(false);
+            freezeRange.SetActive(false);
+
             bottleGenerator.GenerateBottle();//물병 생성
             bottleSelectController.ReselectBottle(); //물병 재선택
         }

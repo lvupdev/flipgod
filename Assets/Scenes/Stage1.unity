@@ -1303,7 +1303,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowEffect: {fileID: 0}
   redAura: {fileID: 0}
-  membrane: {fileID: 0}
   screenEffectNum: 0
 --- !u!1 &734053074
 GameObject:
