@@ -2560,8 +2560,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c61a4d00db8e22e489a5a0ae0df1aaa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bottles: {fileID: 0}
-  BottlePrefab: {fileID: 8661927605914885476, guid: 30e7495430d55214e928784e42802779,
+  bottles: {fileID: 0}
+  bottlePrefab: {fileID: 8661927605914885476, guid: 30e7495430d55214e928784e42802779,
     type: 3}
 --- !u!114 &1360127335
 MonoBehaviour:

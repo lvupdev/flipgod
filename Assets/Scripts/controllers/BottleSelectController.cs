@@ -20,7 +20,7 @@ public class BottleSelectController : MonoBehaviour
         membraneCreator = GameObject.Find("Player").GetComponent<MembraneCreator>();
         freezer = GameObject.Find("Player").GetComponent<Freezer>();
         screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
-        bottle = GameObject.Find("BottlePrefab");
+        bottle = GameObject.FindWithTag("isActBottle");
         bottleController = bottle.GetComponent<BottleController>();
         redAura = bottle.transform.Find("RedAura").gameObject;
     }
