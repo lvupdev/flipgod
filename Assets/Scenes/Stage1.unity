@@ -964,10 +964,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 498954461}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06c297f4e25d3f343b99a188fae61a1f, type: 3}
+  m_Script: {fileID: 11500000, guid: b3da629c394e1804eb66563e5a736072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newPosition: {x: 7.5, y: -0.9}
+  bottleSelectController: {fileID: 0}
+  TargetObject: []
+  conditionFullfilled: 0
+  isActTrigger: 0
+  isFreezed: 0
+  collisionNum: 0
+  intervalTime: 0
+  operatingTime: 0
+  freezedTime: 0
 --- !u!212 &498954463
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2538,6 +2546,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5298349703096496828, guid: 30e7495430d55214e928784e42802779,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8661927605914885476, guid: 30e7495430d55214e928784e42802779,
         type: 3}
       propertyPath: m_Name
@@ -2648,8 +2661,7 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7589587340959443772, guid: 30e7495430d55214e928784e42802779, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30e7495430d55214e928784e42802779, type: 3}
 --- !u!1 &1360127332
 GameObject:
@@ -4557,7 +4569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42f84120cf19a4c4190e1dc499f37ff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  freezeNum: 1
+  freezeAvailable: 0
 --- !u!114 &2138801022
 MonoBehaviour:
   m_ObjectHideFlags: 0
