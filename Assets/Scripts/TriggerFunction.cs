@@ -14,7 +14,7 @@ public class TriggerFunction : MonoBehaviour
     public float intervalTime; //주기 시간
     public float operatingTime; //트리거가 발동을 지속한 시간;
     public float freezedTime; //얼어있던 시간
-    private BottleController count;
+    private int count;
 
     private void Start()
     {
@@ -25,6 +25,7 @@ public class TriggerFunction : MonoBehaviour
         collisionNum = 0;
         intervalTime = 0;
         operatingTime = 0;
+        count = GameObject.Find("Pad_Strength").GetComponent<PadStrength>().count;
     }
 
 
@@ -45,8 +46,13 @@ public class TriggerFunction : MonoBehaviour
     public bool parent()
     {
 
-       
+        if ((count%3) == -1)
+        {
+
             return true;
+        }
+        else
+            return false;
     }
     
 
