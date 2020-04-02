@@ -22,7 +22,7 @@ public class GameDirector : MonoBehaviour
 
     public void Retry() // 스테이지를 재시작하는 함수
     {
-        SceneManager.LoadScene("Stage1");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Resume() // 게임을 계속해서 진행하는 함수

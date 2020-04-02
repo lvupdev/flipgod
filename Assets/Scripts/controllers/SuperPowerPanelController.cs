@@ -8,6 +8,7 @@ public class SuperPowerPanelController : MonoBehaviour, IPointerDownHandler, IPo
     private MembraneCreator membraneCreator;
     private BottleSelectController bottleSelectController;
     private PlayerImageController playerImageController;
+    private Vector2 dragDirection; //드래그 방향 백터
     private Vector2 initPos;//화면을 눌렀을 때의 위치
     private Vector2 endPos;//화면에서 손을 땠을 떄의 위치
     private bool isTouch;
@@ -16,6 +17,7 @@ public class SuperPowerPanelController : MonoBehaviour, IPointerDownHandler, IPo
     public Vector2 GetInitPos() { return initPos; }
     public Vector2 GetEndPos() { return endPos; }
     public bool GetIsTouch() { return isTouch; }
+    public Vector2 getDragDirection() { return dragDirection; }
 
     void Start()
     {
@@ -37,6 +39,7 @@ public class SuperPowerPanelController : MonoBehaviour, IPointerDownHandler, IPo
     public void OnPointerUp(PointerEventData eventData)
     {
         endPos = Input.mousePosition;
+        dragDirection = (endPos - initPos).normalized; //화면 드래그 방향
         isTouch = false;
         if ((playerImageController.playingChr == 1) && (bottleSelectController.bottleController.isSuperPowerAvailabe))
         {

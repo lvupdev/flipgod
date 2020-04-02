@@ -38,7 +38,7 @@ public class SuperPowerController : MonoBehaviour
                     }
                     break;
                 case 2:
-                    if(SPPController.GetIsTouch()) freezer.Activate();
+                    if(SPPController.GetIsTouch() && freezer.freezeAvailable) freezer.Activate();
                     break;
             }
         }

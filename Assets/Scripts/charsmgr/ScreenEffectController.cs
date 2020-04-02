@@ -7,6 +7,7 @@ public class ScreenEffectController : MonoBehaviour
     private BottleSelectController bottleSelectController;
     private PlayerImageController playerImageController;
     private RadialBlurImageEffect blurEffect;
+    private SuperPowerPanelController SPPController;
 
     public ShadowThresholdCustomEffect shadowEffect;
     public GameObject redAura;
@@ -23,6 +24,7 @@ public class ScreenEffectController : MonoBehaviour
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
         blurEffect = GameObject.Find("Main Camera").GetComponent<RadialBlurImageEffect>();
         shadowEffect = GameObject.Find("Main Camera").GetComponent<ShadowThresholdCustomEffect>();
+        SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
         height = 2 * Camera.main.orthographicSize;
         width = height * Camera.main.aspect;
         blurTime = 1;
@@ -59,13 +61,13 @@ public class ScreenEffectController : MonoBehaviour
                         break;
                     case 2:   // 화면 효과 1단계 = 화면 줌
                         if (blurTime > 20) screenEffectNum = 3;
-                        blurTime += 120 * Time.fixedDeltaTime;
+                        blurTime += 60 * Time.fixedDeltaTime;
                         blurEffect.samples = (int)blurTime;
                         Camera.allCameras[0].orthographicSize -= Time.fixedDeltaTime;
                         Camera.allCameras[1].orthographicSize -= Time.fixedDeltaTime;
                         break;
                     case 3: // 화면효과 2단계 = 화면 정상화
-                        blurTime -= 120 * Time.fixedDeltaTime;
+                        blurTime -= 60 * Time.fixedDeltaTime;
                         if (blurTime < 1)
                         {
                             screenEffectNum = 1;
@@ -104,7 +106,16 @@ public class ScreenEffectController : MonoBehaviour
         blurEffect.blurSize = 20;
         blurEffect.blurCenterPos = new Vector2(0.5f + 0.5f * bottleSelectController.bottle.transform.position.x / (width / 2.0f), 
                                                             0.5f + 0.5f * bottleSelectController.bottle.transform.position.y / (height / 2.0f));
+        double angle;
+        if (SPPController.getDragDirection().x == 0)
+        {
+            angle = 0;
+        }
+        else
+        {
+            angle = Mathf.Atan2(SPPController.getDragDirection().x, SPPController.getDragDirection().y)*(180.0/Mathf.PI);
+        }
+        GameObject membrane = Instantiate(Resources.Load("Membrane"), bottleSelectController.bottle.gameObject.transform.position, Quaternion.Euler(0, 0, -(float)angle)) as GameObject; //탄성막 이미지 생성
         screenEffectNum = 2;
     }
 }
-
