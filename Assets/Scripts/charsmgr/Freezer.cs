@@ -14,7 +14,7 @@ public class Freezer : MonoBehaviour
     private Vector2 initPos;//화면을 눌렀을 때의 위치
     private Vector2 endPos;//화면에서 손을 땠을 떄의 위치
 
-    public bool freezeAvailable = true; //빙결 능력을 사용할 수 있는 횟수
+    public bool freezeAvailable;
     private float freezeRad; //빙결 가능 범위 반지름
 
     // Start is called before the first frame update
@@ -24,6 +24,7 @@ public class Freezer : MonoBehaviour
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
         SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
         superPowerLV = 1;
+        freezeAvailable = true;
         freezeRad = superPowerLV * 3; //빙결자의 초능력 강화 레벨 수치의 세 배 만큼이 빙결 가능 범위의 반지름이 된다.
     }
 
@@ -31,8 +32,8 @@ public class Freezer : MonoBehaviour
 
     public void Activate()
     {
-        GameObject dynamicStructures = GameObject.Find("Dynamic Structure");
-        for (int i = 0; i < dynamicStructures.transform.childCount; i++)
+
+        if (freezeAvailable)
         {
             float distance = (dynamicStructures.transform.GetChild(i).position - bottleSelectController.bottle.transform.position).magnitude;
             if (distance <= freezeRad)

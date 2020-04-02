@@ -135,7 +135,9 @@ public class BottleController : MonoBehaviour
         rb.AddTorque(key*rotateSpeed, ForceMode2D.Impulse);
 
         trajectoryLine.Delete();
+        if (playerImageController.playingChr == 2)
+        {
+            transform.Find("FreezeRange").gameObject.SetActive(true);
+        }
     }
-
-    
 }
