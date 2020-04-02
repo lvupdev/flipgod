@@ -15,7 +15,7 @@ public class MembraneCreator : MonoBehaviour
     private int superPowerLV; //초능력 강화 레벨
     private int skillLV; //필살기 강화 레벨
 
-
+    private Vector2 dragDirection; //드래그 방향 백터
     public bool membraneAvailable; //탄성막을 생성해도 되는지의 여부
     public int membraneNum; //생성할 수 있는 탄성막의 개수
     public float presentStrength; //현재 물병에 가해진 힘
@@ -34,20 +34,15 @@ public class MembraneCreator : MonoBehaviour
         SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
         screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
 
-        superPowerLV = 1;
+        superPowerLV = 3;
         membraneAvailable = false;
         membraneNum = superPowerLV; //탄성막 생성자의 초능력 강화 레벨의 수치만큼 탄성막을 생성할 수 있다.
     }
 
     public void Activate()
     {
-        //SuperPowePanelController 값 가져오기
-        initPos = SPPController.GetInitPos();
-        endPos = SPPController.GetEndPos();
-
         screenEffectController.MembraneEffect();
-        Vector2 direction = endPos - initPos; //화면 드래그 방향
-        bottleSelectController.bottleController.rb.velocity = direction.normalized * presentStrength; // 물병을 던졌을 때의 힘만큼 속도를 가한다.
+        bottleSelectController.bottleController.rb.velocity = SPPController.getDragDirection() * presentStrength; // 물병을 던졌을 때의 힘만큼 속도를 가한다.
         membraneNum -= 1; //생성할 수 있는 탄성막의 개수 감소
         membraneAvailable = false; //다시 탄성막을 생성하려면 반드시 한 번 더 화면을 터치해야 함.
     }

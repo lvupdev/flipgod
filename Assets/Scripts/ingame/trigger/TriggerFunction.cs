@@ -6,14 +6,20 @@ public class TriggerFunction : MonoBehaviour
 {
     public BottleSelectController bottleSelectController;
     public List <GameObject> TargetObject = new List<GameObject>(); //트리거와 상호작용 중인 오브젝트 배열
+    public GameObject bottles;
 
     public bool conditionFullfilled; //트리거 발동 조건이 충족되었는지의 여부
     public bool isActTrigger; //트리거가 활성화 상태인지의 여부
-    public bool isFreezed; //빙결 상태인지의 여부
     public int collisionNum; //충돌 횟수
     public float intervalTime; //주기 시간
     public float operatingTime; //트리거가 발동을 지속한 시간;
     public float freezedTime; //얼어있던 시간
+
+
+    private void Awake()
+    {
+        bottles = GameObject.Find("Bottles");
+    }
 
 
     private void Start()
@@ -21,7 +27,6 @@ public class TriggerFunction : MonoBehaviour
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
 
         conditionFullfilled = false;
-        isFreezed = false;
         collisionNum = 0;
         intervalTime = 0;
         operatingTime = 0;
@@ -58,7 +63,33 @@ public class TriggerFunction : MonoBehaviour
             return false;
     }
 
+    /*
+     * n번 충돌 발동
+     * num 번만큼 충돌할 때마다 트리거 작동 권한을 부여한다.
+     */
+    public bool EnoughCrash(int num)
+    {
+        if (collisionNum >= num)
+        {
+            collisionNum = 0;
+            return true;
+        }
+        else
+            return false;
+    }
 
+    /*
+     * n개 누적 발동
+     * num개 이상의 물병이 콜라이더 안에 있으면 트리거 작동 권한 부여
+     */
+    public bool EnoughStack(int num)
+    {
+        if (TargetObject.Count >= num)
+        {
+            return true;
+        }
+        return false;
+    }
 
 
 
@@ -85,13 +116,24 @@ public class TriggerFunction : MonoBehaviour
     }
 
 
+    /*
+     * 트리거 비활성화
+     * name에 비활성화할 트리거의 오브적트 명을 전달한다.
+     */
+    public void Unactivate(string name)
+    {
+        GameObject.Find(name).GetComponent<TriggerFunction>().isActTrigger = false;
+    }
 
-
-
-
-
-
-
+    /*
+     * 트리거 활성화
+     * name에 활성화할 트리거의 이름을 전달한다.
+     */
+    public void Activate(string name)
+    {
+        GameObject.Find(name).GetComponent<TriggerFunction>().isActTrigger = true;
+    }
+    
 
 
     //트리거 발동 중단 함수
@@ -157,12 +199,12 @@ public class TriggerFunction : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("isActBottle")) TargetObject.Add(collision.gameObject);
+        if(collision.gameObject.transform.parent == bottles.transform) TargetObject.Add(collision.gameObject);
         collisionNum++;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("isActBottle")) TargetObject.Remove(collision.gameObject);
+        if (collision.gameObject.transform.parent == bottles.transform) TargetObject.Remove(collision.gameObject);
     }
 }
