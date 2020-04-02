@@ -14,7 +14,7 @@ public class TriggerFunction : MonoBehaviour
     public float intervalTime; //주기 시간
     public float operatingTime; //트리거가 발동을 지속한 시간;
     public float freezedTime; //얼어있던 시간
-
+    private BottleController count;
 
     private void Awake()
     {
@@ -46,6 +46,14 @@ public class TriggerFunction : MonoBehaviour
     {
         return true;
     }
+
+    public bool parent()
+    {
+
+       
+            return true;
+    }
+    
 
     /*
      * n초 주기 발동

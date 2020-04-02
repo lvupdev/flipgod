@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Scripts/ingame/trigger/Magnet.cs.meta
+guid: 1a1da467e599b364b8de2a485808f3ea
+=======
 guid: d56f763799d69b7409582f6b019cfb6b
+>>>>>>> origin/ddingjae:Assets/Scripts/charsmgr/MembraneEffect.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
