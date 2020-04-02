@@ -125,6 +125,7 @@ public class TriggerFunction : MonoBehaviour
         GameObject.Find(name).GetComponent<TriggerFunction>().isActTrigger = false;
     }
 
+
     /*
      * 트리거 활성화
      * name에 활성화할 트리거의 이름을 전달한다.
@@ -155,6 +156,7 @@ public class TriggerFunction : MonoBehaviour
             return false;
     }
 
+
     /*
      * n번 충돌 중단
      * 트리거 발동 이후 num 횟수 만큼 충돌하면 트리거의 발동을 중단시킨다.
@@ -182,17 +184,6 @@ public class TriggerFunction : MonoBehaviour
         }
         return false;
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     //충돌 판정 함수
