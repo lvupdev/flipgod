@@ -67,11 +67,6 @@ public class DSController : MonoBehaviour
         SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
 
-
-
-
-
-
         gameObject.transform.position += new Vector3(direction * moveSpeed * Time.deltaTime * 1, 0);
         //            rigidbody2D.velocity = new Vector2(moveSpeed * 1, 0);
 
