@@ -119,4 +119,3 @@ public class ScreenEffectController : MonoBehaviour
         screenEffectNum = 2;
     }
 }
-

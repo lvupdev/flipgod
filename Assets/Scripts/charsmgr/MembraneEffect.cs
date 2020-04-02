@@ -7,26 +7,27 @@ public class MembraneEffect : MonoBehaviour
     private SuperPowerPanelController SPPController;
     private float delta;
 
-    
+
     // Start is called before the first frame update
+
     void Start()
     {
-        SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
         delta = 0;
+        SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        delta += Time.deltaTime;
-        if (delta < 0.1f)
+        delta += Time.fixedDeltaTime;
+        if (delta < 0.2f)
         {
-            transform.localScale += new Vector3(0.8f * Time.fixedDeltaTime, 0.8f * Time.fixedDeltaTime, 0.8f * Time.fixedDeltaTime);
+            transform.localScale += new Vector3(Time.fixedDeltaTime, Time.fixedDeltaTime, Time.fixedDeltaTime);
             transform.Translate(SPPController.getDragDirection() * Time.deltaTime);
         }
-        else if(delta < 0.4f)
+        else if(delta < 0.5f)
         {
-            transform.localScale -= new Vector3(0.3f * Time.fixedDeltaTime, 0.3f * Time.fixedDeltaTime, 0.3f * Time.fixedDeltaTime);
+            transform.localScale -= new Vector3(0.5f * Time.fixedDeltaTime, 0.5f * Time.fixedDeltaTime, 0.5f * Time.fixedDeltaTime);
         }
         else
         {
