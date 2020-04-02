@@ -35,12 +35,7 @@ public class Freezer : MonoBehaviour
 
         if (freezeAvailable)
         {
-            float distance = (dynamicStructures.transform.GetChild(i).position - bottleSelectController.bottle.transform.position).magnitude;
-            if (distance <= freezeRad)
-            {
-                dynamicStructures.transform.GetChild(i).GetComponent<DSController>().isFreezed = true;
-                Debug.Log("얼어라!!");
-            }
+
         }
         freezeAvailable = false;
     }

@@ -9,18 +9,13 @@ using UnityEngine;
 public class StageManager : MonoBehaviour
 {
     // Dynamic Structure
-    DSGenerator dSGenerator;
+    Car car;
 
-    // Start is called before the first frame update
     void Start()
     {
-        dSGenerator = GameObject.Find("Dynamic Structure").GetComponent<DSGenerator>();
-        dSGenerator.GenerateDynamicStructure("Car");
+        car = GameObject.Find("Car").GetComponent<Car>();
+        car.setValue(new Vector2(-8.0f, -2.26f), new Vector2(-4.5f, -2.26f), 2f);
+        car.MoveDynamicStructure();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
