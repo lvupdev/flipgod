@@ -31,6 +31,7 @@ public class BottleSelectController : MonoBehaviour
         bottleController = bottle.GetComponent<BottleController>();//힘을 적용할 물병을 태그에 따라 재설정
         membraneCreator.membraneNum = membraneCreator.getSuperPowerLV();
         membraneCreator.membraneAvailable = false;
+        freezer.freezeAvailable = true;
 
         if (Time.timeScale != 1)
         {
