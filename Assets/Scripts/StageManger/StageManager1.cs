@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
- * 스테이지 레벨 매니저
+ * 스테이지 레벨1
  */
 
-public class StageManager : MonoBehaviour
+public class StageManager1 : MonoBehaviour
 {
     // Dynamic Structure
     Car car;

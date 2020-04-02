@@ -45,7 +45,6 @@ public class Car : DynamicStructure
     public void MoveDynamicStructure()
     {
         Vector2 currPos = gameObject.transform.position;
-        Rigidbody2D rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
         gameObject.transform.position += new Vector3(direction * moveSpeed * Time.deltaTime * 1, 0);
