@@ -5,35 +5,18 @@ using UnityEngine;
 public class TriggerFunction : MonoBehaviour
 {
     public BottleSelectController bottleSelectController;
-    public List <GameObject> TargetObject = new List<GameObject>(); //트리거와 상호작용 중인 오브젝트 배열
+    public List<GameObject> TargetObject = new List<GameObject>(); //트리거와 상호작용 중인 오브젝트 배열
     public GameObject bottles;
+    public Structure structure;
+    public BottleController count;
 
     public bool conditionFullfilled; //트리거 발동 조건이 충족되었는지의 여부
     public bool isActTrigger; //트리거가 활성화 상태인지의 여부
-    public int collisionNum; //충돌 횟수
+    public bool tempIsActTrigger; //임시적으로 isActTrigger 변수의 값을 저장하는 변수
+    public bool canBeFreezed; //얼릴 수 있는 트리거인지의 여부
+    public int inCollidernNum; //콜라이더 안에 있는 물병의 개수
     public float intervalTime; //주기 시간
     public float operatingTime; //트리거가 발동을 지속한 시간;
-    public float freezedTime; //얼어있던 시간
-    private int count;
-
-    private void Awake()
-    {
-        bottles = GameObject.Find("Bottles");
-    }
-
-
-    private void Start()
-    {
-        bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
-
-        conditionFullfilled = false;
-        collisionNum = 0;
-        intervalTime = 0;
-        operatingTime = 0;
-        count = GameObject.Find("Pad_Strength").GetComponent<PadStrength>().count;
-    }
-
-
 
 
 
@@ -48,6 +31,7 @@ public class TriggerFunction : MonoBehaviour
         return true;
     }
 
+<<<<<<< HEAD
     public bool parent()
     {
 
@@ -63,6 +47,8 @@ public class TriggerFunction : MonoBehaviour
             return false;
     }
     
+=======
+>>>>>>> 17584b5dda78763a139274ac05cf78c98a79af82
 
     /*
      * n초 주기 발동
@@ -86,9 +72,9 @@ public class TriggerFunction : MonoBehaviour
      */
     public bool EnoughCrash(int num)
     {
-        if (collisionNum >= num)
+        if (structure.collisionNum >= num)
         {
-            collisionNum = 0;
+            structure.collisionNum = 0;
             return true;
         }
         else
@@ -115,20 +101,20 @@ public class TriggerFunction : MonoBehaviour
 
 
     //트리거 발동 효과 함수
-    
+
 
     /*
      * 물병 자석
      * key값이 1이면 척력, -1이면 인력 작용
      * strength는 자석의 힘을 나타내는 값
-     */ 
+     */
     public void BottleMagnet(int key, float strength)
     {
         for (int i = 0; i < TargetObject.Count; i++)
         {
             Vector2 directionToMagnet = (TargetObject[i].transform.position - gameObject.transform.position).normalized; // 자석으로 향하는 벡터설정 
             float distance = Vector2.Distance(gameObject.transform.position, TargetObject[i].transform.position);// Distance 로 거리를 a,b사이의 거리를 구함
-            TargetObject[i].GetComponent<Rigidbody2D>().AddForce((key * strength * directionToMagnet/distance), ForceMode2D.Force);// 힘의 크기와 방향이 있으니까 물리적 힘 구현 rigidbody가 있어야 가능
+            TargetObject[i].GetComponent<Rigidbody2D>().AddForce((key * 100 * Time.fixedDeltaTime * strength * directionToMagnet / distance), ForceMode2D.Force);// 힘의 크기와 방향이 있으니까 물리적 힘 구현 rigidbody가 있어야 가능
         }
     }
 
@@ -142,6 +128,7 @@ public class TriggerFunction : MonoBehaviour
         GameObject.Find(name).GetComponent<TriggerFunction>().isActTrigger = false;
     }
 
+
     /*
      * 트리거 활성화
      * name에 활성화할 트리거의 이름을 전달한다.
@@ -150,7 +137,7 @@ public class TriggerFunction : MonoBehaviour
     {
         GameObject.Find(name).GetComponent<TriggerFunction>().isActTrigger = true;
     }
-    
+
 
 
     //트리거 발동 중단 함수
@@ -172,15 +159,16 @@ public class TriggerFunction : MonoBehaviour
             return false;
     }
 
+
     /*
      * n번 충돌 중단
      * 트리거 발동 이후 num 횟수 만큼 충돌하면 트리거의 발동을 중단시킨다.
      */
     public bool ToMuchCrash(int num)
     {
-        if (conditionFullfilled && (collisionNum == num))
+        if (conditionFullfilled && (structure.collisionNum == num))
         {
-            collisionNum = 0;
+            structure.collisionNum = 0;
             return true;
         }
         else
@@ -201,26 +189,15 @@ public class TriggerFunction : MonoBehaviour
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
     //충돌 판정 함수
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.transform.parent == bottles.transform) TargetObject.Add(collision.gameObject);
-        collisionNum++;
+        if (collision.gameObject.transform.parent == bottles.transform) TargetObject.Add(collision.gameObject);
+        inCollidernNum++;
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    public void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.transform.parent == bottles.transform) TargetObject.Remove(collision.gameObject);
     }

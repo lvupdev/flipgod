@@ -4,7 +4,7 @@ using UnityEngine;
 using ingame;
 
 
-public class Bird : DynamicStructure
+public class Bird : Structure
 {
 
     private Vector2 minVec2; // 왔다 갔다 왼쪽 //움직일 좌표
@@ -22,14 +22,19 @@ public class Bird : DynamicStructure
     {
        currPos = gameObject.transform.position;
        rb = gameObject.GetComponent<Rigidbody2D>(); // 리지드바디를 받아온다
+       spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
        minVec2.x = (currPos.x - 4f); // 왼쪽으로 이동할 범위
        maxVec2.x = (currPos.x + 4f); // 오른쪽으로 이동할 범위
+
+       delta = 0;
+       collisionNum = 0;
     }
 
     void Update()
     {
         currPos = gameObject.transform.position;
-        if (damaged == false) //안부딪혔으면 계속 날라다녀야지
+        ThawDynamicStructure(isFreezed);
+        if ((damaged == false) || isFreezed) //안부딪혔으면 계속 날라다녀야지
         {
             MoveDynamicStructure();
         }

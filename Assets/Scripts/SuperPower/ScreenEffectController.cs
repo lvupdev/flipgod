@@ -8,9 +8,11 @@ public class ScreenEffectController : MonoBehaviour
     private PlayerImageController playerImageController;
     private RadialBlurImageEffect blurEffect;
     private SuperPowerPanelController SPPController;
+    private CameraShake mainCamera;
+    private CameraShake colorCamera;
 
     public ShadowThresholdCustomEffect shadowEffect;
-    public GameObject redAura;
+    public GameObject membrane;
 
     private float blurTime; //블러가 적용되는 시간
     private float height; //게임화면 높이
@@ -22,6 +24,8 @@ public class ScreenEffectController : MonoBehaviour
     {
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
+        mainCamera = Camera.main.GetComponent<CameraShake>();
+        colorCamera = GameObject.Find("Color Camera").GetComponent<CameraShake>();
         blurEffect = GameObject.Find("Main Camera").GetComponent<RadialBlurImageEffect>();
         shadowEffect = GameObject.Find("Main Camera").GetComponent<ShadowThresholdCustomEffect>();
         SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
@@ -61,13 +65,13 @@ public class ScreenEffectController : MonoBehaviour
                         break;
                     case 2:   // 화면 효과 1단계 = 화면 줌
                         if (blurTime > 20) screenEffectNum = 3;
-                        blurTime += 60 * Time.fixedDeltaTime;
+                        blurTime += 100 * Time.fixedDeltaTime;
                         blurEffect.samples = (int)blurTime;
                         Camera.allCameras[0].orthographicSize -= Time.fixedDeltaTime;
                         Camera.allCameras[1].orthographicSize -= Time.fixedDeltaTime;
                         break;
                     case 3: // 화면효과 2단계 = 화면 정상화
-                        blurTime -= 60 * Time.fixedDeltaTime;
+                        blurTime -= 100 * Time.fixedDeltaTime;
                         if (blurTime < 1)
                         {
                             screenEffectNum = 1;
@@ -89,7 +93,7 @@ public class ScreenEffectController : MonoBehaviour
         }
     }
 
-    public void KinesisEffect() //염력 특수효과 발동
+    public void KinesisEffect() //염력 카메라 특수효과 발동
     {
         if(screenEffectNum == 1)
         {
@@ -101,7 +105,7 @@ public class ScreenEffectController : MonoBehaviour
         }
     }
 
-    public void MembraneEffect() // 탄성막 특수효과 발동
+    public void MembraneEffect() // 탄성막 카메라 특수효과 발동
     {
         blurEffect.blurSize = 20;
         blurEffect.blurCenterPos = new Vector2(0.5f + 0.5f * bottleSelectController.bottle.transform.position.x / (width / 2.0f), 
@@ -115,7 +119,13 @@ public class ScreenEffectController : MonoBehaviour
         {
             angle = Mathf.Atan2(SPPController.getDragDirection().x, SPPController.getDragDirection().y)*(180.0/Mathf.PI);
         }
-        GameObject membrane = Instantiate(Resources.Load("Membrane"), bottleSelectController.bottle.gameObject.transform.position, Quaternion.Euler(0, 0, -(float)angle)) as GameObject; //탄성막 이미지 생성
+        GameObject membrane = Instantiate((this.membrane), bottleSelectController.bottle.gameObject.transform.position, Quaternion.Euler(0, 0, -(float)angle)) as GameObject; //탄성막 이미지 생성
         screenEffectNum = 2;
+    }
+
+    public void FreezeEffect() //빙결 카메라 특수효과 발동
+    {
+        mainCamera.VibrateForTime(0.15f);
+        colorCamera.VibrateForTime(0.15f);
     }
 }
