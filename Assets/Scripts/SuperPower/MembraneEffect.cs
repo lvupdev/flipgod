@@ -23,7 +23,6 @@ public class MembraneEffect : MonoBehaviour
         if (delta < 0.2f)
         {
             transform.localScale += new Vector3(0.9f * Time.fixedDeltaTime, 0.9f * Time.fixedDeltaTime, 0.9f * Time.fixedDeltaTime);
-            transform.Translate(SPPController.getDragDirection() * Time.deltaTime);
         }
         else if(delta < 0.5f)
         {

@@ -624,6 +624,7 @@ GameObject:
   - component: {fileID: 304683305}
   - component: {fileID: 304683304}
   - component: {fileID: 304683303}
+  - component: {fileID: 304683306}
   m_Layer: 0
   m_Name: Color Camera
   m_TagString: Untagged
@@ -696,6 +697,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &304683306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304683302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17fbb45bfc2008498d979093d46be3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeAmount: 0.25
 --- !u!1 &305889958
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,6 +1049,7 @@ GameObject:
   - component: {fileID: 519420034}
   - component: {fileID: 519420033}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420035}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1152,6 +1167,19 @@ MonoBehaviour:
   shadowEffect: {fileID: 0}
   redAura: {fileID: 0}
   screenEffectNum: 0
+--- !u!114 &519420035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17fbb45bfc2008498d979093d46be3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeAmount: 0.25
 --- !u!1 &734053074
 GameObject:
   m_ObjectHideFlags: 0
@@ -4204,7 +4232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23eb71e15106b741bde901c26df6cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trans: {fileID: 0}
+  isFreezed: 0
   moveSpeed: 3
 --- !u!61 &2071724271
 BoxCollider2D:

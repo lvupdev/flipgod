@@ -7,8 +7,22 @@ using ingame;
  * 동적구조물 새로 추가할때 템플릿
 */
 
-public class DSTemplate : DynamicStructure  //DynamicStructure 상속
+public class DSTemplate : Structure  //DynamicStructure 상속
 {
+
+    private void Start()
+    {
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+        delta = 0;
+        collisionNum = 0;
+    }
+
+    void Update()
+    {
+        ThawDynamicStructure(isFreezed);
+        if (!isFreezed) MoveDynamicStructure();
+    }
 
     public void setValue() //스크립트 필드의 값을 설정하는 메소드.
     {}
