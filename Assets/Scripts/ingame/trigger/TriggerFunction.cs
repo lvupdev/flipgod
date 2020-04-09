@@ -51,7 +51,7 @@ public class TriggerFunction : MonoBehaviour
     public bool parent()
     {
 
-        if ((count%3) == -1)
+        if ((count%3) == 0 && count != 0)
         {
 
             return true;
