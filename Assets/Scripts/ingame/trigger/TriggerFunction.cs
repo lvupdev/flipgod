@@ -54,8 +54,11 @@ public class TriggerFunction : MonoBehaviour
         {
 
             return true;
+
         }
+
         else
+
             return false;
     }
     
