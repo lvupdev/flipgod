@@ -90,10 +90,14 @@ public class TriggerFunction : MonoBehaviour
         return false;
     }
 
-    public bool Parent()
+    /*
+     * n개 투척 발동
+     * num 번만큼 던질 때마다 트리거 작동 권한을 부여한다.
+     */
+    public bool ThrowAct(int num)
     {
 
-        if ((padStrength.count % 3) == 0 && padStrength.count != 0)
+        if ((padStrength.count % num) == 0 && padStrength.count != 0)
         {
 
             return true;

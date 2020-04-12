@@ -277,9 +277,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingLayerID: -1887114523
+  m_SortingLayer: 5
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 423741e69b02e61499d43dba16f99c14, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -328,7 +328,9 @@ MonoBehaviour:
   padDirection: {fileID: 0}
   rb: {fileID: 0}
   isSuperPowerAvailabe: 0
+  isAct: 0
   isStanding: 0
+  isStandingAtFirstTry: 0
   onFloor: 0
 --- !u!222 &8661927605914885496
 CanvasRenderer:

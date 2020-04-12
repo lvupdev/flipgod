@@ -25,7 +25,7 @@ public class BottleCollision : MonoBehaviour
         player = GameObject.Find("Player");
         superPowerController = player.GetComponent<SuperPowerController>();
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
-        SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
+        SPPController = GameObject.Find("Panel_SuperPower").GetComponent<SuperPowerPanelController>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         bottleController = GameObject.FindWithTag("isActBottle").GetComponent<BottleController>(); //NEW: 처음에 시작할 때 태그로 찾아줘야 함
         redAura = transform.Find("RedAura").gameObject;
