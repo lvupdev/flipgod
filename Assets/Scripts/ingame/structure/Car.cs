@@ -58,6 +58,4 @@ public class Car : Structure
             spriteRenderer.flipX = true;
         }
     }
-
-
 }
