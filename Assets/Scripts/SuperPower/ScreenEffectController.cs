@@ -62,6 +62,12 @@ public class ScreenEffectController : MonoBehaviour
                 switch (screenEffectNum)
                 {
                     case 1:
+                        if (blurTime > 1)
+                        {
+                            blurTime -= 20.0f * Time.fixedDeltaTime;
+                            if (blurTime > 1) blurEffect.samples = (int)blurTime;
+                            else blurTime = 1;
+                        }
                         break;
                     case 2:   // 화면 효과 1단계 = 화면 줌
                         if (blurTime > 20) screenEffectNum = 3;
@@ -88,6 +94,14 @@ public class ScreenEffectController : MonoBehaviour
                         }
                         break;
 
+                }
+                break;
+            case 2:
+                if (blurTime > 1)
+                {
+                    blurTime -= 20.0f * Time.fixedDeltaTime;
+                    if (blurTime > 1) blurEffect.samples = (int)blurTime;
+                    else blurTime = 1;
                 }
                 break;
         }

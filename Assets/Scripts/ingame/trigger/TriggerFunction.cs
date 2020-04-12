@@ -8,17 +8,31 @@ public class TriggerFunction : MonoBehaviour
     public List<GameObject> TargetObject = new List<GameObject>(); //트리거와 상호작용 중인 오브젝트 배열
     public GameObject bottles;
     public Structure structure;
-    public BottleController count;
+    public PadStrength padStrength;
 
     public bool conditionFullfilled; //트리거 발동 조건이 충족되었는지의 여부
     public bool isActTrigger; //트리거가 활성화 상태인지의 여부
-    public bool tempIsActTrigger; //임시적으로 isActTrigger 변수의 값을 저장하는 변수
     public bool canBeFreezed; //얼릴 수 있는 트리거인지의 여부
+    public bool shouldBeFreezed; //얼려져야 하는지의 여부 
+    public bool actBool; //반복 방지 변수
     public int inCollidernNum; //콜라이더 안에 있는 물병의 개수
     public float intervalTime; //주기 시간
-    public float operatingTime; //트리거가 발동을 지속한 시간;
+    public float operatingTime; //트리거가 발동을 지속한 시간
 
+    public void Start()
+    {
+        structure = transform.parent.GetComponent<Structure>();
+        bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
+        bottles = GameObject.Find("Bottles");
+        padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
 
+        conditionFullfilled = false;
+        shouldBeFreezed = false;
+        inCollidernNum = 0;
+        intervalTime = 0;
+        operatingTime = 0;
+        actBool = true;
+    }
 
     // 트리거 발동 조건 함수
 
@@ -76,7 +90,20 @@ public class TriggerFunction : MonoBehaviour
         return false;
     }
 
+    public bool Parent()
+    {
 
+        if ((padStrength.count % 3) == 0 && padStrength.count != 0)
+        {
+
+            return true;
+
+        }
+
+        else
+
+            return false;
+    }
 
 
 
@@ -117,7 +144,8 @@ public class TriggerFunction : MonoBehaviour
      */
     public void Activate(string name)
     {
-        GameObject.Find(name).GetComponent<TriggerFunction>().isActTrigger = true;
+        if(GameObject.Find(name).GetComponent<TriggerFunction>().actBool) //해당 트리거가 얼어있는 상태가 아니어야 한다.
+            GameObject.Find(name).GetComponent<TriggerFunction>().isActTrigger = true;
     }
 
 
