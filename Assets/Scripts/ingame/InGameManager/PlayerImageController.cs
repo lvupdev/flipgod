@@ -58,7 +58,7 @@ public class PlayerImageController : MonoBehaviour
             temp = playingChr;
             playingChr = firstSlotChr;
             firstSlotChr = temp;
-            GameObject.Find("CharacterSlot1").GetComponent<Image>().sprite = iconSprites[firstSlotChr];
+            GameObject.Find("Button_CharacterSlot_1").GetComponent<Image>().sprite = iconSprites[firstSlotChr];
             spriteRenderer.sprite = standingSprites[playingChr];
 
             bottleSelectController.bottle.transform.position = transform.GetChild(playingChr).transform.position;
@@ -74,7 +74,7 @@ public class PlayerImageController : MonoBehaviour
             temp = playingChr;
             playingChr = secondSlotChr;
             secondSlotChr = temp;
-            GameObject.Find("CharacterSlot2").GetComponent<Image>().sprite = iconSprites[secondSlotChr];
+            GameObject.Find("Button_CharacterSlot_2").GetComponent<Image>().sprite = iconSprites[secondSlotChr];
             spriteRenderer.sprite = standingSprites[playingChr];
 
             bottleSelectController.bottle.transform.position = transform.GetChild(playingChr).transform.position;

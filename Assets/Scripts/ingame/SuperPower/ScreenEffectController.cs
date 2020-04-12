@@ -7,7 +7,7 @@ public class ScreenEffectController : MonoBehaviour
     private BottleSelectController bottleSelectController;
     private PlayerImageController playerImageController;
     private RadialBlurImageEffect blurEffect;
-    private SuperPowerPanelController SPPController;
+    private SuperPowerPanelController Panel_SuperPower;
     private CameraShake mainCamera;
     private CameraShake colorCamera;
 
@@ -28,7 +28,7 @@ public class ScreenEffectController : MonoBehaviour
         colorCamera = GameObject.Find("Color Camera").GetComponent<CameraShake>();
         blurEffect = GameObject.Find("Main Camera").GetComponent<RadialBlurImageEffect>();
         shadowEffect = GameObject.Find("Main Camera").GetComponent<ShadowThresholdCustomEffect>();
-        SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
+        Panel_SuperPower = GameObject.Find("Panel_SuperPower").GetComponent<SuperPowerPanelController>();
         height = 2 * Camera.main.orthographicSize;
         width = height * Camera.main.aspect;
         blurTime = 1;
@@ -125,13 +125,13 @@ public class ScreenEffectController : MonoBehaviour
         blurEffect.blurCenterPos = new Vector2(0.5f + 0.5f * bottleSelectController.bottle.transform.position.x / (width / 2.0f), 
                                                             0.5f + 0.5f * bottleSelectController.bottle.transform.position.y / (height / 2.0f));
         double angle;
-        if (SPPController.getDragDirection().x == 0)
+        if (Panel_SuperPower.getDragDirection().x == 0)
         {
             angle = 0;
         }
         else
         {
-            angle = Mathf.Atan2(SPPController.getDragDirection().x, SPPController.getDragDirection().y)*(180.0/Mathf.PI);
+            angle = Mathf.Atan2(Panel_SuperPower.getDragDirection().x, Panel_SuperPower.getDragDirection().y)*(180.0/Mathf.PI);
         }
         GameObject membrane = Instantiate((this.membrane), bottleSelectController.bottle.gameObject.transform.position, Quaternion.Euler(0, 0, -(float)angle)) as GameObject; //탄성막 이미지 생성
         screenEffectNum = 2;

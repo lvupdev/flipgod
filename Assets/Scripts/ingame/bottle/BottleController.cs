@@ -26,7 +26,6 @@ public class BottleController : MonoBehaviour
     private float destroyDelay; //NEW: 물병이 땅에 닿고 파괴되기까지의 딜레이 시간
     private BottleGenerator bottleGenerator;
     private SuperPowerController superPowerController;
-    private SuperPowerPanelController SPPController;
     private PlayerImageController playerImageController;
     private GameObject player;
     private BottleSelectController bottleSelectController;
@@ -42,7 +41,6 @@ public class BottleController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         bottleGenerator = GameObject.Find("BottleManager").GetComponent<BottleGenerator>();
         superPowerController = GameObject.Find("Player").GetComponent<SuperPowerController>();
-        SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
         player = GameObject.Find("Player");
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         playerImageController = player.GetComponent<PlayerImageController>();

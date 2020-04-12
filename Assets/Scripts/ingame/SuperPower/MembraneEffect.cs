@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MembraneEffect : MonoBehaviour
 {
-    private SuperPowerPanelController SPPController;
     private float delta;
 
 
@@ -13,7 +12,6 @@ public class MembraneEffect : MonoBehaviour
     void Start()
     {
         delta = 0;
-        SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
     }
 
     // Update is called once per frame

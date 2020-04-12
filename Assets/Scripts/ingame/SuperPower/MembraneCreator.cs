@@ -7,7 +7,7 @@ public class MembraneCreator : MonoBehaviour
 {
     private BottleSelectController bottleSelectController;
     private PlayerImageController playerImageController;
-    private SuperPowerPanelController SPPController;
+    private SuperPowerPanelController panel_SuperPower;
     private ScreenEffectController screenEffectController;
 
     private Vector2 initPos;//화면을 눌렀을 때의 위치
@@ -31,7 +31,7 @@ public class MembraneCreator : MonoBehaviour
     {
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
-        SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
+        panel_SuperPower = GameObject.Find("Panel_SuperPower").GetComponent<SuperPowerPanelController>();
         screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
 
         superPowerLV = 3;
@@ -42,7 +42,7 @@ public class MembraneCreator : MonoBehaviour
     public void Activate()
     {
         screenEffectController.MembraneEffect();
-        bottleSelectController.bottleController.rb.velocity = SPPController.getDragDirection() * presentStrength; // 물병을 던졌을 때의 힘만큼 속도를 가한다.
+        bottleSelectController.bottleController.rb.velocity = panel_SuperPower.getDragDirection() * presentStrength; // 물병을 던졌을 때의 힘만큼 속도를 가한다.
         membraneNum -= 1; //생성할 수 있는 탄성막의 개수 감소
         membraneAvailable = false; //다시 탄성막을 생성하려면 반드시 한 번 더 화면을 터치해야 함.
     }

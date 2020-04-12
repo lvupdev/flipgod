@@ -10,7 +10,7 @@ public class SuperPowerController : MonoBehaviour
     private MembraneCreator membraneCreator;
     private Freezer freezer;
     private PlayerImageController playerImageController;
-    private SuperPowerPanelController SPPController;
+    private SuperPowerPanelController panel_SuperPower;
 
     private void Start()
     {
@@ -19,7 +19,7 @@ public class SuperPowerController : MonoBehaviour
         membraneCreator = GameObject.Find("Player").GetComponent<MembraneCreator>();
         freezer = GameObject.Find("Player").GetComponent<Freezer>();
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
-        SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
+        panel_SuperPower = GameObject.Find("Panel_SuperPower").GetComponent<SuperPowerPanelController>();
     }
 
     private void FixedUpdate()
@@ -29,7 +29,7 @@ public class SuperPowerController : MonoBehaviour
             switch (playerImageController.playingChr)
             {
                 case 0:
-                    if(SPPController.GetIsTouch()) psychokinesis.Activate();
+                    if(panel_SuperPower.GetIsTouch()) psychokinesis.Activate();
                     break;
                 case 1:
                     if ((membraneCreator.membraneNum > 0) && membraneCreator.membraneAvailable)
@@ -38,7 +38,7 @@ public class SuperPowerController : MonoBehaviour
                     }
                     break;
                 case 2:
-                    if(SPPController.GetIsTouch() && freezer.freezeAvailable) freezer.Activate();
+                    if(panel_SuperPower.GetIsTouch() && freezer.freezeAvailable) freezer.Activate();
                     break;
             }
         }
