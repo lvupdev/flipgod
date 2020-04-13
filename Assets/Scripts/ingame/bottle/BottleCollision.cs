@@ -11,7 +11,7 @@ public class BottleCollision : MonoBehaviour
     private BottleGenerator bottleGenerator;
     private SuperPowerController superPowerController;
     private PlayerImageController playerImageController;
-    private SuperPowerPanelController SPPController;
+    private SuperPowerPanelController panel_SuperPower;
     private BottleController bottleController; //NEW: 오타 수정
     private GameObject redAura;
     private GameObject freezeRange;
@@ -25,7 +25,7 @@ public class BottleCollision : MonoBehaviour
         player = GameObject.Find("Player");
         superPowerController = player.GetComponent<SuperPowerController>();
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
-        SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
+        panel_SuperPower = GameObject.Find("Panel_SuperPower").GetComponent<SuperPowerPanelController>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         bottleController = GameObject.FindWithTag("isActBottle").GetComponent<BottleController>(); //NEW: 처음에 시작할 때 태그로 찾아줘야 함
         redAura = transform.Find("RedAura").gameObject;

@@ -50,3 +50,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BackGround
+    uniqueID: 1526736185
+    locked: 0
+  - name: Structure
+    uniqueID: 1509418173
+    locked: 0
+  - name: Player
+    uniqueID: 1844202781
+    locked: 0
+  - name: Item
+    uniqueID: 1748831291
+    locked: 0
+  - name: Bottle
+    uniqueID: 2407852773
+    locked: 0
+  - name: Trajectory
+    uniqueID: 278857675
+    locked: 0
