@@ -62,7 +62,7 @@ public class BottleController : MonoBehaviour
         destroyDelay = 1;
         padStrengthTouched = false;
         padDirectionTouched = false;
-        trajectoryLine.Start();
+        // trajectoryLine.Start();
 
     }
     void FixedUpdate()
