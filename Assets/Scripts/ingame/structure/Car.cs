@@ -17,14 +17,6 @@ public class Car : Structure
     public float moveSpeed{get;set;}
     private int direction = 1;
 
-    private void Start()
-    {
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-
-        delta = 0;
-        collisionNum = 0;
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -58,6 +50,4 @@ public class Car : Structure
             spriteRenderer.flipX = true;
         }
     }
-
-
 }

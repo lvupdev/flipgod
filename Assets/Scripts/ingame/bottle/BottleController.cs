@@ -8,10 +8,16 @@ public class BottleController : MonoBehaviour
 {
     public PadStrength padStrength;
     public PadDirection padDirection;
-    public Rigidbody2D rb; //물병의 rigidbody 속성
-    public bool isSuperPowerAvailabe; //물병에 기본 초능력을 사용할 수 있는지의 여부
-    public bool isStanding; //서 있는지의 여부
-    public bool onFloor; //바닥에 있는지의 여부
+    public Rigidbody2D rb;                  // rigidbody component of bottle
+
+    /*==========<variable about state of bottle>================================*/
+    public bool isSuperPowerAvailabe;       // 물병에 기본 초능력을 사용할 수 있는가
+    public bool isAct;                      // 물병이 콜라이더에 충돌하기 전인가
+    public bool isStanding;                 // 물병이 현재 서 있는가
+    // (New) public bool isStandingAtTheMoment
+    public bool isStandingAtFirstTry;       // 물병이 첫 시도에 세워졌는가
+    public bool onFloor;                    // 물병이 바닥 위에 있는가
+    
 
     private float rotateSpeed; //회전속도
     private float zRotation; //NEW: 물병의 z회전축 값
@@ -20,7 +26,6 @@ public class BottleController : MonoBehaviour
     private float destroyDelay; //NEW: 물병이 땅에 닿고 파괴되기까지의 딜레이 시간
     private BottleGenerator bottleGenerator;
     private SuperPowerController superPowerController;
-    private SuperPowerPanelController SPPController;
     private PlayerImageController playerImageController;
     private GameObject player;
     private BottleSelectController bottleSelectController;
@@ -36,7 +41,6 @@ public class BottleController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         bottleGenerator = GameObject.Find("BottleManager").GetComponent<BottleGenerator>();
         superPowerController = GameObject.Find("Player").GetComponent<SuperPowerController>();
-        SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
         player = GameObject.Find("Player");
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         playerImageController = player.GetComponent<PlayerImageController>();

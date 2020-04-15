@@ -9,7 +9,6 @@ public class Freezer : MonoBehaviour
     private int skillLV; //필살기 강화 레벨
     private BottleSelectController bottleSelectController;
     private PlayerImageController playerImageController;
-    private SuperPowerPanelController SPPController;
     private ScreenEffectController screenEffectController;
 
     private Vector2 initPos;//화면을 눌렀을 때의 위치
@@ -23,7 +22,6 @@ public class Freezer : MonoBehaviour
     {
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
-        SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
         screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
 
         superPowerLV = 1;

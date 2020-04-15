@@ -18,16 +18,12 @@ public class Bird : Structure
     // 땅에 닿았을 때 파괴
     private int direction = 1;
 
-    void Start()
+    void Awake()
     {
        currPos = gameObject.transform.position;
        rb = gameObject.GetComponent<Rigidbody2D>(); // 리지드바디를 받아온다
-       spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
        minVec2.x = (currPos.x - 4f); // 왼쪽으로 이동할 범위
        maxVec2.x = (currPos.x + 4f); // 오른쪽으로 이동할 범위
-
-       delta = 0;
-       collisionNum = 0;
     }
 
     void Update()

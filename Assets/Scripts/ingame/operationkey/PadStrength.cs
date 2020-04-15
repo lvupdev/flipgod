@@ -19,7 +19,7 @@ public class PadStrength : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private GameObject strengthGauge; //힘 게이지 스프라이트
     private float delayTime = 1f; //힘 조절 버튼에서 손가락을 때고 물병이 던져지기까지의 딜레이 타임
-    public int count = 1; // 물병던진 횟수 카운트 변수
+    public int count; // 물병던진 횟수 카운트 변수
 
     void OnGUI() //NEW: 유니티 GUI 함수 오버라이딩
     {
@@ -36,6 +36,7 @@ public class PadStrength : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         strengthGauge = GameObject.Find("StrengthGauge");
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
+        count = 0;
         
     }
 

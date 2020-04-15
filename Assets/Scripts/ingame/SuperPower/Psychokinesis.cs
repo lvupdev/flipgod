@@ -7,7 +7,7 @@ public class Psychokinesis : MonoBehaviour
 {
     private BottleSelectController bottleSelectController;
     private PlayerImageController playerImageController;
-    private SuperPowerPanelController SPPController;
+    private SuperPowerPanelController panel_SuperPower;
     private ScreenEffectController screenEffectController;
 
     private int superPowerLV; //초능력 강화 레벨
@@ -21,7 +21,7 @@ public class Psychokinesis : MonoBehaviour
     {
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
-        SPPController = GameObject.Find("SuperPowerPanel").GetComponent<SuperPowerPanelController>();
+        panel_SuperPower = GameObject.Find("Panel_SuperPower").GetComponent<SuperPowerPanelController>();
         screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
 
         superPowerLV = 1;
@@ -32,8 +32,8 @@ public class Psychokinesis : MonoBehaviour
     public void Activate() //염력 초능력 사용
     {
         //SuperPowePanelController 값 가져오기
-        initPos = SPPController.GetInitPos();
-        endPos = SPPController.GetEndPos();
+        initPos = panel_SuperPower.GetInitPos();
+        endPos = panel_SuperPower.GetEndPos();
 
         screenEffectController.KinesisEffect();
 

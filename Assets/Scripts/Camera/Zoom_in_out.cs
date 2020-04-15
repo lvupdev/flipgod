@@ -18,7 +18,7 @@ public class Zoom_in_out : MonoBehaviour
     [SerializeField]
     Text text;
 
-    //
+    
 
 
 
@@ -31,10 +31,10 @@ public class Zoom_in_out : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount == 2)
+        if (Input.touchCount == 2) // 2개의 입력 감지
         {
-            Touch firstTouch = Input.GetTouch(0);
-            Touch secondTouch = Input.GetTouch(1);
+            Touch firstTouch = Input.GetTouch(0);// 입력순서 
+            Touch secondTouch = Input.GetTouch(1); // 입력순서
 
             firstTouchPrevPos = firstTouch.position - firstTouch.deltaPosition;
             secondTouchPrevPos = secondTouch.position - secondTouch.deltaPosition;
