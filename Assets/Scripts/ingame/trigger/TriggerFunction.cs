@@ -8,7 +8,6 @@ public class TriggerFunction : MonoBehaviour
     public List<GameObject> TargetObject = new List<GameObject>(); //트리거와 상호작용 중인 오브젝트 배열
     public GameObject bottles;
     public Structure structure;
-    public BottleController count;
 
     public bool conditionFullfilled; //트리거 발동 조건이 충족되었는지의 여부
     public bool isActTrigger; //트리거가 활성화 상태인지의 여부
@@ -17,6 +16,8 @@ public class TriggerFunction : MonoBehaviour
     public int inCollidernNum; //콜라이더 안에 있는 물병의 개수
     public float intervalTime; //주기 시간
     public float operatingTime; //트리거가 발동을 지속한 시간;
+
+    public int count = GameObject.Find("Pad_Strength").GetComponent<PadStrength>().count;
 
 
 
@@ -31,7 +32,6 @@ public class TriggerFunction : MonoBehaviour
         return true;
     }
 
-<<<<<<< HEAD
     public bool parent()
     {
 
@@ -47,8 +47,7 @@ public class TriggerFunction : MonoBehaviour
             return false;
     }
     
-=======
->>>>>>> 17584b5dda78763a139274ac05cf78c98a79af82
+
 
     /*
      * n초 주기 발동
