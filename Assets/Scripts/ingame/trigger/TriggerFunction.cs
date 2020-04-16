@@ -97,9 +97,9 @@ public class TriggerFunction : MonoBehaviour
     public bool ThrowAct(int num)
     {
 
-        if ((padStrength.count % num) == 0 && padStrength.count != 0)
+        if (padStrength.count >= num)
         {
-
+            padStrength.count = 0;
             return true;
 
         }
