@@ -202,6 +202,25 @@ public class TriggerFunction : MonoBehaviour
         return false;
     }
 
+    /*
+     * n개 투척 중단
+     * 트리거 발동 이후 num 번만큼 던질 때마다 트리거의 발동을 중단시킨다.
+     */
+    public bool ThrowInAct(int num)
+    {
+
+        if (conditionFullfilled && (padStrength.count >= num))
+        {
+            padStrength.count = 0;
+            return true;
+
+        }
+
+        else
+
+            return false;
+    }
+
 
     //충돌 판정 함수
 
