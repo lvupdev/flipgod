@@ -33,16 +33,16 @@ public class Zoom_in_out : MonoBehaviour
     {
         if (Input.touchCount == 2) // 2개의 입력 감지
         {
-            Touch firstTouch = Input.GetTouch(0);// 입력순서 
-            Touch secondTouch = Input.GetTouch(1); // 입력순서
+            Touch firstTouch = Input.GetTouch(0);// 입력   
+            Touch secondTouch = Input.GetTouch(1); // 입력
 
-            firstTouchPrevPos = firstTouch.position - firstTouch.deltaPosition;
-            secondTouchPrevPos = secondTouch.position - secondTouch.deltaPosition;
+            firstTouchPrevPos = firstTouch.position - firstTouch.deltaPosition; //변위값의 차
+            secondTouchPrevPos = secondTouch.position - secondTouch.deltaPosition;//변위값의 차
 
-            touchesPrevPosDifference = (firstTouchPrevPos - secondTouchPrevPos).magnitude;
-            touchesCurPosDifference = (firstTouch.position - secondTouch.position).magnitude;
+            touchesPrevPosDifference = (firstTouchPrevPos - secondTouchPrevPos).magnitude; // 이전 변위값들의 차의 크기
+            touchesCurPosDifference = (firstTouch.position - secondTouch.position).magnitude;// 현재 변위값들의 차의 크기
 
-            zoomModifier = (firstTouch.deltaPosition - secondTouch.deltaPosition).magnitude * zoomModifierspeed;
+            zoomModifier = (firstTouch.deltaPosition - secondTouch.deltaPosition).magnitude * zoomModifierspeed; // 줌을 얼마나 땡길지
 
             if (touchesPrevPosDifference > touchesCurPosDifference)
                 mainCamera.orthographicSize += zoomModifier;
