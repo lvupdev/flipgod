@@ -35,6 +35,8 @@ public class BottleController : MonoBehaviour
 
     private TrajectoryLine trajectoryLine; //포물선 스크립트 분리
 
+    SpriteRenderer transparent;
+
     void Start()
     {
         //오브젝트 받아오기
@@ -47,7 +49,7 @@ public class BottleController : MonoBehaviour
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         padDirection = GameObject.Find("Joystick").GetComponent<PadDirection>();
         trajectoryLine = GameObject.Find("Trajectory").GetComponent<TrajectoryLine>();
-
+        transparent = GetComponent<SpriteRenderer>(); // 물병의 스프라이트 렌더러(투명도)
 
         //값 초기화
         rb.gravityScale = 0;
@@ -105,6 +107,10 @@ public class BottleController : MonoBehaviour
 
         if(onFloor) //NEW: 땅바닥에 닿았을 때 물병 파괴
         {
+            Color c = transparent.material.color;
+            c.a -= 2;
+            transparent.material.color = c;
+            
             destroyDelay -= Time.deltaTime;
             if (destroyDelay < 0) Destroy(gameObject);
         }

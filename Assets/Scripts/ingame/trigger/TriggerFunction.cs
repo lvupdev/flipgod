@@ -20,12 +20,13 @@ public class TriggerFunction : MonoBehaviour
     public float intervalTime; //주기 시간
     public float operatingTime; //트리거가 발동을 지속한 시간;
 
-    public int count = GameObject.Find("Pad_Strength").GetComponent<PadStrength>().count;
+    public int count;
 
 
 
     public void Start()
     {
+        count = GameObject.Find("Pad_Strength").GetComponent<PadStrength>().count;
         structure = transform.parent.GetComponent<Structure>();
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         bottles = GameObject.Find("Bottles");
