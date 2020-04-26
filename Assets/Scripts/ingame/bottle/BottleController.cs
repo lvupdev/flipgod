@@ -17,7 +17,7 @@ public class BottleController : MonoBehaviour
     // (New) public bool isStandingAtTheMoment
     public bool isStandingAtFirstTry;       // 물병이 첫 시도에 세워졌는가
     public bool onFloor;                    // 물병이 바닥 위에 있는가
-    
+
 
     private float rotateSpeed; //회전속도
     private float zRotation; //NEW: 물병의 z회전축 값
@@ -35,6 +35,8 @@ public class BottleController : MonoBehaviour
 
     private TrajectoryLine trajectoryLine; //포물선 스크립트 분리
 
+    SpriteRenderer transparent;
+
     void Start()
     {
         //오브젝트 받아오기
@@ -47,7 +49,7 @@ public class BottleController : MonoBehaviour
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         padDirection = GameObject.Find("Joystick").GetComponent<PadDirection>();
         trajectoryLine = GameObject.Find("Trajectory").GetComponent<TrajectoryLine>();
-
+        transparent = GetComponent<SpriteRenderer>(); // 물병의 스프라이트 렌더러(투명도)
 
         //값 초기화
         rb.gravityScale = 0;
@@ -103,14 +105,18 @@ public class BottleController : MonoBehaviour
                 isStanding = true;
         }
 
-        if(onFloor) //NEW: 땅바닥에 닿았을 때 물병 파괴
+        if (onFloor) //NEW: 땅바닥에 닿았을 때 물병 파괴
         {
+            Color c = transparent.material.color;
+            c.a -= 2;
+            transparent.material.color = c;
+            
             destroyDelay -= Time.deltaTime;
             if (destroyDelay < 0) Destroy(gameObject);
         }
 
 
-        if(gameObject.transform.position.y<-8) // 물병이 화면 밖으로 날아갔을 때
+        if (gameObject.transform.position.y < -8) // 물병이 화면 밖으로 날아갔을 때
         {
             if (gameObject.CompareTag("unActBottle")) Destroy(gameObject); // 어딘가 부딪히고 화면 밖으로 튕겨나갔을 때
             else
@@ -123,7 +129,7 @@ public class BottleController : MonoBehaviour
         }
     }
 
-    public void Jump() 
+    public void Jump()
     {
         if (padDirection.direction.x >= 0) key = 1;
         if (padDirection.direction.x < 0) key = -1;
@@ -136,7 +142,7 @@ public class BottleController : MonoBehaviour
 
         //뛰면서 회전
         rb.velocity = padDirection.direction * padStrength.totalStrength;
-        rb.AddTorque(key*rotateSpeed, ForceMode2D.Impulse);
+        rb.AddTorque(key * rotateSpeed, ForceMode2D.Impulse);
 
         trajectoryLine.Delete();
         if (playerImageController.playingChr == 2)
