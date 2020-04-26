@@ -13,6 +13,9 @@ public class StageManager1 : MonoBehaviour
     // 해당 스크립트에서 받아오는 것으로
     //=====================================================================
 
+    // Signleton of StageManager1
+    // public static StageManager1 singleton;
+
     // Variable about mission
     public static int limitedBottleNum;
     public static float limitedTimeSec;
@@ -28,6 +31,7 @@ public class StageManager1 : MonoBehaviour
 
     void Start()
     {
+        // singleon = this;
 
         limitedBottleNum = 3;
         limitedTimeSec = 30.0f;

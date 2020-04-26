@@ -45,7 +45,7 @@ public class StageUIManager : MonoBehaviour
         missionPanel = Find("Panel_Mission");
 
 
-        StartCoroutine(UpdateScoreTexts());
+        // StartCoroutine(UpdateScoreTexts());
 
     }
 
@@ -65,10 +65,13 @@ public class StageUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateCoinText(StageManager1.gainedCoinNum);
+        UpdateBottleText(StageManager1.remainBottleNum, StageManager1.limitedBottleNum);
+        UpdateTimeText(StageManager1.limitedTimeSec);
     }
 
     /*=================<Update texts of score panel>================================*/
+    /*
     private IEnumerator UpdateScoreTexts()
     {
         int coin;
@@ -88,6 +91,8 @@ public class StageUIManager : MonoBehaviour
             UpdateTimeText(time);
         }
     }
+
+     */
 
 
     public void UpdateCoinText(int gainedCoin)
