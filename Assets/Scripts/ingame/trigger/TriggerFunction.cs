@@ -97,9 +97,9 @@ public class TriggerFunction : MonoBehaviour
     public bool ThrowAct(int num)
     {
 
-        if ((padStrength.count % num) == 0 && padStrength.count != 0)
+        if (padStrength.count >= num)
         {
-
+            padStrength.count = 0;
             return true;
 
         }
@@ -200,6 +200,25 @@ public class TriggerFunction : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    /*
+     * n개 투척 중단
+     * 트리거 발동 이후 num 번만큼 던질 때마다 트리거의 발동을 중단시킨다.
+     */
+    public bool ThrowInAct(int num)
+    {
+
+        if (conditionFullfilled && (padStrength.count >= num))
+        {
+            padStrength.count = 0;
+            return true;
+
+        }
+
+        else
+
+            return false;
     }
 
 
