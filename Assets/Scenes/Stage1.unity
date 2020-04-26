@@ -2670,6 +2670,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: BottlePrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 8661927605914885497, guid: 30e7495430d55214e928784e42802779,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8661927605914885497, guid: 30e7495430d55214e928784e42802779,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8661927605914885497, guid: 30e7495430d55214e928784e42802779,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8661927605914885502, guid: 30e7495430d55214e928784e42802779,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3417,6 +3432,7 @@ MonoBehaviour:
   inCollidernNum: 0
   intervalTime: 0
   operatingTime: 0
+  count: 0
 --- !u!1 &1360127332
 GameObject:
   m_ObjectHideFlags: 0
