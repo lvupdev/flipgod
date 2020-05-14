@@ -17,6 +17,7 @@ public class BottleController : MonoBehaviour
     // (New) public bool isStandingAtTheMoment
     public bool isStandingAtFirstTry;       // 물병이 첫 시도에 세워졌는가
     public bool onFloor;                    // 물병이 바닥 위에 있는가
+    public float Timeout;
     
 
     private float rotateSpeed; //회전속도
@@ -107,12 +108,17 @@ public class BottleController : MonoBehaviour
 
         if(onFloor) //NEW: 땅바닥에 닿았을 때 물병 파괴
         {
-            Color c = transparent.material.color;
-            c.a -= 2;
-            transparent.material.color = c;
+            Color c = transparent.material.color; // RGBA 중 A 가 투명도
+            
             
             destroyDelay -= Time.deltaTime;
-            if (destroyDelay < 0) Destroy(gameObject);
+            if (destroyDelay < 0)
+            {
+                c.a -= 0.06f; // 투명도 0.01씩 낮추기
+                transparent.material.color = c;
+                if (c.a < 0) Destroy(gameObject);
+
+            }
         }
 
 
