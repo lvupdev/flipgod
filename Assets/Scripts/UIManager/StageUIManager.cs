@@ -26,7 +26,11 @@ public class StageUIManager : MonoBehaviour
     private static Text timeText;
     private static Text bottleCountText;
 
-    
+    // Variable about tension gague UI
+    private static Image tensionValueImg;
+    private float lerpSpeed = 0.5f;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +48,8 @@ public class StageUIManager : MonoBehaviour
 
         missionPanel = Find("Panel_Mission");
 
+        tensionValueImg = Find("Image_TensionValue").GetComponent<Image>();
+        tensionValueImg.fillAmount = 0.0f;
 
         // StartCoroutine(UpdateScoreTexts());
 
@@ -68,6 +74,7 @@ public class StageUIManager : MonoBehaviour
         UpdateCoinText(StageManager1.gainedCoinNum);
         UpdateBottleText(StageManager1.remainBottleNum, StageManager1.limitedBottleNum);
         UpdateTimeText(StageManager1.limitedTimeSec);
+        UpdateTensionGauge(TensionValueManager.tensionValue);
     }
 
     /*=================<Update texts of score panel>================================*/
@@ -114,8 +121,33 @@ public class StageUIManager : MonoBehaviour
         bottleCountText.text = remain + " / " + total;
     }
 
+    public void UpdateTensionGauge(float tensionValue)
+    {
+        if (tensionValueImg.fillAmount < 0.999f)
+        {
+            if (tensionValueImg.fillAmount != tensionValue)
+            {
+                tensionValueImg.fillAmount =
+                    Mathf.Lerp(tensionValueImg.fillAmount, tensionValue, Time.deltaTime * lerpSpeed);
+            }
+        }
+    }
+
 
     /*================================<Callback Methods>================================*/
+
+    public void UseTensionGauge(float tensionValue)
+    {
+        if (tensionValue >= 0.9999f)
+        {
+            tensionValueImg.fillAmount =
+                Mathf.Lerp(tensionValue, 0f, Time.deltaTime * lerpSpeed);
+        }
+        else
+        {
+            // Debug.Log("Tesnion Value is not enough to use superpower.");
+        }
+    }
 
     // Close mission panel with window and
     // Start game

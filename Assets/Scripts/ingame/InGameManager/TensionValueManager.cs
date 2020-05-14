@@ -8,7 +8,7 @@ using UnityEngine.UI;
  * UI에 표시하는 스크립트
  */
 
-public class TensionGaugeManager : MonoBehaviour
+public class TensionValueManager : MonoBehaviour
 {
     /* =====<시스템 기획 -텐션 게이지>==================================================================================
      * 각 캐릭터는 각자 고유 필살기를 사용할 수 있는데, 필살기를 쓰기 위해서는 텐션 게이지를 소모해야 한다. 
@@ -26,8 +26,8 @@ public class TensionGaugeManager : MonoBehaviour
      * (4) 동적 장애물을 빙결시키는 경우        +10% * 빙결된 동적 장애물 개수
      =================================================================================================*/
 
-    private Image Img_tensionGauage;        // 텐션 게이지를 표시하는 이미지
-    private float lerpSpeed = 0.5f;
+    // private Image Img_tensionGauage;        // 텐션 게이지를 표시하는 이미지
+    // private float lerpSpeed = 0.5f;
 
     public static float tensionValue;       // 텐션 게이지 값
 
@@ -47,10 +47,9 @@ public class TensionGaugeManager : MonoBehaviour
 
     private void Awake()
     {
-        // initialize tension value/gague
-        Img_tensionGauage = gameObject.GetComponent<Image>();
+        // initialize tension value
         tensionValue = 0f;
-        Img_tensionGauage.fillAmount = 0f;
+
 
         // initialize state of condition
         isBottleThrown = false;
@@ -107,7 +106,7 @@ public class TensionGaugeManager : MonoBehaviour
         }
 
 
-        UpdateTensionGauge();
+        // UpdateTensionGauge();
     }
 
     public void UpdateTensionValue(int fillCount)
@@ -117,37 +116,5 @@ public class TensionGaugeManager : MonoBehaviour
             tensionValue += 0.1f * fillCount;
         }
     }
-
-    public void UpdateTensionGauge()
-    {
-        if (Img_tensionGauage.fillAmount != tensionValue)
-        {
-            Img_tensionGauage.fillAmount =
-                Mathf.Lerp(Img_tensionGauage.fillAmount, tensionValue, Time.deltaTime * lerpSpeed);
-        }
-    }
-
-    public void UpdateActBottle()
-    {
-
-    }
-
-    /*===========<call-back method>===================================================*/
-    public void UseTensionGauge()
-    {
-        if (tensionValue >= 0.9999f)
-        {
-            Img_tensionGauage.fillAmount =
-                Mathf.Lerp(tensionValue, 0f, Time.deltaTime * lerpSpeed);
-        }
-        else
-        {
-            
-        }
-    }
-
-
-    /*=================================================================================*/
-
 
 }
