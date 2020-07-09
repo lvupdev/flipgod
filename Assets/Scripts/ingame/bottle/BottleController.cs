@@ -20,7 +20,6 @@ public class BottleController : MonoBehaviour
     public bool onFloor;                    // 물병이 바닥 위에 있는가
     public float Timeout;
     public static int combo = 0;                // 물병이 몇번째 콤보를 달성하였는가
-    
 
     private float rotateSpeed; //회전속도
     private float zRotation; //NEW: 물병의 z회전축 값
@@ -129,7 +128,7 @@ public class BottleController : MonoBehaviour
             }
         }
 
-        if(onFloor) //NEW: 땅바닥에 닿았을 때 물병 파괴
+        if (onFloor) //NEW: 땅바닥에 닿았을 때 물병 파괴
         {
             Color c = transparent.material.color; // RGBA 중 A 가 투명도
 
@@ -144,7 +143,7 @@ public class BottleController : MonoBehaviour
         }
 
 
-        if(gameObject.transform.position.y<-8) // 물병이 화면 밖으로 날아갔을 때
+        if (gameObject.transform.position.y < -8) // 물병이 화면 밖으로 날아갔을 때
         {
             if (gameObject.CompareTag("unActBottle")) Destroy(gameObject); // 어딘가 부딪히고 화면 밖으로 튕겨나갔을 때
             else
@@ -157,7 +156,7 @@ public class BottleController : MonoBehaviour
         }
     }
 
-    public void Jump() 
+    public void Jump()
     {
         if (padDirection.direction.x >= 0) key = 1;
         if (padDirection.direction.x < 0) key = -1;
@@ -170,7 +169,7 @@ public class BottleController : MonoBehaviour
 
         //뛰면서 회전
         rb.velocity = padDirection.direction * padStrength.totalStrength;
-        rb.AddTorque(key*rotateSpeed, ForceMode2D.Impulse);
+        rb.AddTorque(key * rotateSpeed, ForceMode2D.Impulse);
 
         trajectoryLine.Delete();
         if (playerImageController.playingChr == 2)

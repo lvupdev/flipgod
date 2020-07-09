@@ -45,7 +45,7 @@ public class TrajectoryLine : MonoBehaviour
                 directionDots[i].transform.position = CalculatePosition(i * 0.1f, direction, strengthFactor);
             }
         }
-        else 
+        else
         {
             for (int i = 0; i < trajectoryNumber; i++)
             {
