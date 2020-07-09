@@ -15,14 +15,14 @@ public class FanTrigger : TriggerFunction
     {
         if (actBool && canBeFreezed && structure.isFreezed)
         {
-            shouldBeFreezed = isActTrigger? true : false;
+            shouldBeFreezed = isActTrigger? true : false; //빙결되기 전에 isActTrigger 상태였는지 shouldBeFreezed에 저장
             isActTrigger = false;
             actBool = false;
         }
 
         if (!actBool && !structure.isFreezed)
         {
-            isActTrigger = shouldBeFreezed ? true : false;
+            isActTrigger = shouldBeFreezed ? true : false; //방결되기 전에 isActTrigger상태였으면 isActTrigger은 true
             actBool = true;
         }
 

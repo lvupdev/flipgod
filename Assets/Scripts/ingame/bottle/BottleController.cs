@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 /*
 물병을 점프시키는 스크립트
 */
@@ -15,10 +16,10 @@ public class BottleController : MonoBehaviour
     public bool isAct;                      // 물병이 콜라이더에 충돌하기 전인가
     public bool isStanding;                 // 물병이 현재 서 있는가
     // (New) public bool isStandingAtTheMoment
-    public bool isStandingAtFirstTry;       // 물병이 첫 시도에 세워졌는가
+    public bool tensionGaugeUp;             // 콤보로 인한 텐션게이지 상승이 발생하여야 하는가
     public bool onFloor;                    // 물병이 바닥 위에 있는가
     public float Timeout;
-    
+    public static int combo = 0;                // 물병이 몇번째 콤보를 달성하였는가
 
     private float rotateSpeed; //회전속도
     private float zRotation; //NEW: 물병의 z회전축 값
@@ -30,8 +31,10 @@ public class BottleController : MonoBehaviour
     private PlayerImageController playerImageController;
     private GameObject player;
     private BottleSelectController bottleSelectController;
+    private TensionGaugeManager tensionGaugeManager;
     private bool padStrengthTouched; //힘 버튼이 한 번이라도 눌렸는가
     private bool padDirectionTouched; //힘 버튼이 한 번이라도 눌렸는가
+    private Text comboText; //콤보 텍스트
 
 
     private TrajectoryLine trajectoryLine; //포물선 스크립트 분리
@@ -51,6 +54,8 @@ public class BottleController : MonoBehaviour
         padDirection = GameObject.Find("Joystick").GetComponent<PadDirection>();
         trajectoryLine = GameObject.Find("Trajectory").GetComponent<TrajectoryLine>();
         transparent = GetComponent<SpriteRenderer>(); // 물병의 스프라이트 렌더러(투명도)
+        tensionGaugeManager = GameObject.Find("Image_TensionGaugeBar").GetComponent<TensionGaugeManager>();
+        comboText = GameObject.Find("Text_Combo").GetComponent<Text>();
 
         //값 초기화
         rb.gravityScale = 0;
@@ -64,6 +69,7 @@ public class BottleController : MonoBehaviour
         padStrengthTouched = false;
         padDirectionTouched = false;
         trajectoryLine.Start();
+        tensionGaugeUp = true;
 
     }
     void FixedUpdate()
@@ -99,19 +105,34 @@ public class BottleController : MonoBehaviour
             }
 
 
-            // 세워져 있는지의 여부 수정
-            if ((delta > 2f) && !((zRotation > 330) || (zRotation < 30)))
+            // 세워져 있는지의 여부 수정 및 텐션게이지 상승
+            if (((delta > 1f) && !((zRotation > 340) || (zRotation < 20))) || onFloor)
+            {
                 isStanding = false;
-            else if ((delta > 2f) && ((zRotation > 330) || (zRotation < 30)))
+                tensionGaugeUp = false;
+                if (delta < 1.5f)
+                {
+                    combo = 0;
+                    comboText.text = "";
+                }
+            }
+            else if ((delta > 1f) && (rb.angularVelocity == 0) && ((zRotation > 340) || (zRotation < 20)))
+            {
                 isStanding = true;
+                if (tensionGaugeUp)
+                {
+                    combo++;
+                    tensionGaugeManager.IncreaseTensionGauge(2, combo); //!0% * 콤보수 만큼 상승
+                    tensionGaugeUp = false;
+                }
+            }
         }
 
         if (onFloor) //NEW: 땅바닥에 닿았을 때 물병 파괴
         {
             Color c = transparent.material.color; // RGBA 중 A 가 투명도
-            
-            
-            destroyDelay -= Time.deltaTime;
+
+            destroyDelay -= Time.fixedDeltaTime;
             if (destroyDelay < 0)
             {
                 c.a -= 0.06f; // 투명도 0.01씩 낮추기
@@ -155,5 +176,6 @@ public class BottleController : MonoBehaviour
         {
             transform.Find("FreezeRange").gameObject.SetActive(true);
         }
+        tensionGaugeManager.IncreaseTensionGauge(1, 1); //텐션 게이지 10% 상승
     }
 }
