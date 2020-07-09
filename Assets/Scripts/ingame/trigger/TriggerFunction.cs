@@ -8,6 +8,7 @@ public class TriggerFunction : MonoBehaviour
     public List<GameObject> TargetObject = new List<GameObject>(); //트리거와 상호작용 중인 오브젝트 배열
     public GameObject bottles;
     public Structure structure;
+    public TensionGaugeManager tensionGaugeManager;
 
     public PadStrength padStrength;
 
@@ -16,6 +17,7 @@ public class TriggerFunction : MonoBehaviour
     public bool canBeFreezed; //얼릴 수 있는 트리거인지의 여부
     public bool shouldBeFreezed; //얼려져야 하는지의 여부 
     public bool actBool; //반복 방지 변수
+    public bool enoughStackBool; // EnoughStack 텐션게이지 중복 증가 방지 변수
     public int inCollidernNum; //콜라이더 안에 있는 물병의 개수
     public float intervalTime; //주기 시간
     public float operatingTime; //트리거가 발동을 지속한 시간;
@@ -31,6 +33,7 @@ public class TriggerFunction : MonoBehaviour
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         bottles = GameObject.Find("Bottles");
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
+        tensionGaugeManager = GameObject.Find("Image_TensionGaugeBar").GetComponent<TensionGaugeManager>();
 
         conditionFullfilled = false;
         shouldBeFreezed = false;
@@ -38,6 +41,7 @@ public class TriggerFunction : MonoBehaviour
         intervalTime = 0;
         operatingTime = 0;
         actBool = true;
+        enoughStackBool = true;
     }
 
     // 트리거 발동 조건 함수
@@ -93,6 +97,7 @@ public class TriggerFunction : MonoBehaviour
         if (structure.collisionNum >= num)
         {
             structure.collisionNum = 0;
+            tensionGaugeManager.IncreaseTensionGauge(4, 1);
             return true;
         }
         else
@@ -107,6 +112,11 @@ public class TriggerFunction : MonoBehaviour
     {
         if (TargetObject.Count >= num)
         {
+            if (enoughStackBool)
+            {
+                tensionGaugeManager.IncreaseTensionGauge(4, 1);
+                enoughStackBool = false;
+            }
             return true;
         }
         return false;
@@ -219,6 +229,7 @@ public class TriggerFunction : MonoBehaviour
     {
         if (TargetObject.Count < num)
         {
+            if (!enoughStackBool) enoughStackBool = true;
             return true;
         }
         return false;
