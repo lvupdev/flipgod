@@ -74,7 +74,6 @@ public class StageUIManager : MonoBehaviour
         UpdateCoinText(StageManager1.gainedCoinNum);
         UpdateBottleText(StageManager1.remainBottleNum, StageManager1.limitedBottleNum);
         UpdateTimeText(StageManager1.limitedTimeSec);
-        UpdateTensionGauge(TensionValueManager.tensionValue);
     }
 
     /*=================<Update texts of score panel>================================*/

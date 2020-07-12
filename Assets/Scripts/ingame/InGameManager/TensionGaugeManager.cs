@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 
 
-public class TensionValueManager : MonoBehaviour
+public class TensionGaugeManager : MonoBehaviour
 {
     /* =====<시스템 기획 -텐션 게이지>==================================================================================
      * 각 캐릭터는 각자 고유 필살기를 사용할 수 있는데, 필살기를 쓰기 위해서는 텐션 게이지를 소모해야 한다. 
@@ -38,7 +38,7 @@ public class TensionValueManager : MonoBehaviour
         increaseConditionFullfilled = true;
         this.whichCase = whichCase;
         this.increaseValue = increaseValue;
-        tensionGauge += 10*increaseValue;
+        tensionGauge += 10 * increaseValue;
     }
 
     public void DecreaseTensionGauge(int decreaseValue)
@@ -66,7 +66,7 @@ public class TensionValueManager : MonoBehaviour
         {
             tensionGaugeBar.GetComponent<Image>().fillAmount += (0.1f * increaseValue) * Time.fixedDeltaTime;
             percentText.text = (int)(100 * tensionGaugeBar.GetComponent<Image>().fillAmount) + "%";
-            if (tensionGaugeBar.GetComponent<Image>().fillAmount*100 > tensionGauge || tensionGaugeBar.GetComponent<Image>().fillAmount == 1)
+            if (tensionGaugeBar.GetComponent<Image>().fillAmount * 100 > tensionGauge || tensionGaugeBar.GetComponent<Image>().fillAmount == 1)
             {
                 if (tensionGauge > 100) tensionGauge = 100;
                 percentText.text = tensionGauge + "%";
@@ -81,49 +81,12 @@ public class TensionValueManager : MonoBehaviour
                     comboText.text = increaseValue + "COMBO!!";
                     break;
                 case 3: //(3)의 경우 텐션게이지가 꽉차있거나 아무것도 얼리지 않은 경우를 제외하면 FREEZE BONUS!! 문구가 표시된다.
-                    if ((tensionGaugeBar.GetComponent<Image>().fillAmount != 1)&&increaseValue!=0) noticeText.text = "FREEZE BONUS!!";
+                    if ((tensionGaugeBar.GetComponent<Image>().fillAmount != 1) && increaseValue != 0) noticeText.text = "FREEZE BONUS!!";
                     break;
                 case 4: //(4)의 경우
                     if (tensionGaugeBar.GetComponent<Image>().fillAmount != 1) noticeText.text = "TRIGGER BONUS!!";
                     break;
             }
-<<<<<<< HEAD:Assets/Scripts/ingame/InGameManager/TensionValueManager.cs
-
-            isBottleStanding = false;
-            isBottleThrown = false;
-        }
-
-        if (isComboOngoing == true)
-        {
-            UpdateTensionValue(ComboCount);
-            isComboOngoing = false;
-        }
-
-        if (isTriggerAct == true)
-        {
-            UpdateTensionValue(1);
-            isTriggerAct = false;
-        }
-
-        if (isSucceedToFreeze == true)
-        {
-            UpdateTensionValue(freezedDSCount);
-            isSucceedToFreeze = false;
-        }
-
-
-        // UpdateTensionGauge();
-    }
-
-    public void UpdateTensionValue(int fillCount)
-    {
-        if (tensionValue < 1.0f)
-        {
-            tensionValue += 0.1f * fillCount;
-        }
-    }
-
-=======
         }
         else
             noticeText.text = "";
@@ -140,5 +103,4 @@ public class TensionValueManager : MonoBehaviour
             }
         }
     }
->>>>>>> 6c703fad2beed2c5166a74a78e0472c1be62f5bb:Assets/Scripts/ingame/InGameManager/TensionGaugeManager.cs
 }
