@@ -71,6 +71,7 @@ public class BottleController : MonoBehaviour
         rotateSpeed = 0.5f; //회전속도
         delta = 0;
         destroyDelay = 1;
+        standingDelay = 2;
         padStrengthTouched = false;
         padDirectionTouched = false;
         trajectoryLine.Start();
@@ -95,7 +96,7 @@ public class BottleController : MonoBehaviour
             delta += Time.fixedDeltaTime;
             if (distance.magnitude < 2) gameObject.SetActive(false); //던져진 물병이 물병 생성 위치와 너무 가까이 있으면 비활성화
 
-            if ((delta < 0.11f) && ((zRotation > 340) || (zRotation < 20))) //NEW: 처음 충돌했을 때 각도가 30도 이하 또는 330도 이상이면 1초동안
+            if ((delta < 0.11f) && ((zRotation > 340) || (zRotation < 20))) //NEW: 처음 충돌했을 때 각도가 30도 이하 또는 330도 이상이면 0.1초동안
             {
                 rb.centerOfMass = new Vector3(0, -0.7f, 0); //물병의 무게 중심
                 rb.drag = 10f;
@@ -104,12 +105,17 @@ public class BottleController : MonoBehaviour
             else if (standingBySkill) //필살기 발동에 의해 물병이 세워짐
             {
                 standingDelay -= Time.fixedDeltaTime;
-                rb.centerOfMass = new Vector3(0, -10f, 0); //물병의 무게 중심
+                rb.WakeUp();
+                rb.centerOfMass = new Vector3(0, -1f,0); //물병의 무게 중심
+                
                 if (standingDelay < 0)
                 {
-                    standingDelay = 1;
+                    standingDelay = 2;
                     standingBySkill = false;
+                    this.transform.GetChild(0).gameObject.SetActive(false);
                 }
+                
+                Debug.Log(rb.centerOfMass);
             }
             else
             {
@@ -136,7 +142,7 @@ public class BottleController : MonoBehaviour
                 if (tensionGaugeUp)
                 {
                     combo++;
-                    tensionGaugeManager.IncreaseTensionGauge(2, combo); //!0% * 콤보수 만큼 상승
+                    tensionGaugeManager.IncreaseTensionGauge(2, combo); //10% * 콤보수 만큼 상승
                     tensionGaugeUp = false;
                 }
             }

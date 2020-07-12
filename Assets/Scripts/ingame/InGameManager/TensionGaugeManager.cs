@@ -24,10 +24,11 @@ public class TensionGaugeManager : MonoBehaviour
 
     private GameObject tensionGaugeBar; //텐션게이지 이미지
     private bool increaseConditionFullfilled; // 텐션게이지를 상승시켜야 하는지의 여부
+    private bool decreaseConditionFullfilled; // 텐션게이지를 감소시켜야 하는지의 여부
     private int whichCase; // 4가지 경우 중 어떤 경우인지
     private int increaseValue; // 텐션게이지 증가 계수
+    private int decreaseValue; // 텐션게이지 감소 계수
     private int tensionGauge; //텐션게이지 퍼센트 수치
-    private float gaugeTime; //텐션게이지가 차오르는 시간
     private Text percentText; //텐션게이지 퍼센트 텍스트
     private Text comboText; //콤보 텍스트
     private Text noticeText; //트리거 발동/ 빙결 등을 알리는 텍스트
@@ -40,6 +41,13 @@ public class TensionGaugeManager : MonoBehaviour
         tensionGauge += 10*increaseValue;
     }
 
+    public void DecreaseTensionGauge(int decreaseValue)
+    {
+        decreaseConditionFullfilled = true;
+        this.decreaseValue = decreaseValue;
+        tensionGauge -= 20 * decreaseValue;
+    }
+
     private void Start()
     {
         tensionGaugeBar = GameObject.Find("Image_TensionGaugeBar");
@@ -48,22 +56,20 @@ public class TensionGaugeManager : MonoBehaviour
         noticeText = GameObject.Find("Text_NoticeBoard").GetComponent<Text>();
         tensionGaugeBar.GetComponent<Image>().fillAmount = 0;
         tensionGauge = 0;
-        gaugeTime = 0;
         increaseConditionFullfilled = false;
+        decreaseConditionFullfilled = false;
     }
 
     private void FixedUpdate()
     {
         if (increaseConditionFullfilled)
         {
-            gaugeTime += Time.fixedDeltaTime;
             tensionGaugeBar.GetComponent<Image>().fillAmount += (0.1f * increaseValue) * Time.fixedDeltaTime;
             percentText.text = (int)(100 * tensionGaugeBar.GetComponent<Image>().fillAmount) + "%";
             if (tensionGaugeBar.GetComponent<Image>().fillAmount*100 > tensionGauge || tensionGaugeBar.GetComponent<Image>().fillAmount == 1)
             {
                 if (tensionGauge > 100) tensionGauge = 100;
                 percentText.text = tensionGauge + "%";
-                gaugeTime = 0;
                 increaseConditionFullfilled = false;
             }
 
@@ -84,5 +90,17 @@ public class TensionGaugeManager : MonoBehaviour
         }
         else
             noticeText.text = "";
+
+        if (decreaseConditionFullfilled)
+        {
+            tensionGaugeBar.GetComponent<Image>().fillAmount -= (0.1f * decreaseValue) * Time.fixedDeltaTime;
+            percentText.text = (int)(100 * tensionGaugeBar.GetComponent<Image>().fillAmount) + "%";
+            if (tensionGaugeBar.GetComponent<Image>().fillAmount * 100 < tensionGauge || tensionGaugeBar.GetComponent<Image>().fillAmount == 1)
+            {
+                if (tensionGauge < 0) tensionGauge = 0;
+                percentText.text = tensionGauge + "%";
+                decreaseConditionFullfilled = false;
+            }
+        }
     }
 }

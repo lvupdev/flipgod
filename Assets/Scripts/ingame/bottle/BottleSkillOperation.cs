@@ -11,7 +11,10 @@ public class BottleSkillOperation : MonoBehaviour
     private SkillButton skillButton;
     private GameObject redAura;
     private GameObject freezeRange;
-    public static int usingSkillNum = 0; // 초능력을 사용한 횟수;
+    private static int usingSkillNum = 0; // 초능력을 사용한 횟수;
+
+    public int getUsingSkillNum() { return usingSkillNum; }
+    public void setUsingSkillNum(int num) { usingSkillNum = num; }
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +36,7 @@ public class BottleSkillOperation : MonoBehaviour
     {
         if(playerImageController.GetPlayingChr() == 0 && skillButton.getUsingSkill())
         {
-            if (!redAura.activeSelf && usingSkillNum < gameResourceValue.GetSkillLV(0)) //오러가 꺼져 있고 오러가 켜져있는 물병의 개수가 업그레이드 수 미만일 때
+            if (!redAura.activeSelf && usingSkillNum < 3)//gameResourceValue.GetSkillLV(0)) //오러가 꺼져 있고 오러가 켜져있는 물병의 개수가 업그레이드 수 미만일 때
             {
                 redAura.SetActive(true);
                 usingSkillNum++;

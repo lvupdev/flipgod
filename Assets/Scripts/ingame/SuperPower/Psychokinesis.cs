@@ -58,7 +58,6 @@ public class Psychokinesis : MonoBehaviour
             if (bottles.transform.GetChild(i).transform.GetChild(0).gameObject.activeSelf)
             {
                 bottles.transform.GetChild(i).gameObject.GetComponent<BottleController>().standingBySkill = true;
-                bottles.transform.GetChild(i).transform.GetChild(0).gameObject.SetActive(false);
             }
         }
     }

@@ -13,6 +13,7 @@ public class SkillButton : MonoBehaviour
     private PlayerImageController playerImageController;
     private BottleSelectController bottleSelectController;
     private PadStrength padStrength;
+    private TensionGaugeManager tensionGaugeManager;
     private Psychokinesis psychokinesis;
     private MembraneCreator membraneCreator;
     private Freezer freezer;
@@ -31,6 +32,7 @@ public class SkillButton : MonoBehaviour
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
+        tensionGaugeManager = GameObject.Find("Image_TensionGaugeBar").GetComponent<TensionGaugeManager>();
         psychokinesis = GameObject.Find("Player").GetComponent<Psychokinesis>();
         membraneCreator = GameObject.Find("Player").GetComponent<MembraneCreator>();
         freezer = GameObject.Find("Player").GetComponent<Freezer>();
@@ -85,7 +87,8 @@ public class SkillButton : MonoBehaviour
                 }
             }
 
-            BottleSkillOperation.usingSkillNum = 0;
+            tensionGaugeManager.DecreaseTensionGauge(bottleSelectController.bottleSkillOperation.getUsingSkillNum()); //텐션게이지 감소
+            bottleSelectController.bottleSkillOperation.setUsingSkillNum(0);
             usingSkill = false;
         }
         else // 필살기 사용 시작
