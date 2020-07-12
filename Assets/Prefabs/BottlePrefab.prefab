@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 8661927605914885496}
   - component: {fileID: 7826273591399247136}
   - component: {fileID: 6099797927202651921}
+  - component: {fileID: 4076966395987585346}
   m_Layer: 8
   m_Name: BottlePrefab
   m_TagString: isActBottle
@@ -229,7 +230,7 @@ RectTransform:
   m_GameObject: {fileID: 8661927605914885476}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.8000001, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.8, z: 1}
   m_Children:
   - {fileID: 4040216982615736237}
   - {fileID: 7423313828000337729}
@@ -330,8 +331,9 @@ MonoBehaviour:
   isSuperPowerAvailabe: 0
   isAct: 0
   isStanding: 0
-  isStandingAtFirstTry: 0
+  tensionGaugeUp: 0
   onFloor: 0
+  Timeout: 0
 --- !u!222 &8661927605914885496
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -393,3 +395,15 @@ PolygonCollider2D:
       - {x: 0.34233123, y: -0.63593084}
       - {x: 0.3257774, y: -0.49224648}
       - {x: 0.29750437, y: -0.29601303}
+--- !u!114 &4076966395987585346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8661927605914885476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2005229b9a5e0ba41a89b18d47f7ebee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

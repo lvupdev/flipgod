@@ -9,6 +9,8 @@ public class Psychokinesis : MonoBehaviour
     private PlayerImageController playerImageController;
     private SuperPowerPanelController panel_SuperPower;
     private ScreenEffectController screenEffectController;
+    private GameResourceValue gameResourceValue;
+    private GameObject bottles;
 
     private int superPowerLV; //초능력 강화 레벨
     private int skillLV; //필살기 강화 레벨
@@ -23,8 +25,10 @@ public class Psychokinesis : MonoBehaviour
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
         panel_SuperPower = GameObject.Find("Panel_SuperPower").GetComponent<SuperPowerPanelController>();
         screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
+        gameResourceValue = GameObject.Find("GameResourceValue").GetComponent<GameResourceValue>();
+        bottles = GameObject.Find("Bottles");
 
-        superPowerLV = 1;
+        superPowerLV = gameResourceValue.GetSuperPowerLV(0);
         skillLV = 1;
     }
 
@@ -44,6 +48,18 @@ public class Psychokinesis : MonoBehaviour
         if (initPos.x <= Screen.width / 2.0f)//화면 터치 위치가 스크린 왼편이면 시계반대방향으로 회전 힘을 가한다.
         {
             bottleSelectController.bottleController.rb.AddTorque(superPowerLV / 60.0f, ForceMode2D.Impulse);
+        }
+    }
+
+    public void SkillActivate()
+    {
+        for(int i = 0; i < bottles.transform.childCount; i++)
+        {
+            if (bottles.transform.GetChild(i).transform.GetChild(0).gameObject.activeSelf)
+            {
+                bottles.transform.GetChild(i).gameObject.GetComponent<BottleController>().standingBySkill = true;
+                bottles.transform.GetChild(i).transform.GetChild(0).gameObject.SetActive(false);
+            }
         }
     }
 }

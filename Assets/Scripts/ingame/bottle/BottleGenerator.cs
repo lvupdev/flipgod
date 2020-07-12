@@ -8,14 +8,18 @@ public class BottleGenerator : MonoBehaviour
 {
     public GameObject bottles;
     public GameObject bottlePrefab;
+    private GameObject controllButtons;
 
     public void Start()
     {
         bottles = GameObject.Find("Bottles");
+        controllButtons = GameObject.Find("ControllButtons");
     }
 
     public void GenerateBottle()
     {
+        controllButtons.SetActive(true); //숨겼던 컨트롤 UI 버튼 표시
+        
         GameObject Bottle = Instantiate(bottlePrefab) as GameObject;
         Bottle.transform.SetParent(bottles.transform);
 
