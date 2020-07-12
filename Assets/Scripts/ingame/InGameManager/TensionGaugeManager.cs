@@ -27,7 +27,7 @@ public class TensionGaugeManager : MonoBehaviour
     private int whichCase; // 4가지 경우 중 어떤 경우인지
     private int increaseValue; // 텐션게이지 증가 계수
     private int tensionGauge; //텐션게이지 퍼센트 수치
-    private float time; //텐션게이지가 차오르는 시간
+    private float gaugeTime; //텐션게이지가 차오르는 시간
     private Text percentText; //텐션게이지 퍼센트 텍스트
     private Text comboText; //콤보 텍스트
     private Text noticeText; //트리거 발동/ 빙결 등을 알리는 텍스트
@@ -48,7 +48,7 @@ public class TensionGaugeManager : MonoBehaviour
         noticeText = GameObject.Find("Text_NoticeBoard").GetComponent<Text>();
         tensionGaugeBar.GetComponent<Image>().fillAmount = 0;
         tensionGauge = 0;
-        time = 0;
+        gaugeTime = 0;
         increaseConditionFullfilled = false;
     }
 
@@ -56,14 +56,14 @@ public class TensionGaugeManager : MonoBehaviour
     {
         if (increaseConditionFullfilled)
         {
-            time += Time.fixedDeltaTime;
+            gaugeTime += Time.fixedDeltaTime;
             tensionGaugeBar.GetComponent<Image>().fillAmount += (0.1f * increaseValue) * Time.fixedDeltaTime;
             percentText.text = (int)(100 * tensionGaugeBar.GetComponent<Image>().fillAmount) + "%";
             if (tensionGaugeBar.GetComponent<Image>().fillAmount*100 > tensionGauge || tensionGaugeBar.GetComponent<Image>().fillAmount == 1)
             {
                 if (tensionGauge > 100) tensionGauge = 100;
                 percentText.text = tensionGauge + "%";
-                time = 0;
+                gaugeTime = 0;
                 increaseConditionFullfilled = false;
             }
 
@@ -71,11 +71,11 @@ public class TensionGaugeManager : MonoBehaviour
             {
                 case 1: //(1)의 경우
                     break;
-                case 2: //(2)의 경우
+                case 2: //(2)의 경우 현재 콤보 수를 표시한다.
                     comboText.text = increaseValue + "COMBO!!";
                     break;
-                case 3: //(3)의 경우
-                    if(tensionGaugeBar.GetComponent<Image>().fillAmount != 1) noticeText.text = "FREEZE BONUS!!";
+                case 3: //(3)의 경우 텐션게이지가 꽉차있거나 아무것도 얼리지 않은 경우를 제외하면 FREEZE BONUS!! 문구가 표시된다.
+                    if ((tensionGaugeBar.GetComponent<Image>().fillAmount != 1)&&increaseValue!=0) noticeText.text = "FREEZE BONUS!!";
                     break;
                 case 4: //(4)의 경우
                     if (tensionGaugeBar.GetComponent<Image>().fillAmount != 1) noticeText.text = "TRIGGER BONUS!!";
