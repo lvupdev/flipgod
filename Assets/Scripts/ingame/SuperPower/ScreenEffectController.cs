@@ -38,7 +38,7 @@ public class ScreenEffectController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        switch (playerImageController.playingChr)
+        switch (playerImageController.GetPlayingChr())
         {
             case 0:
                 if (shadowEffect.enabled)

@@ -26,7 +26,7 @@ public class SuperPowerController : MonoBehaviour
     {
         if (bottleSelectController.bottleController.isSuperPowerAvailabe) //초능력 실행
         {
-            switch (playerImageController.playingChr)
+            switch (playerImageController.GetPlayingChr())
             {
                 case 0:
                     if(panel_SuperPower.GetIsTouch()) psychokinesis.Activate();

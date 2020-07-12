@@ -10,6 +10,7 @@ public class Freezer : MonoBehaviour
     private BottleSelectController bottleSelectController;
     private PlayerImageController playerImageController;
     private ScreenEffectController screenEffectController;
+    private GameResourceValue gameResourceValue;
 
     private Vector2 initPos;//화면을 눌렀을 때의 위치
     private Vector2 endPos;//화면에서 손을 땠을 떄의 위치
@@ -23,8 +24,9 @@ public class Freezer : MonoBehaviour
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
         screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
+        gameResourceValue = GameObject.Find("GameResourceValue").GetComponent<GameResourceValue>();
 
-        superPowerLV = 1;
+        superPowerLV = gameResourceValue.GetSuperPowerLV(2);
         freezeAvailable = true;
         freezeRad = superPowerLV * 3; //빙결자의 초능력 강화 레벨 수치의 세 배 만큼이 빙결 가능 범위의 반지름이 된다.
     }

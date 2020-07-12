@@ -10,6 +10,7 @@ public class BottleSelectController : MonoBehaviour
     private ScreenEffectController screenEffectController;
     public GameObject bottle;
     public BottleController bottleController;
+    public BottleSkillOperation bottleSkillOperation;
     private GameObject redAura;
 
 
@@ -22,6 +23,7 @@ public class BottleSelectController : MonoBehaviour
         screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
         bottle = GameObject.FindWithTag("isActBottle");
         bottleController = bottle.GetComponent<BottleController>();
+        bottleSkillOperation = bottle.GetComponent<BottleSkillOperation>();
         redAura = bottle.transform.Find("RedAura").gameObject;
     }
 

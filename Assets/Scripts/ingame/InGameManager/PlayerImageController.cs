@@ -5,16 +5,18 @@ using UnityEngine.UI;
 /*
  * 플레이어 관리 스크립트입니다.
  * 염동력자, 탄성막 생성자, 빙결자에게 배정한 숫자는 순서대로 0, 1, 2 입니다.
+ * 플레이어 이미지 관리는 물론 각 물병 스프라이트의 위치도 관리합니다.
 */
 public class PlayerImageController : MonoBehaviour
 {
-    public int playingChr; //조작할 수 있는 캐릭터
-    public int firstSlotChr; //교체 슬롯 1번에 있는 캐릭터
-    public int secondSlotChr; //교체 슬롯 2번에 있는 캐릭터
+    private int playingChr; //조작할 수 있는 캐릭터
+    private int firstSlotChr; //교체 슬롯 1번에 있는 캐릭터
+    private int secondSlotChr; //교체 슬롯 2번에 있는 캐릭터
     private SpriteRenderer spriteRenderer;
     private PadStrength padStrength;
     public PadDirection padDirection;
     private BottleSelectController bottleSelectController;
+    private SkillButton skillButton;
     public Sprite[] standingSprites; // 스탠딩 이미지를 담아놓는 배열
     public Sprite[] iconSprites; //아이콘 이미지를 담아놓는 배열
 
@@ -23,7 +25,8 @@ public class PlayerImageController : MonoBehaviour
 
     //값 반환 함수
     public Vector3 GetBottlePosition() { return bottlePosition; }
-
+    public int GetPlayingChr() { return playingChr; }
+  
     private void Awake()
     {
         bottlePosition = transform.GetChild(0).transform.position;
@@ -36,6 +39,7 @@ public class PlayerImageController : MonoBehaviour
         secondSlotChr = 2; //빙결자
         spriteRenderer = GetComponent<SpriteRenderer>();
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
+        skillButton = GameObject.Find("Button_Skill").GetComponent<SkillButton>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         padDirection = GameObject.Find("Joystick").GetComponent<PadDirection>();
         spriteRenderer.sprite = standingSprites[0];
@@ -45,7 +49,8 @@ public class PlayerImageController : MonoBehaviour
     {
         if (padDirection.direction.x <= 0) key = 1;
         if (padDirection.direction.x > 0) key = -1;
-        transform.localScale = new Vector3(key * 0.4f, 0.4f, 1); //패드 위치에 따라 캐릭터가 향하는 방향이 바뀜
+
+        if(!skillButton.getUsingSkill()) transform.localScale = new Vector3(key * 0.4f, 0.4f, 1); //필살기 사용중이 아니면 패드 위치에 따라 캐릭터가 향하는 방향이 바뀜
 
         bottlePosition = transform.GetChild(playingChr).transform.position;
     }
