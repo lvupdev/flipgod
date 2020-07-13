@@ -114,8 +114,6 @@ public class BottleController : MonoBehaviour
                     standingBySkill = false;
                     this.transform.GetChild(0).gameObject.SetActive(false);
                 }
-                
-                Debug.Log(rb.centerOfMass);
             }
             else
             {

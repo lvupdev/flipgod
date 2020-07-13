@@ -36,7 +36,7 @@ public class BottleSkillOperation : MonoBehaviour
     {
         if(playerImageController.GetPlayingChr() == 0 && skillButton.getUsingSkill())
         {
-            if (!redAura.activeSelf && usingSkillNum < 3)//gameResourceValue.GetSkillLV(0)) //오러가 꺼져 있고 오러가 켜져있는 물병의 개수가 업그레이드 수 미만일 때
+            if (!redAura.activeSelf && usingSkillNum < gameResourceValue.GetSkillLV(0)) //오러가 꺼져 있고 오러가 켜져있는 물병의 개수가 업그레이드 수 미만일 때
             {
                 redAura.SetActive(true);
                 usingSkillNum++;

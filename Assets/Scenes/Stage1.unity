@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -853,7 +853,6 @@ GameObject:
   - component: {fileID: 304683304}
   - component: {fileID: 304683303}
   - component: {fileID: 304683306}
-  - component: {fileID: 304683307}
   m_Layer: 0
   m_Name: Color Camera
   m_TagString: Untagged
@@ -939,18 +938,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shakeAmount: 0.25
---- !u!114 &304683307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 304683302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5751675781a32e47b6b3e05c494ad1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &305889958
 GameObject:
   m_ObjectHideFlags: 0
@@ -1359,7 +1346,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!60 &498954462
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -3840,6 +3827,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottle: {fileID: 0}
   bottleController: {fileID: 0}
+  bottleSkillOperation: {fileID: 0}
 --- !u!1 &1363039740
 GameObject:
   m_ObjectHideFlags: 0
@@ -4207,7 +4195,7 @@ PrefabInstance:
     - target: {fileID: 2602772258705160499, guid: 702481a219b36314e9a5d2bafeac3dcb,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 702481a219b36314e9a5d2bafeac3dcb, type: 3}
