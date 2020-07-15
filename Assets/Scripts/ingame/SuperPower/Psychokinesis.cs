@@ -13,9 +13,7 @@ public class Psychokinesis : MonoBehaviour
     private GameObject bottles;
 
     private int superPowerLV; //초능력 강화 레벨
-    private int skillLV; //필살기 강화 레벨
     private Vector2 initPos;//화면을 눌렀을 때의 위치
-    private Vector2 endPos;//화면에서 손을 땠을 떄의 위치
    
 
 
@@ -29,7 +27,6 @@ public class Psychokinesis : MonoBehaviour
         bottles = GameObject.Find("Bottles");
 
         superPowerLV = gameResourceValue.GetSuperPowerLV(0);
-        skillLV = 1;
     }
 
 
@@ -37,7 +34,6 @@ public class Psychokinesis : MonoBehaviour
     {
         //SuperPowePanelController 값 가져오기
         initPos = panel_SuperPower.GetInitPos();
-        endPos = panel_SuperPower.GetEndPos();
 
         screenEffectController.KinesisEffect();
 

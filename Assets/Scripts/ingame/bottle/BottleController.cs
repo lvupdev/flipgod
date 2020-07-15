@@ -124,7 +124,7 @@ public class BottleController : MonoBehaviour
 
 
             // 세워져 있는지의 여부 수정 및 텐션게이지 상승
-            if (((delta > 1f) && !((zRotation > 340) || (zRotation < 20))) || onFloor)
+            if (((delta > 1.49f) && !((zRotation > 340) || (zRotation < 20))) || onFloor)
             {
                 isStanding = false;
                 tensionGaugeUp = false;
