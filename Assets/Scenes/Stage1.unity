@@ -1149,7 +1149,6 @@ GameObject:
   m_Component:
   - component: {fileID: 381935974}
   - component: {fileID: 381935973}
-  - component: {fileID: 381935975}
   - component: {fileID: 381935972}
   m_Layer: 0
   m_Name: coin
@@ -1238,18 +1237,6 @@ Transform:
   m_Father: {fileID: 783865439}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &381935975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 381935971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bee770245bc0a748a4e1397494e8fdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &409828136
 GameObject:
   m_ObjectHideFlags: 0
@@ -4622,7 +4609,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1667477504}
   - component: {fileID: 1667477503}
-  - component: {fileID: 1667477502}
   - component: {fileID: 1667477501}
   m_Layer: 0
   m_Name: coin (1)
@@ -4647,18 +4633,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
---- !u!114 &1667477502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1667477500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bee770245bc0a748a4e1397494e8fdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &1667477503
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4798,7 +4772,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1777580577}
   - component: {fileID: 1777580576}
-  - component: {fileID: 1777580575}
   - component: {fileID: 1777580574}
   m_Layer: 0
   m_Name: coin (2)
@@ -4823,18 +4796,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
---- !u!114 &1777580575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1777580573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bee770245bc0a748a4e1397494e8fdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &1777580576
 SpriteRenderer:
   m_ObjectHideFlags: 0
