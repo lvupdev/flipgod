@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 /*
 게임 UI 관리 스크립트
+StageUIManager로 통합
 */
 public class GameDirector : MonoBehaviour
 {

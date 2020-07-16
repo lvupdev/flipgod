@@ -7,7 +7,7 @@ using UnityEngine;
 public class BottleSkillOperation : MonoBehaviour
 {
     private PlayerImageController playerImageController;
-    private GameResourceValue gameResourceValue;
+    private ResourceManager gameResourceValue;
     private SkillButton skillButton;
     private GameObject redAura;
     private GameObject freezeRange;
@@ -21,7 +21,7 @@ public class BottleSkillOperation : MonoBehaviour
     void Start()
     {
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
-        gameResourceValue = GameObject.Find("GameResourceValue").GetComponent<GameResourceValue>();
+        gameResourceValue = GameObject.Find("GameResourceValue").GetComponent<ResourceManager>();
         skillButton = GameObject.Find("Button_Skill").GetComponent<SkillButton>();
         rb = this.GetComponent<Rigidbody2D>();
         redAura = this.transform.GetChild(0).gameObject;

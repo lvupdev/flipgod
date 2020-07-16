@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LobbyUIMgr : MonoBehaviour
+public class LobbyUIManager : MonoBehaviour
 {
     public GameObject titlePanel;
     public GameObject btnPanel;

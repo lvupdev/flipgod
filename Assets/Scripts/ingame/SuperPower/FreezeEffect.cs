@@ -7,7 +7,7 @@ public class FreezeEffect : MonoBehaviour
     public List<GameObject> TargetObject = new List<GameObject>(); //범위 내에 있는 구조물들의 배열
     private GameObject structures;
     private TensionGaugeManager tensionGaugeManager;
-    private GameResourceValue gameResourceValue;
+    private ResourceManager gameResourceValue;
     private CircleCollider2D circleCollider;
     private int superPowerLV; //초능력 강화 레벨
     private float freezeRad; //빙결 가능 범위 반지름
@@ -16,7 +16,7 @@ public class FreezeEffect : MonoBehaviour
     {
         structures = GameObject.Find("Structures");
         tensionGaugeManager = GameObject.Find("Image_TensionGaugeBar").GetComponent<TensionGaugeManager>();
-        gameResourceValue = GameObject.Find("GameResourceValue").GetComponent<GameResourceValue>();
+        gameResourceValue = GameObject.Find("GameResourceValue").GetComponent<ResourceManager>();
         circleCollider = GetComponent<CircleCollider2D>();
         superPowerLV = gameResourceValue.GetSuperPowerLV(2);
 

@@ -8,7 +8,7 @@ public class Freezer : MonoBehaviour
     private int superPowerLV; //초능력 강화 레벨
     private BottleSelectController bottleSelectController;
     private ScreenEffectController screenEffectController;
-    private GameResourceValue gameResourceValue;
+    private ResourceManager gameResourceValue;
     private GameObject bottles;
 
     public bool freezeAvailable; // 2번 발동 방지 변수
@@ -18,7 +18,7 @@ public class Freezer : MonoBehaviour
     {
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
-        gameResourceValue = GameObject.Find("GameResourceValue").GetComponent<GameResourceValue>();
+        gameResourceValue = GameObject.Find("GameResourceValue").GetComponent<ResourceManager>();
         bottles = GameObject.Find("Bottles");
 
         superPowerLV = gameResourceValue.GetSuperPowerLV(2);

@@ -9,7 +9,7 @@ public class MembraneCreator : MonoBehaviour
     private PlayerImageController playerImageController;
     private SuperPowerPanelController panel_SuperPower;
     private ScreenEffectController screenEffectController;
-    private GameResourceValue gameResourceValue;
+    private ResourceManager gameResourceValue;
 
     private Vector2 initPos;//화면을 눌렀을 때의 위치
     private Vector2 endPos;//화면에서 손을 땠을 떄의 위치
@@ -34,7 +34,7 @@ public class MembraneCreator : MonoBehaviour
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
         panel_SuperPower = GameObject.Find("Panel_SuperPower").GetComponent<SuperPowerPanelController>();
         screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
-        gameResourceValue = GameObject.Find("GameResourceValue").GetComponent<GameResourceValue>();
+        gameResourceValue = GameObject.Find("GameResourceValue").GetComponent<ResourceManager>();
 
         superPowerLV = gameResourceValue.GetSuperPowerLV(1);
         membraneAvailable = false;
