@@ -85,6 +85,7 @@ public class SkillButton : MonoBehaviour
                 {
                     controllButtons.transform.GetChild(i).gameObject.SetActive(true);
                 }
+                freezer.SkillActivate();
             }
 
             tensionGaugeManager.DecreaseTensionGauge(bottleSelectController.bottleSkillOperation.getUsingSkillNum()); //텐션게이지 감소

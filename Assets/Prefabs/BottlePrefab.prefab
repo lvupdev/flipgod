@@ -333,6 +333,7 @@ MonoBehaviour:
   isStanding: 0
   tensionGaugeUp: 0
   onFloor: 0
+  standingBySkill: 0
   Timeout: 0
 --- !u!222 &8661927605914885496
 CanvasRenderer:
