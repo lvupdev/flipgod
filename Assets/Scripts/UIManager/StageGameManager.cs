@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageGameMgr : MonoBehaviour
+public class StageGameManager : MonoBehaviour
 {
-    public static StageGameMgr instance
+    public static StageGameManager instance
     {
         get
         {
             if (m_instance == null)
-                m_instance = FindObjectOfType<StageGameMgr>();
+                m_instance = FindObjectOfType<StageGameManager>();
             return m_instance;
         }
     }
 
-    private static StageGameMgr m_instance;
+    private static StageGameManager m_instance;
 
     private void Awake()
     {

@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SetMapUIMgr : MonoBehaviour
+public class SelectStageUIManager : MonoBehaviour
 {
     public void ReturnToLobby()
     {
         SceneManager.LoadScene("Start");
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Stage");
     }
 }

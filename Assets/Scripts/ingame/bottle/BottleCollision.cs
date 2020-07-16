@@ -37,10 +37,10 @@ public class BottleCollision : MonoBehaviour
     {
         if (col.gameObject.tag == "coin")
         {
-            CoinStatus coin = col.gameObject.GetComponent<CoinStatus>();
-            ScoreManager.setScore(coin.value);
+            // CoinStatus coin = col.gameObject.GetComponent<CoinStatus>();
+            // ScoreManager.setScore(coin.value);
             Destroy(col.gameObject, 0f);
-            StageGameMgr.instance.AddCoin();    // (0229 수정) 코인 텍스트 업데이트
+            StageGameManager.instance.AddCoin();    // (0229 수정) 코인 텍스트 업데이트
         }
     }
 

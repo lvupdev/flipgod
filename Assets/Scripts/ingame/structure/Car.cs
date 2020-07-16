@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ingame;
 
 /*
  * 자동차 컨트롤 스크립트
@@ -23,6 +22,11 @@ public class Car : Structure
         ThawDynamicStructure(isFreezed);
         if(!isFreezed) MoveDynamicStructure();
     }
+
+    /*
+     * 수정해야 함
+     * 좌표값이 아니라 거리값을 인자로 전달하도록
+     */
 
     public void setValue(Vector2 minVec2, Vector2 maxVec2, float moveSpeed){
         this.minVec2 = minVec2;

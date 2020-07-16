@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Zoom_in_out_and_swipe : MonoBehaviour
+public class ZoomInOutAndSwipe : MonoBehaviour
 {
 
     //swipe
