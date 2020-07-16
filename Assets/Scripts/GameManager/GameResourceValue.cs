@@ -12,6 +12,12 @@ public class GameResourceValue : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    // bool clear
+    // int acheivement
+
+    class StageSucessInformation
+    { }
+
     public int GetSuperPowerLV(int index) { return superPowerLV[index]; }
     public int GetSkillLV(int index) { return skillLV[index]; }
 
