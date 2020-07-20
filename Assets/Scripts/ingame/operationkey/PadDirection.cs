@@ -16,10 +16,16 @@ public class PadDirection : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     private Vector2 position; //joystick 패드의 위치
 
-    public Vector2 direction; //Bottle 클래스로 넘겨지는 방향 벡터
+    private Vector2 direction; //Bottle 클래스로 넘겨지는 방향 벡터
 
-    public bool isTouch = false;
+    private bool isTouch = false;
 
+    public Vector2 getDirection() { return direction; }
+    public void setDirection(Vector2 direction) { this.direction = direction; }
+
+    public bool getIsTouch() { return isTouch; }
+
+    public void ResetPosition() { rect_Joystick.localPosition = Vector3.zero; }
 
 
     void Start()

@@ -65,7 +65,7 @@ public class SkillButton : MonoBehaviour
 
             if(playerImageController.GetPlayingChr() == 0) //염동력자가 필살기를 사용 완료했을 때
             {
-                for (int i = 1; i < controllButtons.transform.childCount; i++) //스킬 버튼을 제외하고 모든 컨트롤 버튼 활성화
+                for (int i = 1; i < controllButtons.transform.childCount-2; i++) //스킬 버튼과 membrame 추가/제거 버튼을 제외하고 모든 컨트롤 버튼 활성화
                 {
                     controllButtons.transform.GetChild(i).gameObject.SetActive(true);
                 }
@@ -76,12 +76,17 @@ public class SkillButton : MonoBehaviour
                 for (int i = 1; i < controllButtons.transform.childCount-1; i++) //스킬 버튼을 제외하고 모든 컨트롤 버튼 활성화
                 {
                     controllButtons.transform.GetChild(i).gameObject.SetActive(true);
-                    trajectory.SetActive(true); //포물선 활성화
                 }
+                for (int i = 5; i < controllButtons.transform.childCount; i++) //membrane 추가/제거 버튼 비활성화
+                {
+                    controllButtons.transform.GetChild(i).gameObject.SetActive(false);
+                }
+                trajectory.SetActive(true); //포물선 활성화
+                MembraneUsingSkillEffect.selectedMembrane = null; //탄성막 선택 초기화
             }
             else //빙결자가 필살기를 사용 완료했을 때
             {
-                for (int i = 1; i < controllButtons.transform.childCount; i++) //스킬 버튼을 제외하고 모든 컨트롤 버튼 활성화
+                for (int i = 1; i < controllButtons.transform.childCount-2; i++) //스킬 버튼과 membrame 추가/제거 버튼을 제외하고 모든 컨트롤 버튼 활성화
                 {
                     controllButtons.transform.GetChild(i).gameObject.SetActive(true);
                 }
@@ -102,9 +107,13 @@ public class SkillButton : MonoBehaviour
 
             if (playerImageController.GetPlayingChr() == 1) //탄성막 생성자가 필살기를 사용했을 때
             {
-                for (int i = 1; i < controllButtons.transform.childCount-1; i++) //스킬 버튼과 방향키를 제외하고 모든 컨트롤 버튼 제거
+                for (int i = 1; i < controllButtons.transform.childCount-3; i++) //스킬 버튼과 방향키를 제외하고 모든 컨트롤 버튼 제거
                 {
                     controllButtons.transform.GetChild(i).gameObject.SetActive(false);
+                }
+                for(int i = 5; i< controllButtons.transform.childCount; i++) //membrane 추가/제거 버튼 활성화
+                {
+                    controllButtons.transform.GetChild(i).gameObject.SetActive(true);
                 }
                 trajectory.SetActive(false); //포물선 비활성화
             }

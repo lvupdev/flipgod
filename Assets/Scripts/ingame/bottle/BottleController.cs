@@ -29,7 +29,6 @@ public class BottleController : MonoBehaviour
     private float destroyDelay; //NEW: 물병이 땅에 닿고 파괴되기까지의 딜레이 시간
     private float standingDelay; // 물병이 필살기에 의해 세워지기까지의 시간
     private BottleGenerator bottleGenerator;
-    private SuperPowerController superPowerController;
     private PlayerImageController playerImageController;
     private GameObject player;
     private GameObject controllButtons;
@@ -49,7 +48,6 @@ public class BottleController : MonoBehaviour
         //오브젝트 받아오기
         rb = GetComponent<Rigidbody2D>();
         bottleGenerator = GameObject.Find("BottleManager").GetComponent<BottleGenerator>();
-        superPowerController = GameObject.Find("Player").GetComponent<SuperPowerController>();
         player = GameObject.Find("Player");
         controllButtons = GameObject.Find("ControllButtons");
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
@@ -81,11 +79,11 @@ public class BottleController : MonoBehaviour
     void FixedUpdate()
     {
         if (padStrength.isTouch) padStrengthTouched = true;
-        if (padDirection.isTouch) padDirectionTouched = true; //오타 수정
+        if (padDirection.getIsTouch()) padDirectionTouched = true; //오타 수정
         if ((padStrength.isTouch || padDirectionTouched) && (!isSuperPowerAvailabe) && gameObject.CompareTag("isActBottle"))
         // 방향 패드만 눌렸을 때 기본 힘으로 포물선 그리기, 후에 힘버튼으로 포물선 조정
         {
-            trajectoryLine.Draw(padStrengthTouched, padDirection.direction, padStrength.totalStrength);
+            trajectoryLine.Draw(padStrengthTouched, padDirection.getDirection(), padStrength.totalStrength);
             transform.position = playerImageController.GetBottlePosition(); // 물병 위치 갱신
         }
 
@@ -176,17 +174,18 @@ public class BottleController : MonoBehaviour
 
     public void Jump()
     {
-        if (padDirection.direction.x >= 0) key = 1;
-        if (padDirection.direction.x < 0) key = -1;
+        if (padDirection.getDirection().x >= 0) key = 1;
+        if (padDirection.getDirection().x < 0) key = -1;
 
         isSuperPowerAvailabe = true;
 
         rb.gravityScale = 1;
 
         player.GetComponent<MembraneCreator>().presentStrength = padStrength.totalStrength; //물병에 현재 가해진 힘 전달
+        MembraneUsingSkillEffect.presentStrength = padStrength.totalStrength; //물병에 현재 가해진 힘 전달
 
         //뛰면서 회전
-        rb.velocity = padDirection.direction * padStrength.totalStrength;
+        rb.velocity = padDirection.getDirection() * padStrength.totalStrength;
         rb.AddTorque(key * rotateSpeed, ForceMode2D.Impulse);
 
         controllButtons.SetActive(false); // 화면을 깔끔하게 하기 위해 컨트롤 UI 버튼들을 일시적으로 전부 제거
@@ -197,5 +196,6 @@ public class BottleController : MonoBehaviour
             transform.Find("FreezeRange").gameObject.SetActive(true);
         }
         tensionGaugeManager.IncreaseTensionGauge(1, 1); //텐션 게이지 10% 상승
+        padDirection.setDirection(Vector2.zero); //방향 0으로 초기화
     }
 }

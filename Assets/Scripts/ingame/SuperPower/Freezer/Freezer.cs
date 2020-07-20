@@ -37,6 +37,7 @@ public class Freezer : MonoBehaviour
 
     public void SkillActivate()
     {
+        bool isBottleSelected = false; // 물병이 선택되었는지의 여부
         for (int i = 0; i < bottles.transform.childCount; i++) // 필살기 발동 매개가 되는 물병 찾기
         {
             GameObject bottle = bottles.transform.GetChild(i).gameObject;
@@ -45,8 +46,9 @@ public class Freezer : MonoBehaviour
             {
                 freezeRange.GetComponent<FreezeEffect>().Freeze();
                 freezeRange.SetActive(false);
+                isBottleSelected = true;
             }
         }
-        screenEffectController.FreezeEffect();
+        if(isBottleSelected) screenEffectController.FreezeEffect(); //물병이 하나 이상 선택되었을 때에만 화면진동 효과 줌
     }
 }
