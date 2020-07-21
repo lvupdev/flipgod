@@ -34,6 +34,7 @@ public class BottleController : MonoBehaviour
     private GameObject controllButtons;
     private BottleSelectController bottleSelectController;
     private TensionGaugeManager tensionGaugeManager;
+    private ControllButtonsUIManager controllButtonsUIManager;
     private bool padStrengthTouched; //힘 버튼이 한 번이라도 눌렸는가
     private bool padDirectionTouched; //힘 버튼이 한 번이라도 눌렸는가
     private Text comboText; //콤보 텍스트
@@ -57,6 +58,7 @@ public class BottleController : MonoBehaviour
         trajectoryLine = GameObject.Find("Trajectory").GetComponent<TrajectoryLine>();
         transparent = GetComponent<SpriteRenderer>(); // 물병의 스프라이트 렌더러(투명도)
         tensionGaugeManager = GameObject.Find("Image_TensionGaugeBar").GetComponent<TensionGaugeManager>();
+        controllButtonsUIManager = GameObject.Find("UIManager").GetComponent<ControllButtonsUIManager>();
         comboText = GameObject.Find("Text_Combo").GetComponent<Text>();
 
         //값 초기화
@@ -188,7 +190,7 @@ public class BottleController : MonoBehaviour
         rb.velocity = padDirection.getDirection() * padStrength.totalStrength;
         rb.AddTorque(key * rotateSpeed, ForceMode2D.Impulse);
 
-        controllButtons.SetActive(false); // 화면을 깔끔하게 하기 위해 컨트롤 UI 버튼들을 일시적으로 전부 제거
+        controllButtonsUIManager.setHideButtons(true, 0); // 화면을 깔끔하게 하기 위해 컨트롤 UI 버튼들을 일시적으로 전부 숨김
 
         trajectoryLine.Delete();
         if (playerImageController.GetPlayingChr() == 2)

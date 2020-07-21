@@ -14,8 +14,8 @@ public class SkillButton : MonoBehaviour
     private BottleSelectController bottleSelectController;
     private PadStrength padStrength;
     private TensionGaugeManager tensionGaugeManager;
+    private ControllButtonsUIManager controllButtonsUIManager;
     private Psychokinesis psychokinesis;
-    private MembraneCreator membraneCreator;
     private Freezer freezer;
     private bool usingSkill; //Skill 버튼을 사용 중인지의 여부
 
@@ -33,8 +33,8 @@ public class SkillButton : MonoBehaviour
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         tensionGaugeManager = GameObject.Find("Image_TensionGaugeBar").GetComponent<TensionGaugeManager>();
+        controllButtonsUIManager = GameObject.Find("UIManager").GetComponent<ControllButtonsUIManager>();
         psychokinesis = GameObject.Find("Player").GetComponent<Psychokinesis>();
-        membraneCreator = GameObject.Find("Player").GetComponent<MembraneCreator>();
         freezer = GameObject.Find("Player").GetComponent<Freezer>();
         usingSkill = false;
     }
@@ -65,31 +65,18 @@ public class SkillButton : MonoBehaviour
 
             if(playerImageController.GetPlayingChr() == 0) //염동력자가 필살기를 사용 완료했을 때
             {
-                for (int i = 1; i < controllButtons.transform.childCount-2; i++) //스킬 버튼과 membrame 추가/제거 버튼을 제외하고 모든 컨트롤 버튼 활성화
-                {
-                    controllButtons.transform.GetChild(i).gameObject.SetActive(true);
-                }
+                controllButtonsUIManager.setShowButtons(true, 1); //스킬 버튼과 membrame 추가/제거 버튼을 제외하고 모든 컨트롤 버튼 활성화
                 psychokinesis.SkillActivate();
             }
             else if (playerImageController.GetPlayingChr() == 1) //탄성막 생성자가 필살기를 사용 완료했을 때
             {
-                for (int i = 1; i < controllButtons.transform.childCount-1; i++) //스킬 버튼을 제외하고 모든 컨트롤 버튼 활성화
-                {
-                    controllButtons.transform.GetChild(i).gameObject.SetActive(true);
-                }
-                for (int i = 5; i < controllButtons.transform.childCount; i++) //membrane 추가/제거 버튼 비활성화
-                {
-                    controllButtons.transform.GetChild(i).gameObject.SetActive(false);
-                }
+                controllButtonsUIManager.setShowButtons(true, 2); // 탄성막 추가 버튼을 숨기고 모든 컨트롤 버튼을 보여줌
                 trajectory.SetActive(true); //포물선 활성화
                 MembraneUsingSkillEffect.selectedMembrane = null; //탄성막 선택 초기화
             }
             else //빙결자가 필살기를 사용 완료했을 때
             {
-                for (int i = 1; i < controllButtons.transform.childCount-2; i++) //스킬 버튼과 membrame 추가/제거 버튼을 제외하고 모든 컨트롤 버튼 활성화
-                {
-                    controllButtons.transform.GetChild(i).gameObject.SetActive(true);
-                }
+                controllButtonsUIManager.setShowButtons(true, 1); //스킬 버튼과 membrame 추가/제거 버튼을 제외하고 모든 컨트롤 버튼 활성화
                 freezer.SkillActivate();
             }
 
@@ -107,22 +94,12 @@ public class SkillButton : MonoBehaviour
 
             if (playerImageController.GetPlayingChr() == 1) //탄성막 생성자가 필살기를 사용했을 때
             {
-                for (int i = 1; i < controllButtons.transform.childCount-3; i++) //스킬 버튼과 방향키를 제외하고 모든 컨트롤 버튼 제거
-                {
-                    controllButtons.transform.GetChild(i).gameObject.SetActive(false);
-                }
-                for(int i = 5; i< controllButtons.transform.childCount; i++) //membrane 추가/제거 버튼 활성화
-                {
-                    controllButtons.transform.GetChild(i).gameObject.SetActive(true);
-                }
+                controllButtonsUIManager.setHideButtons(true, 2); //탄성막 추가 버튼 보이고 조이스틱을 제외한 컨트롤 버튼 숨김
                 trajectory.SetActive(false); //포물선 비활성화
             }
             else //염동력자, 빙결자가 필살기를 사용했을 때
             {
-                for(int i = 1; i < controllButtons.transform.childCount; i++) //스킬 버튼을 제외하고 모든 컨트롤 버튼 제거
-                {
-                    controllButtons.transform.GetChild(i).gameObject.SetActive(false);
-                }
+                controllButtonsUIManager.setHideButtons(true, 1); //스킬 버튼을 제외하고 모든 컨트롤 버튼 숨김
             }
 
             usingSkill = true;
