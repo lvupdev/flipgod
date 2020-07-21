@@ -22,7 +22,7 @@ public class MembraneManager : MonoBehaviour
     public void AddMembrane()
     {
         int usingSkillNum = bottleSelectController.bottleSkillOperation.getUsingSkillNum();
-        if (usingSkillNum < 3)//skillLV)
+        if ((usingSkillNum < skillLV) && (membranes.transform.childCount < skillLV)) //스테이지에 생성할 수 있는 탄성막의 총 개수는 skillLV 개이다.
         {
             bottleSelectController.bottleSkillOperation.setUsingSkillNum(++usingSkillNum); //usingSkillNum을 1 증가시킨다
             GameObject membrane = Instantiate(membranePrefab) as GameObject;

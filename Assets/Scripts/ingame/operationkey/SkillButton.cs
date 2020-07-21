@@ -7,17 +7,19 @@ public class SkillButton : MonoBehaviour
 {
     private GameObject tensionGaugeBar; //텐션게이지 이미지
     private GameObject panel_SuperPower; //초능력 입력 패널
-    private GameObject controllButtons; // 컨트롤 UI 버튼 부모 오브젝트
+    private GameObject membranes;
     private GameObject trajectory;
     private Button button; //Button_Skill
     private PlayerImageController playerImageController;
     private BottleSelectController bottleSelectController;
     private PadStrength padStrength;
+    private PadDirection padDirection;
     private TensionGaugeManager tensionGaugeManager;
     private ControllButtonsUIManager controllButtonsUIManager;
     private Psychokinesis psychokinesis;
     private Freezer freezer;
     private bool usingSkill; //Skill 버튼을 사용 중인지의 여부
+    private Vector2 previousDirection; //스킬 버튼을 누르기 전 방향키의 벡터
 
     public Sprite[] skillButtonSprite; // skill버튼 스프라이트 배열
 
@@ -26,12 +28,13 @@ public class SkillButton : MonoBehaviour
     {
         tensionGaugeBar = GameObject.Find("Image_TensionGaugeBar");
         panel_SuperPower = GameObject.Find("Panel_SuperPower");
-        controllButtons = GameObject.Find("ControllButtons");
+        membranes = GameObject.Find("Membranes");
         trajectory = GameObject.Find("Trajectory");
         button = GetComponent<Button>();
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
+        padDirection = GameObject.Find("Joystick").GetComponent<PadDirection>();
         tensionGaugeManager = GameObject.Find("Image_TensionGaugeBar").GetComponent<TensionGaugeManager>();
         controllButtonsUIManager = GameObject.Find("UIManager").GetComponent<ControllButtonsUIManager>();
         psychokinesis = GameObject.Find("Player").GetComponent<Psychokinesis>();
@@ -70,9 +73,14 @@ public class SkillButton : MonoBehaviour
             }
             else if (playerImageController.GetPlayingChr() == 1) //탄성막 생성자가 필살기를 사용 완료했을 때
             {
+                padDirection.setDirection(previousDirection); //조이스틱 방향을 원래 방향으로 갱신
                 controllButtonsUIManager.setShowButtons(true, 2); // 탄성막 추가 버튼을 숨기고 모든 컨트롤 버튼을 보여줌
                 trajectory.SetActive(true); //포물선 활성화
                 MembraneUsingSkillEffect.selectedMembrane = null; //탄성막 선택 초기화
+                for(int i = 0; i < membranes.transform.childCount; i++)
+                {
+                    membranes.transform.GetChild(i).GetComponent<MembraneUsingSkillEffect>().setStartDelta(true); //탄성막 파괴 카운트다운 시작
+                }
             }
             else //빙결자가 필살기를 사용 완료했을 때
             {
@@ -94,6 +102,7 @@ public class SkillButton : MonoBehaviour
 
             if (playerImageController.GetPlayingChr() == 1) //탄성막 생성자가 필살기를 사용했을 때
             {
+                previousDirection = padDirection.getDirection(); //스킬버튼을 누르기 전의 방향 저장
                 controllButtonsUIManager.setHideButtons(true, 2); //탄성막 추가 버튼 보이고 조이스틱을 제외한 컨트롤 버튼 숨김
                 trajectory.SetActive(false); //포물선 비활성화
             }

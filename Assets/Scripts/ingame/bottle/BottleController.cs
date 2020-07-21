@@ -198,6 +198,5 @@ public class BottleController : MonoBehaviour
             transform.Find("FreezeRange").gameObject.SetActive(true);
         }
         tensionGaugeManager.IncreaseTensionGauge(1, 1); //텐션 게이지 10% 상승
-        padDirection.setDirection(Vector2.zero); //방향 0으로 초기화
     }
 }

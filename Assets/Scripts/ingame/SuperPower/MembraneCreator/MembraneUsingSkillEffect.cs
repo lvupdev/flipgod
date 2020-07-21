@@ -12,9 +12,13 @@ public class MembraneUsingSkillEffect : MonoBehaviour
     private Vector3 membraneDirection; // 탄성막이 향하는 방향
     private GameObject glowingEffect;
     private PadDirection padDirection;
+    private bool startDelta; //시간초를 세어야하는지의 여부
+    private float destroyDelta; //탄성막이 파괴되기까지 걸리는 시간
 
     public static GameObject selectedMembrane; //현재 어떤 탄성막을 선택중인지 가르키는 변수
     public static float presentStrength = 0; //현재 물병을 던진만큼의 힘
+
+    public void setStartDelta(bool value) { startDelta = value; } 
 
     private void Start()
     {
@@ -22,13 +26,15 @@ public class MembraneUsingSkillEffect : MonoBehaviour
         glowingEffect = gameObject.transform.Find("GlowingEffect").gameObject;
         padDirection = GameObject.Find("Joystick").GetComponent<PadDirection>();
         membraneDirection = new Vector3(0, 1, 0);
+        startDelta = false;
+        destroyDelta = 20;
     }
 
     private void Update()
     {
         if(this.gameObject == selectedMembrane)
         {
-            glowingEffect.SetActive(true);
+            glowingEffect.SetActive(true); //터치하면 선택 이미지를 활성화한다.
             if (padDirection.getIsTouch())
             {
                 double angle = Mathf.Atan2(padDirection.getDirection().x, padDirection.getDirection().y) * (180.0 / Mathf.PI);
@@ -40,6 +46,12 @@ public class MembraneUsingSkillEffect : MonoBehaviour
         {
             glowingEffect.SetActive(false);
         }
+
+        if (startDelta)//선택이 끝나면 파괴되기까지의 카운트 다운 시작
+        {
+            destroyDelta -= Time.deltaTime;
+            if (destroyDelta < 0) Destroy(gameObject); //설치하고 15초가 지나면 파괴
+        }
     }
 
     public void Avtivate(int key, BottleController bottleController) //upside에 맞았으면 1이, downside에 맞았으면 -1이 전달된다.
@@ -49,20 +61,29 @@ public class MembraneUsingSkillEffect : MonoBehaviour
 
     private void OnMouseDown() // 탄성막을 터치했을 때
     {
-        init = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0)); //마우스 좌표를 월드 좌표로 변환
-        selectedMembrane = this.gameObject;
+        if (!startDelta)
+        {
+            init = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0)); //마우스 좌표를 월드 좌표로 변환
+            selectedMembrane = this.gameObject;
+        }
     }
 
     private void OnMouseDrag()
     {
-        curr = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0)); //현재 터치 중인 마우스 좌표를 월드 좌표로 변횐
-        Vector3 distance = curr - init;
-        transform.position = recentPos + distance; //드래그 거리만큼 오브젝트를 최근위치에서 이동
+        if (!startDelta)
+        {
+            curr = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0)); //현재 터치 중인 마우스 좌표를 월드 좌표로 변횐
+            Vector3 distance = curr - init;
+            transform.position = recentPos + distance; //드래그 거리만큼 오브젝트를 최근위치에서 이동
+        }
     }
 
     private void OnMouseUp()
     {
-        recentPos = transform.position; //최근 위치 갱신
-        padDirection.setDirection(Vector2.zero); // 방향 초기화
+        if (!startDelta)
+        {
+            recentPos = transform.position; //최근 위치 갱신
+            padDirection.setDirection(Vector2.zero); // 방향 초기화
+        }
     }
 }
