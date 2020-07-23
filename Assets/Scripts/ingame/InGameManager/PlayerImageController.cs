@@ -19,6 +19,10 @@ public class PlayerImageController : MonoBehaviour
     private SkillButton skillButton;
     public Sprite[] standingSprites; // 스탠딩 이미지를 담아놓는 배열
     public Sprite[] iconSprites; //아이콘 이미지를 담아놓는 배열
+    public Sprite[] throwingSprites; // 던지는 이미지를 담아놓는 배열
+    public Sprite[] superpowerSprites; // 초능력 쓰는 이미지를 담아놓는 배열
+
+    private BottleController bottle;
 
     private Vector3 bottlePosition; //물병이 위치해야 하는 포지션
     private int key; //플레이어의 스프라이트 방향 결정 겂
@@ -43,6 +47,9 @@ public class PlayerImageController : MonoBehaviour
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         padDirection = GameObject.Find("Joystick").GetComponent<PadDirection>();
         spriteRenderer.sprite = standingSprites[0];
+
+       // bottle = GameObject.Find("bottle").GetComponent<BottleController>(); // bottle의 jump함수 확인을 위한 객체 생성
+        
     }
 
     private void Update()

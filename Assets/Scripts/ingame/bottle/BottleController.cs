@@ -38,6 +38,7 @@ public class BottleController : MonoBehaviour
     private bool padStrengthTouched; //힘 버튼이 한 번이라도 눌렸는가
     private bool padDirectionTouched; //힘 버튼이 한 번이라도 눌렸는가
     private Text comboText; //콤보 텍스트
+    private SpriteRenderer spriteRenderer;
 
 
     private TrajectoryLine trajectoryLine; //포물선 스크립트 분리
@@ -60,6 +61,7 @@ public class BottleController : MonoBehaviour
         transparent = GetComponent<SpriteRenderer>(); // 물병의 스프라이트 렌더러(투명도)
         tensionGaugeManager = GameObject.Find("Image_TensionGaugeBar").GetComponent<TensionGaugeManager>();
         comboText = GameObject.Find("Text_Combo").GetComponent<Text>();
+        spriteRenderer = GameObject.Find("Player").GetComponent<SpriteRenderer>();
 
         //값 초기화
         rb.gravityScale = 0;
