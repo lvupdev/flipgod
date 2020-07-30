@@ -26,7 +26,7 @@ public class StageGameManager : MonoBehaviour
 
     // (TO DO)
     // bottle 3/3 -> 0/3 +++
-    // time 도 위와 같이ㄴ
+    // time 도 위와 같이
     // Variable about mission of current stage
     // 1. limited bottle num
     // 2. limited time
