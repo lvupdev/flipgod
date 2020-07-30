@@ -202,4 +202,6 @@ public class StageUIManager : MonoBehaviour
         // (오류) SelectStage 빌드 안 되어 있음.
         SceneManager.LoadScene("SelectStage");
     }
+
+    //ui
 }
