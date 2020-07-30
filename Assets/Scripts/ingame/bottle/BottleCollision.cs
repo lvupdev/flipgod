@@ -35,12 +35,11 @@ public class BottleCollision : MonoBehaviour
     //동전에 부딪혔을때. 동전은 isTrigger= True 상태여야함
     void OnTriggerEnter2D(Collider2D col)
     {
+        // if 
         if (col.gameObject.tag == "coin")
         {
-            // CoinStatus coin = col.gameObject.GetComponent<CoinStatus>();
-            // ScoreManager.setScore(coin.value);
             Destroy(col.gameObject, 0f);
-            StageGameManager.instance.AddCoin();    // (0229 수정) 코인 텍스트 업데이트
+            StageGameManager.AddCoin();
         }
     }
 

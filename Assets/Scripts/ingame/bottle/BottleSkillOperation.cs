@@ -11,7 +11,7 @@ public class BottleSkillOperation : MonoBehaviour
     private SkillButton skillButton;
     private GameObject redAura;
     private GameObject freezeRange;
-    private static int usingSkillNum = 0; // 초능력을 사용한 횟수;
+    private static int usingSkillNum = 0; // 초능력을 사용하는 정도;
     private Rigidbody2D rb;
 
     public int getUsingSkillNum() { return usingSkillNum; }

@@ -6,17 +6,12 @@ using UnityEngine.EventSystems;
 public class MembraneCreator : MonoBehaviour
 {
     private BottleSelectController bottleSelectController;
-    private PlayerImageController playerImageController;
     private SuperPowerPanelController panel_SuperPower;
     private ScreenEffectController screenEffectController;
-    private ResourceManager gameResourceValue;
+    private ResourceManager resourceManager;
 
-    private Vector2 initPos;//화면을 눌렀을 때의 위치
-    private Vector2 endPos;//화면에서 손을 땠을 떄의 위치
     private int superPowerLV; //초능력 강화 레벨
-    private int skillLV; //필살기 강화 레벨
 
-    private Vector2 dragDirection; //드래그 방향 백터
     public bool membraneAvailable; //탄성막을 생성해도 되는지의 여부
     public int membraneNum; //생성할 수 있는 탄성막의 개수
     public float presentStrength; //현재 물병에 가해진 힘
@@ -31,12 +26,11 @@ public class MembraneCreator : MonoBehaviour
     void Start()
     {
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
-        playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
         panel_SuperPower = GameObject.Find("Panel_SuperPower").GetComponent<SuperPowerPanelController>();
         screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
-        gameResourceValue = GameObject.Find("GameResourceValue").GetComponent<ResourceManager>();
+        resourceManager = GameObject.Find("GameResourceValue").GetComponent<ResourceManager>();
 
-        superPowerLV = gameResourceValue.GetSuperPowerLV(1);
+        superPowerLV = resourceManager.GetSuperPowerLV(1);
         membraneAvailable = false;
         membraneNum = superPowerLV; //탄성막 생성자의 초능력 강화 레벨의 수치만큼 탄성막을 생성할 수 있다.
     }

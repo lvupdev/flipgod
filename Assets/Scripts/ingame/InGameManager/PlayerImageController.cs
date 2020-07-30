@@ -54,8 +54,8 @@ public class PlayerImageController : MonoBehaviour
 
     private void Update()
     {
-        if (padDirection.direction.x <= 0) key = 1;
-        if (padDirection.direction.x > 0) key = -1;
+        if (padDirection.getDirection().x <= 0) key = 1;
+        if (padDirection.getDirection().x > 0) key = -1;
 
         if(!skillButton.getUsingSkill()) transform.localScale = new Vector3(key * 0.4f, 0.4f, 1); //필살기 사용중이 아니면 패드 위치에 따라 캐릭터가 향하는 방향이 바뀜
 
