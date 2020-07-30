@@ -47,6 +47,11 @@ public class TrajectoryLine : MonoBehaviour
         }
         else
         {
+            for (int i = 0; i < directionNumber; i++)
+            {
+                Destroy(directionDots[i]);
+            }
+
             for (int i = 0; i < trajectoryNumber; i++)
             {
                 trajectoryDots[i].transform.position = CalculatePosition(i * 0.1f, direction, strengthFactor);
