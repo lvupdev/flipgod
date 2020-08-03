@@ -38,6 +38,8 @@ public class StageGameManager : MonoBehaviour
     // Variable about goods to be gained
     public static int gainedCoinNum;
 
+    public static bool isCleared;
+
     // Start is called before the first frame update
 
     private void Awake()
