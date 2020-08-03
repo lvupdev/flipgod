@@ -54,8 +54,7 @@ public class StageUIManager : MonoBehaviour
         // 이는 변수의 초기화가 StageManager1의 start에서 이루어지는 데, 코루틴에서 그 값을 받아오기 때문인 것으로 추정됨.
         // (해결) Awkae에서 변수 초기화하는 것으로 바꾸니 해결되었으나, 앞으로 스크립트 정리하면서 
         // 어떻게 해야할 지 고민해야 함. (메서드 동작 시간에 의존적이면 안 됨)
-
-
+        StartCoroutine(UpdateScoreTexts());
     }
 
     // Find object using transform
@@ -73,10 +72,6 @@ public class StageUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeScale == 1)
-        {
-            StartCoroutine(UpdateScoreTexts());
-        }
     }
 
     /*=================<Update texts of score panel>================================*/
