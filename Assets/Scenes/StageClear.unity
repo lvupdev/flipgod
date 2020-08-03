@@ -425,7 +425,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 547698879}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1840613651}
+        m_MethodName: Changecomment3
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &547698879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -943,7 +954,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 811559516}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1840613651}
+        m_MethodName: Changecomment2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &811559516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1448,7 +1470,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1761718389}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1840613651}
+        m_MethodName: Changecomment1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1761718389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1496,6 +1529,7 @@ GameObject:
   - component: {fileID: 1840613648}
   - component: {fileID: 1840613650}
   - component: {fileID: 1840613649}
+  - component: {fileID: 1840613651}
   m_Layer: 5
   m_Name: Image_BottleCountRecord
   m_TagString: Untagged
@@ -1559,6 +1593,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840613647}
   m_CullTransparentMesh: 0
+--- !u!114 &1840613651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840613647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18973e8cf95ac754384c8359a8065219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  commentSprites:
+  - {fileID: 21300000, guid: 2f5c66e380716b843a51fb3de12cca86, type: 3}
+  - {fileID: 21300000, guid: 86545db5b9fff6c469aa965ace58a1de, type: 3}
+  - {fileID: 21300000, guid: ad4accc3521efe140bda63b4bed04a64, type: 3}
+  commentLabel: {fileID: 504146920}
 --- !u!1 &1887749847
 GameObject:
   m_ObjectHideFlags: 0

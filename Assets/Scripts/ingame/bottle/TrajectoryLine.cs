@@ -7,12 +7,11 @@ public class TrajectoryLine : MonoBehaviour
     private GameObject bottle;
 
     //포물선
-    public GameObject trajectoryDotPrefab;
+    public GameObject[] trajectoryDotPrefab;
     private GameObject[] trajectoryDots;
-    private GameObject[] directionDots;
     private int trajectoryNumber = 13; //포물선 점 개수
-    private int directionNumber = 5;
     private float normalStrength = 10.0f; //포물선에 적용되는 기본 힘
+    private PadDirection rotate; // rotate값 가져오기 
 
     public void Start()
     {
@@ -23,13 +22,19 @@ public class TrajectoryLine : MonoBehaviour
         trajectoryDots = new GameObject[trajectoryNumber];
         for (int i = 0; i < trajectoryNumber; i++)
         {
-            trajectoryDots[i] = Instantiate(trajectoryDotPrefab, bottle.transform);
+            trajectoryDots[i] = Instantiate(trajectoryDotPrefab[0], bottle.transform);
         }
 
-        directionDots = new GameObject[directionNumber];
-        for (int i = 0; i < directionNumber; i++)
+        rotate = GameObject.Find("Joystick").GetComponent<PadDirection>(); // Pad direction의 rotate값 가져오기(rotate를 위함)
+        
+        
+       
+    }
+    public void Update()
+    {
+        if()
         {
-            directionDots[i] = Instantiate(trajectoryDotPrefab, bottle.transform);
+
         }
     }
 
@@ -40,17 +45,11 @@ public class TrajectoryLine : MonoBehaviour
         if (!padStrengthTouched) //방향 포물선 그리기
         {
             strengthFactor = normalStrength;
-            for (int i = 0; i < directionNumber; i++)
-            {
-                directionDots[i].transform.position = CalculatePosition(i * 0.1f, direction, strengthFactor);
-            }
+            
         }
         else
         {
-            for (int i = 0; i < directionNumber; i++)
-            {
-                Destroy(directionDots[i]);
-            }
+        
 
             for (int i = 0; i < trajectoryNumber; i++)
             {
@@ -65,10 +64,7 @@ public class TrajectoryLine : MonoBehaviour
         {
             Destroy(trajectoryDots[i]);
         }
-        for (int i = 0; i < directionNumber; i++)
-        {
-            Destroy(directionDots[i]);
-        }
+       
     }
 
     private Vector2 CalculatePosition(float elapsedTime, Vector2 direction, float strengthFactor)
