@@ -8,20 +8,20 @@ public class BottleGenerator : MonoBehaviour
 {
     public GameObject bottles;
     public GameObject bottlePrefab;
-    private GameObject controllButtons;
     private ControllButtonsUIManager controllButtonsUIManager;
+    private PlayerImageController playerImageController;
 
     public void Start()
     {
         bottles = GameObject.Find("Bottles");
-        controllButtons = GameObject.Find("ControllButtons");
         controllButtonsUIManager = GameObject.Find("UIManager").GetComponent<ControllButtonsUIManager>();
-        
+        playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
     }
 
     public void GenerateBottle()
     {
         controllButtonsUIManager.setShowButtons(true, 0); //숨겼던 컨트롤 UI 버튼 표시
+        playerImageController.ChangePlayerImage(0); //물병을 던지기 전의 이미지로 변경
  
         GameObject Bottle = Instantiate(bottlePrefab) as GameObject;
         Bottle.transform.SetParent(bottles.transform);

@@ -28,7 +28,7 @@ public class MembraneCreator : MonoBehaviour
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         panel_SuperPower = GameObject.Find("Panel_SuperPower").GetComponent<SuperPowerPanelController>();
         screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
-        resourceManager = GameObject.Find("GameResourceValue").GetComponent<ResourceManager>();
+        resourceManager = GameObject.Find("GameResource").GetComponent<ResourceManager>();
 
         superPowerLV = resourceManager.GetSuperPowerLV(1);
         membraneAvailable = false;

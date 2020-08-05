@@ -29,16 +29,25 @@ public class SuperPowerController : MonoBehaviour
             switch (playerImageController.GetPlayingChr())
             {
                 case 0:
-                    if(panel_SuperPower.GetIsTouch()) psychokinesis.Activate();
+                    if (panel_SuperPower.GetIsTouch())
+                    {
+                        psychokinesis.Activate();
+                        playerImageController.ChangePlayerImage(2); //초능력 사용 이미지로 변경
+                    }
                     break;
                 case 1:
                     if ((membraneCreator.membraneNum > 0) && membraneCreator.membraneAvailable)
                     {
                         membraneCreator.Activate();
+                        playerImageController.ChangePlayerImage(2); //초능력 사용 이미지로 변경
                     }
                     break;
                 case 2:
-                    if(panel_SuperPower.GetIsTouch() && freezer.freezeAvailable) freezer.Activate();
+                    if(panel_SuperPower.GetIsTouch() && freezer.freezeAvailable)
+                    {
+                        freezer.Activate();
+                        playerImageController.ChangePlayerImage(2); //초능력 사용 이미지로 변경
+                    }
                     break;
             }
         }

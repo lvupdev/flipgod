@@ -62,9 +62,9 @@ TagManager:
   - name: Item
     uniqueID: 1748831291
     locked: 0
-  - name: Bottle
-    uniqueID: 2407852773
-    locked: 0
   - name: Trajectory
     uniqueID: 278857675
+    locked: 0
+  - name: Bottle
+    uniqueID: 2407852773
     locked: 0

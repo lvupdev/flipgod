@@ -18,7 +18,7 @@ public class Freezer : MonoBehaviour
     {
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
-        gameResourceValue = GameObject.Find("GameResourceValue").GetComponent<ResourceManager>();
+        gameResourceValue = GameObject.Find("GameResource").GetComponent<ResourceManager>();
         bottles = GameObject.Find("Bottles");
 
         superPowerLV = gameResourceValue.GetSuperPowerLV(2);

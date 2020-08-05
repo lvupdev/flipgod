@@ -23,7 +23,7 @@ public class Psychokinesis : MonoBehaviour
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
         panel_SuperPower = GameObject.Find("Panel_SuperPower").GetComponent<SuperPowerPanelController>();
         screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
-        gameResourceValue = GameObject.Find("GameResourceValue").GetComponent<ResourceManager>();
+        gameResourceValue = GameObject.Find("GameResource").GetComponent<ResourceManager>();
         bottles = GameObject.Find("Bottles");
 
         superPowerLV = gameResourceValue.GetSuperPowerLV(0);

@@ -9,13 +9,15 @@ public class MembraneManager : MonoBehaviour
     private GameObject membranes;
     private BottleSelectController bottleSelectController;
     private ResourceManager resourceManager;
+    private UsefullOperation usefullOperation;
     private int  skillLV; //필살기 레벨
 
     private void Start()
     {
         membranes = GameObject.Find("Membranes");
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
-        resourceManager = GameObject.Find("GameResourceValue").GetComponent<ResourceManager>();
+        resourceManager = GameObject.Find("GameResource").GetComponent<ResourceManager>();
+        usefullOperation = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
         skillLV = resourceManager.GetSkillLV(1);
     }
 
@@ -26,6 +28,7 @@ public class MembraneManager : MonoBehaviour
         {
             bottleSelectController.bottleSkillOperation.setUsingSkillNum(++usingSkillNum); //usingSkillNum을 1 증가시킨다
             GameObject membrane = Instantiate(membranePrefab) as GameObject;
+            usefullOperation.FadeIn(membrane.GetComponent<SpriteRenderer>());
             membrane.transform.position = new Vector3(0, usingSkillNum - 2, 0); // 생성하는 순서에 따라 생성되는 위치가 달라진다
             membrane.transform.SetParent(membranes.transform);
         }
@@ -36,8 +39,9 @@ public class MembraneManager : MonoBehaviour
         int usingSkillNum = bottleSelectController.bottleSkillOperation.getUsingSkillNum();
         if (usingSkillNum > 0)
         {
-            Destroy(membranes.transform.GetChild(--usingSkillNum).gameObject); //usingSkillNum을 1 감소시킨다
-            bottleSelectController.bottleSkillOperation.setUsingSkillNum(usingSkillNum); //가장 최근에 추가된 membrane 파괴
+            MembraneUsingSkillEffect.selectedMembrane = null; //선택 표시제거
+            usefullOperation.FadeOut(true, membranes.transform.GetChild(--usingSkillNum).GetComponent<SpriteRenderer>());//가장 최근에 추가된 membrane 파괴
+            bottleSelectController.bottleSkillOperation.setUsingSkillNum(usingSkillNum); //usingSkillNum을 1 감소시킨다
 
         }
     }

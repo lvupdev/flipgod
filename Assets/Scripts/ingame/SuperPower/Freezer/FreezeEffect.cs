@@ -16,7 +16,7 @@ public class FreezeEffect : MonoBehaviour
     {
         structures = GameObject.Find("Structures");
         tensionGaugeManager = GameObject.Find("Image_TensionGaugeBar").GetComponent<TensionGaugeManager>();
-        gameResourceValue = GameObject.Find("GameResourceValue").GetComponent<ResourceManager>();
+        gameResourceValue = GameObject.Find("GameResource").GetComponent<ResourceManager>();
         circleCollider = GetComponent<CircleCollider2D>();
         superPowerLV = gameResourceValue.GetSuperPowerLV(2);
 

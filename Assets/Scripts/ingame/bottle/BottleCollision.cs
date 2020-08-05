@@ -9,10 +9,8 @@ public class BottleCollision : MonoBehaviour
     public PadStrength padStrength;
     BottleSelectController bottleSelectController;
     private BottleGenerator bottleGenerator;
-    private SuperPowerController superPowerController;
-    private PlayerImageController playerImageController;
-    private SuperPowerPanelController panel_SuperPower;
     private BottleController bottleController; //NEW: 오타 수정
+    private UsefullOperation usefullOperation;
     private GameObject redAura;
     private GameObject freezeRange;
     private GameObject player;
@@ -23,11 +21,9 @@ public class BottleCollision : MonoBehaviour
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         bottleGenerator = GameObject.Find("BottleManager").GetComponent<BottleGenerator>();
         player = GameObject.Find("Player");
-        superPowerController = player.GetComponent<SuperPowerController>();
-        playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
-        panel_SuperPower = GameObject.Find("Panel_SuperPower").GetComponent<SuperPowerPanelController>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         bottleController = GameObject.FindWithTag("isActBottle").GetComponent<BottleController>(); //NEW: 처음에 시작할 때 태그로 찾아줘야 함
+        usefullOperation = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
         redAura = transform.Find("RedAura").gameObject;
         freezeRange = transform.Find("FreezeRange").gameObject;
     }
@@ -51,7 +47,7 @@ public class BottleCollision : MonoBehaviour
         if (gameObject.CompareTag("isActBottle"))
         {
             gameObject.tag = "unActBottle";//태그 변경
-            redAura.SetActive(false);
+            usefullOperation.FadeOut(false, redAura.GetComponent<SpriteRenderer>()); 
             freezeRange.SetActive(false);
 
             bottleGenerator.GenerateBottle();//물병 생성

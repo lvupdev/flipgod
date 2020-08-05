@@ -10,9 +10,10 @@ public class TrajectoryLine : MonoBehaviour
     public GameObject trajectoryDotPrefab;
     private GameObject[] trajectoryDots;
     private GameObject[] directionDots;
-    private int trajectoryNumber = 13; //포물선 점 개수
+    private int trajectoryNumber = 15; //포물선 점 개수
     private int directionNumber = 5;
     private float normalStrength = 10.0f; //포물선에 적용되는 기본 힘
+    private float fadingNum = 5.0f; //흐려지는 점의 개수
 
     public void Start()
     {
@@ -24,6 +25,8 @@ public class TrajectoryLine : MonoBehaviour
         for (int i = 0; i < trajectoryNumber; i++)
         {
             trajectoryDots[i] = Instantiate(trajectoryDotPrefab, bottle.transform);
+            if (i > trajectoryNumber - 4) //끝쪽 점선은 갈수록 흐려짐
+                trajectoryDots[i].gameObject.GetComponent<SpriteRenderer>().color = new Color(1,1,1,-(1/ fadingNum) *i+(trajectoryNumber/ fadingNum));
         }
 
         directionDots = new GameObject[directionNumber];

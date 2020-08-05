@@ -31,19 +31,17 @@ public class BottleController : MonoBehaviour
     private BottleGenerator bottleGenerator;
     private PlayerImageController playerImageController;
     private GameObject player;
-    private GameObject controllButtons;
     private BottleSelectController bottleSelectController;
     private TensionGaugeManager tensionGaugeManager;
     private ControllButtonsUIManager controllButtonsUIManager;
+    private UsefullOperation usefullOperation;
     private bool padStrengthTouched; //힘 버튼이 한 번이라도 눌렸는가
     private bool padDirectionTouched; //힘 버튼이 한 번이라도 눌렸는가
     private Text comboText; //콤보 텍스트
-    private SpriteRenderer spriteRenderer;
 
 
     private TrajectoryLine trajectoryLine; //포물선 스크립트 분리
-
-    SpriteRenderer transparent;
+    private SpriteRenderer transparent;
 
     void Start()
     {
@@ -51,7 +49,6 @@ public class BottleController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         bottleGenerator = GameObject.Find("BottleManager").GetComponent<BottleGenerator>();
         player = GameObject.Find("Player");
-        controllButtons = GameObject.Find("ControllButtons");
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         playerImageController = player.GetComponent<PlayerImageController>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
@@ -60,8 +57,8 @@ public class BottleController : MonoBehaviour
         transparent = GetComponent<SpriteRenderer>(); // 물병의 스프라이트 렌더러(투명도)
         tensionGaugeManager = GameObject.Find("Image_TensionGaugeBar").GetComponent<TensionGaugeManager>();
         controllButtonsUIManager = GameObject.Find("UIManager").GetComponent<ControllButtonsUIManager>();
+        usefullOperation = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
         comboText = GameObject.Find("Text_Combo").GetComponent<Text>();
-        spriteRenderer = GameObject.Find("Player").GetComponent<SpriteRenderer>();
 
         //값 초기화
         rb.gravityScale = 0;
@@ -114,7 +111,7 @@ public class BottleController : MonoBehaviour
                 {
                     standingDelay = 2;
                     standingBySkill = false;
-                    this.transform.GetChild(0).gameObject.SetActive(false);
+                    usefullOperation.FadeOut(false, this.transform.GetChild(0).GetComponent<SpriteRenderer>());
                 }
             }
             else
@@ -150,15 +147,10 @@ public class BottleController : MonoBehaviour
 
         if (onFloor) //NEW: 땅바닥에 닿았을 때 물병 파괴
         {
-            Color c = transparent.material.color; // RGBA 중 A 가 투명도
-
             destroyDelay -= Time.fixedDeltaTime;
             if (destroyDelay < 0)
             {
-                c.a -= 0.06f; // 투명도 0.01씩 낮추기
-                transparent.material.color = c;
-                if (c.a < 0) Destroy(gameObject);
-
+                usefullOperation.FadeOut(true, transparent);
             }
         }
 
@@ -192,12 +184,14 @@ public class BottleController : MonoBehaviour
         rb.velocity = padDirection.getDirection() * padStrength.totalStrength;
         rb.AddTorque(key * rotateSpeed, ForceMode2D.Impulse);
 
+        playerImageController.ChangePlayerImage(1); //던지는 동작으로 스프라이트 교체
+
         controllButtonsUIManager.setHideButtons(true, 0); // 화면을 깔끔하게 하기 위해 컨트롤 UI 버튼들을 일시적으로 전부 숨김
 
         trajectoryLine.Delete();
         if (playerImageController.GetPlayingChr() == 2)
         {
-            transform.Find("FreezeRange").gameObject.SetActive(true);
+            usefullOperation.FadeIn(transform.Find("FreezeRange").gameObject.GetComponent<SpriteRenderer>());
         }
         tensionGaugeManager.IncreaseTensionGauge(1, 1); //텐션 게이지 10% 상승
     }

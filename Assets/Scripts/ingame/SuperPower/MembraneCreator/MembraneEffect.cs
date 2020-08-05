@@ -20,11 +20,11 @@ public class MembraneEffect : MonoBehaviour
         delta += Time.fixedDeltaTime;
         if (delta < 0.2f)
         {
-            transform.localScale += new Vector3(0.9f * Time.fixedDeltaTime, 0.9f * Time.fixedDeltaTime, 0.9f * Time.fixedDeltaTime);
+            transform.localScale += new Vector3(4f * Time.fixedDeltaTime, 4f * Time.fixedDeltaTime, 4f * Time.fixedDeltaTime);
         }
         else if(delta < 0.5f)
         {
-            transform.localScale -= new Vector3(0.8f * Time.fixedDeltaTime, 0.8f * Time.fixedDeltaTime, 0.8f * Time.fixedDeltaTime);
+            transform.localScale -= new Vector3(3.6f * Time.fixedDeltaTime, 3.6f * Time.fixedDeltaTime, 3.6f * Time.fixedDeltaTime);
         }
         else
         {

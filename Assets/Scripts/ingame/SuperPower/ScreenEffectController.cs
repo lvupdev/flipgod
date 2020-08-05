@@ -8,6 +8,7 @@ public class ScreenEffectController : MonoBehaviour
     private PlayerImageController playerImageController;
     private RadialBlurImageEffect blurEffect;
     private SuperPowerPanelController Panel_SuperPower;
+    private UsefullOperation usefullOperation;
     private CameraShake mainCamera;
     private CameraShake colorCamera;
 
@@ -29,6 +30,7 @@ public class ScreenEffectController : MonoBehaviour
         blurEffect = GameObject.Find("Main Camera").GetComponent<RadialBlurImageEffect>();
         shadowEffect = GameObject.Find("Main Camera").GetComponent<ShadowThresholdCustomEffect>();
         Panel_SuperPower = GameObject.Find("Panel_SuperPower").GetComponent<SuperPowerPanelController>();
+        usefullOperation = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
         height = 2 * Camera.main.orthographicSize;
         width = height * Camera.main.aspect;
         blurTime = 1;
@@ -114,7 +116,7 @@ public class ScreenEffectController : MonoBehaviour
             shadowEffect.enabled = true;
             Time.timeScale = 0.6f;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
-            bottleSelectController.bottle.transform.Find("RedAura").gameObject.SetActive(true);//빨간 오러 켜기
+            usefullOperation.FadeIn(bottleSelectController.bottle.transform.Find("RedAura").GetComponent<SpriteRenderer>());//빨간 오러 켜기
             screenEffectNum = 0;
         }
     }

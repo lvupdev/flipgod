@@ -12,6 +12,7 @@ public class MembraneUsingSkillEffect : MonoBehaviour
     private Vector3 membraneDirection; // 탄성막이 향하는 방향
     private GameObject glowingEffect;
     private PadDirection padDirection;
+    private UsefullOperation usefullOperation;
     private bool startDelta; //시간초를 세어야하는지의 여부
     private float destroyDelta; //탄성막이 파괴되기까지 걸리는 시간
 
@@ -25,6 +26,7 @@ public class MembraneUsingSkillEffect : MonoBehaviour
         recentPos = transform.position;
         glowingEffect = gameObject.transform.Find("GlowingEffect").gameObject;
         padDirection = GameObject.Find("Joystick").GetComponent<PadDirection>();
+        usefullOperation = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
         membraneDirection = new Vector3(0, 1, 0);
         startDelta = false;
         destroyDelta = 20;
@@ -50,7 +52,7 @@ public class MembraneUsingSkillEffect : MonoBehaviour
         if (startDelta)//선택이 끝나면 파괴되기까지의 카운트 다운 시작
         {
             destroyDelta -= Time.deltaTime;
-            if (destroyDelta < 0) Destroy(gameObject); //설치하고 15초가 지나면 파괴
+            if (destroyDelta < 0) usefullOperation.FadeOut(true, GetComponent<SpriteRenderer>()); //설치하고 15초가 지나면 파괴
         }
     }
 

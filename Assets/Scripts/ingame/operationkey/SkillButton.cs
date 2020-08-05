@@ -91,10 +91,13 @@ public class SkillButton : MonoBehaviour
             tensionGaugeManager.DecreaseTensionGauge(bottleSelectController.bottleSkillOperation.getUsingSkillNum()); //텐션게이지 감소
             bottleSelectController.bottleSkillOperation.setUsingSkillNum(0);
             usingSkill = false;
+            playerImageController.ChangePlayerImage(0); //던지는 자세로 교체
         }
         else // 필살기 사용 시작
         {
             GetComponent<Image>().sprite = skillButtonSprite[1]; //버튼 이미지 교체
+
+            playerImageController.ChangePlayerImage(2); //플레이어 초능력 사용 자세로 교체
 
             panel_SuperPower.SetActive(false); //초능력 입력 패널 비활성화
 
