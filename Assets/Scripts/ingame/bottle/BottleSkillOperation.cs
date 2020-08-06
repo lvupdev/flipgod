@@ -66,6 +66,7 @@ public class BottleSkillOperation : MonoBehaviour
                     usefullOperation.FadeOut(false, freezeRange.GetComponent<SpriteRenderer>());
                     usingSkillNum--;
                 }
+                Debug.Log("실행됨");
             }
         }
     }

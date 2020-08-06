@@ -23,6 +23,19 @@ public class BottleSelectController : MonoBehaviour
         bottleSkillOperation = bottle.GetComponent<BottleSkillOperation>();
     }
 
+    public void ReselectBottleWithDelay(float delay)
+    {
+        Invoke("ReselectBottle", delay);
+    }
+    public void SetActiveBottleWithDelay(float delay)
+    {
+        Invoke("SetActiveBottle", delay);
+    }
+    public void SetActiveBottle()
+    {
+        bottle.SetActive(true);
+    }
+
     public void ReselectBottle()
     {
         bottle = GameObject.FindWithTag("isActBottle");
@@ -31,14 +44,6 @@ public class BottleSelectController : MonoBehaviour
         membraneCreator.membraneNum = membraneCreator.getSuperPowerLV();
         membraneCreator.membraneAvailable = false;
         freezer.freezeAvailable = true;
-
-        if (Time.timeScale != 1)
-        {
-            Time.timeScale = 1;
-            Time.fixedDeltaTime = 0.02f * Time.timeScale;
-            screenEffectController.shadowEffect.enabled = false;
-            screenEffectController.screenEffectNum = 1;
-        }
     }
 }
 

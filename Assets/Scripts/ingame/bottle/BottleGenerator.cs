@@ -18,6 +18,11 @@ public class BottleGenerator : MonoBehaviour
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
     }
 
+    public void GenerateBottleWithDelay(float delay)
+    {
+        Invoke("GenerateBottle", delay);
+    }
+
     public void GenerateBottle()
     {
         controllButtonsUIManager.setShowButtons(true, 0); //숨겼던 컨트롤 UI 버튼 표시

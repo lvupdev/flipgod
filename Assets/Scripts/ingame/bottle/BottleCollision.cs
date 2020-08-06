@@ -13,21 +13,20 @@ public class BottleCollision : MonoBehaviour
     private UsefullOperation usefullOperation;
     private GameObject redAura;
     private GameObject freezeRange;
-    private GameObject player;
-    private GameObject membranes;
+    private ScreenEffectController screenEffectController;
+
 
 
     void Start()
     {
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         bottleGenerator = GameObject.Find("BottleManager").GetComponent<BottleGenerator>();
-        player = GameObject.Find("Player");
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         bottleController = GameObject.FindWithTag("isActBottle").GetComponent<BottleController>(); //NEW: 처음에 시작할 때 태그로 찾아줘야 함
         usefullOperation = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
         redAura = transform.Find("RedAura").gameObject;
         freezeRange = transform.Find("FreezeRange").gameObject;
-        membranes = GameObject.Find("Membranes").gameObject;
+        screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
     }
 
     //동전에 부딪혔을때. 동전은 isTrigger= True 상태여야함
@@ -49,12 +48,20 @@ public class BottleCollision : MonoBehaviour
             bottleController.isSuperPowerAvailabe = false; //더 이상 초능력을 적용할 수 없음
             if (gameObject.CompareTag("isActBottle"))
             {
+                if (Time.timeScale != 1)
+                {
+                    Time.timeScale = 1;
+                    Time.fixedDeltaTime = 0.02f * Time.timeScale;
+                    screenEffectController.shadowEffect.enabled = false;
+                    screenEffectController.screenEffectNum = 1;
+                }
+
                 gameObject.tag = "unActBottle";//태그 변경
                 usefullOperation.FadeOut(false, redAura.GetComponent<SpriteRenderer>());
                 freezeRange.SetActive(false);
 
-                bottleGenerator.GenerateBottle();//물병 생성
-                bottleSelectController.ReselectBottle(); //물병 재선택
+                bottleGenerator.GenerateBottleWithDelay(0.75f);//딜레이를 주고 물병 생성
+                bottleSelectController.ReselectBottleWithDelay(0.75f); //딜레이를 주고 물병 재선택
             }
         }
 

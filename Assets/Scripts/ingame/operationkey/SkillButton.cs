@@ -64,15 +64,17 @@ public class SkillButton : MonoBehaviour
 
             panel_SuperPower.SetActive(true); //초능력 입력 패널 활성화
 
-            bottleSelectController.bottle.SetActive(true); //물통 활성화
-
-            if(playerImageController.getPlayingChr() == 0) //염동력자가 필살기를 사용 완료했을 때
+            if (playerImageController.getPlayingChr() == 0) //염동력자가 필살기를 사용 완료했을 때
             {
-                controllButtonsUIManager.setShowButtons(true, 1); //스킬 버튼과 membrame 추가/제거 버튼을 제외하고 모든 컨트롤 버튼 활성화
+                playerImageController.ChangePlayerImageWithDelay(2, 0); //딜레이 주고 던지는 자세로 교체
+                bottleSelectController.SetActiveBottleWithDelay(2); //물통 활성화
+                controllButtonsUIManager.setShowButtonsWithDelay(2, 1); //스킬 버튼과 membrame 추가/제거 버튼을 제외하고 모든 컨트롤 버튼 활성화
                 psychokinesis.SkillActivate();
             }
             else if (playerImageController.getPlayingChr() == 1) //탄성막 생성자가 필살기를 사용 완료했을 때
             {
+                playerImageController.ChangePlayerImage(0); //딜레이 주고 던지는 자세로 교체
+                bottleSelectController.bottle.SetActive(true); //물통 활성화
                 padDirection.setDirection(previousDirection); //조이스틱 방향을 원래 방향으로 갱신
                 controllButtonsUIManager.setShowButtons(true, 2); // 탄성막 추가 버튼을 숨기고 모든 컨트롤 버튼을 보여줌
                 trajectory.SetActive(true); //포물선 활성화
@@ -85,14 +87,15 @@ public class SkillButton : MonoBehaviour
             }
             else //빙결자가 필살기를 사용 완료했을 때
             {
-                controllButtonsUIManager.setShowButtons(true, 1); //스킬 버튼과 membrame 추가/제거 버튼을 제외하고 모든 컨트롤 버튼 활성화
+                playerImageController.ChangePlayerImageWithDelay(1, 0); //딜레이 주고 던지는 자세로 교체
+                bottleSelectController.SetActiveBottleWithDelay(1); //물통 활성화
+                controllButtonsUIManager.setShowButtonsWithDelay(1, 1); //스킬 버튼과 membrame 추가/제거 버튼을 제외하고 모든 컨트롤 버튼 활성화
                 freezer.SkillActivate();
             }
 
             tensionGaugeManager.DecreaseTensionGauge(bottleSelectController.bottleSkillOperation.getUsingSkillNum()); //텐션게이지 감소
             bottleSelectController.bottleSkillOperation.setUsingSkillNum(0);
             usingSkill = false;
-            playerImageController.ChangePlayerImage(0); //던지는 자세로 교체
         }
         else // 필살기 사용 시작
         {

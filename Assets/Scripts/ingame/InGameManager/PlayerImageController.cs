@@ -12,6 +12,7 @@ public class PlayerImageController : MonoBehaviour
     private int playingChr; //조작할 수 있는 캐릭터
     private int firstSlotChr; //교체 슬롯 1번에 있는 캐릭터
     private int secondSlotChr; //교체 슬롯 2번에 있는 캐릭터
+    private int whichCase; //플레이어 스프라이트 교체 시 어떤 자세인지
     private SpriteRenderer spriteRenderer;
     private PadStrength padStrength;
     public PadDirection padDirection;
@@ -89,7 +90,28 @@ public class PlayerImageController : MonoBehaviour
         }
     }
 
+    public void ChangePlayerImageWithDelay(float delay, int whichCase)
+    {
+        this.whichCase = whichCase;
+        Invoke("ChangePlayerImage", delay);
+    }
+
     public void ChangePlayerImage(int whichCase) //인수가 0이면 던지기 전 자세, 1이면 던질때 자세, 2이면 필살기 사용 자세로 플레이어 이미지를 교체한다.
+    {
+        switch (whichCase)
+        {
+            case 0:
+                spriteRenderer.sprite = standingSprites[playingChr];
+                break;
+            case 1:
+                spriteRenderer.sprite = throwingSprites[playingChr];
+                break;
+            case 2:
+                spriteRenderer.sprite = superpowerSprites[playingChr];
+                break;
+        }
+    }
+    public void ChangePlayerImage() //인수가 0이면 던지기 전 자세, 1이면 던질때 자세, 2이면 필살기 사용 자세로 플레이어 이미지를 교체한다.
     {
         switch (whichCase)
         {

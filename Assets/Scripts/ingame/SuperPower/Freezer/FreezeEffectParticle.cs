@@ -10,6 +10,7 @@ public class FreezeEffectParticle : MonoBehaviour
     void Start()
     {
         delta = 0;
+        //Time.timeScale = 0.5f;
     }
 
     // Update is called once per frame
@@ -17,6 +18,7 @@ public class FreezeEffectParticle : MonoBehaviour
     {
         delta += Time.deltaTime;
 
+        //if (delta > 0.5) Time.timeScale = 1;
         if (delta > 6) Destroy(gameObject);
     }
 }

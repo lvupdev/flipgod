@@ -34,6 +34,13 @@ public class ControllButtonsUIManager : MonoBehaviour
         }
     }
 
+    public void setShowButtonsWithDelay(float delay, int whichCase)
+    {
+        Invoke("setShowButtons", delay);
+        this.whichCase = whichCase;
+    }
+
+
     public void setHideButtons(bool value, int whichCase) 
     {
         hideButtons = value;
@@ -43,6 +50,10 @@ public class ControllButtonsUIManager : MonoBehaviour
     { 
         showButtons = value;
         this.whichCase = whichCase;
+    }
+    public void setShowButtons()
+    {
+        showButtons = true;
     }
 
     // Update is called once per frame

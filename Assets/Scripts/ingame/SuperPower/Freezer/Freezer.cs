@@ -47,7 +47,9 @@ public class Freezer : MonoBehaviour
             if (freezeRange.activeSelf)
             {
                 freezeRange.GetComponent<FreezeEffect>().Freeze();
-                freezeRange.SetActive(false);
+                usefullOperation.FadeOut(false, freezeRange.GetComponent<SpriteRenderer>());
+                GameObject freezeParticle = Instantiate(freezeParticlePrefab) as GameObject;
+                freezeParticle.transform.position = bottle.transform.position;
                 isBottleSelected = true;
             }
         }
