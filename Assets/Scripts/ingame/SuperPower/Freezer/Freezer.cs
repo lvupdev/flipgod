@@ -7,18 +7,17 @@ public class Freezer : MonoBehaviour
 {
     private BottleSelectController bottleSelectController;
     private ScreenEffectController screenEffectController;
-    private ResourceManager gameResourceValue;
     private UsefullOperation usefullOperation;
     private GameObject bottles;
 
     public bool freezeAvailable; // 2번 발동 방지 변수
+    public GameObject freezeParticlePrefab;
 
     // Start is called before the first frame update
     void Start()
     {
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
-        gameResourceValue = GameObject.Find("GameResource").GetComponent<ResourceManager>();
         usefullOperation = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
         bottles = GameObject.Find("Bottles");
 
@@ -29,6 +28,9 @@ public class Freezer : MonoBehaviour
 
     public void Activate()
     {
+        GameObject freezeParticle = Instantiate(freezeParticlePrefab) as GameObject;
+        freezeParticle.transform.position = bottleSelectController.bottle.transform.position; //물병 위치에 파티클 이펙트 생성
+
         screenEffectController.FreezeEffect();
         bottleSelectController.bottle.transform.Find("FreezeRange").GetComponent<FreezeEffect>().Freeze();
         usefullOperation.FadeOut(false, bottleSelectController.bottle.transform.Find("FreezeRange").GetComponent<SpriteRenderer>());

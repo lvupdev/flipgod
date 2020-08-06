@@ -3785,7 +3785,6 @@ MonoBehaviour:
   bottle: {fileID: 0}
   bottleController: {fileID: 0}
   bottleSkillOperation: {fileID: 0}
-  particle: {fileID: 0}
 --- !u!1 &1363039740
 GameObject:
   m_ObjectHideFlags: 0
@@ -4358,7 +4357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   superPowerLV: 010000000100000001000000
-  skillLV: 010000000300000001000000
+  skillLV: 010000000100000001000000
 --- !u!4 &1606769925
 Transform:
   m_ObjectHideFlags: 0
@@ -5932,6 +5931,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freezeAvailable: 1
+  freezeParticlePrefab: {fileID: 1924247249100686214, guid: 338557d3595fea84e927a2c78e47443a,
+    type: 3}
 --- !u!114 &2138801022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5944,72 +5945,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ddee5f29c3aae9489e2b1928bbf05a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &4129776769913347482
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1924247249100686214, guid: 338557d3595fea84e927a2c78e47443a,
-        type: 3}
-      propertyPath: m_Name
-      value: FreezeParticleEffect
-      objectReference: {fileID: 0}
-    - target: {fileID: 4614317800529649616, guid: 338557d3595fea84e927a2c78e47443a,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.937252
-      objectReference: {fileID: 0}
-    - target: {fileID: 4614317800529649616, guid: 338557d3595fea84e927a2c78e47443a,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.26600075
-      objectReference: {fileID: 0}
-    - target: {fileID: 4614317800529649616, guid: 338557d3595fea84e927a2c78e47443a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4614317800529649616, guid: 338557d3595fea84e927a2c78e47443a,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4614317800529649616, guid: 338557d3595fea84e927a2c78e47443a,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4614317800529649616, guid: 338557d3595fea84e927a2c78e47443a,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4614317800529649616, guid: 338557d3595fea84e927a2c78e47443a,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4614317800529649616, guid: 338557d3595fea84e927a2c78e47443a,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 4614317800529649616, guid: 338557d3595fea84e927a2c78e47443a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4614317800529649616, guid: 338557d3595fea84e927a2c78e47443a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4614317800529649616, guid: 338557d3595fea84e927a2c78e47443a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 338557d3595fea84e927a2c78e47443a, type: 3}
