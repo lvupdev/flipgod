@@ -12,6 +12,8 @@ public class SuperPowerController : MonoBehaviour
     private PlayerImageController playerImageController;
     private SuperPowerPanelController panel_SuperPower;
 
+    public GameObject freezeParticleEffect;
+
     private void Start()
     {
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
@@ -26,7 +28,7 @@ public class SuperPowerController : MonoBehaviour
     {
         if (bottleSelectController.bottleController.isSuperPowerAvailabe) //초능력 실행
         {
-            switch (playerImageController.GetPlayingChr())
+            switch (playerImageController.getPlayingChr())
             {
                 case 0:
                     if (panel_SuperPower.GetIsTouch())
@@ -45,6 +47,8 @@ public class SuperPowerController : MonoBehaviour
                 case 2:
                     if(panel_SuperPower.GetIsTouch() && freezer.freezeAvailable)
                     {
+                        GameObject particleObject = Instantiate(freezeParticleEffect);
+                        particleObject
                         freezer.Activate();
                         playerImageController.ChangePlayerImage(2); //초능력 사용 이미지로 변경
                     }

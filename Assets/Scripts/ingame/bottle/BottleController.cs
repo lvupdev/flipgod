@@ -37,6 +37,7 @@ public class BottleController : MonoBehaviour
     private UsefullOperation usefullOperation;
     private bool padStrengthTouched; //힘 버튼이 한 번이라도 눌렸는가
     private bool padDirectionTouched; //힘 버튼이 한 번이라도 눌렸는가
+    private bool isDestroying; //물병이 현재 파괴되고있는 중인지의 여부
     private Text comboText; //콤보 텍스트
 
 
@@ -62,7 +63,7 @@ public class BottleController : MonoBehaviour
 
         //값 초기화
         rb.gravityScale = 0;
-        transform.position = playerImageController.GetBottlePosition();
+        transform.position = playerImageController.getBottlePosition();
         isSuperPowerAvailabe = false; //물병에 초능력을 적용할 수 있는지의 여부
         isStanding = false;
         onFloor = false;
@@ -75,6 +76,7 @@ public class BottleController : MonoBehaviour
         padDirectionTouched = false;
         trajectoryLine.Start();
         tensionGaugeUp = true;
+        isDestroying = false;
 
     }
     void FixedUpdate()
@@ -85,12 +87,12 @@ public class BottleController : MonoBehaviour
         // 방향 패드만 눌렸을 때 기본 힘으로 포물선 그리기, 후에 힘버튼으로 포물선 조정
         {
             trajectoryLine.Draw(padStrengthTouched, padDirection.getDirection(), padStrength.totalStrength);
-            transform.position = playerImageController.GetBottlePosition(); // 물병 위치 갱신
+            transform.position = playerImageController.getBottlePosition(); // 물병 위치 갱신
         }
 
         if (gameObject.CompareTag("unActBottle"))
         {
-            Vector2 distance = gameObject.transform.position - playerImageController.GetBottlePosition();
+            Vector2 distance = gameObject.transform.position - playerImageController.getBottlePosition();
             zRotation = gameObject.transform.eulerAngles.z;
             delta += Time.fixedDeltaTime;
             if (distance.magnitude < 2) gameObject.SetActive(false); //던져진 물병이 물병 생성 위치와 너무 가까이 있으면 비활성화
@@ -152,10 +154,11 @@ public class BottleController : MonoBehaviour
             {
                 usefullOperation.FadeOut(true, transparent);
             }
+            isDestroying = true;
         }
 
 
-        if (gameObject.transform.position.y < -8) // 물병이 화면 밖으로 날아갔을 때
+        if (gameObject.transform.position.y < -10 && !isDestroying) // 물병이 화면 밖으로 날아갔을 때
         {
             if (gameObject.CompareTag("unActBottle")) Destroy(gameObject); // 어딘가 부딪히고 화면 밖으로 튕겨나갔을 때
             else
@@ -189,7 +192,7 @@ public class BottleController : MonoBehaviour
         controllButtonsUIManager.setHideButtons(true, 0); // 화면을 깔끔하게 하기 위해 컨트롤 UI 버튼들을 일시적으로 전부 숨김
 
         trajectoryLine.Delete();
-        if (playerImageController.GetPlayingChr() == 2)
+        if (playerImageController.getPlayingChr() == 2)
         {
             usefullOperation.FadeIn(transform.Find("FreezeRange").gameObject.GetComponent<SpriteRenderer>());
         }

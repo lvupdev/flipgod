@@ -66,12 +66,12 @@ public class SkillButton : MonoBehaviour
 
             bottleSelectController.bottle.SetActive(true); //물통 활성화
 
-            if(playerImageController.GetPlayingChr() == 0) //염동력자가 필살기를 사용 완료했을 때
+            if(playerImageController.getPlayingChr() == 0) //염동력자가 필살기를 사용 완료했을 때
             {
                 controllButtonsUIManager.setShowButtons(true, 1); //스킬 버튼과 membrame 추가/제거 버튼을 제외하고 모든 컨트롤 버튼 활성화
                 psychokinesis.SkillActivate();
             }
-            else if (playerImageController.GetPlayingChr() == 1) //탄성막 생성자가 필살기를 사용 완료했을 때
+            else if (playerImageController.getPlayingChr() == 1) //탄성막 생성자가 필살기를 사용 완료했을 때
             {
                 padDirection.setDirection(previousDirection); //조이스틱 방향을 원래 방향으로 갱신
                 controllButtonsUIManager.setShowButtons(true, 2); // 탄성막 추가 버튼을 숨기고 모든 컨트롤 버튼을 보여줌
@@ -80,6 +80,7 @@ public class SkillButton : MonoBehaviour
                 for(int i = 0; i < membranes.transform.childCount; i++)
                 {
                     membranes.transform.GetChild(i).GetComponent<MembraneUsingSkillEffect>().setStartDelta(true); //탄성막 파괴 카운트다운 시작
+                    membranes.transform.GetChild(i).GetComponent<MembraneUsingSkillEffect>().Activate(); //콜라이더 활성화
                 }
             }
             else //빙결자가 필살기를 사용 완료했을 때
@@ -103,7 +104,7 @@ public class SkillButton : MonoBehaviour
 
             bottleSelectController.bottle.SetActive(false); //물통 비활성화
 
-            if (playerImageController.GetPlayingChr() == 1) //탄성막 생성자가 필살기를 사용했을 때
+            if (playerImageController.getPlayingChr() == 1) //탄성막 생성자가 필살기를 사용했을 때
             {
                 previousDirection = padDirection.getDirection(); //스킬버튼을 누르기 전의 방향 저장
                 controllButtonsUIManager.setHideButtons(true, 2); //탄성막 추가 버튼 보이고 조이스틱을 제외한 컨트롤 버튼 숨김

@@ -17,7 +17,7 @@ public class UpSideController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.transform.parent.transform == bottles.transform)
+        if (collision.gameObject.transform.parent.transform == bottles.transform)
             membrane.Avtivate(1, collision.gameObject.GetComponent<BottleController>()); //접촉한 물볃의 bottleController 컴포넌트 전달
     }
 }

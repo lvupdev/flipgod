@@ -88,4 +88,10 @@ public class MembraneUsingSkillEffect : MonoBehaviour
             padDirection.setDirection(Vector2.zero); // 방향 초기화
         }
     }
+
+    public void Activate()
+    {
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(1).gameObject.SetActive(true);
+    }
 }

@@ -25,8 +25,6 @@ public class PadDirection : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     public bool getIsTouch() { return isTouch; }
 
-    public void ResetPosition() { rect_Joystick.localPosition = Vector3.zero; }
-
 
     void Start()
     {

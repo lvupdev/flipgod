@@ -11,7 +11,7 @@ public class BottleSelectController : MonoBehaviour
     public GameObject bottle;
     public BottleController bottleController;
     public BottleSkillOperation bottleSkillOperation;
-    private GameObject redAura;
+    public ParticleSystem particle;
 
 
 
@@ -24,13 +24,15 @@ public class BottleSelectController : MonoBehaviour
         bottle = GameObject.FindWithTag("isActBottle");
         bottleController = bottle.GetComponent<BottleController>();
         bottleSkillOperation = bottle.GetComponent<BottleSkillOperation>();
-        redAura = bottle.transform.Find("RedAura").gameObject;
+        particle = bottle.GetComponent<ParticleSystem>();
     }
 
     public void ReselectBottle()
     {
         bottle = GameObject.FindWithTag("isActBottle");
         bottleController = bottle.GetComponent<BottleController>();//힘을 적용할 물병을 태그에 따라 재설정
+        bottleSkillOperation = bottle.GetComponent<BottleSkillOperation>();
+        particle = bottle.GetComponent<ParticleSystem>();
         membraneCreator.membraneNum = membraneCreator.getSuperPowerLV();
         membraneCreator.membraneAvailable = false;
         freezer.freezeAvailable = true;

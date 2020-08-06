@@ -41,7 +41,7 @@ public class SuperPowerPanelController : MonoBehaviour, IPointerDownHandler, IPo
         endPos = Input.mousePosition;
         dragDirection = (endPos - initPos).normalized; //화면 드래그 방향
         isTouch = false;
-        if ((playerImageController.GetPlayingChr() == 1) && (bottleSelectController.bottleController.isSuperPowerAvailabe))
+        if ((playerImageController.getPlayingChr() == 1) && (bottleSelectController.bottleController.isSuperPowerAvailabe))
         {
             membraneCreator.SetMembraneAvailable(true); //탄성막을 한 개 생성하기 위해서는 탄성막 생성자를 조작하는 도중 한 번의 터치를 해야한다.
         } 

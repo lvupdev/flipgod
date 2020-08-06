@@ -40,7 +40,7 @@ public class BottleSkillOperation : MonoBehaviour
     {
         if (skillButton.getUsingSkill())
         {
-            if (playerImageController.GetPlayingChr() == 0) //염동력자의 경우
+            if (playerImageController.getPlayingChr() == 0) //염동력자의 경우
             {
                 if (!redAura.activeSelf && usingSkillNum < gameResourceValue.GetSkillLV(0)) //오러가 꺼져 있고 오러가 켜져있는 물병의 개수가 업그레이드 수 미만일 때
                 {
@@ -53,7 +53,7 @@ public class BottleSkillOperation : MonoBehaviour
                     usingSkillNum--;
                 }
             }
-            else if (playerImageController.GetPlayingChr() == 2) //빙결자의 경우
+            else if (playerImageController.getPlayingChr() == 2) //빙결자의 경우
             {
                 if (!freezeRange.activeSelf && usingSkillNum < gameResourceValue.GetSkillLV(2)) // 빙결 범위 표시기가 꺼져있고 빙결 범위 표시기가 쳐져 있는 개수가 업그레이드 수 미만일 때
                 {

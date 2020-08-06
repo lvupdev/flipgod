@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 6994851119167556587}
   m_Layer: 0
   m_Name: UpSIde
-  m_TagString: Untagged
+  m_TagString: Membrane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5113604662827138155
 Transform:
   m_ObjectHideFlags: 0
@@ -278,11 +278,11 @@ GameObject:
   - component: {fileID: 678744756413932841}
   m_Layer: 0
   m_Name: DownSide
-  m_TagString: Untagged
+  m_TagString: Membrane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3991420154450663742
 Transform:
   m_ObjectHideFlags: 0

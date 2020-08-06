@@ -14,6 +14,7 @@ public class BottleCollision : MonoBehaviour
     private GameObject redAura;
     private GameObject freezeRange;
     private GameObject player;
+    private GameObject membranes;
 
 
     void Start()
@@ -26,6 +27,7 @@ public class BottleCollision : MonoBehaviour
         usefullOperation = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
         redAura = transform.Find("RedAura").gameObject;
         freezeRange = transform.Find("FreezeRange").gameObject;
+        membranes = GameObject.Find("Membranes").gameObject;
     }
 
     //동전에 부딪혔을때. 동전은 isTrigger= True 상태여야함
@@ -42,16 +44,18 @@ public class BottleCollision : MonoBehaviour
     //어딘가에 부딪혔을때
     void OnCollisionEnter2D(Collision2D col)
     {
-        bottleController.isSuperPowerAvailabe = false; //더 이상 초능력을 적용할 수 없음
-
-        if (gameObject.CompareTag("isActBottle"))
+        if(!(col.gameObject.CompareTag("Membrane")))
         {
-            gameObject.tag = "unActBottle";//태그 변경
-            usefullOperation.FadeOut(false, redAura.GetComponent<SpriteRenderer>()); 
-            freezeRange.SetActive(false);
+            bottleController.isSuperPowerAvailabe = false; //더 이상 초능력을 적용할 수 없음
+            if (gameObject.CompareTag("isActBottle"))
+            {
+                gameObject.tag = "unActBottle";//태그 변경
+                usefullOperation.FadeOut(false, redAura.GetComponent<SpriteRenderer>());
+                freezeRange.SetActive(false);
 
-            bottleGenerator.GenerateBottle();//물병 생성
-            bottleSelectController.ReselectBottle(); //물병 재선택
+                bottleGenerator.GenerateBottle();//물병 생성
+                bottleSelectController.ReselectBottle(); //물병 재선택
+            }
         }
 
         if (col.gameObject.CompareTag("floor")) bottleController.onFloor = true;

@@ -5,10 +5,10 @@ using UnityEngine.EventSystems;
 
 public class Freezer : MonoBehaviour
 {
-    private int superPowerLV; //초능력 강화 레벨
     private BottleSelectController bottleSelectController;
     private ScreenEffectController screenEffectController;
     private ResourceManager gameResourceValue;
+    private UsefullOperation usefullOperation;
     private GameObject bottles;
 
     public bool freezeAvailable; // 2번 발동 방지 변수
@@ -19,9 +19,9 @@ public class Freezer : MonoBehaviour
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
         gameResourceValue = GameObject.Find("GameResource").GetComponent<ResourceManager>();
+        usefullOperation = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
         bottles = GameObject.Find("Bottles");
 
-        superPowerLV = gameResourceValue.GetSuperPowerLV(2);
         freezeAvailable = true;
     }
 
@@ -31,7 +31,7 @@ public class Freezer : MonoBehaviour
     {
         screenEffectController.FreezeEffect();
         bottleSelectController.bottle.transform.Find("FreezeRange").GetComponent<FreezeEffect>().Freeze();
-        bottleSelectController.bottle.transform.Find("FreezeRange").gameObject.SetActive(false);
+        usefullOperation.FadeOut(false, bottleSelectController.bottle.transform.Find("FreezeRange").GetComponent<SpriteRenderer>());
         freezeAvailable = false;
     }
 

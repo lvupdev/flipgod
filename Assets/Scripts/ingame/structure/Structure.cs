@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Structure : MonoBehaviour
 {
+    public Sprite baseSprite;
+    public Sprite freezedSprite;
     public SpriteRenderer spriteRenderer;
 
     public int collisionNum {get; set;} //물병과 충돌한 횟수
@@ -12,8 +14,7 @@ public class Structure : MonoBehaviour
 
     private void Start()
     {
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-
+        spriteRenderer = transform.GetComponent<SpriteRenderer>();
         delta = 0;
         collisionNum = 0;
     }
@@ -21,15 +22,15 @@ public class Structure : MonoBehaviour
     // 동적 구조물 해동 메서드
     public void ThawDynamicStructure(bool isFreezed)
     {
-        if (isFreezed == true)
+        if (isFreezed)
         {
-            spriteRenderer.color = new Color(0, 0, 1, 1);
+            spriteRenderer.sprite = freezedSprite;
             delta += Time.deltaTime;
             if (delta > 15)
             {
                 this.isFreezed = false;
                 delta = 0;
-                spriteRenderer.color = new Color(1, 1, 1, 1);
+                spriteRenderer.sprite = baseSprite;
             }
         }
     }

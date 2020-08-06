@@ -36,6 +36,7 @@ public class FreezeEffect : MonoBehaviour
         }
 
         tensionGaugeManager.IncreaseTensionGauge(3, TargetObject.Count);
+
     }
 
 

@@ -26,8 +26,8 @@ public class PlayerImageController : MonoBehaviour
     private int key; //플레이어의 스프라이트 방향 결정 겂
 
     //값 반환 함수
-    public Vector3 GetBottlePosition() { return bottlePosition; }
-    public int GetPlayingChr() { return playingChr; }
+    public Vector3 getBottlePosition() { return bottlePosition; }
+    public int getPlayingChr() { return playingChr; }
   
     private void Awake()
     {
