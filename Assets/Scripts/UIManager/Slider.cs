@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+ * This script is used for scroll view control in Select Stage Scene
+ */
 public class Slider : MonoBehaviour
 {
     // Variable about scroll bar

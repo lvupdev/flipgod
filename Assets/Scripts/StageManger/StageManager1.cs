@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
- * 스테이지 레벨 1의 structure를 관리하는 스크립트
+ * This script manage structure of stage level 1
  */
 
 public class StageManager1 : MonoBehaviour
