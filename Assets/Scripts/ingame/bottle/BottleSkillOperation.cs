@@ -33,40 +33,46 @@ public class BottleSkillOperation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    private void OnMouseDown() //물병 콜라이더가 터치되었을 때
-    {
-        if (skillButton.getUsingSkill())
+        if (skillButton.getUsingSkill() && Input.GetMouseButtonDown(0))
         {
-            if (playerImageController.getPlayingChr() == 0) //염동력자의 경우
+            Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Ray2D ray = new Ray2D(pos, Vector2.zero);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction);
+            
+            foreach(var hit in hits)
             {
-                if (!redAura.activeSelf && usingSkillNum < gameResourceValue.GetSkillLV(0)) //오러가 꺼져 있고 오러가 켜져있는 물병의 개수가 업그레이드 수 미만일 때
+                if (hit.collider.gameObject != gameObject) //해당 물병이 터치되었는지 확인
+                    continue;
+
+                if (playerImageController.getPlayingChr() == 0) //염동력자의 경우
                 {
-                    usefullOperation.FadeIn(redAura.GetComponent<SpriteRenderer>());
-                    usingSkillNum++;
+                    if (!redAura.activeSelf && usingSkillNum < gameResourceValue.GetSkillLV(0)) //오러가 꺼져 있고 오러가 켜져있는 물병의 개수가 업그레이드 수 미만일 때
+                    {
+                        usefullOperation.FadeIn(redAura.GetComponent<SpriteRenderer>());
+                        usingSkillNum++;
+                    }
+                    else if (redAura.activeSelf) //오러가 켜져있을 때
+                    {
+                        usefullOperation.FadeOut(false, redAura.GetComponent<SpriteRenderer>());
+                        usingSkillNum--;
+                    }
                 }
-                else if (redAura.activeSelf) //오러가 켜져있을 때
+                else if (playerImageController.getPlayingChr() == 2) //빙결자의 경우
                 {
-                    usefullOperation.FadeOut(false, redAura.GetComponent<SpriteRenderer>());
-                    usingSkillNum--;
+                    if (!freezeRange.activeSelf && usingSkillNum < gameResourceValue.GetSkillLV(2)) // 빙결 범위 표시기가 꺼져있고 빙결 범위 표시기가 쳐져 있는 개수가 업그레이드 수 미만일 때
+                    {
+                        usefullOperation.FadeIn(freezeRange.GetComponent<SpriteRenderer>());
+                        rb.AddForce(new Vector2(0.01f, 0)); //빙결 범위 이미지를 움직이지 않으면 구조물 인식이 안 됨.
+                        usingSkillNum++;
+                    }
+                    else if (freezeRange.activeSelf)
+                    {
+                        usefullOperation.FadeOut(false, freezeRange.GetComponent<SpriteRenderer>());
+                        usingSkillNum--;
+                    }
                 }
-            }
-            else if (playerImageController.getPlayingChr() == 2) //빙결자의 경우
-            {
-                if (!freezeRange.activeSelf && usingSkillNum < gameResourceValue.GetSkillLV(2)) // 빙결 범위 표시기가 꺼져있고 빙결 범위 표시기가 쳐져 있는 개수가 업그레이드 수 미만일 때
-                {
-                    usefullOperation.FadeIn(freezeRange.GetComponent<SpriteRenderer>());
-                    rb.AddForce(new Vector2(0.01f, 0)); //빙결 범위 이미지를 움직이지 않으면 구조물 인식이 안 됨.
-                    usingSkillNum++;
-                }
-                else if (freezeRange.activeSelf)
-                {
-                    usefullOperation.FadeOut(false, freezeRange.GetComponent<SpriteRenderer>());
-                    usingSkillNum--;
-                }
-                Debug.Log("실행됨");
+
+                break;
             }
         }
     }

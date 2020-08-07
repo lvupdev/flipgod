@@ -28,8 +28,7 @@ public class BottleGenerator : MonoBehaviour
         controllButtonsUIManager.setShowButtons(true, 0); //숨겼던 컨트롤 UI 버튼 표시
         playerImageController.ChangePlayerImage(0); //물병을 던지기 전의 이미지로 변경
  
-        GameObject Bottle = Instantiate(bottlePrefab) as GameObject;
-        Bottle.transform.SetParent(bottles.transform);
+        GameObject Bottle = Instantiate(bottlePrefab, bottles.transform) as GameObject;
 
         Bottle.tag = "isActBottle"; //PadStrength.cs 75번째 줄 오류 때문에 수정
 

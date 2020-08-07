@@ -16,12 +16,15 @@ public class ControllButtonsUIManager : MonoBehaviour
     private float delta; //시간 변수
     private float[] originalPositionofButtons = new float[7]; //각 버튼들의 원래 위치를 저장하는 배열
     private GameObject controllButtons; //숨시고 표시하고 싶은 오브젝트들의 부모 오브젝느
+
+    public bool isOperating { get; set; } // 버튼 이동 스크립트가 활성화 중인지의 여부 
     
     // Start is called before the first frame update
     void Start()
     {
         hideButtons = false;
         showButtons = false;
+        isOperating = false;
         delta = 0;
         whichCase = 0;
         canvasHeightHalf = GameObject.Find("Canvas").GetComponent<RectTransform>().sizeDelta.y / 2;
@@ -36,6 +39,7 @@ public class ControllButtonsUIManager : MonoBehaviour
 
     public void setShowButtonsWithDelay(float delay, int whichCase)
     {
+        isOperating = true;
         Invoke("setShowButtons", delay);
         this.whichCase = whichCase;
     }
@@ -43,11 +47,13 @@ public class ControllButtonsUIManager : MonoBehaviour
 
     public void setHideButtons(bool value, int whichCase) 
     {
+        isOperating = true;
         hideButtons = value;
         this.whichCase = whichCase;
     }
     public void setShowButtons(bool value, int whichCase) 
-    { 
+    {
+        isOperating = true;
         showButtons = value;
         this.whichCase = whichCase;
     }
@@ -78,6 +84,7 @@ public class ControllButtonsUIManager : MonoBehaviour
                     {
                         delta = 0;
                         hideButtons = false;
+                        isOperating = false;
                     }
                     break;
                 case 1: //염력, 빙결 필살기를 사용했을 때
@@ -93,6 +100,7 @@ public class ControllButtonsUIManager : MonoBehaviour
                     {
                         delta = 0;
                         hideButtons = false;
+                        isOperating = false;
                     }
                     break;
                 case 2: //탄성막 필살기를 발동했을 때
@@ -113,6 +121,7 @@ public class ControllButtonsUIManager : MonoBehaviour
                     {
                         delta = 0;
                         hideButtons = false;
+                        isOperating = false;
                     }
                     break;
             }
@@ -141,6 +150,7 @@ public class ControllButtonsUIManager : MonoBehaviour
                             controllButtons.transform.GetChild(i).GetComponent<RectTransform>().localPosition =
                                 new Vector2(controllButtons.transform.GetChild(i).GetComponent<RectTransform>().localPosition.x, originalPositionofButtons[i]);
                         }
+                        isOperating = false;
                     }
                     break;
                 case 1: //염력, 빙결 필살기를 사용했을 때
@@ -161,6 +171,7 @@ public class ControllButtonsUIManager : MonoBehaviour
                             controllButtons.transform.GetChild(i).GetComponent<RectTransform>().localPosition =
                                 new Vector2(controllButtons.transform.GetChild(i).GetComponent<RectTransform>().localPosition.x, originalPositionofButtons[i]);
                         }
+                        isOperating = false;
                     }
                     break;
                 case 2: //탄성막 필살기를 발동했을 때
@@ -186,6 +197,7 @@ public class ControllButtonsUIManager : MonoBehaviour
                             controllButtons.transform.GetChild(i).GetComponent<RectTransform>().localPosition =
                                 new Vector2(controllButtons.transform.GetChild(i).GetComponent<RectTransform>().localPosition.x, originalPositionofButtons[i]);
                         }
+                        isOperating = false;
                     }
                     break;
             }

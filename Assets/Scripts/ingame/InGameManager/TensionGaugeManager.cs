@@ -23,15 +23,18 @@ public class TensionGaugeManager : MonoBehaviour
      =================================================================================================*/
 
     private GameObject tensionGaugeBar; //텐션게이지 이미지
+    private UsefullOperation usefullOperation;
     private bool increaseConditionFullfilled; // 텐션게이지를 상승시켜야 하는지의 여부
     private bool decreaseConditionFullfilled; // 텐션게이지를 감소시켜야 하는지의 여부
+    private bool noticeAlarmed; //알림을 한 번 표시 했는지의 여부
     private int whichCase; // 4가지 경우 중 어떤 경우인지
     private int increaseValue; // 텐션게이지 증가 계수
     private int decreaseValue; // 텐션게이지 감소 계수
     private int tensionGauge; //텐션게이지 퍼센트 수치
     private Text percentText; //텐션게이지 퍼센트 텍스트
-    private Text comboText; //콤보 텍스트
-    private Text noticeText; //트리거 발동/ 빙결 등을 알리는 텍스트
+    private Text noticeText; //트리거 발동/ 빙결, 콤보 등을 알리는 텍스트
+
+    public string comboText { get; set; } //콤보 스트링
 
     public void IncreaseTensionGauge(int whichCase, int increaseValue) //텐션게이지를 증가시키고 싶을 때 호출하는 메서드
     {
@@ -51,13 +54,14 @@ public class TensionGaugeManager : MonoBehaviour
     private void Start()
     {
         tensionGaugeBar = GameObject.Find("Image_TensionGaugeBar");
+        usefullOperation = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
         percentText = GameObject.Find("Text_GaugePercent").GetComponent<Text>();
-        comboText = GameObject.Find("Text_Combo").GetComponent<Text>();
         noticeText = GameObject.Find("Text_NoticeBoard").GetComponent<Text>();
         tensionGaugeBar.GetComponent<Image>().fillAmount = 0;
         tensionGauge = 0;
         increaseConditionFullfilled = false;
         decreaseConditionFullfilled = false;
+        noticeAlarmed = false;
     }
 
     private void FixedUpdate()
@@ -73,23 +77,32 @@ public class TensionGaugeManager : MonoBehaviour
                 increaseConditionFullfilled = false;
             }
 
-            switch (whichCase) //알림 관리
+            if (!noticeAlarmed) //알림 관리. 알림은 한 번만 실행된다.
             {
-                case 1: //(1)의 경우
-                    break;
-                case 2: //(2)의 경우 현재 콤보 수를 표시한다.
-                    comboText.text = increaseValue + "COMBO!!";
-                    break;
-                case 3: //(3)의 경우 텐션게이지가 꽉차있거나 아무것도 얼리지 않은 경우를 제외하면 FREEZE BONUS!! 문구가 표시된다.
-                    if ((tensionGaugeBar.GetComponent<Image>().fillAmount != 1) && increaseValue != 0) noticeText.text = "FREEZE BONUS!!";
-                    break;
-                case 4: //(4)의 경우
-                    if (tensionGaugeBar.GetComponent<Image>().fillAmount != 1) noticeText.text = "TRIGGER BONUS!!";
-                    break;
+                switch (whichCase) //알림 관리
+                {
+                    case 1: //(1)의 경우
+                        break;
+                    case 2: //(2)의 경우 현재 콤보 수를 표시한다.
+                        usefullOperation.ShakeObject(noticeText.transform, 0.3f, 8);
+                        comboText = increaseValue + "COMBO!! \n";
+                        noticeText.text = comboText;
+                        break;
+                    case 3: //(3)의 경우 텐션게이지가 꽉차있거나 아무것도 얼리지 않은 경우를 제외하면 FREEZE BONUS!! 문구가 표시된다.
+                        if ((tensionGaugeBar.GetComponent<Image>().fillAmount != 1) && increaseValue != 0) noticeText.text += "FREEZE BONUS!!";
+                        break;
+                    case 4: //(4)의 경우
+                        if (tensionGaugeBar.GetComponent<Image>().fillAmount != 1) noticeText.text += "TRIGGER BONUS!!";
+                        break;
+                }
+                noticeAlarmed = true;
             }
         }
         else
-            noticeText.text = "";
+        {
+            noticeText.text = comboText;
+            noticeAlarmed = false;
+        }
 
         if (decreaseConditionFullfilled)
         {

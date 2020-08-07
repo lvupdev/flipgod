@@ -35,10 +35,10 @@ public class BottleController : MonoBehaviour
     private TensionGaugeManager tensionGaugeManager;
     private ControllButtonsUIManager controllButtonsUIManager;
     private UsefullOperation usefullOperation;
+    private ScreenEffectController screenEffectController;
     private bool padStrengthTouched; //힘 버튼이 한 번이라도 눌렸는가
     private bool padDirectionTouched; //힘 버튼이 한 번이라도 눌렸는가
     private bool isDestroying; //물병이 현재 파괴되고있는 중인지의 여부
-    private Text comboText; //콤보 텍스트
 
 
     private TrajectoryLine trajectoryLine; //포물선 스크립트 분리
@@ -59,7 +59,8 @@ public class BottleController : MonoBehaviour
         tensionGaugeManager = GameObject.Find("Image_TensionGaugeBar").GetComponent<TensionGaugeManager>();
         controllButtonsUIManager = GameObject.Find("UIManager").GetComponent<ControllButtonsUIManager>();
         usefullOperation = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
-        comboText = GameObject.Find("Text_Combo").GetComponent<Text>();
+        screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>(); ;
+
 
         //값 초기화
         rb.gravityScale = 0;
@@ -132,7 +133,7 @@ public class BottleController : MonoBehaviour
                 if (delta < 1.5f)
                 {
                     combo = 0;
-                    comboText.text = "";
+                    tensionGaugeManager.comboText = "";
                 }
             }
             else if ((delta > 1f) && (rb.angularVelocity == 0) && ((zRotation > 340) || (zRotation < 20)))
@@ -163,9 +164,16 @@ public class BottleController : MonoBehaviour
             if (gameObject.CompareTag("unActBottle")) Destroy(gameObject); // 어딘가 부딪히고 화면 밖으로 튕겨나갔을 때
             else
             {
+                if (Time.timeScale != 1) //염력 사용하다가 화면 밖으로 날아간 경우
+                {
+                    Time.timeScale = 1;
+                    Time.fixedDeltaTime = 0.02f * Time.timeScale;
+                    screenEffectController.shadowEffect.enabled = false;
+                    screenEffectController.screenEffectNum = 1;
+                }
                 gameObject.tag = "unActBottle";//태그가 사라짐
-                bottleGenerator.GenerateBottle();//물병 생성
-                bottleSelectController.ReselectBottle(); //물병 재선택
+                bottleGenerator.GenerateBottleWithDelay(0.75f);//물병 생성
+                bottleSelectController.ReselectBottleWithDelay(0.75f); //물병 재선택
                 Destroy(gameObject); //해당 물병 파괴
             }
         }

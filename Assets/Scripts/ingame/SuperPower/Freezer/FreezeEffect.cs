@@ -8,22 +8,17 @@ public class FreezeEffect : MonoBehaviour
     private GameObject structures;
     private TensionGaugeManager tensionGaugeManager;
     private ResourceManager gameResourceValue;
-    private CircleCollider2D circleCollider;
     private int superPowerLV; //초능력 강화 레벨
-    private float freezeRad; //빙결 가능 범위 반지름
 
     private void Awake()
     {
         structures = GameObject.Find("Structures");
         tensionGaugeManager = GameObject.Find("Image_TensionGaugeBar").GetComponent<TensionGaugeManager>();
         gameResourceValue = GameObject.Find("GameResource").GetComponent<ResourceManager>();
-        circleCollider = GetComponent<CircleCollider2D>();
         superPowerLV = gameResourceValue.GetSuperPowerLV(2);
 
         //초기 반지름 설정
-        freezeRad = superPowerLV * 5.1492f; //빙결자의 초능력 강화 레벨 수치의 배수 만큼이 빙결 가능 범위의 반지름이 된다.
-        circleCollider.radius = freezeRad;
-        transform.localScale = new Vector3(0.5f * superPowerLV, 0.47f * superPowerLV, 1);
+        transform.localScale = new Vector3(1.075f * superPowerLV, superPowerLV, 1);
 
     }
 

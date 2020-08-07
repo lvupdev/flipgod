@@ -60,8 +60,8 @@ public class BottleCollision : MonoBehaviour
                 usefullOperation.FadeOut(false, redAura.GetComponent<SpriteRenderer>());
                 freezeRange.SetActive(false);
 
-                bottleGenerator.GenerateBottleWithDelay(0.75f);//딜레이를 주고 물병 생성
-                bottleSelectController.ReselectBottleWithDelay(0.75f); //딜레이를 주고 물병 재선택
+                bottleGenerator.GenerateBottleWithDelay(1);//딜레이를 주고 물병 생성
+                bottleSelectController.ReselectBottleWithDelay(1); //딜레이를 주고 물병 재선택
             }
         }
 

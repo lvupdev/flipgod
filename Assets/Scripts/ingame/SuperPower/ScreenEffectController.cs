@@ -9,8 +9,8 @@ public class ScreenEffectController : MonoBehaviour
     private RadialBlurImageEffect blurEffect;
     private SuperPowerPanelController Panel_SuperPower;
     private UsefullOperation usefullOperation;
-    private CameraShake mainCamera;
-    private CameraShake colorCamera;
+    private Camera mainCamera;
+    private GameObject colorCamera;
 
     public ShadowThresholdCustomEffect shadowEffect;
     public GameObject membrane;
@@ -25,8 +25,8 @@ public class ScreenEffectController : MonoBehaviour
     {
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
-        mainCamera = Camera.main.GetComponent<CameraShake>();
-        colorCamera = GameObject.Find("Color Camera").GetComponent<CameraShake>();
+        mainCamera = Camera.main;
+        colorCamera = GameObject.Find("Color Camera").gameObject;
         blurEffect = GameObject.Find("Main Camera").GetComponent<RadialBlurImageEffect>();
         shadowEffect = GameObject.Find("Main Camera").GetComponent<ShadowThresholdCustomEffect>();
         Panel_SuperPower = GameObject.Find("Panel_SuperPower").GetComponent<SuperPowerPanelController>();
@@ -141,7 +141,7 @@ public class ScreenEffectController : MonoBehaviour
 
     public void FreezeEffect() //빙결 카메라 특수효과 발동
     {
-        mainCamera.VibrateForTime(0.15f);
-        colorCamera.VibrateForTime(0.15f);
+        usefullOperation.ShakeObject(mainCamera.transform, 0.2f, 0.25f);
+        usefullOperation.ShakeObject(colorCamera.transform, 0.2f, 0.25f);
     }
 }

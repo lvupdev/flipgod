@@ -6,10 +6,9 @@ public class BottleSelectController : MonoBehaviour
 {
     private MembraneCreator membraneCreator;
     private Freezer freezer;
-    private ScreenEffectController screenEffectController;
 
-    public GameObject bottle;
-    public BottleController bottleController;
+    public GameObject bottle { get; set; }
+    public BottleController bottleController { get; set; }
     public BottleSkillOperation bottleSkillOperation;
 
 
@@ -17,7 +16,6 @@ public class BottleSelectController : MonoBehaviour
     {
         membraneCreator = GameObject.Find("Player").GetComponent<MembraneCreator>();
         freezer = GameObject.Find("Player").GetComponent<Freezer>();
-        screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
         bottle = GameObject.FindWithTag("isActBottle");
         bottleController = bottle.GetComponent<BottleController>();
         bottleSkillOperation = bottle.GetComponent<BottleSkillOperation>();
