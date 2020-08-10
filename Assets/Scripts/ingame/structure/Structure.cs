@@ -12,12 +12,15 @@ public class Structure : MonoBehaviour
     public bool isFreezed = false;
     public float delta;
 
-    private void Start()
+    public void Start()
     {
         spriteRenderer = transform.GetComponent<SpriteRenderer>();
         delta = 0;
         collisionNum = 0;
+
     }
+
+
 
     // 동적 구조물 해동 메서드
     public void ThawDynamicStructure(bool isFreezed)

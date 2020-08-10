@@ -9,15 +9,19 @@ using UnityEngine.UI;
 */
 public class PlayerImageController : MonoBehaviour
 {
-    private int playingChr; //조작할 수 있는 캐릭터
-    private int firstSlotChr; //교체 슬롯 1번에 있는 캐릭터
-    private int secondSlotChr; //교체 슬롯 2번에 있는 캐릭터
     private int whichCase; //플레이어 스프라이트 교체 시 어떤 자세인지
     private SpriteRenderer spriteRenderer;
     private PadStrength padStrength;
     public PadDirection padDirection;
     private BottleSelectController bottleSelectController;
     private SkillButton skillButton;
+    private Image charSlot1; //캐릭터 슬롯 1 아이콘
+    private Image charSlot2; //캐릭터 슬롯 2 아이콘
+
+    public int playingChr; //조작할 수 있는 캐릭터
+    public int firstSlotChr; //교체 슬롯 1번에 있는 캐릭터
+    public int secondSlotChr; //교체 슬롯 2번에 있는 캐릭터
+
     public Sprite[] standingSprites; // 스탠딩 이미지를 담아놓는 배열
     public Sprite[] iconSprites; //아이콘 이미지를 담아놓는 배열
     public Sprite[] throwingSprites; // 던지는 이미지를 담아놓는 배열
@@ -37,15 +41,22 @@ public class PlayerImageController : MonoBehaviour
 
     void Start()
     {
-        playingChr = 0; //염동력자
-        firstSlotChr = 1; //탄성막 생성자
-        secondSlotChr = 2; //빙결자
+        /* playingChr
+         * firstSlotchar
+         * secondSlotChr
+         *  스테이지 번호에 따라 초기화
+         */
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         skillButton = GameObject.Find("Button_Skill").GetComponent<SkillButton>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         padDirection = GameObject.Find("Joystick").GetComponent<PadDirection>();
-        spriteRenderer.sprite = standingSprites[0];
+        charSlot1 = GameObject.Find("ControllButtons").transform.Find("Button_CharacterSlot_1").GetComponent<Image>();
+        charSlot2 = GameObject.Find("ControllButtons").transform.Find("Button_CharacterSlot_2").GetComponent<Image>();
+        spriteRenderer.sprite = standingSprites[playingChr];
+        charSlot1.sprite = iconSprites[firstSlotChr];
+        charSlot2.sprite = iconSprites[secondSlotChr];
     }
 
     private void Update()
@@ -66,7 +77,7 @@ public class PlayerImageController : MonoBehaviour
             temp = playingChr;
             playingChr = firstSlotChr;
             firstSlotChr = temp;
-            GameObject.Find("Button_CharacterSlot_1").GetComponent<Image>().sprite = iconSprites[firstSlotChr];
+            charSlot1.sprite = iconSprites[firstSlotChr];
             spriteRenderer.sprite = standingSprites[playingChr];
 
             bottleSelectController.bottle.transform.position = transform.GetChild(playingChr).transform.position;
@@ -82,7 +93,7 @@ public class PlayerImageController : MonoBehaviour
             temp = playingChr;
             playingChr = secondSlotChr;
             secondSlotChr = temp;
-            GameObject.Find("Button_CharacterSlot_2").GetComponent<Image>().sprite = iconSprites[secondSlotChr];
+            charSlot2.sprite = iconSprites[secondSlotChr];
             spriteRenderer.sprite = standingSprites[playingChr];
 
             bottleSelectController.bottle.transform.position = transform.GetChild(playingChr).transform.position;

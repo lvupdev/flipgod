@@ -21,6 +21,7 @@ public class BottleController : MonoBehaviour
     public bool standingBySkill;            // 필살기에 의해 세워지는 중인가;
     public float Timeout;
     public static int combo = 0;                // 물병이 몇번째 콤보를 달성하였는가
+    public bool isStructure = false;        //스테이지 구조물의 일부인지의 여부. 간혹 스테이지에 구조물로서 배치되는 경우를 상정
 
     private float rotateSpeed; //회전속도
     private float zRotation; //NEW: 물병의 z회전축 값
@@ -63,8 +64,15 @@ public class BottleController : MonoBehaviour
 
 
         //값 초기화
-        rb.gravityScale = 0;
-        transform.position = playerImageController.getBottlePosition();
+        if (isStructure)
+        {
+            rb.gravityScale = 1;
+        }
+        else
+        {
+            rb.gravityScale = 0;
+            transform.position = playerImageController.getBottlePosition();
+        }
         isSuperPowerAvailabe = false; //물병에 초능력을 적용할 수 있는지의 여부
         isStanding = false;
         onFloor = false;
@@ -75,7 +83,6 @@ public class BottleController : MonoBehaviour
         standingDelay = 2;
         padStrengthTouched = false;
         padDirectionTouched = false;
-        trajectoryLine.Start();
         tensionGaugeUp = true;
         isDestroying = false;
 
@@ -114,7 +121,7 @@ public class BottleController : MonoBehaviour
                 {
                     standingDelay = 2;
                     standingBySkill = false;
-                    usefullOperation.FadeOut(false, this.transform.GetChild(0).GetComponent<SpriteRenderer>());
+                    if(!isDestroying) usefullOperation.FadeOut(false, this.transform.GetChild(0).GetComponent<SpriteRenderer>()); //파괴 도중에 실행되면 오류 발생
                 }
             }
             else
@@ -153,6 +160,7 @@ public class BottleController : MonoBehaviour
             destroyDelay -= Time.fixedDeltaTime;
             if (destroyDelay < 0)
             {
+                usefullOperation.FadeOut(false, this.transform.GetChild(0).GetComponent<SpriteRenderer>());
                 usefullOperation.FadeOut(true, transparent);
             }
             isDestroying = true;

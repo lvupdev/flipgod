@@ -10,12 +10,14 @@ public class BottleGenerator : MonoBehaviour
     public GameObject bottlePrefab;
     private ControllButtonsUIManager controllButtonsUIManager;
     private PlayerImageController playerImageController;
+    private TrajectoryLine trajectoryLine;
 
     public void Start()
     {
         bottles = GameObject.Find("Bottles");
         controllButtonsUIManager = GameObject.Find("UIManager").GetComponent<ControllButtonsUIManager>();
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
+        trajectoryLine = GameObject.Find("Trajectory").GetComponent<TrajectoryLine>();
     }
 
     public void GenerateBottleWithDelay(float delay)
@@ -31,6 +33,8 @@ public class BottleGenerator : MonoBehaviour
         GameObject Bottle = Instantiate(bottlePrefab, bottles.transform) as GameObject;
 
         Bottle.tag = "isActBottle"; //PadStrength.cs 75번째 줄 오류 때문에 수정
+
+        trajectoryLine.Start(); //점선 생성
 
         // After generating bottle, decrease remaining bottle num
         StageGameManager.CountUsedBottle();
