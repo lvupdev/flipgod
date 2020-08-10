@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * This script is used for drawing trajectory line.
+ */
+
 public class TrajectoryLine : MonoBehaviour
 {
     private GameObject bottle;

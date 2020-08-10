@@ -111,13 +111,13 @@ public class StageUIManager : MonoBehaviour
         second = Mathf.FloorToInt(limitedTime);
         minute = second / 60;
         second = second % 60;
-        timeText.text = minute + " : " + second;
+        timeText.text = minute + ":" + second;
     }
 
     // Update bottle text
     public void UpdateBottleText(int remain, int total)
     {
-        bottleCountText.text = remain + " / " + total;
+        bottleCountText.text = remain + "/" + total;
     }
 
     // Update tension gauge

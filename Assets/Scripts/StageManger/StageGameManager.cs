@@ -7,11 +7,27 @@ using UnityEngine.SceneManagement;
  */
 public class StageGameManager : MonoBehaviour
 {
+
+    [SerializeField]
+    private StageData currentStageData;
+    public StageData CurrentStageData { set { currentStageData = value; } }
+
+
+    public void InitializeCurrentStageData(StageData currentStageData)
+    {
+        CurrentStageData = currentStageData;
+    }
+
+    // (TO DO) commnet 관련
+    // 0번 염력
+    // 1번 membrane
+    // 2번 frezzer
     // This class is to save value about stage information
     class StageInformation
     {
         public int limitedBottleNum;
         public float limitedTime;
+        // public string[] coment;
 
         public StageInformation(int limitedBottleNum, float limitedTime)
         {
@@ -37,6 +53,8 @@ public class StageGameManager : MonoBehaviour
 
     // Variable about goods to be gained
     public static int gainedCoinNum;
+
+    public static bool isCleared;
 
     // Start is called before the first frame update
 
