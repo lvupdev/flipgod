@@ -36,7 +36,6 @@ public class BottleCollision : MonoBehaviour
         if (col.gameObject.tag == "coin")
         {
             Destroy(col.gameObject, 0f);
-            StageGameManager.AddCoin();
         }
     }
 

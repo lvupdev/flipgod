@@ -77,47 +77,48 @@ public class StageUIManager : MonoBehaviour
     /*=================<Update texts of score panel>================================*/
     private IEnumerator UpdateScoreTexts()
     {
-        // Variable about current gained coin num, remaining bottle, remaining time 
-        int coin;
-        int remain, total;
-        float time;
+        int usedBottle, totalBottle;
+        float usedTime, totalTime;
 
-        total = StageGameManager.limitedBottleNum;
+        totalBottle = StageGameManager.Instance.StageData.LimitedBottleNumber;
+        totalTime = StageGameManager.Instance.StageData.LimitedTime;
 
         while (true)
         {
-            coin = StageGameManager.gainedCoinNum;
-            remain = StageGameManager.remainingBottleNum;
-            time = StageGameManager.limitedTime;
+            usedBottle = StageGameManager.Instance.UsedBottleNum;
+            usedTime = StageGameManager.Instance.UsedTime;
 
-            UpdateCoinText(coin);
-            UpdateBottleText(remain, total);
-            UpdateTimeText(time);
+            UpdateBottleText(usedBottle, totalBottle);
+            UpdateTimeText(usedTime, totalTime);
 
             yield return new WaitForFixedUpdate();
         }
-    }
 
-    // Update coin text
-    public void UpdateCoinText(int gainedCoin)
-    {
-        coinCountText.text = gainedCoin.ToString();
     }
 
     // Update time text
-    public void UpdateTimeText(float limitedTime)
+    public void UpdateTimeText(float used, float total)
     {
+        string temp;
         int minute, second;
-        second = Mathf.FloorToInt(limitedTime);
+
+        second = Mathf.FloorToInt(used);
         minute = second / 60;
         second = second % 60;
-        timeText.text = minute + ":" + second;
+        temp = minute + ":" + second;
+
+        second = Mathf.FloorToInt(total);
+        minute = second / 60;
+        second = second % 60;
+        temp += (minute + ":" + second);
+
+        timeText.text = temp;
     }
 
     // Update bottle text
-    public void UpdateBottleText(int remain, int total)
+    public void UpdateBottleText(int used, int total)
     {
-        bottleCountText.text = remain + "/" + total;
+        bottleCountText.text = used + "/" + total;
     }
 
     // Update tension gauge
@@ -186,7 +187,7 @@ public class StageUIManager : MonoBehaviour
         // (To Do) 또한 stage를 특정하면 확장성이 없으므로 수정해야 함.
         int index = StageGameManager.GetCurrentStageNumber();
         SceneManager.LoadScene("Stage" + "-" + index);
-        StageGameManager.SetCurrentStageInformationDefault(index);
+        StageGameManager.InitializeCurrentStageData(index);
         // (To Do) 게임 재시작을 씬을 다시 로드하는 방식 말고 변수들을 초기화하는 방식으로 할 것.
         // StageGameManager.InitializeStage();
     }
