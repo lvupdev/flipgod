@@ -11,7 +11,7 @@ public class TrajectoryLine : MonoBehaviour
     private GameObject bottle;
     
     //포물선
-    public GameObject trajectoryDotPrefab;
+    public GameObject[] trajectoryDotPrefab;
     private GameObject[] trajectoryDots;
     private int trajectoryNumber = 15; //포물선 점 개수
     private float fadingNum = 5.0f; //흐려지는 점의 개수
