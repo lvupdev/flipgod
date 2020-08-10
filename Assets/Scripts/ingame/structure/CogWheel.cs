@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class CogWheel : Structure
 {
     public GameObject IndustrialLine; //톱니바퀴가 놓일 레인
+    public float speed; //이동 속도 
     
     private RectTransform rect_Line;  //톱니바퀴 레인의 rect transform
     private float moveRange; //톱니바퀴가 이동할수 있는 범위
@@ -31,7 +33,7 @@ public class CogWheel : Structure
     {
         transform.Rotate(new Vector3(0, 0, -360 * Time.deltaTime)); //1초에 360도씩 회전
 
-        transform.position += new Vector3(2* key * Time.deltaTime, 0, 0); //1초에 2만큼 이동
+        transform.position += new Vector3(speed * key * Time.deltaTime, 0, 0); //1초에 2만큼 이동
 
         distance = transform.position.x - IndustrialLine.transform.position.x;
 
