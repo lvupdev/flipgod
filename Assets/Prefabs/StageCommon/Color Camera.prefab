@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6163245629792653675}
   - component: {fileID: 6163245629792653674}
   - component: {fileID: 6163245629792653669}
+  - component: {fileID: 1714479227585178969}
   m_Layer: 0
   m_Name: Color Camera
   m_TagString: Untagged
@@ -83,3 +84,18 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6163245629792653668}
   m_Enabled: 0
+--- !u!114 &1714479227585178969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6163245629792653668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a237e280454509047b4b6db18c03309b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroud: {fileID: 0}
+  zoomModifierspeed: 0.1
+  text: {fileID: 0}

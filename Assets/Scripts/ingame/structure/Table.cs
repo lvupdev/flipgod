@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Table : Structure
 {
-    private void Start()
+    private new void Start()
     {
+        base.Start();
+        
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
         delta = 0;

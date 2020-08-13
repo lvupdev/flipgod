@@ -2170,6 +2170,7 @@ GameObject:
   - component: {fileID: 3955677587589682609}
   - component: {fileID: 3955677587589682610}
   - component: {fileID: 3955677587589682509}
+  - component: {fileID: 3917824737128508759}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2288,6 +2289,21 @@ MonoBehaviour:
   blurCenterPos: {x: 0.5, y: 0.5}
   samples: 1
   radialBlurMaterial: {fileID: 2100000, guid: e75b72d47c126b742b86622cad09c1f0, type: 2}
+--- !u!114 &3917824737128508759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3955677587589682511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a237e280454509047b4b6db18c03309b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroud: {fileID: 0}
+  zoomModifierspeed: 0.1
+  text: {fileID: 0}
 --- !u!1 &3955677587592513859
 GameObject:
   m_ObjectHideFlags: 0

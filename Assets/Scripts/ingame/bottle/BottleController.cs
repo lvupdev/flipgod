@@ -12,7 +12,7 @@ public class BottleController : MonoBehaviour
     public Rigidbody2D rb;                  // rigidbody component of bottle
 
     /*==========<variable about state of bottle>================================*/
-    public bool isSuperPowerAvailabe;       // 물병에 기본 초능력을 사용할 수 있는가
+    public bool isSuperPowerAvailabe { get; set; }     // 물병에 기본 초능력을 사용할 수 있는가
     public bool isAct;                      // 물병이 콜라이더에 충돌하기 전인가
     public bool isStanding;                 // 물병이 현재 서 있는가
     // (New) public bool isStandingAtTheMoment

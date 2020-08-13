@@ -11,7 +11,7 @@ public class SuperPowerPanelController : MonoBehaviour, IPointerDownHandler, IPo
     private Vector2 dragDirection; //드래그 방향 백터
     private Vector2 initPos;//화면을 눌렀을 때의 위치
     private Vector2 endPos;//화면에서 손을 땠을 떄의 위치
-    private bool isTouch;
+    public  bool isTouch;
 
     //값 반환 함수
     public Vector2 GetInitPos() { return initPos; }

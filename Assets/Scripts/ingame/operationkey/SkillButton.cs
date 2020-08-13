@@ -62,7 +62,7 @@ public class SkillButton : MonoBehaviour
         {
             GetComponent<Image>().sprite = skillButtonSprite[0];
 
-            panel_SuperPower.SetActive(true); //초능력 입력 패널 활성화
+            //panel_SuperPower.SetActive(true); //초능력 입력 패널 활성화
 
             if (playerImageController.getPlayingChr() == 0) //염동력자가 필살기를 사용 완료했을 때
             {
@@ -120,8 +120,6 @@ public class SkillButton : MonoBehaviour
             GetComponent<Image>().sprite = skillButtonSprite[1]; //버튼 이미지 교체
 
             playerImageController.ChangePlayerImage(2); //플레이어 초능력 사용 자세로 교체
-
-            panel_SuperPower.SetActive(false); //초능력 입력 패널 비활성화
 
             bottleSelectController.bottle.SetActive(false); //물통 비활성화
 

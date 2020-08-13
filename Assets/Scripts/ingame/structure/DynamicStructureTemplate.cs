@@ -9,8 +9,10 @@ using UnityEngine;
 public class DSTemplate : Structure  //DynamicStructure 상속
 {
 
-    private void Start()
+    private new void Start()
     {
+        base.Start();
+        
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
         delta = 0;
