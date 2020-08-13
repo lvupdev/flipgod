@@ -37,6 +37,6 @@ public class BottleGenerator : MonoBehaviour
         trajectoryLine.Start(); //점선 생성
 
         // After generating bottle, decrease remaining bottle num
-        StageGameManager.CountUsedBottle();
+        StageGameManager.Instance.CountUsedBottle();
     }
 }

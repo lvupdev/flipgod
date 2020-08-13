@@ -121,6 +121,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!223 &22644309 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 3955677586619095223, guid: 942da4462714fc74a8c8e0c8e826f572,
+    type: 3}
+  m_PrefabInstance: {fileID: 1672078490}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &79589929
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,6 +277,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37bda5aaa58f63a408499c3ccca4adbc, type: 3}
+--- !u!1 &331656472
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 331656474}
+  - component: {fileID: 331656473}
+  m_Layer: 0
+  m_Name: StageManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &331656473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331656472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be36e2f3c529db4c85487c687fd4c78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageData: {fileID: 0}
+  temp: {fileID: 0}
+--- !u!4 &331656474
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331656472}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 305.5, y: 171.75876, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &347038478
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1248,6 +1299,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4628807389465990265, guid: ebea825c52605644eadc8e02c5240939,
+        type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 22644309}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebea825c52605644eadc8e02c5240939, type: 3}
 --- !u!1001 &7182172422922187790
