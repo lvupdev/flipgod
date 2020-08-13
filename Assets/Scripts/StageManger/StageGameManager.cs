@@ -19,7 +19,7 @@ public class StageGameManager : MonoBehaviour
     // Get number of current stage
     // and Set current stage data using that value
     public void InitializeCurrentStageData(int currentStageNumber)
-    {
+    { 
         /*=======Set Stage Data about stage========
          * name of Stage Data: StageData-*
          * * is the number of stage

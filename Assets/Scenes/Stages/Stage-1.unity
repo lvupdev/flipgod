@@ -194,8 +194,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!4 &79589931
-Transform:
+--- !u!224 &79589931
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -208,6 +208,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 18, y: 12}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &263685749
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -307,7 +312,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageData: {fileID: 0}
-  temp: {fileID: 0}
 --- !u!4 &331656474
 Transform:
   m_ObjectHideFlags: 0
@@ -605,6 +609,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1714479227585178969, guid: 75fb265767adfb544b110f73766ec228,
+        type: 3}
+      propertyPath: backgroud
+      value: 
+      objectReference: {fileID: 79589929}
     - target: {fileID: 6163245629792653668, guid: 75fb265767adfb544b110f73766ec228,
         type: 3}
       propertyPath: m_Name
@@ -887,6 +896,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3917824737128508759, guid: 942da4462714fc74a8c8e0c8e826f572,
+        type: 3}
+      propertyPath: backgroud
+      value: 
+      objectReference: {fileID: 79589929}
     - target: {fileID: 3955677586619095218, guid: 942da4462714fc74a8c8e0c8e826f572,
         type: 3}
       propertyPath: m_LocalPosition.z
