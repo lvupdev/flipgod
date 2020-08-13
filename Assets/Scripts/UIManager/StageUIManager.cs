@@ -38,11 +38,11 @@ public class StageUIManager : MonoBehaviour
     {
         // Initialize ui
         RecursiveRegisterChild(canvas.transform, uis);
-        
+
         pausePanel = Find("Panel_Pause");
         scorePanel = Find("Panel_Score");
-        coinCountText   = scorePanel.GetChild(0).GetChild(1).GetComponent<Text>();
-        timeText        = scorePanel.GetChild(1).GetChild(1).GetComponent<Text>();
+        coinCountText = scorePanel.GetChild(0).GetChild(1).GetComponent<Text>();
+        timeText = scorePanel.GetChild(1).GetChild(1).GetComponent<Text>();
         bottleCountText = scorePanel.GetChild(2).GetChild(1).GetComponent<Text>();
 
         missionPanel = Find("Panel_Mission");
@@ -50,10 +50,7 @@ public class StageUIManager : MonoBehaviour
         tensionValueImg = Find("Image_TensionGaugeBar").GetComponent<Image>();
         tensionValueImg.fillAmount = 0.0f;
 
-        // (To Do) 현재 score panel에 bottle text가 제대로 반영이 되지 않는 문제가 있음.
-        // 이는 변수의 초기화가 StageManager1의 start에서 이루어지는 데, 코루틴에서 그 값을 받아오기 때문인 것으로 추정됨.
-        // (해결) Awkae에서 변수 초기화하는 것으로 바꾸니 해결되었으나, 앞으로 스크립트 정리하면서 
-        // 어떻게 해야할 지 고민해야 함. (메서드 동작 시간에 의존적이면 안 됨)
+        // 아래 코루틴은 Stage Data를 참조하는데, Stage Data는 Awake에 할당되므로 그 이전에 실행하면 안 됨
         StartCoroutine(UpdateScoreTexts());
     }
 
@@ -72,9 +69,11 @@ public class StageUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
 
     /*=================<Update texts of score panel>================================*/
+
     private IEnumerator UpdateScoreTexts()
     {
         int usedBottle, totalBottle;
@@ -93,8 +92,7 @@ public class StageUIManager : MonoBehaviour
 
             yield return new WaitForFixedUpdate();
         }
-
-    }
+    }   
 
     // Update time text
     public void UpdateTimeText(float used, float total)
@@ -105,7 +103,7 @@ public class StageUIManager : MonoBehaviour
         second = Mathf.FloorToInt(used);
         minute = second / 60;
         second = second % 60;
-        temp = minute + ":" + second;
+        temp = minute + ":" + second + "/";
 
         second = Mathf.FloorToInt(total);
         minute = second / 60;
@@ -185,9 +183,9 @@ public class StageUIManager : MonoBehaviour
         // 현재 방식으로는 rect transform을 찾을 수 없는 문제가 있음
         // 아래와 같은 메서드로는 스크립트가 다시 실행되지 않음. (score panel 초기화 안 됨)
         // (To Do) 또한 stage를 특정하면 확장성이 없으므로 수정해야 함.
-        int index = StageGameManager.GetCurrentStageNumber();
+        int index = StageGameManager.Instance.GetCurrentStageNumber();
         SceneManager.LoadScene("Stage" + "-" + index);
-        StageGameManager.InitializeCurrentStageData(index);
+        StageGameManager.Instance.InitializeCurrentStageData(index);
         // (To Do) 게임 재시작을 씬을 다시 로드하는 방식 말고 변수들을 초기화하는 방식으로 할 것.
         // StageGameManager.InitializeStage();
     }

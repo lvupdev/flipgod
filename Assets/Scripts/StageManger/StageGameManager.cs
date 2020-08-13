@@ -8,40 +8,43 @@ using UnityEngine.SceneManagement;
 public class StageGameManager : MonoBehaviour
 {
     // Static instance of StageGameManager
-    private static StageGameManager instance;
+    private static StageGameManager instance = null;
     public static StageGameManager Instance { get { return instance; } }
-
 
     // Container of stage data (initial value)
     [SerializeField]
-    private StageData stageData;
+    private StageData stageData; 
     public StageData StageData { get { return stageData; } }
 
     // Get number of current stage
     // and Set current stage data using that value
-    public static void InitializeCurrentStageData(int currentStageNumber)
+    public void InitializeCurrentStageData(int currentStageNumber)
     {
         /*=======Set Stage Data about stage========
          * name of Stage Data: StageData-*
          * * is the number of stage
          */
-        instance.stageData = Resources.Load<StageData>("StageDatas/StageData-"+currentStageNumber);
+        stageData = Resources.Load<StageData>("StageDatas/StageData-"+currentStageNumber);
     }
 
     // value about used resource in current Stage 
-    private int usedBottleNum;
+    private int usedBottleNum = 0;
     public int UsedBottleNum { get { return usedBottleNum; } }
 
-    private float usedTime;
+    private float usedTime = 0;
     public float UsedTime { get { return usedTime; } }
 
     // Start is called before the first frame update
 
     private void Awake()
     {
+        instance = this;
+
+        // (TO DO) 이게 왜 안 되는지 모르겠네
         //======Init static instance of StageGameManager=========
         // If instance already exists, then destroy this
         // if not, set instance to this
+        /*
         if (instance = null)
         {
             instance = this;
@@ -49,7 +52,8 @@ public class StageGameManager : MonoBehaviour
         else if (instance != null)
         {
             Destroy(gameObject);
-        }
+        }       
+         */
 
         InitializeCurrentStageData(GetCurrentStageNumber());
     }
@@ -66,7 +70,7 @@ public class StageGameManager : MonoBehaviour
     }
 
     // Get number of current stage
-    public static int GetCurrentStageNumber()
+    public int GetCurrentStageNumber()
     {
         // scene name (stage name) : "Stage-<Stage num>"
         // Get current scene name
@@ -80,7 +84,7 @@ public class StageGameManager : MonoBehaviour
 
     // (To Do) 이런 함수는 GameManager 같은 것을 따로 두어야 할 것 같다.
     // (To Do) 매개변수 이름이 현재 스크립트 내의 멤버 변수와 이름이 겹쳐서 애매함.
-    public static void InitializeStage(int limitedBottleNum, int limitedTime)
+    public void InitializeStage(int limitedBottleNum, int limitedTime)
     {
         // To do something
 
@@ -90,20 +94,20 @@ public class StageGameManager : MonoBehaviour
     }
 
     // Increase a timer value every second
-    public static void Timer()
+    public void Timer()
     {
-        if (instance.usedTime < instance.StageData.LimitedTime)
+        if (UsedTime < StageData.LimitedTime)
         {
-            instance.usedTime += Time.deltaTime;
+            usedTime += Time.deltaTime;
         }
     }
 
     // Increase number of used bottle 
-    public static void CountUsedBottle()
+    public void CountUsedBottle()
     {
-        if (instance.usedBottleNum < instance.StageData.LimitedBottleNumber)
+        if (UsedBottleNum < StageData.LimitedBottleNumber)
         {
-            instance.usedBottleNum += 1;
+            usedBottleNum += 1;
         }
     }
 
