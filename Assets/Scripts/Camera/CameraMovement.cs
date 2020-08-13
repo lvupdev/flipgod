@@ -114,7 +114,7 @@ public class CameraMovement : MonoBehaviour
 
     public void OnMouseDrag()
     {
-        if ((!bottleSelectController.bottleController.isSuperPowerAvailabe) && superPowerPanelController.GetIsTouch()) //초능력 사용 중(물병이 날아가는 도중)에는 스와이프나 줌인/아웃 사용 불가, superpowe패널을 터치해야 스와이프 가능
+       // if ((!bottleSelectController.bottleController.isSuperPowerAvailabe) && superPowerPanelController.GetIsTouch()) //초능력 사용 중(물병이 날아가는 도중)에는 스와이프나 줌인/아웃 사용 불가, superpowe패널을 터치해야 스와이프 가능
 
 
     }
