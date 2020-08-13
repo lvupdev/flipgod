@@ -25,7 +25,6 @@ public class StageUIManager : MonoBehaviour
 
     // Elements of score panel
     private static Transform scorePanel;
-    private static Text coinCountText;
     private static Text timeText;
     private static Text bottleCountText;
 
@@ -41,7 +40,6 @@ public class StageUIManager : MonoBehaviour
 
         pausePanel = Find("Panel_Pause");
         scorePanel = Find("Panel_Score");
-        coinCountText = scorePanel.GetChild(0).GetChild(1).GetComponent<Text>();
         timeText = scorePanel.GetChild(1).GetChild(1).GetComponent<Text>();
         bottleCountText = scorePanel.GetChild(2).GetChild(1).GetComponent<Text>();
 
