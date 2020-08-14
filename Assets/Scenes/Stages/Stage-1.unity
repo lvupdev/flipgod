@@ -223,7 +223,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 18, y: 12}
+  m_SizeDelta: {x: 25, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &263685749
 PrefabInstance:
@@ -304,6 +304,7 @@ GameObject:
   m_Component:
   - component: {fileID: 331656474}
   - component: {fileID: 331656473}
+  - component: {fileID: 331656475}
   m_Layer: 0
   m_Name: StageManager
   m_TagString: Untagged
@@ -338,6 +339,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &331656475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331656472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58294ed8e42e20846af067a93e33f5ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &347038478
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -925,11 +938,6 @@ PrefabInstance:
       propertyPath: backgroud
       value: 
       objectReference: {fileID: 79589929}
-    - target: {fileID: 3955677586619095218, guid: 942da4462714fc74a8c8e0c8e826f572,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3955677586668522080, guid: 942da4462714fc74a8c8e0c8e826f572,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -940,11 +948,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 347038479}
-    - target: {fileID: 3955677587131207647, guid: 942da4462714fc74a8c8e0c8e826f572,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: AddMembrane
-      objectReference: {fileID: 0}
     - target: {fileID: 3955677587393474459, guid: 942da4462714fc74a8c8e0c8e826f572,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -955,11 +958,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 347038479}
-    - target: {fileID: 3955677587559165988, guid: 942da4462714fc74a8c8e0c8e826f572,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SubtractMembrane
-      objectReference: {fileID: 0}
     - target: {fileID: 3955677587589682511, guid: 942da4462714fc74a8c8e0c8e826f572,
         type: 3}
       propertyPath: m_Name

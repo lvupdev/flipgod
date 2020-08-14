@@ -13,13 +13,14 @@ public class ScreenEffectController : MonoBehaviour
     private GameObject colorCamera;
 
     public ShadowThresholdCustomEffect shadowEffect;
-    public GameObject membrane;
+    public GameObject membranePrefab;
 
     private float blurTime; //블러가 적용되는 시간
-    private float height; //게임화면 높이
-    private float width; //게임화면 넓이
 
-    public int screenEffectNum; //화면 특수효과 계수
+    public float height { get; set; } //게임화면 높이
+    public float width { get; set; } //게임화면 넓이
+
+    public int screenEffectNum { get; set; } //화면 특수효과 계수
 
     void Start()
     {
@@ -38,7 +39,7 @@ public class ScreenEffectController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         switch (playerImageController.getPlayingChr())
         {
@@ -47,7 +48,7 @@ public class ScreenEffectController : MonoBehaviour
                 {
                     if (blurTime < 10)
                     {
-                        blurTime += 20 * Time.fixedDeltaTime;
+                        blurTime += 20 * Time.deltaTime;
                         blurEffect.samples = (int)blurTime;
                     }
                     blurEffect.blurCenterPos = new Vector2(0.5f + 0.5f * bottleSelectController.bottle.transform.position.x / (width / 2.0f), 
@@ -55,7 +56,7 @@ public class ScreenEffectController : MonoBehaviour
                 }
                 else if (blurTime > 1)
                 {
-                    blurTime -= 20.0f * Time.fixedDeltaTime;
+                    blurTime -= 20.0f * Time.deltaTime;
                     if (blurTime > 1) blurEffect.samples = (int)blurTime;
                     else blurTime = 1;
                 }
@@ -64,22 +65,16 @@ public class ScreenEffectController : MonoBehaviour
                 switch (screenEffectNum)
                 {
                     case 1:
-                        if (blurTime > 1)
-                        {
-                            blurTime -= 20.0f * Time.fixedDeltaTime;
-                            if (blurTime > 1) blurEffect.samples = (int)blurTime;
-                            else blurTime = 1;
-                        }
                         break;
                     case 2:   // 화면 효과 1단계 = 화면 줌
-                        if (blurTime > 20) screenEffectNum = 3;
-                        blurTime += 100 * Time.fixedDeltaTime;
+                        if (blurTime > 10) screenEffectNum = 3;
+                        blurTime += 50 * Time.deltaTime;
                         blurEffect.samples = (int)blurTime;
-                        Camera.allCameras[0].orthographicSize -= Time.fixedDeltaTime;
-                        Camera.allCameras[1].orthographicSize -= Time.fixedDeltaTime;
+                        Camera.allCameras[0].orthographicSize -= Time.deltaTime;
+                        Camera.allCameras[1].orthographicSize -= Time.deltaTime;
                         break;
                     case 3: // 화면효과 2단계 = 화면 정상화
-                        blurTime -= 100 * Time.fixedDeltaTime;
+                        blurTime -= 50 * Time.deltaTime;
                         if (blurTime < 1)
                         {
                             screenEffectNum = 1;
@@ -91,20 +86,14 @@ public class ScreenEffectController : MonoBehaviour
                         else
                         {
                             blurEffect.samples = (int)blurTime;
-                            Camera.allCameras[0].orthographicSize += Time.fixedDeltaTime;
-                            Camera.allCameras[1].orthographicSize += Time.fixedDeltaTime;
+                            Camera.allCameras[0].orthographicSize += Time.deltaTime;
+                            Camera.allCameras[1].orthographicSize += Time.deltaTime;
                         }
                         break;
 
                 }
                 break;
             case 2:
-                if (blurTime > 1)
-                {
-                    blurTime -= 20.0f * Time.fixedDeltaTime;
-                    if (blurTime > 1) blurEffect.samples = (int)blurTime;
-                    else blurTime = 1;
-                }
                 break;
         }
     }
@@ -135,7 +124,8 @@ public class ScreenEffectController : MonoBehaviour
         {
             angle = Mathf.Atan2(Panel_SuperPower.getDragDirection().x, Panel_SuperPower.getDragDirection().y)*(180.0/Mathf.PI);
         }
-        GameObject membrane = Instantiate((this.membrane), bottleSelectController.bottle.gameObject.transform.position, Quaternion.Euler(0, 0, -(float)angle)) as GameObject; //탄성막 이미지 생성
+
+        GameObject membrane = Instantiate(membranePrefab, bottleSelectController.bottle.gameObject.transform.position, Quaternion.Euler(0, 0, -(float)angle)); //탄성막 이미지 생성
         screenEffectNum = 2;
     }
 

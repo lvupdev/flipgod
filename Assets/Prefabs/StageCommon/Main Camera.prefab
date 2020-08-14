@@ -2257,9 +2257,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowEffect: {fileID: 0}
-  membrane: {fileID: 4292887936150750481, guid: 75e71d8e4575f1b49937939ca0855d0a,
+  membranePrefab: {fileID: 4292887936150750481, guid: 75e71d8e4575f1b49937939ca0855d0a,
     type: 3}
-  screenEffectNum: 0
 --- !u!114 &3955677587589682610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2302,7 +2301,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgroud: {fileID: 0}
-  zoomModifierspeed: 0.1
   text: {fileID: 0}
 --- !u!1 &3955677587592513859
 GameObject:

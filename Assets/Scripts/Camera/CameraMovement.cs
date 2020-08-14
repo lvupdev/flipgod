@@ -12,6 +12,7 @@ public class CameraMovement : MonoBehaviour
     private GameObject membranes;
     private BottleSelectController bottleSelectController;
     private SuperPowerPanelController superPowerPanelController;
+    private ScreenEffectController screenEffectController;
     private RectTransform rect_background; //배경 오브젝트 rect transform
     private float backgroundWidth; // 배경 오브젝트 너비
     private float backgroundHeight; //배경 오브젝트 높이
@@ -26,16 +27,13 @@ public class CameraMovement : MonoBehaviour
     private int key_X; //x좌표 부호
     private int key_Y; //y좌표 부호
 
-
-    //zoom in out
     private Camera presentCamera; // 현재 카메라
 
     float touchesPrevPosDifference, touchesCurPosDifference, zoomModifier; // 차례대로 이전 터치 간격, 현재 터치 간격, 줌 정도
 
     Vector2 firstTouchPrevPos, secondTouchPrevPos; // 두 번의 터치
 
-    [SerializeField]
-    float zoomModifierspeed = 0.1f;// 속도
+    float zoomModifierspeed = 0.01f;// 속도
 
     [SerializeField]
     Text text;
@@ -50,6 +48,7 @@ public class CameraMovement : MonoBehaviour
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         superPowerPanelController = GameObject.Find("Panel_SuperPower").GetComponent<SuperPowerPanelController>();
         rect_background = backgroud.GetComponent<RectTransform>();
+        screenEffectController = Camera.main.transform.GetComponent<ScreenEffectController>();
         backgroundWidth = rect_background.rect.width * rect_background.localScale.x;
         backgroundHeight = rect_background.rect.height * rect_background.localScale.y;
         presentCamera = GetComponent<Camera>();
@@ -62,7 +61,8 @@ public class CameraMovement : MonoBehaviour
     {
         Max_X = ((backgroundWidth / 2) - presentCamera.aspect * presentCamera.orthographicSize);
         if (Max_X < 0) Max_X = 0;
-        Max_Y = (backgroundHeight/2)- presentCamera.orthographicSize;
+        Max_Y = (backgroundHeight/2) - presentCamera.orthographicSize;
+        if (Max_Y < 0) Max_Y = 0;
     }
 
     void Update()
@@ -70,7 +70,7 @@ public class CameraMovement : MonoBehaviour
         if ((!bottleSelectController.bottleController.isSuperPowerAvailabe) && superPowerPanelController.GetIsTouch()) //초능력 사용 중(물병이 날아가는 도중)에는 스와이프나 줌인/아웃 사용 불가, superpowe패널을 터치해야 스와이프 가능
         {
             //swipe
-            if (!membraneHold)//Input.touchCount == 1)
+            if (!membraneHold && Input.touchCount == 1)
             {
                 if (!hold)
                 {
@@ -131,9 +131,27 @@ public class CameraMovement : MonoBehaviour
                 if (touchesPrevPosDifference < touchesCurPosDifference)
                     presentCamera.orthographicSize -= zoomModifier;
 
-            }
+                SetCameraSize();
 
-            //presemtCamera.orthographicSize = Mathf.Clamp(presemtCamera.orthographicSize, 2f, 10f);
+                switch (CheckBoundary())
+                {
+                    case 0: //x좌표 y좌표 모두 최대 상태일 때
+                        transform.position = new Vector3(key_X * Max_X, key_Y * Max_Y, transform.position.z);
+                        break;
+                    case 1: //y좌표만 최대 상태일 때. 즉 x좌표는 이동할 수 있을 때
+                        transform.position = new Vector3(expectPosition.x, key_Y * Max_Y, transform.position.z); ;
+                        break;
+                    case 2: //x좌표만 최대 상태일 때. 즉 y좌표는 이동할 수 있을 때
+                        transform.position = new Vector3(key_X * Max_X, expectPosition.y, transform.position.z);
+                        break;
+                    case 3: //둘 다 이동할 수 있을 때
+                        break;
+                }
+
+                presentCamera.orthographicSize = Mathf.Clamp(presentCamera.orthographicSize, 6f, backgroundHeight / 2);
+                screenEffectController.height = 2 * presentCamera.orthographicSize;
+                screenEffectController.width = 2 * presentCamera.orthographicSize * presentCamera.aspect;
+            }
         }
         else
         {
@@ -145,8 +163,11 @@ public class CameraMovement : MonoBehaviour
     // check if outside the boundary
     public int CheckBoundary()  // 카메라의 시점을 제한해서 게임화면만 보여주기 위함.
     {
-        expectPosition = transform.position + presentCamera.ScreenToWorldPoint(startPos) - presentCamera.ScreenToWorldPoint(curPos) + backgroud.transform.position; //이동할 것으로 예측되는 position. 뒤에 배경화면의 포지션을 더한 것은 배경화면이 원점에 위치하지 않을 경우
-        
+        if (hold)
+            expectPosition = transform.position + presentCamera.ScreenToWorldPoint(startPos) - presentCamera.ScreenToWorldPoint(curPos) + backgroud.transform.position; //이동할 것으로 예측되는 position. 뒤에 배경화면의 포지션을 더한 것은 배경화면이 원점에 위치하지 않을 경우
+        else
+            expectPosition = transform.position;
+
         if ((Math.Abs(expectPosition.x) > Max_X) && (Math.Abs(expectPosition.y) > Max_Y)) //x좌표 y좌표 모두 최대 상태일 때
         {
             key_X = expectPosition.x > 0 ? 1 : -1;
