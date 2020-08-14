@@ -70,8 +70,8 @@ public class ScreenEffectController : MonoBehaviour
                         if (blurTime > 10) screenEffectNum = 3;
                         blurTime += 50 * Time.deltaTime;
                         blurEffect.samples = (int)blurTime;
-                        Camera.allCameras[0].orthographicSize -= Time.deltaTime;
-                        Camera.allCameras[1].orthographicSize -= Time.deltaTime;
+                        Camera.allCameras[0].orthographicSize -= 2 * Time.deltaTime;
+                        Camera.allCameras[1].orthographicSize -= 2 * Time.deltaTime;
                         break;
                     case 3: // 화면효과 2단계 = 화면 정상화
                         blurTime -= 50 * Time.deltaTime;
@@ -86,8 +86,8 @@ public class ScreenEffectController : MonoBehaviour
                         else
                         {
                             blurEffect.samples = (int)blurTime;
-                            Camera.allCameras[0].orthographicSize += Time.deltaTime;
-                            Camera.allCameras[1].orthographicSize += Time.deltaTime;
+                            Camera.allCameras[0].orthographicSize += 2 * Time.deltaTime;
+                            Camera.allCameras[1].orthographicSize += 2 * Time.deltaTime;
                         }
                         break;
 

@@ -180,6 +180,7 @@ public class BottleController : MonoBehaviour
                     screenEffectController.screenEffectNum = 1;
                 }
                 gameObject.tag = "unActBottle";//태그가 사라짐
+                bottleSelectController.bottleSelected = false;
                 bottleGenerator.GenerateBottleWithDelay(0.75f);//물병 생성
                 bottleSelectController.ReselectBottleWithDelay(0.75f); //물병 재선택
                 Destroy(gameObject); //해당 물병 파괴
