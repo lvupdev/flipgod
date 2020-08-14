@@ -121,6 +121,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &11998850 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2182763337113127206, guid: 20c161de448f1aa42b8aabd265a36cb4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1560917860}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b1b4669980a9b44896915a76b707570, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!223 &22644309 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 3955677586619095223, guid: 942da4462714fc74a8c8e0c8e826f572,
@@ -395,6 +407,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aad756e0cd9a05543a64eaf273ae9312, type: 3}
+--- !u!114 &347038479 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3587720904460798330, guid: aad756e0cd9a05543a64eaf273ae9312,
+    type: 3}
+  m_PrefabInstance: {fileID: 347038478}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc5395547e25cbd469920210d2599573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &608654990
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -906,15 +930,35 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3955677586668522082, guid: 942da4462714fc74a8c8e0c8e826f572,
+    - target: {fileID: 3955677586668522080, guid: 942da4462714fc74a8c8e0c8e826f572,
         type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11998850}
+    - target: {fileID: 3955677587131207647, guid: 942da4462714fc74a8c8e0c8e826f572,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 347038479}
+    - target: {fileID: 3955677587131207647, guid: 942da4462714fc74a8c8e0c8e826f572,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AddMembrane
       objectReference: {fileID: 0}
-    - target: {fileID: 3955677587393474453, guid: 942da4462714fc74a8c8e0c8e826f572,
+    - target: {fileID: 3955677587393474459, guid: 942da4462714fc74a8c8e0c8e826f572,
         type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11998850}
+    - target: {fileID: 3955677587559165988, guid: 942da4462714fc74a8c8e0c8e826f572,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 347038479}
+    - target: {fileID: 3955677587559165988, guid: 942da4462714fc74a8c8e0c8e826f572,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SubtractMembrane
       objectReference: {fileID: 0}
     - target: {fileID: 3955677587589682511, guid: 942da4462714fc74a8c8e0c8e826f572,
         type: 3}

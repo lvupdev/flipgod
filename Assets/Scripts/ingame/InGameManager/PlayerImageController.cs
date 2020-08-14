@@ -18,9 +18,9 @@ public class PlayerImageController : MonoBehaviour
     private Image charSlot1; //캐릭터 슬롯 1 아이콘
     private Image charSlot2; //캐릭터 슬롯 2 아이콘
 
-    public int playingChr; //조작할 수 있는 캐릭터
-    public int firstSlotChr; //교체 슬롯 1번에 있는 캐릭터
-    public int secondSlotChr; //교체 슬롯 2번에 있는 캐릭터
+    private int playingChr; //조작할 수 있는 캐릭터
+    private int firstSlotChr; //교체 슬롯 1번에 있는 캐릭터
+    private int secondSlotChr; //교체 슬롯 2번에 있는 캐릭터
 
     public Sprite[] standingSprites; // 스탠딩 이미지를 담아놓는 배열
     public Sprite[] iconSprites; //아이콘 이미지를 담아놓는 배열
@@ -41,11 +41,9 @@ public class PlayerImageController : MonoBehaviour
 
     void Start()
     {
-        /* playingChr
-         * firstSlotchar
-         * secondSlotChr
-         *  스테이지 번호에 따라 초기화
-         */
+        playingChr = 0;
+        firstSlotChr = 1;
+        secondSlotChr = 2;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
