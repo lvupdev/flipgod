@@ -191,7 +191,6 @@ public class StageUIManager : MonoBehaviour
     // Go to select stage
     public void GoToSelectScene()
     {
-        // (오류) SelectStage 빌드 안 되어 있음.
         SceneManager.LoadScene("SelectStage");
     }
 
