@@ -96,21 +96,23 @@ public class StageUIManager : MonoBehaviour
             usedBottle = StageGameManager.Instance.UsedBottleNumber;
             usedTime = StageGameManager.Instance.UsedTime;
 
+            UpdateMissionTargetText(completeTarget, totalTarget);
             UpdateBottleText(usedBottle, totalBottle);
             UpdateTimeText(usedTime, totalTime);
+            
 
             yield return new WaitForFixedUpdate();
         }
     }   
 
     // Update mission target text
-    public void UpdateMissionTargetText(int complete, int total)
+    private void UpdateMissionTargetText(int complete, int total)
     {
         missionTargetText.text = complete + "/" + total;
     }
 
     // Update time text
-    public void UpdateTimeText(float used, float total)
+    private void UpdateTimeText(float used, float total)
     {
         string temp;
         int minute, second;
@@ -129,13 +131,13 @@ public class StageUIManager : MonoBehaviour
     }
 
     // Update bottle text
-    public void UpdateBottleText(int used, int total)
+    private void UpdateBottleText(int used, int total)
     {
         bottleCountText.text = used + "/" + total;
     }
 
     // Update tension gauge
-    public void UpdateTensionGauge(float tensionValue)
+    private void UpdateTensionGauge(float tensionValue)
     {
         if (tensionValueImg.fillAmount < 0.999f)
         {

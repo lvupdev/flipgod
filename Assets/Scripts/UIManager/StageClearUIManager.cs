@@ -63,11 +63,14 @@ public class StageClearUIManager : MonoBehaviour
         
     }
 
-    private void SetRecordTexts()
+    // Set texts of Record
+    public void SetRecordTexts()
     {
         testTitle.text = stageData.StageIndexNumber + "#" + " " + "RESULT";
-        
-//        timeRecord.text = 
+        missionContent.text = MissionUIFunction.FormatMissionContent(stageData.MissionIndexNumber, stageData.TargetNumber);
+        timeRecord.text = MissionUIFunction.FormatTimeText(userRecord.UsedTime) + "/" + MissionUIFunction.FormatTimeText(stageData.LimitedTime);
+        bottleCountRecord.text = MissionUIFunction.FormatBottleText(userRecord.UsedBottle,stageData.LimitedBottleNumber);
+        comment.text = stageData.Comment[0];
     }
 
     //================[Call-back Method]=====================================

@@ -36,6 +36,7 @@ public class TestButtonController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log(Time.timeScale);
         rect_ScrollView = GameObject.Find("Scroll View").GetComponent<RectTransform>();
         rect_Button = GetComponent<RectTransform>();
         slider = transform.parent.GetComponent<Slider>();
@@ -50,7 +51,7 @@ public class TestButtonController : MonoBehaviour
         bottleNumText = transform.Find("Text_BottleNum").GetComponent<Text>();
         playImage = transform.Find("Button_Play").GetComponent<Image>();
         commentImage = transform.Find("Button_Comment").GetComponent<Image>();
-
+        
         button.onClick.AddListener(Pushed);
         speed = 10;
         colorSpeed = 10;
