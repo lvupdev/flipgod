@@ -106,7 +106,7 @@ public class CameraMovement : MonoBehaviour
                                 transform.position = new Vector3(key_X * Max_X, Min_Y, transform.position.z);
                             break;
                         case 1: //y좌표가 최대 혹은 최소 상태일 때. 즉 x좌표는 이동할 수 있을 때
-                            if(key_Y > 0)
+                            if (key_Y > 0)
                                 transform.position = new Vector3(expectPosition.x, Max_Y, transform.position.z);
                             else
                                 transform.position = new Vector3(expectPosition.x, Min_Y, transform.position.z);
@@ -138,7 +138,7 @@ public class CameraMovement : MonoBehaviour
 
                 if (touchesPrevPosDifference > touchesCurPosDifference)
                 {
-                    if(((backgroundHeight / 2 + defaultCameraSize) / 2) < (backgroundWidth / (2 * presentCamera.aspect))) //세로 길이가 먼저 찰 때
+                    if (((backgroundHeight / 2 + defaultCameraSize) / 2) < (backgroundWidth / (2 * presentCamera.aspect))) //세로 길이가 먼저 찰 때
                     {
                         float tempSize = presentCamera.orthographicSize + zoomModifier;
 
@@ -167,7 +167,6 @@ public class CameraMovement : MonoBehaviour
                 }
 
                 SetCameraSize();
-<<<<<<< HEAD
 
                 switch (CheckBoundary()) //카메라 중심 좌표를 이동
                 {
@@ -189,50 +188,8 @@ public class CameraMovement : MonoBehaviour
                     case 3: //둘 다 이동할 수 있을 때
                         break;
                 }
-                if(((backgroundHeight / 2 + 6) / 2) < backgroundWidth)
-                presentCamera.orthographicSize = Mathf.Clamp(presentCamera.orthographicSize, defaultCameraSize, (backgroundHeight/2 + defaultCameraSize)/ 2);
-                screenEffectController.height = 2 * presentCamera.orthographicSize;
-                screenEffectController.width = 2 * presentCamera.orthographicSize * presentCamera.aspect;
-            }
-
-    
-
-    public void OnMouseDrag()
-    {
-       // if ((!bottleSelectController.bottleController.isSuperPowerAvailabe) && superPowerPanelController.GetIsTouch()) //초능력 사용 중(물병이 날아가는 도중)에는 스와이프나 줌인/아웃 사용 불가, superpowe패널을 터치해야 스와이프 가능
-
-
-        }
-        else
-        {
-            hold = false;
-            membraneHold = false;
-        }
-
-=======
-
-                switch (CheckBoundary()) //카메라 중심 좌표를 이동
-                {
-                    case 0: //x좌표가 최대이고 y좌표 최소 또는 최대 상태일 때
-                        if (key_Y > 0)
-                            transform.position = new Vector3(key_X * Max_X, Max_Y, transform.position.z);
-                        else
-                            transform.position = new Vector3(key_X * Max_X, Min_Y, transform.position.z);
-                        break;
-                    case 1: //y좌표가 최대 혹은 최소 상태일 때. 즉 x좌표는 이동할 수 있을 때
-                        if (key_Y > 0)
-                            transform.position = new Vector3(expectPosition.x, Max_Y, transform.position.z);
-                        else
-                            transform.position = new Vector3(expectPosition.x, Min_Y, transform.position.z);
-                        break;
-                    case 2: //x좌표만 최대 상태일 때. 즉 y좌표는 이동할 수 있을 때
-                        transform.position = new Vector3(key_X * Max_X, expectPosition.y, transform.position.z);
-                        break;
-                    case 3: //둘 다 이동할 수 있을 때
-                        break;
-                }
-                if(((backgroundHeight / 2 + 6) / 2) < backgroundWidth)
-                presentCamera.orthographicSize = Mathf.Clamp(presentCamera.orthographicSize, defaultCameraSize, (backgroundHeight/2 + defaultCameraSize)/ 2);
+                if (((backgroundHeight / 2 + 6) / 2) < backgroundWidth)
+                    presentCamera.orthographicSize = Mathf.Clamp(presentCamera.orthographicSize, defaultCameraSize, (backgroundHeight / 2 + defaultCameraSize) / 2);
                 screenEffectController.height = 2 * presentCamera.orthographicSize;
                 screenEffectController.width = 2 * presentCamera.orthographicSize * presentCamera.aspect;
             }
@@ -243,7 +200,6 @@ public class CameraMovement : MonoBehaviour
             membraneHold = false;
         }
 
->>>>>>> 2b407904943bcc5767f47f9d1764ab1211d5290e
         if (bottleSelectController.bottleSelected && bottleSelectController.bottleController.isSuperPowerAvailabe)
         {
             distance = bottleSelectController.bottle.transform.position - transform.position;
@@ -280,12 +236,12 @@ public class CameraMovement : MonoBehaviour
         if (bottleSelectController.bottleController.isSuperPowerAvailabe) //물병을 따라 이동하는 경우
         {
             expectPosition = transform.position;
-            if(Math.Abs(distance.x) > presentCamera.orthographicSize * presentCamera.aspect - bottleMoveGap)
+            if (Math.Abs(distance.x) > presentCamera.orthographicSize * presentCamera.aspect - bottleMoveGap)
             {
                 int key = distance.x > 0 ? 1 : -1;
-                expectPosition += new Vector3((Math.Abs(distance.x) - (presentCamera.orthographicSize * presentCamera.aspect - bottleMoveGap)) * key,0,0);
+                expectPosition += new Vector3((Math.Abs(distance.x) - (presentCamera.orthographicSize * presentCamera.aspect - bottleMoveGap)) * key, 0, 0);
             }
-            if(Math.Abs(distance.y) > presentCamera.orthographicSize - bottleMoveGap)
+            if (Math.Abs(distance.y) > presentCamera.orthographicSize - bottleMoveGap)
             {
                 int key = distance.y > 0 ? 1 : -1;
                 expectPosition += new Vector3(0, (Math.Abs(distance.y) - (presentCamera.orthographicSize - bottleMoveGap)) * key, 0);
@@ -308,7 +264,7 @@ public class CameraMovement : MonoBehaviour
             key_Y = expectPosition.y > Max_Y ? 1 : -1;
             return 1;
         }
-        else if ((Math.Abs(expectPosition.x) > Max_X) && (expectPosition.y <= Max_Y) && (expectPosition.y>=Min_Y))//x좌표만 최대 상태일 때. 즉 y좌표는 이동할 수 있을 때
+        else if ((Math.Abs(expectPosition.x) > Max_X) && (expectPosition.y <= Max_Y) && (expectPosition.y >= Min_Y))//x좌표만 최대 상태일 때. 즉 y좌표는 이동할 수 있을 때
         {
             key_X = expectPosition.x > 0 ? 1 : -1;
             key_Y = expectPosition.y > 0 ? 1 : -1;

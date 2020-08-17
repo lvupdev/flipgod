@@ -958,7 +958,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2182763337113127206, guid: 20c161de448f1aa42b8aabd265a36cb4,
+          type: 3}
         m_MethodName: CharacterSlot2
         m_Mode: 1
         m_Arguments:
@@ -1944,7 +1945,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2182763337113127206, guid: 20c161de448f1aa42b8aabd265a36cb4,
+          type: 3}
         m_MethodName: CharacterSlot1
         m_Mode: 1
         m_Arguments:

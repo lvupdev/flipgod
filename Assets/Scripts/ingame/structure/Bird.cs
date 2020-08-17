@@ -10,19 +10,28 @@ public class Bird : Structure
     private Vector2 maxVec2; //왔다 갔다 오른쪽 //움직일 좌표
     public float moveSpeed;  //움직이는 속도
     Vector2 currPos;  // 현재의 위치를 계속 받아온다.
-    
+
     private bool damaged = false;//부딪혔는지 확인할 변수
     private Rigidbody2D rb;
+
+    private UsefullOperation obj;     //fadeout 함수 불러올 객체
+
+    private GameObject bird; // 새 게임오브젝트
+    private SpriteRenderer img;// 새 sprite renderer
 
     // 땅에 닿았을 때 파괴
     private int direction = 1;
 
     void Awake()
     {
-       currPos = gameObject.transform.position;
+        bird = this.gameObject;
+        img = bird.GetComponent<SpriteRenderer>();
+
+        currPos = gameObject.transform.position;
        rb = gameObject.GetComponent<Rigidbody2D>(); // 리지드바디를 받아온다
        minVec2.x = (currPos.x - 4f); // 왼쪽으로 이동할 범위
        maxVec2.x = (currPos.x + 4f); // 오른쪽으로 이동할 범위
+        obj = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
     }
 
     void Update()
@@ -60,6 +69,14 @@ public class Bird : Structure
         {
             damaged = true;
             rb.gravityScale = 1;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.gameObject.tag != "isActBottle" )
+        {
+            obj.FadeOut(true, img);
         }
     }
 
