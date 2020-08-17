@@ -26,7 +26,7 @@ public class Slider : MonoBehaviour
     private ScrollRect scrollRect_ScrollView;
     private VerticalLayoutGroup layoutGroup;
 
-    private float shrinkRatio = 0.8f; // Buttons shrink with this ratio when it's not focused 
+    private float shrinkRatio; // Buttons shrink with this ratio when it's not focused 
 
     private float speed; // Speed of changing size of buttons
     private float paddingSpeed; // Speed of changing values of padding setting
@@ -48,6 +48,7 @@ public class Slider : MonoBehaviour
         scrollPos = 0; //When the Scene is loaded, this locates scroll bar at the bottom
         speed = 10;
         paddingSpeed = 10;
+        shrinkRatio = 0.8f;
 
         isShrinking = false;
         isStretching = false;
@@ -55,7 +56,6 @@ public class Slider : MonoBehaviour
         // Place first button and last button in the center 
         layoutGroup.padding.bottom = (int)((rect_ScrollView.rect.height / 2) - (rect_Button.rect.height / 2) * shrinkRatio);
         layoutGroup.padding.top = (int)((rect_ScrollView.rect.height / 2) - (rect_Button.rect.height / 2) * shrinkRatio);
-
     }
 
     private void Update()
@@ -90,7 +90,6 @@ public class Slider : MonoBehaviour
             if (scrollPos < buttonPos[i] + (distance / 2) && scrollPos > buttonPos[i] - (distance / 2))
             {
                 transform.GetChild(i).localScale = Vector2.Lerp(transform.GetChild(i).localScale, new Vector2(1f, 1f), Time.deltaTime * speed);
-
                 for (int j = 0; j < buttonPos.Length; j++)
                 {
                     if (j != i)
