@@ -25,7 +25,7 @@ public class ArrowController : MonoBehaviour
     {
         transform.position = playerImageController.getBottlePosition();
 
-        if (padStrength.isTouch || skillButton.getUsingSkill() || bottleSelectController.bottleController.isSuperPowerAvailabe)
+        if (padStrength.isTouch || padStrength.isThrowing || skillButton.getUsingSkill() || bottleSelectController.bottleController.isSuperPowerAvailabe)
             transform.GetChild(0).gameObject.SetActive(false);
         else if (padDirection.getIsTouch())
         {
