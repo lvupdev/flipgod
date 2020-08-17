@@ -167,6 +167,7 @@ public class CameraMovement : MonoBehaviour
                 }
 
                 SetCameraSize();
+<<<<<<< HEAD
 
                 switch (CheckBoundary()) //카메라 중심 좌표를 이동
                 {
@@ -208,6 +209,41 @@ public class CameraMovement : MonoBehaviour
             membraneHold = false;
         }
 
+=======
+
+                switch (CheckBoundary()) //카메라 중심 좌표를 이동
+                {
+                    case 0: //x좌표가 최대이고 y좌표 최소 또는 최대 상태일 때
+                        if (key_Y > 0)
+                            transform.position = new Vector3(key_X * Max_X, Max_Y, transform.position.z);
+                        else
+                            transform.position = new Vector3(key_X * Max_X, Min_Y, transform.position.z);
+                        break;
+                    case 1: //y좌표가 최대 혹은 최소 상태일 때. 즉 x좌표는 이동할 수 있을 때
+                        if (key_Y > 0)
+                            transform.position = new Vector3(expectPosition.x, Max_Y, transform.position.z);
+                        else
+                            transform.position = new Vector3(expectPosition.x, Min_Y, transform.position.z);
+                        break;
+                    case 2: //x좌표만 최대 상태일 때. 즉 y좌표는 이동할 수 있을 때
+                        transform.position = new Vector3(key_X * Max_X, expectPosition.y, transform.position.z);
+                        break;
+                    case 3: //둘 다 이동할 수 있을 때
+                        break;
+                }
+                if(((backgroundHeight / 2 + 6) / 2) < backgroundWidth)
+                presentCamera.orthographicSize = Mathf.Clamp(presentCamera.orthographicSize, defaultCameraSize, (backgroundHeight/2 + defaultCameraSize)/ 2);
+                screenEffectController.height = 2 * presentCamera.orthographicSize;
+                screenEffectController.width = 2 * presentCamera.orthographicSize * presentCamera.aspect;
+            }
+        }
+        else
+        {
+            hold = false;
+            membraneHold = false;
+        }
+
+>>>>>>> 2b407904943bcc5767f47f9d1764ab1211d5290e
         if (bottleSelectController.bottleSelected && bottleSelectController.bottleController.isSuperPowerAvailabe)
         {
             distance = bottleSelectController.bottle.transform.position - transform.position;
