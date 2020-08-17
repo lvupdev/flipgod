@@ -8,7 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 674650905881134430}
+  - component: {fileID: 3931422341011499938}
   - component: {fileID: 1505635619653339733}
   m_Layer: 0
   m_Name: IndustrialThinLine3
@@ -17,7 +17,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &674650905881134430
+--- !u!224 &3931422341011499938
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -34,7 +34,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 2.45, y: 4}
-  m_SizeDelta: {x: 6.56, y: 2.18}
+  m_SizeDelta: {x: 6.56, y: 0.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &1505635619653339733
 SpriteRenderer:
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 6.56, y: 2.18}
+  m_Size: {x: 6.56, y: 0.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

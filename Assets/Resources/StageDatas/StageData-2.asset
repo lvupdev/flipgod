@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fbe2f53b4fd44541a7a98c6f770321e, type: 3}
   m_Name: StageData-2
   m_EditorClassIdentifier: 
-  stageNumber: 2
+  stageIndexNumber: 1
   limitedBottleNumber: 5
   limitedTime: 30
   comment:
@@ -21,4 +21,5 @@ MonoBehaviour:
     \uC880 \uAE4C\uB2E4\uB85C\uC6CC\uC694."
   - 
   - 
-  isCleared: 0
+  missionIndexNumber: 0
+  targetNumber: 6

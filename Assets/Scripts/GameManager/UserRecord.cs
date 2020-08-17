@@ -27,15 +27,17 @@ public class UserRecord : MonoBehaviour
         
     }
 
-    public static void AddUserRecord(int stageNumber, int usedBottle, float usedTime, int achivedGoalNum)
+    public static UserRecord AddUserRecord(int stageNumber, int usedBottle, float usedTime, int completeMissionNum)
     {
         UserRecord userRecord = new UserRecord();
 
         userRecord.UsedBottle = usedBottle;
         userRecord.UsedTime = usedTime;
-        userRecord.AchivedGoalNum = achivedGoalNum;
+        userRecord.AchivedGoalNum = completeMissionNum;
 
         userRecords.Add(stageNumber, userRecord);
+
+        return userRecord;
     }
 
     public static void RemoveAllUserRecord()

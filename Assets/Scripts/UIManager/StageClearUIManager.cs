@@ -10,17 +10,24 @@ using UnityEngine.SceneManagement;
 
 public class StageClearUIManager : MonoBehaviour
 {
+    //================[Static Field]=====================================
+    // Static instance of StageGameManager
+    private static StageClearUIManager instance;
+    public static StageClearUIManager Instance { get { return instance; } }
+    //===================================================================
+
     // a Transform of canvas of Stage Clear scene
     public Transform canvasTransform;
 
     // a Text that shows the passed test
     private Text testTitle;
 
-    //=======Texts of record panel===================
+    //=======Texts of record panel========================================
     private Transform recordPanel;
     private Text missionContent;
     private Text timeRecord;
     private Text bottleCountRecord;
+    //====================================================================
 
     // a Text that shows commets of characters
     private Text comment;
@@ -30,7 +37,12 @@ public class StageClearUIManager : MonoBehaviour
     public StageData stageData;
 
     // user record of passed stage
-    private UserRecord userRecord;
+    public UserRecord userRecord;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -53,8 +65,12 @@ public class StageClearUIManager : MonoBehaviour
 
     private void SetRecordTexts()
     {
-
+        testTitle.text = stageData.StageIndexNumber + "#" + " " + "RESULT";
+        
+//        timeRecord.text = 
     }
+
+    //================[Call-back Method]=====================================
 
     // Show comment of clicked character
     public void OnClickCommentButton(int index)
@@ -66,4 +82,5 @@ public class StageClearUIManager : MonoBehaviour
     {
 
     }
+    //=======================================================================
 }

@@ -11,6 +11,8 @@ public class BottleSelectController : MonoBehaviour
     public BottleController bottleController { get; set; }
     public BottleSkillOperation bottleSkillOperation;
 
+    public bool bottleSelected { get; set; } //물병이 선택되었음을 알리는 변수
+
 
     private void Start()
     {
@@ -19,6 +21,7 @@ public class BottleSelectController : MonoBehaviour
         bottle = GameObject.FindWithTag("isActBottle");
         bottleController = bottle.GetComponent<BottleController>();
         bottleSkillOperation = bottle.GetComponent<BottleSkillOperation>();
+        bottleSelected = true;
     }
 
     public void ReselectBottleWithDelay(float delay)
@@ -42,6 +45,7 @@ public class BottleSelectController : MonoBehaviour
         membraneCreator.membraneNum = membraneCreator.getSuperPowerLV();
         membraneCreator.membraneAvailable = false;
         freezer.freezeAvailable = true;
+        bottleSelected = true;
     }
 }
 
