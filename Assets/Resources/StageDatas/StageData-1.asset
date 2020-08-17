@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fbe2f53b4fd44541a7a98c6f770321e, type: 3}
   m_Name: StageData-1
   m_EditorClassIdentifier: 
-  stageNumber: 1
+  stageIndexNumber: 0
   limitedBottleNumber: 2
   limitedTime: 20
   comment:
   - "\uBB54\uAC00 \uD3C9\uAC00 \uBC29\uC2DD\uC774 \uCC38\uC2E0\uD558\uB124\uC694!"
   - 
   - 
+  missionIndexNumber: 0
+  targetNumber: 2

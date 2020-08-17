@@ -14,6 +14,12 @@ using UnityEngine.SceneManagement;
 
 public class StageUIManager : MonoBehaviour
 {
+    //================[Static Field]=====================================
+    // Static instance of StageUIManager
+    private static StageUIManager instance;
+    public static StageUIManager Instance { get { return instance; } }
+    //===================================================================
+
     // Canvas of stage UI
     public Canvas canvas;
     // Transform of canvas element
@@ -25,6 +31,7 @@ public class StageUIManager : MonoBehaviour
 
     // Elements of score panel
     private static Transform scorePanel;
+    private static Text missionTargetText;
     private static Text timeText;
     private static Text bottleCountText;
 
@@ -32,6 +39,11 @@ public class StageUIManager : MonoBehaviour
     private static Image tensionValueImg;
     private float lerpSpeed = 0.5f;
 
+    private void Awake()
+    {
+        // itself
+        instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -40,8 +52,10 @@ public class StageUIManager : MonoBehaviour
 
         pausePanel = Find("Panel_Pause");
         scorePanel = Find("Panel_Score");
+        missionTargetText = scorePanel.GetChild(0).GetChild(1).GetComponent<Text>();
         timeText = scorePanel.GetChild(1).GetChild(1).GetComponent<Text>();
         bottleCountText = scorePanel.GetChild(2).GetChild(1).GetComponent<Text>();
+
 
         missionPanel = Find("Panel_Mission");
 
@@ -64,25 +78,22 @@ public class StageUIManager : MonoBehaviour
         foreach (Transform child in parent) RecursiveRegisterChild(child, dict);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     /*=================<Update texts of score panel>================================*/
 
     private IEnumerator UpdateScoreTexts()
     {
+        int completeTarget, totalTarget;
         int usedBottle, totalBottle;
         float usedTime, totalTime;
 
+        totalTarget = StageGameManager.Instance.StageData.TargetNumber;
         totalBottle = StageGameManager.Instance.StageData.LimitedBottleNumber;
         totalTime = StageGameManager.Instance.StageData.LimitedTime;
 
         while (true)
         {
-            usedBottle = StageGameManager.Instance.UsedBottleNum;
+            completeTarget = StageGameManager.Instance.CompleteMissionNumber;
+            usedBottle = StageGameManager.Instance.UsedBottleNumber;
             usedTime = StageGameManager.Instance.UsedTime;
 
             UpdateBottleText(usedBottle, totalBottle);
@@ -91,6 +102,12 @@ public class StageUIManager : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
     }   
+
+    // Update mission target text
+    public void UpdateMissionTargetText(int complete, int total)
+    {
+        missionTargetText.text = complete + "/" + total;
+    }
 
     // Update time text
     public void UpdateTimeText(float used, float total)
@@ -130,7 +147,7 @@ public class StageUIManager : MonoBehaviour
         }
     }
 
-    /*================================<Callback Methods>================================*/
+    /*==========[Call-back Methods]===========================================*/
 
     // Use tension gauge, then set tensionvalue to zero
     public void UseTensionGauge(float tensionValue)
@@ -183,7 +200,7 @@ public class StageUIManager : MonoBehaviour
         // (To Do) 또한 stage를 특정하면 확장성이 없으므로 수정해야 함.
         int index = StageGameManager.Instance.GetCurrentStageNumber();
         SceneManager.LoadScene("Stage" + "-" + index);
-        StageGameManager.Instance.InitializeCurrentStageData(index);
+        StageGameManager.Instance.InitializeStage();
         // (To Do) 게임 재시작을 씬을 다시 로드하는 방식 말고 변수들을 초기화하는 방식으로 할 것.
         // StageGameManager.InitializeStage();
     }
@@ -195,5 +212,4 @@ public class StageUIManager : MonoBehaviour
         SceneManager.LoadScene("SelectStage");
     }
 
-    //ui
 }
