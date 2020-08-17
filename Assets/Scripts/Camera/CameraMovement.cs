@@ -193,21 +193,20 @@ public class CameraMovement : MonoBehaviour
                 screenEffectController.height = 2 * presentCamera.orthographicSize;
                 screenEffectController.width = 2 * presentCamera.orthographicSize * presentCamera.aspect;
             }
+
+    
+
+    public void OnMouseDrag()
+    {
+       // if ((!bottleSelectController.bottleController.isSuperPowerAvailabe) && superPowerPanelController.GetIsTouch()) //초능력 사용 중(물병이 날아가는 도중)에는 스와이프나 줌인/아웃 사용 불가, superpowe패널을 터치해야 스와이프 가능
+
+
         }
         else
         {
             hold = false;
             membraneHold = false;
         }
-<<<<<<< HEAD
-    }
-
-    public void OnMouseDrag()
-    {
-       // if ((!bottleSelectController.bottleController.isSuperPowerAvailabe) && superPowerPanelController.GetIsTouch()) //초능력 사용 중(물병이 날아가는 도중)에는 스와이프나 줌인/아웃 사용 불가, superpowe패널을 터치해야 스와이프 가능
-
-=======
->>>>>>> 2b407904943bcc5767f47f9d1764ab1211d5290e
 
         if (bottleSelectController.bottleSelected && bottleSelectController.bottleController.isSuperPowerAvailabe)
         {

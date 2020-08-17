@@ -11,16 +11,13 @@ public class CogWheel : Structure
 {
     public GameObject IndustrialLine; //톱니바퀴가 놓일 레인
     public float speed; //이동 속도 
-<<<<<<< HEAD
     public bool horizontal; //수평 이동하는지의 여부
     private float rotation; // industrial thin line의 각도(라디안)
     private float angle; // tan값
 
 
-=======
+
     public bool vertical; //수직 이동하는지의 여부
-    
->>>>>>> 2b407904943bcc5767f47f9d1764ab1211d5290e
     private RectTransform rect_Line;  //톱니바퀴 레인의 rect transform
     private Vector3 direction; //톱니바퀴가 이동하는 방향
     private float angle; //톱니바퀴 레인의 각도
@@ -33,7 +30,7 @@ public class CogWheel : Structure
         base.Start(); //부모 클래스의 Start도 실행
 
         rect_Line = IndustrialLine.transform.GetComponent<RectTransform>();
-<<<<<<< HEAD
+
         moveRange = rect_Line.rect.width / 2;
         rotation = rect_Line.eulerAngles.z;
         if (rotation >= 45) // -45~ 45 각도를 위함 
@@ -42,9 +39,7 @@ public class CogWheel : Structure
         }
         angle = Mathf.Deg2Rad * rotation;//각도에 따른 기울기값 + 쿼너티언 각도를 오일러각도로 
         angle = Mathf.Tan(rotation);
-        
-=======
->>>>>>> 2b407904943bcc5767f47f9d1764ab1211d5290e
+
 
         if (vertical) //수직으로 이동하는 경우
         {
@@ -73,13 +68,16 @@ public class CogWheel : Structure
     {
         transform.Rotate(new Vector3(0, 0, -360 * Time.deltaTime)); //1초에 360도씩 회전
 
-<<<<<<< HEAD
+
         transform.position += new Vector3(speed * key * Time.deltaTime, speed * key * Time.deltaTime * angle, 0); //1초에 speed만큼 이동
         distance = transform.position.x - IndustrialLine.transform.position.x;
 
 
         /*
         if (horizontal)
+=======
+        if (vertical)
+>>>>>>> 2b407904943bcc5767f47f9d1764ab1211d5290e
 =======
         if (vertical)
 >>>>>>> 2b407904943bcc5767f47f9d1764ab1211d5290e
