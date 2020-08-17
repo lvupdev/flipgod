@@ -18,6 +18,9 @@ public class PlayerImageController : MonoBehaviour
     private Image charSlot1; //캐릭터 슬롯 1 아이콘
     private Image charSlot2; //캐릭터 슬롯 2 아이콘
 
+    private Button characterSlot_1; //캐릭터 슬롯 1 버튼
+    private Button characterSlot_2; //캐릭터 슬롯 2 버튼
+
     private int playingChr; //조작할 수 있는 캐릭터
     private int firstSlotChr; //교체 슬롯 1번에 있는 캐릭터
     private int secondSlotChr; //교체 슬롯 2번에 있는 캐릭터
@@ -52,6 +55,13 @@ public class PlayerImageController : MonoBehaviour
         padDirection = GameObject.Find("Joystick").GetComponent<PadDirection>();
         charSlot1 = GameObject.Find("ControllButtons").transform.Find("Button_CharacterSlot_1").GetComponent<Image>();
         charSlot2 = GameObject.Find("ControllButtons").transform.Find("Button_CharacterSlot_2").GetComponent<Image>();
+        characterSlot_1 = GameObject.Find("ControllButtons").transform.Find("Button_CharacterSlot_1").GetComponent<Button>();
+        characterSlot_2 = GameObject.Find("ControllButtons").transform.Find("Button_CharacterSlot_2").GetComponent<Button>();
+
+        characterSlot_1.onClick.AddListener(CharacterSlot1);
+        characterSlot_2.onClick.AddListener(CharacterSlot2);
+
+
         spriteRenderer.sprite = standingSprites[playingChr];
         charSlot1.sprite = iconSprites[firstSlotChr];
         charSlot2.sprite = iconSprites[secondSlotChr];

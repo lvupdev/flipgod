@@ -21,7 +21,7 @@ public class StageUIManager : MonoBehaviour
     //===================================================================
 
     // Canvas of stage UI
-    public Canvas canvas;
+    private Canvas canvas;
     // Transform of canvas element
     private static Dictionary<string, Transform> uis = new Dictionary<string, Transform>();
 
@@ -39,6 +39,12 @@ public class StageUIManager : MonoBehaviour
     private static Image tensionValueImg;
     private float lerpSpeed = 0.5f;
 
+    //Pause menu buttons
+    private Button pause;
+    private Button resume;
+    private Button retry;
+    private Button goToStageSelect;
+
     private void Awake()
     {
         // itself
@@ -47,7 +53,11 @@ public class StageUIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1.0f;
+
         // Initialize ui
+
+        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         RecursiveRegisterChild(canvas.transform, uis);
 
         pausePanel = Find("Panel_Pause");
@@ -56,11 +66,20 @@ public class StageUIManager : MonoBehaviour
         timeText = scorePanel.GetChild(1).GetChild(1).GetComponent<Text>();
         bottleCountText = scorePanel.GetChild(2).GetChild(1).GetComponent<Text>();
 
-
         missionPanel = Find("Panel_Mission");
 
         tensionValueImg = Find("Image_TensionGaugeBar").GetComponent<Image>();
         tensionValueImg.fillAmount = 0.0f;
+
+        pause = GameObject.Find("Button_Pause").GetComponent<Button>();
+        resume = canvas.transform.Find("Panel_Pause").transform.GetChild(0).transform.Find("Button_Resume").GetComponent<Button>();
+        retry = canvas.transform.Find("Panel_Pause").transform.GetChild(0).transform.Find("Button_Retry").GetComponent<Button>();
+        goToStageSelect = canvas.transform.Find("Panel_Pause").transform.GetChild(0).transform.Find("Button_SelectStage").GetComponent<Button>();
+
+        pause.onClick.AddListener(ShowPausePanel);
+        resume.onClick.AddListener(ResumeGame);
+        retry.onClick.AddListener(RetryStage);
+        goToStageSelect.onClick.AddListener(GoToSelectScene);
 
         // 아래 코루틴은 Stage Data를 참조하는데, Stage Data는 Awake에 할당되므로 그 이전에 실행하면 안 됨
         StartCoroutine(UpdateScoreTexts());

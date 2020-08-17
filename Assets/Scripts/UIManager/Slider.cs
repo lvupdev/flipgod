@@ -26,6 +26,8 @@ public class Slider : MonoBehaviour
     private ScrollRect scrollRect_ScrollView;
     private VerticalLayoutGroup layoutGroup;
 
+    private float distance; //Distance between buttons
+
     private float shrinkRatio; // Buttons shrink with this ratio when it's not focused 
 
     private float speed; // Speed of changing size of buttons
@@ -38,6 +40,9 @@ public class Slider : MonoBehaviour
 
     private void Start()
     {
+
+        Time.timeScale = 1.0f;
+
         // Init
         scrollbar = scrollbarObj.GetComponent<Scrollbar>();
         rect_ScrollView = transform.parent.transform.parent.gameObject.GetComponent<RectTransform>();
@@ -56,16 +61,12 @@ public class Slider : MonoBehaviour
         // Place first button and last button in the center 
         layoutGroup.padding.bottom = (int)((rect_ScrollView.rect.height / 2) - (rect_Button.rect.height / 2) * shrinkRatio);
         layoutGroup.padding.top = (int)((rect_ScrollView.rect.height / 2) - (rect_Button.rect.height / 2) * shrinkRatio);
-    }
 
+        SetButtonPos();
+    }
+    
     private void Update()
     {
-        buttonPos = new float[transform.childCount];
-        float distance = 1f / (buttonPos.Length - 1f);
-        for (int i = 0; i < buttonPos.Length; i++) // Assign button position 
-        {
-            buttonPos[(buttonPos.Length - 1) - i] = distance * i; 
-        }
 
         if (Input.GetMouseButton(0))
         {
@@ -121,6 +122,17 @@ public class Slider : MonoBehaviour
                 layoutGroup.padding.top = (int)((rect_ScrollView.rect.height / 2) - (rect_Button.rect.height / 2) * shrinkRatio);
                 layoutGroup.padding.bottom = (int)((rect_ScrollView.rect.height / 2) - (rect_Button.rect.height / 2) * shrinkRatio);
             }
+        }
+    }
+    
+
+    public void SetButtonPos()
+    {
+        buttonPos = new float[transform.childCount];
+        distance = 1f / (buttonPos.Length - 1f);
+        for (int i = 0; i < buttonPos.Length; i++) // Assign button position 
+        {
+            buttonPos[(buttonPos.Length - 1) - i] = distance * i;
         }
     }
 

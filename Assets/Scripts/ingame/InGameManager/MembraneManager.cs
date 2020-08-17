@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MembraneManager : MonoBehaviour
 {
@@ -12,12 +13,21 @@ public class MembraneManager : MonoBehaviour
     private UsefullOperation usefullOperation;
     private int  skillLV; //필살기 레벨
 
+    private Button addMembrane; //탄성막 추가 버튼
+    private Button subtractMembrane; //탄성막 제거 버튼
+
     private void Start()
     {
         membranes = GameObject.Find("Membranes");
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         resourceManager = GameObject.Find("GameResource").GetComponent<ResourceManager>();
         usefullOperation = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
+        addMembrane = GameObject.Find("ControllButtons").transform.Find("Button_AddMembrane").GetComponent<Button>();
+        subtractMembrane = GameObject.Find("ControllButtons").transform.Find("Button_SubtractMembrane").GetComponent<Button>();
+
+        addMembrane.onClick.AddListener(AddMembrane);
+        subtractMembrane.onClick.AddListener(SubtractMembrane);
+
         skillLV = resourceManager.GetSkillLV(1);
     }
 

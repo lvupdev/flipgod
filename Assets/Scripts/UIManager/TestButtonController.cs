@@ -53,7 +53,7 @@ public class TestButtonController : MonoBehaviour
 
         button.onClick.AddListener(Pushed);
         speed = 10;
-        colorSpeed = 10;
+        colorSpeed = 4;
         isSelected = false;
         isStretching = false;
         isShrinking = false;
@@ -83,14 +83,14 @@ public class TestButtonController : MonoBehaviour
             //버튼 자식 오브제트 투명도 조절
             if (missionImage.color.a > 0) 
             {
-                missionImage.color -= new Color(0, 0, 0, Time.deltaTime * 1.5f * colorSpeed);
-                missionText.color -= new Color(0, 0, 0, Time.deltaTime * 1.5f * colorSpeed);
-                timeImage.color -= new Color(0, 0, 0, Time.deltaTime * 1.5f * colorSpeed);
-                timeText.color -= new Color(0, 0, 0, Time.deltaTime * 1.5f * colorSpeed);
-                bottleNumImage.color -= new Color(0, 0, 0, Time.deltaTime * 1.5f * colorSpeed);
-                bottleNumText.color -= new Color(0, 0, 0, Time.deltaTime * 1.5f * colorSpeed);
-                playImage.color -= new Color(0, 0, 0, Time.deltaTime * 1.5f * colorSpeed);
-                commentImage.color -= new Color(0, 0, 0, Time.deltaTime * 1.5f * colorSpeed);
+                missionImage.color -= new Color(0, 0, 0, Time.deltaTime * 3f * colorSpeed);
+                missionText.color -= new Color(0, 0, 0, Time.deltaTime * 3f * colorSpeed);
+                timeImage.color -= new Color(0, 0, 0, Time.deltaTime * 3f * colorSpeed);
+                timeText.color -= new Color(0, 0, 0, Time.deltaTime * 3f * colorSpeed);
+                bottleNumImage.color -= new Color(0, 0, 0, Time.deltaTime * 3f * colorSpeed);
+                bottleNumText.color -= new Color(0, 0, 0, Time.deltaTime * 3f * colorSpeed);
+                playImage.color -= new Color(0, 0, 0, Time.deltaTime * 3f * colorSpeed);
+                commentImage.color -= new Color(0, 0, 0, Time.deltaTime * 3f * colorSpeed);
             }
 
             if (rect_Button.sizeDelta.y < 141)

@@ -56,6 +56,11 @@ public class StageGameManager : MonoBehaviour
         InitializeStage();
     }
 
+    public void Start()
+    {
+        Time.timeScale = 1.0f;
+    }
+
     // Update is called once per frame
     void Update()
     {
