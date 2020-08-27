@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*====================[ Mission UI Function]===============
+ * Mission UI Function은 mission에 관련한 값들을 UI에 표시할 때
+ * 자주 사용하는 메서드들을 관리합니다.
+ * 어떤 data도 저장하지 않습니다,
+==========================================================*/
 public class MissionUIFunction : MonoBehaviour
 {
-    /*==============index number of mission=============
+    /*==============[ index number of mission ]=============
     *                              index number
     * (1) 물병 n개 세우기            0
     * (2) 어떤 물체 얼리기           1

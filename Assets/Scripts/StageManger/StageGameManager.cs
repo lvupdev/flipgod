@@ -129,9 +129,11 @@ public class StageGameManager : MonoBehaviour
         // if user complete the mission,
         if (CompleteMissionNumber == StageData.TargetNumber)
         {
+            Time.timeScale = 0.0f;
             // then Save current stage data and user record to show result in stage clear scene
             // and Go to stage clear scene
             SaveStageDataAndUserRecord();
+            Time.timeScale = 1.0f;
             GoToStageClearScene();
         }
     }
@@ -143,7 +145,7 @@ public class StageGameManager : MonoBehaviour
         StageClearUIManager.Instance.stageData = StageData;
         // Save current user record at Instance of Stage Clear UI Manager       
         StageClearUIManager.Instance.userRecord
-            = UserRecordManager.SaveCurrentRecord(UsedBottleNumber, UsedTime);
+            = UserRecordManager.SaveCurrentRecord(StageData.StageIndexNumber, UsedBottleNumber, UsedTime);
     }
 
     // Go to stage clear scene
