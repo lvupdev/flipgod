@@ -11,6 +11,7 @@ public class ScreenEffectController : MonoBehaviour
     private UsefullOperation usefullOperation;
     private Camera mainCamera;
     private GameObject colorCamera;
+    private GameObject redAura;
 
     public ShadowThresholdCustomEffect shadowEffect;
     public GameObject membranePrefab;
@@ -21,6 +22,7 @@ public class ScreenEffectController : MonoBehaviour
     public float width { get; set; } //게임화면 넓이
 
     public int screenEffectNum { get; set; } //화면 특수효과 계수
+    public float psychoTime { get; set; } //염력을 사용할 수 있는 시간
 
     void Start()
     {
@@ -36,6 +38,7 @@ public class ScreenEffectController : MonoBehaviour
         width = height * Camera.main.aspect;
         blurTime = 1;
         screenEffectNum = 1;
+        psychoTime = 0.4f;
     }
 
     // Update is called once per frame
@@ -96,6 +99,21 @@ public class ScreenEffectController : MonoBehaviour
             case 2:
                 break;
         }
+
+        if(screenEffectNum == 0) //염력 사용 중일 때만 실행
+		{
+            psychoTime -= Time.deltaTime;
+            if(psychoTime < 0) //지정된 염력 사용 시간이 지나면 염력 사용 종료
+			{
+                Time.timeScale = 1;
+                Time.fixedDeltaTime = 0.02f * Time.timeScale;
+                shadowEffect.enabled = false;
+                screenEffectNum = 1;
+                psychoTime = 0.4f;
+                usefullOperation.FadeOut(false, redAura.GetComponent<SpriteRenderer>());
+            }
+
+        }
     }
 
     public void KinesisEffect() //염력 카메라 특수효과 발동
@@ -105,7 +123,8 @@ public class ScreenEffectController : MonoBehaviour
             shadowEffect.enabled = true;
             Time.timeScale = 0.6f;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
-            usefullOperation.FadeIn(bottleSelectController.bottle.transform.Find("RedAura").GetComponent<SpriteRenderer>());//빨간 오러 켜기
+            redAura = bottleSelectController.bottle.transform.Find("RedAura").gameObject;
+            usefullOperation.FadeIn(redAura.GetComponent<SpriteRenderer>());//빨간 오러 켜기
             screenEffectNum = 0;
         }
     }

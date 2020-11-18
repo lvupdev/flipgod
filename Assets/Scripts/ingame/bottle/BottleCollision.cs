@@ -53,10 +53,11 @@ public class BottleCollision : MonoBehaviour
                     Time.fixedDeltaTime = 0.02f * Time.timeScale;
                     screenEffectController.shadowEffect.enabled = false;
                     screenEffectController.screenEffectNum = 1;
+                    screenEffectController.psychoTime = 0.4f;
+                    usefullOperation.FadeOut(false, redAura.GetComponent<SpriteRenderer>());
                 }
 
                 gameObject.tag = "unActBottle";//태그 변경
-                usefullOperation.FadeOut(false, redAura.GetComponent<SpriteRenderer>());
                 freezeRange.SetActive(false);
 
                 bottleSelectController.bottleSelected = false;

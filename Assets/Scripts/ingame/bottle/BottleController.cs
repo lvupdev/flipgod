@@ -21,7 +21,6 @@ public class BottleController : MonoBehaviour
     public bool standingBySkill;            // 필살기에 의해 세워지는 중인가;
     public float Timeout;
     public static int combo = 0;                // 물병이 몇번째 콤보를 달성하였는가
-    public bool isStructure = false;        //스테이지 구조물의 일부인지의 여부. 간혹 스테이지에 구조물로서 배치되는 경우를 상정
 
     private float rotateSpeed; //회전속도
     private float zRotation; //NEW: 물병의 z회전축 값
@@ -64,20 +63,13 @@ public class BottleController : MonoBehaviour
 
 
         //값 초기화
-        if (isStructure)
-        {
-            rb.gravityScale = 1;
-        }
-        else
-        {
-            rb.gravityScale = 0;
-            transform.position = playerImageController.getBottlePosition();
-        }
+        rb.gravityScale = 0;
+        transform.position = playerImageController.getBottlePosition();
         isSuperPowerAvailabe = false; //물병에 초능력을 적용할 수 있는지의 여부
         isStanding = false;
         onFloor = false;
         standingBySkill = false;
-        rotateSpeed = 0.5f; //회전속도
+        rotateSpeed = 2f; //회전속도
         delta = 0;
         destroyDelay = 1;
         standingDelay = 2;
@@ -126,7 +118,7 @@ public class BottleController : MonoBehaviour
             }
             else
             {
-                rb.centerOfMass = new Vector3(0, (-0.4f / (180f * 180f)) * (zRotation - 180) * (zRotation - 180) + 0.2f, 0); //NEW: 1초 후에 물병의 무게 중심이 각도에 따라 변함
+                rb.centerOfMass = new Vector3(0, -0.1f, 0); //new Vector3(0, (-0.4f / (180f * 180f)) * (zRotation - 180) * (zRotation - 180) + 0.2f, 0); //NEW: 1초 후에 물병의 무게 중심이 각도에 따라 변함
                 rb.drag = 0;
                 rb.angularDrag = 0.05f;
             }
@@ -195,7 +187,7 @@ public class BottleController : MonoBehaviour
 
         isSuperPowerAvailabe = true;
 
-        rb.gravityScale = 1;
+        rb.gravityScale = 2f;
 
         player.GetComponent<MembraneCreator>().presentStrength = padStrength.totalStrength; //물병에 현재 가해진 힘 전달
         MembraneUsingSkillEffect.presentStrength = padStrength.totalStrength; //물병에 현재 가해진 힘 전달
@@ -203,6 +195,7 @@ public class BottleController : MonoBehaviour
         //뛰면서 회전
         rb.velocity = padDirection.getDirection() * padStrength.totalStrength;
         rb.AddTorque(key * rotateSpeed, ForceMode2D.Impulse);
+        print(padStrength.totalStrength);
 
         playerImageController.ChangePlayerImage(1); //던지는 동작으로 스프라이트 교체
 

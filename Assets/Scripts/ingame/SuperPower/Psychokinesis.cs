@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 public class Psychokinesis : MonoBehaviour
 {
     private BottleSelectController bottleSelectController;
-    private PlayerImageController playerImageController;
     private SuperPowerPanelController panel_SuperPower;
     private ScreenEffectController screenEffectController;
     private ResourceManager gameResourceValue;
@@ -14,19 +13,21 @@ public class Psychokinesis : MonoBehaviour
 
     private int superPowerLV; //초능력 강화 레벨
     private Vector2 initPos;//화면을 눌렀을 때의 위치
+
+    public bool psychoAvailable { get; set; } //염력을 사용 가능한 지의 여부
    
 
 
     void Start()
     {
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
-        playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
         panel_SuperPower = GameObject.Find("Panel_SuperPower").GetComponent<SuperPowerPanelController>();
         screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
         gameResourceValue = GameObject.Find("GameResource").GetComponent<ResourceManager>();
         bottles = GameObject.Find("Bottles");
 
         superPowerLV = gameResourceValue.GetSuperPowerLV(0);
+        psychoAvailable = true;
     }
 
 
@@ -39,11 +40,11 @@ public class Psychokinesis : MonoBehaviour
 
         if (initPos.x > Screen.width / 2.0f) //화면 터치 위치가 스크린 오른편이면 시계방향으로 회전 힘을 가한다.
         {
-            bottleSelectController.bottleController.rb.AddTorque(-superPowerLV / 60.0f, ForceMode2D.Impulse); //가하는 힘은 초능력 강화 레벨을 60으로 나눈 수치
+            bottleSelectController.bottleController.rb.AddTorque(-superPowerLV / 20.0f, ForceMode2D.Impulse); //가하는 힘은 초능력 강화 레벨을 60으로 나눈 수치
         }
         if (initPos.x <= Screen.width / 2.0f)//화면 터치 위치가 스크린 왼편이면 시계반대방향으로 회전 힘을 가한다.
         {
-            bottleSelectController.bottleController.rb.AddTorque(superPowerLV / 60.0f, ForceMode2D.Impulse);
+            bottleSelectController.bottleController.rb.AddTorque(superPowerLV / 20.0f, ForceMode2D.Impulse);
         }
     }
 

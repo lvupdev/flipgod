@@ -49,7 +49,7 @@ public class TrajectoryLine : MonoBehaviour
 
     private Vector2 CalculatePosition(float elapsedTime, Vector2 direction, float strengthFactor)
     {
-        return Physics2D.gravity * elapsedTime * elapsedTime * 0.5f +
+        return Physics2D.gravity * 2 * elapsedTime * elapsedTime * 0.5f +
                    direction * strengthFactor * elapsedTime + new Vector2(bottle.transform.position.x, bottle.transform.position.y);
     }
 

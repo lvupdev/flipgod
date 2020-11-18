@@ -916,6 +916,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bottles
       objectReference: {fileID: 0}
+    - target: {fileID: 636602808220491336, guid: d1a46d61be036be4398a19edbf061584,
+        type: 3}
+      propertyPath: m_Mass
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 881319744346657719, guid: d1a46d61be036be4398a19edbf061584,
         type: 3}
       propertyPath: m_AnchoredPosition.x
