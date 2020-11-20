@@ -29,7 +29,7 @@ public class SuperPowerController : MonoBehaviour
             switch (playerImageController.getPlayingChr())
             {
                 case 0:
-                    if (panel_SuperPower.GetIsTouch())
+                    if (panel_SuperPower.GetIsTouch() && psychokinesis.psychoAvailable)
                     {
                         psychokinesis.Activate();
                         playerImageController.ChangePlayerImage(2); //초능력 사용 이미지로 변경

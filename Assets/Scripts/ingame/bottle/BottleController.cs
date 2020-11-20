@@ -9,7 +9,7 @@ public class BottleController : MonoBehaviour
 {
     public PadStrength padStrength;
     public PadDirection padDirection;
-    public Rigidbody2D rb;                  // rigidbody component of bottle
+    public Rigidbody2D rb { get; set; }                  // rigidbody component of bottle
 
     /*==========<variable about state of bottle>================================*/
     public bool isSuperPowerAvailabe { get; set; }     // 물병에 기본 초능력을 사용할 수 있는가
@@ -69,7 +69,7 @@ public class BottleController : MonoBehaviour
         isStanding = false;
         onFloor = false;
         standingBySkill = false;
-        rotateSpeed = 2f; //회전속도
+        rotateSpeed = 0.8f; //회전속도
         delta = 0;
         destroyDelay = 1;
         standingDelay = 2;
@@ -195,7 +195,6 @@ public class BottleController : MonoBehaviour
         //뛰면서 회전
         rb.velocity = padDirection.getDirection() * padStrength.totalStrength;
         rb.AddTorque(key * rotateSpeed, ForceMode2D.Impulse);
-        print(padStrength.totalStrength);
 
         playerImageController.ChangePlayerImage(1); //던지는 동작으로 스프라이트 교체
 

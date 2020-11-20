@@ -10,7 +10,7 @@ public class Freezer : MonoBehaviour
     private UsefullOperation usefullOperation;
     private GameObject bottles;
 
-    public bool freezeAvailable; // 2번 발동 방지 변수
+    public bool freezeAvailable { get; set; } // 2번 발동 방지 변수
     public GameObject freezeParticlePrefab;
 
     // Start is called before the first frame update

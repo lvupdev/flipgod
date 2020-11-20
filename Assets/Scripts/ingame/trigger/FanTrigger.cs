@@ -5,15 +5,18 @@ using UnityEngine;
 public class FanTrigger : TriggerFunction
 {
 
-    private void Awake()
+    private new void Start()
     {
+        base.Start();
+
         isActTrigger = true; //해당 트리거가 처음에 활성화 상태인지 비활성화 상태인지 start함수에서 반드시 명시해줘야 한다.
-        canBeFreezed = true; //해당 트리거가 얼릴 수 있는 트리거인지여 여부를 반드시 명시해줘야 한다.
+        isFreezable = true; //해당 트리거가 얼릴 수 있는 트리거인지여 여부를 반드시 명시해줘야 한다.
+        isFreezed = false;
     }
 
     void FixedUpdate()
     {
-        if (actBool && canBeFreezed && structure.isFreezed)
+        if (actBool && isFreezable && structure.isFreezed)
         {
             shouldBeFreezed = isActTrigger? true : false; //빙결되기 전에 isActTrigger 상태였는지 shouldBeFreezed에 저장
             isActTrigger = false;

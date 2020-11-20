@@ -18,6 +18,7 @@ public class MetalPlane2 : Structure
     {
         base.Start();
 
+        isFreezable = true;
         isSpinning = false;
         isMoving = false;
         key = 1;

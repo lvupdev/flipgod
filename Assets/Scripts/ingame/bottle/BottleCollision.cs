@@ -14,6 +14,7 @@ public class BottleCollision : MonoBehaviour
     private GameObject redAura;
     private GameObject freezeRange;
     private ScreenEffectController screenEffectController;
+    private Psychokinesis psychokinesis;
 
 
 
@@ -27,6 +28,7 @@ public class BottleCollision : MonoBehaviour
         redAura = transform.Find("RedAura").gameObject;
         freezeRange = transform.Find("FreezeRange").gameObject;
         screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
+        psychokinesis = GameObject.Find("Player").GetComponent<Psychokinesis>();
     }
 
     //동전에 부딪혔을때. 동전은 isTrigger= True 상태여야함
@@ -55,6 +57,7 @@ public class BottleCollision : MonoBehaviour
                     screenEffectController.screenEffectNum = 1;
                     screenEffectController.psychoTime = 0.4f;
                     usefullOperation.FadeOut(false, redAura.GetComponent<SpriteRenderer>());
+                    psychokinesis.psychoAvailable = false;
                 }
 
                 gameObject.tag = "unActBottle";//태그 변경

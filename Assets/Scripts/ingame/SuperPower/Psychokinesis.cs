@@ -40,11 +40,11 @@ public class Psychokinesis : MonoBehaviour
 
         if (initPos.x > Screen.width / 2.0f) //화면 터치 위치가 스크린 오른편이면 시계방향으로 회전 힘을 가한다.
         {
-            bottleSelectController.bottleController.rb.AddTorque(-superPowerLV / 20.0f, ForceMode2D.Impulse); //가하는 힘은 초능력 강화 레벨을 60으로 나눈 수치
+            bottleSelectController.bottleController.rb.AddTorque(-superPowerLV / 30.0f, ForceMode2D.Impulse); //가하는 힘은 초능력 강화 레벨을 60으로 나눈 수치
         }
         if (initPos.x <= Screen.width / 2.0f)//화면 터치 위치가 스크린 왼편이면 시계반대방향으로 회전 힘을 가한다.
         {
-            bottleSelectController.bottleController.rb.AddTorque(superPowerLV / 20.0f, ForceMode2D.Impulse);
+            bottleSelectController.bottleController.rb.AddTorque(superPowerLV / 30.0f, ForceMode2D.Impulse);
         }
     }
 

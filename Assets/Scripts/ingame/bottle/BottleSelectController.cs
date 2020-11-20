@@ -6,6 +6,7 @@ public class BottleSelectController : MonoBehaviour
 {
     private MembraneCreator membraneCreator;
     private Freezer freezer;
+    private Psychokinesis psychokinesis;
 
     public GameObject bottle { get; set; }
     public BottleController bottleController { get; set; }
@@ -18,6 +19,7 @@ public class BottleSelectController : MonoBehaviour
     {
         membraneCreator = GameObject.Find("Player").GetComponent<MembraneCreator>();
         freezer = GameObject.Find("Player").GetComponent<Freezer>();
+        psychokinesis = GameObject.Find("Player").GetComponent<Psychokinesis>();
         bottle = GameObject.FindWithTag("isActBottle");
         bottleController = bottle.GetComponent<BottleController>();
         bottleSkillOperation = bottle.GetComponent<BottleSkillOperation>();
@@ -43,6 +45,7 @@ public class BottleSelectController : MonoBehaviour
         bottleController = bottle.GetComponent<BottleController>();//힘을 적용할 물병을 태그에 따라 재설정
         bottleSkillOperation = bottle.GetComponent<BottleSkillOperation>();
         membraneCreator.membraneNum = membraneCreator.getSuperPowerLV();
+        psychokinesis.psychoAvailable = true;
         membraneCreator.membraneAvailable = false;
         freezer.freezeAvailable = true;
         bottleSelected = true;

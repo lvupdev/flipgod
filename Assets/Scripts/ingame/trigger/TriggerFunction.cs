@@ -14,7 +14,8 @@ public class TriggerFunction : MonoBehaviour
 
     public bool conditionFullfilled; //트리거 발동 조건이 충족되었는지의 여부
     public bool isActTrigger; //트리거가 활성화 상태인지의 여부
-    public bool canBeFreezed; //얼릴 수 있는 트리거인지의 여부
+    public bool isFreezable; //얼릴 수 있는 트리거인지의 여부
+    public bool isFreezed; //얼려진 상태인지의 여부
     public bool shouldBeFreezed; //얼려져야 하는지의 여부 
     public bool actBool; //반복 방지 변수
     public bool enoughStackBool; // EnoughStack 텐션게이지 중복 증가 방지 변수

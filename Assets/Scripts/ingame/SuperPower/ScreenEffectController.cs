@@ -6,6 +6,7 @@ public class ScreenEffectController : MonoBehaviour
 {
     private BottleSelectController bottleSelectController;
     private PlayerImageController playerImageController;
+    private Psychokinesis psychokinesis;
     private RadialBlurImageEffect blurEffect;
     private SuperPowerPanelController Panel_SuperPower;
     private UsefullOperation usefullOperation;
@@ -28,6 +29,7 @@ public class ScreenEffectController : MonoBehaviour
     {
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         playerImageController = GameObject.Find("Player").GetComponent<PlayerImageController>();
+        psychokinesis = GameObject.Find("Player").GetComponent<Psychokinesis>();
         mainCamera = Camera.main;
         colorCamera = GameObject.Find("Color Camera").gameObject;
         blurEffect = GameObject.Find("Main Camera").GetComponent<RadialBlurImageEffect>();
@@ -111,6 +113,8 @@ public class ScreenEffectController : MonoBehaviour
                 screenEffectNum = 1;
                 psychoTime = 0.4f;
                 usefullOperation.FadeOut(false, redAura.GetComponent<SpriteRenderer>());
+                psychokinesis.psychoAvailable = false;
+                playerImageController.ChangePlayerImageWithDelay(0.25f ,0); //물병이 땅에 떨어지기 전에 초능력 사용이 끝나면 딜레이를 주고, 물병을 던지기 전의 이미지로 변경
             }
 
         }
@@ -121,7 +125,7 @@ public class ScreenEffectController : MonoBehaviour
         if(screenEffectNum == 1)
         {
             shadowEffect.enabled = true;
-            Time.timeScale = 0.6f;
+            Time.timeScale = 0.5f;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
             redAura = bottleSelectController.bottle.transform.Find("RedAura").gameObject;
             usefullOperation.FadeIn(redAura.GetComponent<SpriteRenderer>());//빨간 오러 켜기
