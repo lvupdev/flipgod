@@ -8,7 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5524434157517905652}
+  - component: {fileID: 6857719482362172027}
   - component: {fileID: 5524434157517905653}
   - component: {fileID: 5524434157517905650}
   - component: {fileID: 5524434157517905651}
@@ -20,20 +20,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5524434157517905652
-Transform:
+--- !u!224 &6857719482362172027
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5524434157517905648}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.99, y: -0.85, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -2.99, y: -1.1690001}
+  m_SizeDelta: {x: 2.18, y: 0.7}
+  m_Pivot: {x: 0.5, y: 0.17}
 --- !u!212 &5524434157517905653
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -153,5 +158,13 @@ MonoBehaviour:
   baseSprite: {fileID: 21300000, guid: 917efc979525e8e49b5eaf722767945b, type: 3}
   freezedSprite: {fileID: 21300000, guid: b4094be4d38a70240a246e2087caf8f2, type: 3}
   spriteRenderer: {fileID: 0}
+  isFreezable: 1
   isFreezed: 0
+  getFreezeBonus: 0
   delta: 0
+  isSpinning: 0
+  spinningSpeed: 0
+  isMoving: 0
+  direction: {x: 0, y: 0, z: 0}
+  movingSpeed: 0
+  movingRange: 0
