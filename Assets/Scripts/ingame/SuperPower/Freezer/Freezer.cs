@@ -32,7 +32,7 @@ public class Freezer : MonoBehaviour
         freezeParticle.transform.position = bottleSelectController.bottle.transform.position; //물병 위치에 파티클 이펙트 생성
 
         screenEffectController.FreezeEffect();
-        bottleSelectController.bottle.transform.Find("FreezeRange").GetComponent<FreezeEffect>().Freeze();
+        bottleSelectController.bottle.transform.Find("FreezeRange").GetComponent<FreezeEffect>().Freeze(0);
         usefullOperation.FadeOut(false, bottleSelectController.bottle.transform.Find("FreezeRange").GetComponent<SpriteRenderer>());
         freezeAvailable = false;
     }
@@ -46,7 +46,7 @@ public class Freezer : MonoBehaviour
             GameObject freezeRange = bottle.transform.GetChild(1).gameObject;
             if (freezeRange.activeSelf)
             {
-                freezeRange.GetComponent<FreezeEffect>().Freeze();
+                freezeRange.GetComponent<FreezeEffect>().Freeze(1);
                 usefullOperation.FadeOut(false, freezeRange.GetComponent<SpriteRenderer>());
                 GameObject freezeParticle = Instantiate(freezeParticlePrefab) as GameObject;
                 freezeParticle.transform.position = bottle.transform.position;

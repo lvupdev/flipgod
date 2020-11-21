@@ -11,13 +11,12 @@ public class Structure : MonoBehaviour
     public int collisionNum {get; set;} //물병과 충돌한 횟수
     public bool isFreezable; //얼릴 수 있는지의 여부
     public bool isFreezed;
+    public bool getFreezeBonus; //해당 구조물을 얼림으로써 빙결 보너스를 받는지의 여부
     public float delta; //빙결 시간 변수
 
     public void Start()
     {
         spriteRenderer = transform.GetComponent<SpriteRenderer>();
-        isFreezable = false;
-        isFreezed = false;
         delta = 0;
         collisionNum = 0;
 

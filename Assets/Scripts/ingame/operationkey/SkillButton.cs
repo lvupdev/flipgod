@@ -19,6 +19,7 @@ public class SkillButton : MonoBehaviour
     private Psychokinesis psychokinesis;
     private Freezer freezer;
     private bool usingSkill; //Skill 버튼을 사용 중인지의 여부
+    private bool skillUsed; //스킬이 유의미하게 사용되었는지의 여부
     private Vector2 previousDirection; //스킬 버튼을 누르기 전 방향키의 벡터
 
     public Sprite[] skillButtonSprite; // skill버튼 스프라이트 배열
@@ -40,6 +41,7 @@ public class SkillButton : MonoBehaviour
         psychokinesis = GameObject.Find("Player").GetComponent<Psychokinesis>();
         freezer = GameObject.Find("Player").GetComponent<Freezer>();
         usingSkill = false;
+        skillUsed = false;
     }
 
     public bool getUsingSkill()
@@ -72,6 +74,7 @@ public class SkillButton : MonoBehaviour
                     bottleSelectController.SetActiveBottleWithDelay(2); //딜레이 주고 물통 활성화
                     controllButtonsUIManager.setShowButtonsWithDelay(2, 1); //스킬 버튼과 membrame 추가/제거 버튼을 제외하고 모든 컨트롤 버튼 활성화
                     psychokinesis.SkillActivate();
+                    skillUsed = true;
                 }
                 else //필살기를 적용한 물병이 없을 경우
                 {
@@ -93,6 +96,8 @@ public class SkillButton : MonoBehaviour
                     membranes.transform.GetChild(i).GetComponent<MembraneUsingSkillEffect>().setStartDelta(true); //탄성막 파괴 카운트다운 시작
                     membranes.transform.GetChild(i).GetComponent<MembraneUsingSkillEffect>().Activate(); //콜라이더 활성화
                 }
+
+                if (membranes.transform.childCount > 0) skillUsed = true;
             }
             else //빙결자가 필살기를 사용 완료했을 때
             {
@@ -102,6 +107,7 @@ public class SkillButton : MonoBehaviour
                     bottleSelectController.SetActiveBottleWithDelay(1); //물통 활성화
                     controllButtonsUIManager.setShowButtonsWithDelay(1, 1); //스킬 버튼과 membrame 추가/제거 버튼을 제외하고 모든 컨트롤 버튼 활성화
                     freezer.SkillActivate();
+                    skillUsed = true;
                 }
                 else
                 {
@@ -111,7 +117,11 @@ public class SkillButton : MonoBehaviour
                 }
             }
 
-            tensionGaugeManager.DecreaseTensionGauge(bottleSelectController.bottleSkillOperation.getUsingSkillNum()); //텐션게이지 감소
+            if (skillUsed) //유의미하게 스킬을 사용했을 때
+            {
+                tensionGaugeManager.DecreaseTensionGauge(50); //텐션게이지 감소
+                skillUsed = false;
+            }
             bottleSelectController.bottleSkillOperation.setUsingSkillNum(0);
             usingSkill = false;
         }

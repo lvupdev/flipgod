@@ -48,7 +48,7 @@ public class TensionGaugeManager : MonoBehaviour
     {
         decreaseConditionFullfilled = true;
         this.decreaseValue = decreaseValue;
-        tensionGauge -= 20 * decreaseValue;
+        tensionGauge -= decreaseValue;
     }
 
     private void Start()
@@ -74,6 +74,7 @@ public class TensionGaugeManager : MonoBehaviour
             {
                 if (tensionGauge > 100) tensionGauge = 100;
                 percentText.text = tensionGauge + "%";
+                tensionGaugeBar.GetComponent<Image>().fillAmount = 0.01f * tensionGauge; //이미지 길이 조절
                 increaseConditionFullfilled = false;
             }
 
@@ -106,12 +107,13 @@ public class TensionGaugeManager : MonoBehaviour
 
         if (decreaseConditionFullfilled)
         {
-            tensionGaugeBar.GetComponent<Image>().fillAmount -= (0.1f * decreaseValue) * Time.fixedDeltaTime;
+            tensionGaugeBar.GetComponent<Image>().fillAmount -= (0.01f * decreaseValue) * Time.fixedDeltaTime;
             percentText.text = (int)(100 * tensionGaugeBar.GetComponent<Image>().fillAmount) + "%";
             if (tensionGaugeBar.GetComponent<Image>().fillAmount * 100 < tensionGauge || tensionGaugeBar.GetComponent<Image>().fillAmount == 1)
             {
                 if (tensionGauge < 0) tensionGauge = 0;
                 percentText.text = tensionGauge + "%";
+                tensionGaugeBar.GetComponent<Image>().fillAmount = 0.01f * tensionGauge; //이미지 길이 조절
                 decreaseConditionFullfilled = false;
             }
         }
