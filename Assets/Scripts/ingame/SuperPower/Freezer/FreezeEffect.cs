@@ -40,7 +40,7 @@ public class FreezeEffect : MonoBehaviour
             structure.delta = 0;
         }
 
-        if(whichCase == 0) tensionGaugeManager.IncreaseTensionGauge(3, newFreezedCount); //기본 초능력으로 구조물을 얼렸을 때만 텐션게이지 상승
+        if(whichCase == 0 && newFreezedCount != 0) tensionGaugeManager.IncreaseTensionGauge(3, newFreezedCount); //기본 초능력으로 구조물을 얼렸을 때만 텐션게이지 상승
 
         newFreezedCount = 0;
 
@@ -49,25 +49,17 @@ public class FreezeEffect : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-		try
-		{
-            if (collision.GetComponent<Structure>().isFreezable == true) TargetObject.Add(collision.gameObject);
-        }
-        catch (NullReferenceException e) //콜라이더 안에 들어온 오브젝트가 Structure 타입이 아니면 return한다.
-		{
-            return;
-		}
+        Structure structure = collision.GetComponent<Structure>();
+
+        if (structure == null) return;
+        else if (structure.isFreezable == true) TargetObject.Add(collision.gameObject);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        try
-        {
-            if (collision.GetComponent<Structure>().isFreezable == true) TargetObject.Remove(collision.gameObject);
-        }
-        catch (NullReferenceException e) //콜라이더 안에 들어온 오브젝트가 Structure 타입이 아니면 return한다.
-        {
-            return;
-        }
+        Structure structure = collision.GetComponent<Structure>();
+
+        if (structure == null) return;
+        else if (structure.isFreezable == true) TargetObject.Remove(collision.gameObject);
     }
 }
