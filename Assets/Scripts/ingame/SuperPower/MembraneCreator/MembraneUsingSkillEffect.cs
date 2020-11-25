@@ -52,7 +52,7 @@ public class MembraneUsingSkillEffect : MonoBehaviour
         if (startDelta)//선택이 끝나면 파괴되기까지의 카운트 다운 시작
         {
             destroyDelta -= Time.deltaTime;
-            if (destroyDelta < 0) usefullOperation.FadeOut(true, GetComponent<SpriteRenderer>()); //설치하고 15초가 지나면 파괴
+            if (destroyDelta < 0) usefullOperation.FadeOut(2, GetComponent<SpriteRenderer>()); //설치하고 15초가 지나면 파괴
         }
     }
 

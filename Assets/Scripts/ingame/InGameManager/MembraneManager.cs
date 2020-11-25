@@ -50,7 +50,7 @@ public class MembraneManager : MonoBehaviour
         if (usingSkillNum > 0)
         {
             MembraneUsingSkillEffect.selectedMembrane = null; //선택 표시제거
-            usefullOperation.FadeOut(true, membranes.transform.GetChild(--usingSkillNum).GetComponent<SpriteRenderer>());//가장 최근에 추가된 membrane 파괴
+            usefullOperation.FadeOut(2, membranes.transform.GetChild(--usingSkillNum).GetComponent<SpriteRenderer>());//가장 최근에 추가된 membrane 파괴
             bottleSelectController.bottleSkillOperation.setUsingSkillNum(usingSkillNum); //usingSkillNum을 1 감소시킨다
 
         }

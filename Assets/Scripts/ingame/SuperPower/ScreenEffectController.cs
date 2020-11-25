@@ -112,7 +112,7 @@ public class ScreenEffectController : MonoBehaviour
                 shadowEffect.enabled = false;
                 screenEffectNum = 1;
                 psychoTime = 0.4f;
-                usefullOperation.FadeOut(false, redAura.GetComponent<SpriteRenderer>());
+                usefullOperation.FadeOut(1, redAura.GetComponent<SpriteRenderer>());
                 psychokinesis.psychoAvailable = false;
                 playerImageController.ChangePlayerImageWithDelay(0.25f ,0); //물병이 땅에 떨어지기 전에 초능력 사용이 끝나면 딜레이를 주고, 물병을 던지기 전의 이미지로 변경
             }

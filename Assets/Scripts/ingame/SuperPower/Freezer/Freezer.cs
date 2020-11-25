@@ -33,7 +33,7 @@ public class Freezer : MonoBehaviour
 
         screenEffectController.FreezeEffect();
         bottleSelectController.bottle.transform.Find("FreezeRange").GetComponent<FreezeEffect>().Freeze(0);
-        usefullOperation.FadeOut(false, bottleSelectController.bottle.transform.Find("FreezeRange").GetComponent<SpriteRenderer>());
+        usefullOperation.FadeOut(1, bottleSelectController.bottle.transform.Find("FreezeRange").GetComponent<SpriteRenderer>());
         freezeAvailable = false;
     }
 
@@ -47,7 +47,7 @@ public class Freezer : MonoBehaviour
             if (freezeRange.activeSelf)
             {
                 freezeRange.GetComponent<FreezeEffect>().Freeze(1);
-                usefullOperation.FadeOut(false, freezeRange.GetComponent<SpriteRenderer>());
+                usefullOperation.FadeOut(1, freezeRange.GetComponent<SpriteRenderer>());
                 GameObject freezeParticle = Instantiate(freezeParticlePrefab) as GameObject;
                 freezeParticle.transform.position = bottle.transform.position;
                 isBottleSelected = true;

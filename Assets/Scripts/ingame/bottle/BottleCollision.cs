@@ -63,7 +63,7 @@ public class BottleCollision : MonoBehaviour
                     screenEffectController.shadowEffect.enabled = false;
                     screenEffectController.screenEffectNum = 1;
                     screenEffectController.psychoTime = 0.4f;
-                    usefullOperation.FadeOut(false, redAura.GetComponent<SpriteRenderer>());
+                    usefullOperation.FadeOut(1, redAura.GetComponent<SpriteRenderer>());
                     psychokinesis.psychoAvailable = false;
                 }
 
@@ -114,7 +114,10 @@ public class BottleCollision : MonoBehaviour
 
                     if (bottle.contactPlaneTile != null) //자기가 어떠한 PlaneTile과 연결되어 있는지의 여부
 					{
-
+                        foreach(PlaneTile plane in bottle.contactPlaneTile)
+						{
+                            plane.bottleAbove.Remove(thisBottleCollision); //연결되어 있는 모든 PlaneTile에서 물병 제거
+						}
 					}
 				}
 			}

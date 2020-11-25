@@ -7,6 +7,7 @@ public class Structure : MonoBehaviour
     public Sprite baseSprite;
     public Sprite freezedSprite;
     public SpriteRenderer spriteRenderer;
+    public UsefullOperation usefullOperation;
 
     public int collisionNum {get; set;} //물병과 충돌한 횟수
     public bool isFreezable; //얼릴 수 있는지의 여부
@@ -16,6 +17,7 @@ public class Structure : MonoBehaviour
 
     public void Start()
     {
+        usefullOperation = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
         spriteRenderer = transform.GetComponent<SpriteRenderer>();
         delta = 0;
         collisionNum = 0;

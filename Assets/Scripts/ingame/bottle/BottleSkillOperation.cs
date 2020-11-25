@@ -53,7 +53,7 @@ public class BottleSkillOperation : MonoBehaviour
                     }
                     else if (redAura.activeSelf) //오러가 켜져있을 때
                     {
-                        usefullOperation.FadeOut(false, redAura.GetComponent<SpriteRenderer>());
+                        usefullOperation.FadeOut(1, redAura.GetComponent<SpriteRenderer>());
                         usingSkillNum--;
                     }
                 }
@@ -67,7 +67,7 @@ public class BottleSkillOperation : MonoBehaviour
                     }
                     else if (freezeRange.activeSelf)
                     {
-                        usefullOperation.FadeOut(false, freezeRange.GetComponent<SpriteRenderer>());
+                        usefullOperation.FadeOut(1, freezeRange.GetComponent<SpriteRenderer>());
                         usingSkillNum--;
                     }
                 }

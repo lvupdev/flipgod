@@ -1150,6 +1150,16 @@ PrefabInstance:
       propertyPath: isFreezable
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3212418672603007730, guid: 2d82ac4268efdbd42b3d4e56d5a507ac,
+        type: 3}
+      propertyPath: isNumLimitTile
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3212418672603007730, guid: 2d82ac4268efdbd42b3d4e56d5a507ac,
+        type: 3}
+      propertyPath: LimitNum
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5524434157517905648, guid: 2d82ac4268efdbd42b3d4e56d5a507ac,
         type: 3}
       propertyPath: m_Name

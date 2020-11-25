@@ -113,7 +113,7 @@ public class BottleController : MonoBehaviour
                 {
                     standingDelay = 2;
                     standingBySkill = false;
-                    if(!isDestroying) usefullOperation.FadeOut(false, this.transform.GetChild(0).GetComponent<SpriteRenderer>()); //파괴 도중에 실행되면 오류 발생
+                    if(!isDestroying) usefullOperation.FadeOut(1, this.transform.GetChild(0).GetComponent<SpriteRenderer>()); //파괴 도중에 실행되면 오류 발생
                 }
             }
             else
@@ -152,8 +152,8 @@ public class BottleController : MonoBehaviour
             destroyDelay -= Time.fixedDeltaTime;
             if (destroyDelay < 0)
             {
-                usefullOperation.FadeOut(false, this.transform.GetChild(0).GetComponent<SpriteRenderer>());
-                usefullOperation.FadeOut(true, transparent);
+                usefullOperation.FadeOut(1, this.transform.GetChild(0).GetComponent<SpriteRenderer>());
+                usefullOperation.FadeOut(2, transparent);
             }
             isDestroying = true;
         }

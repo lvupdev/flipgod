@@ -12,21 +12,30 @@ public class PlaneTile : Structure
     public Vector3 direction; //이동방향
     public float movingSpeed; //타일이 이동하는 속도
     public float movingRange; //이동 범위
+    public bool isNumLimitTile; //개수 제한 타일인지의 여부
+    public int LimitNum; //개수 제한 타일에 올라갈수 있는 최대 물병의 개수
+    public bool isFlagTile; //깃발 타일인지의 여부
+    public int requiredNum; //깃발 타일에서 세워져야 하는 물병의 개수
     public List<BottleCollision> bottleAbove = new List<BottleCollision>(); //위에 올려져 있는 물병들의 리스트
-    public int bottleAboveCount;
 
     private Vector3 originPos; //처음 배치 위치
+    private PolygonCollider2D col;
     private int key; //이동 방향 전환 키
     private bool turnSucees; //성공적으로 방향을 전환했는지의 여부
+    private bool isInvisible; //현재 타일이 투명한 지의 여부
+    private float timeGap; //개수 제한 타일이 사라졌다가 나타나기까지의 시간
 
     public new void Start()
     {
         base.Start();
 
+        col = GetComponent<PolygonCollider2D>();
         key = 1;
         direction = Vector3.ClampMagnitude(direction, 1);
         originPos = transform.position;
         turnSucees = false;
+        isInvisible = false;
+        timeGap = 1;
     }
 
 
@@ -37,7 +46,28 @@ public class PlaneTile : Structure
         if (!isFreezed)
             MoveDynamicStructure();
 
-        bottleAboveCount = bottleAbove.Count;
+		if (isNumLimitTile) //제한 개수 타일인 경우
+		{
+            if (bottleAbove.Count > LimitNum) //타일 위에 올라간 물병의 개수가 제한 개수를 초과했을 때
+			{
+                usefullOperation.FadeOut(0, spriteRenderer); //상태는 변화 없이 투명도만 높임
+                col.enabled = false; //콜라이더 없앰
+                isInvisible = true;
+                bottleAbove.Clear();
+			}
+
+			if (isInvisible)
+			{
+                timeGap -= Time.deltaTime;
+				if (timeGap < 0)
+				{
+                    usefullOperation.FadeIn(spriteRenderer);
+                    col.enabled = true;
+                    timeGap = 1;
+                    isInvisible = false;
+                }
+			}
+		}
     }
 
     public void MoveDynamicStructure()

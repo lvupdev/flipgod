@@ -29,14 +29,23 @@ public class UsefullOperation : MonoBehaviour
                     targetObject[i].spriteRenderer.color = targetObject[i].color;
                     if (targetObject[i].color.a < 0)
                     {
-                        if (targetObject[i].destroy) Destroy(targetObject[i].spriteRenderer.gameObject);
-                        else targetObject[i].spriteRenderer.gameObject.SetActive(false);
+						switch (targetObject[i].statusCase)
+						{ 
+                            case 0: //오브젝트 상태 유지
+                                break;
+                            case 1:
+                                targetObject[i].spriteRenderer.gameObject.SetActive(false);
+                                break;
+                            case 2:
+                                Destroy(targetObject[i].spriteRenderer.gameObject);
+                                break;
+                        }
                         targetObject.RemoveAt(i);
                     }
                 }
                 else if(targetObject[i].fadeIn)
                 {
-                    targetObject[i].color.a += 4 * Time.deltaTime; //약 0.25초동안 페이드 아웃 효과
+                    targetObject[i].color.a += 4 * Time.deltaTime; //약 0.25초동안 페이드 인 효과
                     targetObject[i].spriteRenderer.color = targetObject[i].color;
                     if (targetObject[i].color.a > 1)
                     {
@@ -57,10 +66,10 @@ public class UsefullOperation : MonoBehaviour
         }
     }
 
-    public void FadeOut(bool destroy, SpriteRenderer spriteRenderer) //매개변수 스프라이트에 페이드 아웃 효과를 준다. destroy가 true이면 해당 오브젝트를 파괴한다.
+    public void FadeOut(int statusCase , SpriteRenderer spriteRenderer) //매개변수 스프라이트에 페이드 아웃 효과를 준다. statusCase에 따라 오브젝트의 상태를 변경한다.
     {
         ObjectInformation objectInformation = new ObjectInformation(spriteRenderer, false);
-        objectInformation.destroy = destroy;
+        objectInformation.statusCase = statusCase;
         targetObject.Add(objectInformation);
     }
 
@@ -82,7 +91,7 @@ public class UsefullOperation : MonoBehaviour
 
 class ObjectInformation {
 
-    public bool destroy; //오브젝트를 파괴할지의 여부
+    public int statusCase; //오브젝트를 어떠한 상태로 변화시킬지의 여부 0: 변화 없음 1: setActive(false) 2: 오브젝트 파괴
     public bool fadeIn; //페이드인 효과를 적용할 지의 여부
     public bool fadeOut; //페이드 아웃 효과를 적용할지의 여부
     public float shakeAmount; // 진동 세기
@@ -97,7 +106,7 @@ class ObjectInformation {
     {
         this.spriteRenderer = spriteRenderer;
         color = spriteRenderer.color;
-        destroy = false;
+        statusCase = 0;
         shakeTime = 0;
         if (fadeIn)
         {
