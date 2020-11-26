@@ -16,14 +16,16 @@ public class PlaneTile : Structure
     public int LimitNum; //개수 제한 타일에 올라갈수 있는 최대 물병의 개수
     public bool isFlagTile; //깃발 타일인지의 여부
     public int requiredNum; //깃발 타일에서 세워져야 하는 물병의 개수
+    public bool numFullfilled; //깃발 타일에서 요구하는 개수만큼의 물병이 위에 세워져 있는지의 여부
     public List<BottleCollision> bottleAbove = new List<BottleCollision>(); //위에 올려져 있는 물병들의 리스트
 
+    private List<BottleCollision> movingBottle = new List<BottleCollision>(); //planeTile을 따라 함께 움직이는 물병들의 리스트
     private Vector3 originPos; //처음 배치 위치
     private PolygonCollider2D col;
     private int key; //이동 방향 전환 키
     private bool turnSucees; //성공적으로 방향을 전환했는지의 여부
     private bool isInvisible; //현재 타일이 투명한 지의 여부
-    private float timeGap; //개수 제한 타일이 사라졌다가 나타나기까지의 시간
+    private float timeGap; //개수 제한 타일이 사라졌다가 나타나기까지의 시간 
 
     public new void Start()
     {
@@ -35,6 +37,7 @@ public class PlaneTile : Structure
         originPos = transform.position;
         turnSucees = false;
         isInvisible = false;
+        numFullfilled = false;
         timeGap = 1;
     }
 
@@ -68,6 +71,25 @@ public class PlaneTile : Structure
                 }
 			}
 		}
+
+		if (isFlagTile) //깃발 타일인 경우
+		{
+            if(bottleAbove.Count >= requiredNum) //위에 올려져있는 물병의 개수가 요구 개수 이상일 때부터 검사 시작
+			{
+                int count = 0;
+
+                var list = new List<BottleCollision>();
+                list.AddRange(bottleAbove);
+
+                foreach(BottleCollision bottle in list)
+				{
+                    if (bottle.gameObject.GetComponent<BottleController>().isStanding) count++;
+				}
+
+                if (count >= requiredNum) numFullfilled = true;
+                else numFullfilled = false;
+			}
+		}
     }
 
     public void MoveDynamicStructure()
@@ -79,7 +101,9 @@ public class PlaneTile : Structure
         {
             transform.Translate(key * direction * movingSpeed * Time.deltaTime);
 
-            if((originPos - transform.position).magnitude > movingRange)
+            MoveBottleOnDynamicStructure();
+
+            if ((originPos - transform.position).magnitude > movingRange)
 			{
 				if (!turnSucees)
 				{
@@ -87,13 +111,60 @@ public class PlaneTile : Structure
                     turnSucees = true;
                 }
 			}
-			else
+			else if(turnSucees)
 			{
                 turnSucees = false;
 			}
-
-
         }
+    }
+
+    public void MoveBottleOnDynamicStructure() //planeTile위에 있는 물병들을 움직이는 메서드
+	{
+        
+        movingBottle.AddRange(bottleAbove);
+        movingBottle.Distinct().ToList(); //중복 요소 제거
+
+        var list1 = new List<BottleCollision>();
+        list1.AddRange(bottleAbove);
+        var list2 = new List<BottleCollision>();
+        list2.AddRange(movingBottle);
+
+
+        foreach (BottleCollision bottle in list1)
+		{
+            if(bottle.moveMaintainTime == 0)
+			{
+                bottle.transform.position += key * direction * movingSpeed * Time.deltaTime;
+            }
+		}
+
+        foreach (BottleCollision bottle in list2)
+        {
+			if (bottle.moveMaintainTime > 0)
+			{
+                bottle.transform.position += key * direction * movingSpeed * Time.deltaTime;
+                bottle.moveMaintainTime -= Time.deltaTime;
+            }
+			
+            if (bottle.moveMaintainTime <= 0)
+            {
+                bottle.moveMaintainTime = 0;
+                movingBottle.Remove(bottle);
+			}
+        }
+    }
+
+    public new void OnCollisionEnter2D(Collision2D col)
+	{
+        base.OnCollisionEnter2D(col);
+
+        BottleCollision bottle = col.gameObject.GetComponent<BottleCollision>();
+
+        if (bottle == null) return; //부딛힌 물체가 물병이 아니면 리턴
+		else
+		{
+            bottle.moveMaintainTime = 0.2f;
+		}
     }
 
     public void OnCollisionStay2D(Collision2D col)

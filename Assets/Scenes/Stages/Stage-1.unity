@@ -1557,15 +1557,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1330972173}
     m_Modifications:
+    - target: {fileID: 6408847091551043094, guid: 6e61d8845fc69e2418425c2af77e6994,
+        type: 3}
+      propertyPath: isFlagTile
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408847091551043094, guid: 6e61d8845fc69e2418425c2af77e6994,
+        type: 3}
+      propertyPath: requiredNum
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7139138366443139013, guid: 6e61d8845fc69e2418425c2af77e6994,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5
+      value: 3.31
       objectReference: {fileID: 0}
     - target: {fileID: 7139138366443139013, guid: 6e61d8845fc69e2418425c2af77e6994,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.03
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 7182172423738592665, guid: 6e61d8845fc69e2418425c2af77e6994,
         type: 3}
