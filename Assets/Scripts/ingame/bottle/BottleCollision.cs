@@ -10,7 +10,6 @@ public class BottleCollision : MonoBehaviour
     public PadStrength padStrength;
     public List<BottleCollision> bottleChain = new List<BottleCollision>(); //현재 물병과 콜라이더로 연속적으로 이어져 있는 물병의 리스트
     public List<PlaneTile> contactPlaneTile = new List<PlaneTile>(); //물병이 접촉하고 있는 planetile 리스트
-    public float moveMaintainTime; //planeTile 위에 올라간 물병이 처음 올라갔을 때 타일의 움직임을 따라가는 시간
 
     BottleSelectController bottleSelectController;
     private BottleGenerator bottleGenerator;
@@ -37,7 +36,6 @@ public class BottleCollision : MonoBehaviour
         screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
         psychokinesis = GameObject.Find("Player").GetComponent<Psychokinesis>();
         bottleChain.Add(thisBottleCollision); //체인과 같이 연속적으로 이어진 물병들의 리스트에는 자신도 포함한다
-        moveMaintainTime = 0.2f;
     }
 
     //동전에 부딪혔을때. 동전은 isTrigger= True 상태여야함

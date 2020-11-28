@@ -18,8 +18,8 @@ public class PlaneTile : Structure
     public int requiredNum; //깃발 타일에서 세워져야 하는 물병의 개수
     public bool numFullfilled; //깃발 타일에서 요구하는 개수만큼의 물병이 위에 세워져 있는지의 여부
     public List<BottleCollision> bottleAbove = new List<BottleCollision>(); //위에 올려져 있는 물병들의 리스트
+    public List<BottleCollision> bottleAboveRange = new List<BottleCollision>(); //타일 위의 일정 범위에 들어와 있는 물병들의 리스트. 움직이는 타일을 따라 함께 이동시킬 때 사용
 
-    private List<BottleCollision> movingBottle = new List<BottleCollision>(); //planeTile을 따라 함께 움직이는 물병들의 리스트
     private Vector3 originPos; //처음 배치 위치
     private PolygonCollider2D col;
     private int key; //이동 방향 전환 키
@@ -39,6 +39,11 @@ public class PlaneTile : Structure
         isInvisible = false;
         numFullfilled = false;
         timeGap = 1;
+
+		if (isMoving)
+		{
+            transform.GetChild(0).gameObject.SetActive(true);
+		}
     }
 
 
@@ -101,7 +106,13 @@ public class PlaneTile : Structure
         {
             transform.Translate(key * direction * movingSpeed * Time.deltaTime);
 
-            MoveBottleOnDynamicStructure();
+            var list = new List<BottleCollision>();
+            list.AddRange(bottleAboveRange);
+
+            foreach(BottleCollision bottle in list)
+			{
+                bottle.transform.Translate(key * direction * movingSpeed * Time.deltaTime, Space.World);
+            }
 
             if ((originPos - transform.position).magnitude > movingRange)
 			{
@@ -118,42 +129,6 @@ public class PlaneTile : Structure
         }
     }
 
-    public void MoveBottleOnDynamicStructure() //planeTile위에 있는 물병들을 움직이는 메서드
-	{
-        
-        movingBottle.AddRange(bottleAbove);
-        movingBottle.Distinct().ToList(); //중복 요소 제거
-
-        var list1 = new List<BottleCollision>();
-        list1.AddRange(bottleAbove);
-        var list2 = new List<BottleCollision>();
-        list2.AddRange(movingBottle);
-
-
-        foreach (BottleCollision bottle in list1)
-		{
-            if(bottle.moveMaintainTime == 0)
-			{
-                bottle.transform.position += key * direction * movingSpeed * Time.deltaTime;
-            }
-		}
-
-        foreach (BottleCollision bottle in list2)
-        {
-			if (bottle.moveMaintainTime > 0)
-			{
-                bottle.transform.position += key * direction * movingSpeed * Time.deltaTime;
-                bottle.moveMaintainTime -= Time.deltaTime;
-            }
-			
-            if (bottle.moveMaintainTime <= 0)
-            {
-                bottle.moveMaintainTime = 0;
-                movingBottle.Remove(bottle);
-			}
-        }
-    }
-
     public new void OnCollisionEnter2D(Collision2D col)
 	{
         base.OnCollisionEnter2D(col);
@@ -163,8 +138,14 @@ public class PlaneTile : Structure
         if (bottle == null) return; //부딛힌 물체가 물병이 아니면 리턴
 		else
 		{
-            bottle.moveMaintainTime = 0.2f;
-		}
+            if(bottle.transform.position.y > transform.position.y) //물병이 타일보다 위에 있을 경우
+			{
+                bottleAboveRange.Add(bottle);
+                bottleAboveRange = bottleAboveRange.Distinct().ToList(); //중복 요소 제거
+            }
+            bottle.contactPlaneTile.Add(GetComponent<PlaneTile>());
+        }
+
     }
 
     public void OnCollisionStay2D(Collision2D col)
@@ -176,7 +157,6 @@ public class PlaneTile : Structure
         {
             bottleAbove.AddRange(bottle.bottleChain); //접한 물병의 리스트 추가
             bottleAbove = bottleAbove.Distinct().ToList(); //중복 요소 제거
-            bottle.contactPlaneTile.Add(GetComponent<PlaneTile>());
         }
     }
 
