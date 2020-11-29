@@ -17,8 +17,7 @@ public class PlaneTile : Structure
     public bool isFlagTile; //깃발 타일인지의 여부
     public int requiredNum; //깃발 타일에서 세워져야 하는 물병의 개수
     public bool numFullfilled; //깃발 타일에서 요구하는 개수만큼의 물병이 위에 세워져 있는지의 여부
-    public List<BottleCollision> bottleAbove = new List<BottleCollision>(); //위에 올려져 있는 물병들의 리스트
-    public List<BottleCollision> bottleAboveRange = new List<BottleCollision>(); //타일 위의 일정 범위에 들어와 있는 물병들의 리스트. 움직이는 타일을 따라 함께 이동시킬 때 사용
+    public List<BottleCollision> bottleAbove { get; set; } = new List<BottleCollision>(); //위에 올려져 있는 물병들의 리스트
 
     private Vector3 originPos; //처음 배치 위치
     private PolygonCollider2D col;
@@ -106,14 +105,6 @@ public class PlaneTile : Structure
         {
             transform.Translate(key * direction * movingSpeed * Time.deltaTime);
 
-            var list = new List<BottleCollision>();
-            list.AddRange(bottleAboveRange);
-
-            foreach(BottleCollision bottle in list)
-			{
-                bottle.transform.Translate(key * direction * movingSpeed * Time.deltaTime, Space.World);
-            }
-
             if ((originPos - transform.position).magnitude > movingRange)
 			{
 				if (!turnSucees)
@@ -127,25 +118,6 @@ public class PlaneTile : Structure
                 turnSucees = false;
 			}
         }
-    }
-
-    public new void OnCollisionEnter2D(Collision2D col)
-	{
-        base.OnCollisionEnter2D(col);
-
-        BottleCollision bottle = col.gameObject.GetComponent<BottleCollision>();
-
-        if (bottle == null) return; //부딛힌 물체가 물병이 아니면 리턴
-		else
-		{
-            if(bottle.transform.position.y > transform.position.y) //물병이 타일보다 위에 있을 경우
-			{
-                bottleAboveRange.Add(bottle);
-                bottleAboveRange = bottleAboveRange.Distinct().ToList(); //중복 요소 제거
-            }
-            bottle.contactPlaneTile.Add(GetComponent<PlaneTile>());
-        }
-
     }
 
     public void OnCollisionStay2D(Collision2D col)

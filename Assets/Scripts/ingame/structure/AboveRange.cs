@@ -5,11 +5,24 @@ using UnityEngine;
 public class AboveRange : MonoBehaviour
 {
 	PlaneTile planeTile;
+	GameObject bottles;
 
 
 	void Start()
 	{
 		planeTile = gameObject.GetComponentInParent<PlaneTile>();
+		bottles = GameObject.Find("Bottles");
+	}
+
+	void OnTriggerEnter2D(Collider2D col)
+	{
+		BottleCollision bottle = col.gameObject.GetComponent<BottleCollision>();
+
+		if (bottle == null) return; //범위 콜라이더에서 떨어진 물체가 물병이 아니면 리턴
+		else
+		{
+			bottle.rangePlaneTile.Add(planeTile);
+		}
 	}
 
 
@@ -20,7 +33,9 @@ public class AboveRange : MonoBehaviour
 		if (bottle == null) return; //범위 콜라이더에서 떨어진 물체가 물병이 아니면 리턴
 		else
 		{
-			planeTile.bottleAboveRange.Remove(bottle);
+			bottle.rangePlaneTile.Remove(planeTile);
+
+			bottle.transform.SetParent(bottles.transform);
 		}
 	}
 }

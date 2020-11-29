@@ -10,6 +10,7 @@ public class BottleCollision : MonoBehaviour
     public PadStrength padStrength;
     public List<BottleCollision> bottleChain = new List<BottleCollision>(); //현재 물병과 콜라이더로 연속적으로 이어져 있는 물병의 리스트
     public List<PlaneTile> contactPlaneTile = new List<PlaneTile>(); //물병이 접촉하고 있는 planetile 리스트
+    public List<PlaneTile> rangePlaneTile = new List<PlaneTile>(); //물병이 접하고 있는 aboveRange의 planetile 리스트
 
     BottleSelectController bottleSelectController;
     private BottleGenerator bottleGenerator;
@@ -75,8 +76,57 @@ public class BottleCollision : MonoBehaviour
                 bottleSelectController.ReselectBottleWithDelay(1); //딜레이를 주고 물병 재선택
             }
         }
+        
+        if(col.gameObject.GetComponent<PlaneTile>() != null) //물병이 planeTile에 부딛힌 경우
+		{
+            PlaneTile planeTile = col.gameObject.GetComponent<PlaneTile>();
+            contactPlaneTile.Add(planeTile);
 
-        if (col.gameObject.CompareTag("floor")) bottleController.onFloor = true;
+            var list = new List<PlaneTile>();
+            list.AddRange(rangePlaneTile);
+
+            foreach(PlaneTile plane in list)
+			{
+                if(plane == planeTile)
+				{
+                    transform.SetParent(plane.transform);
+                    break;
+				}
+			}
+		}
+        else if (col.gameObject.GetComponent<BottleCollision>() != null) //물병과 무딛혔을 경우
+		{
+            BottleCollision bottle = col.gameObject.GetComponent<BottleCollision>();
+
+            var tempList = new List<BottleCollision>();
+            tempList.AddRange(bottle.bottleChain);
+
+            bool brk = false; //아래 foreach문 탈출값. 아래 체계는 가능하면 수정하도록 한다.
+
+            if(rangePlaneTile != null) //물병이 aboveRange에 들어오지 않을 정도로 쌓이는 경우는 추후 필요한 경우가 생기면 작업한다.
+			{
+                foreach (BottleCollision bottleCollision in tempList)
+                {
+                    if (bottleCollision.contactPlaneTile != null)
+                    {
+                        foreach(PlaneTile plane in bottleCollision.contactPlaneTile)
+						{
+                            foreach(PlaneTile plane1 in rangePlaneTile)
+							{
+                                if(plane == plane1) //연쇄적으로 연결되어 있는 물병이 닿아 있는 planeTile과 본 물병이 range안에 들어가 있는 planeTile이 같은지의 여부를 확인
+								{
+                                    transform.SetParent(plane.transform);
+                                    break; //물병을 추가 하는건 한 번만
+								}
+							}
+                            if (brk) break;
+						}
+                    }
+                    if (brk) break;
+                }
+            }
+        }
+        else if (col.gameObject.CompareTag("floor")) bottleController.onFloor = true; //물병이 바닥에 부딛힌 경우
     }
 
     void OnCollisionStay2D(Collision2D col)

@@ -652,6 +652,16 @@ PrefabInstance:
       propertyPath: movingRange
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6408847091551043094, guid: 6e61d8845fc69e2418425c2af77e6994,
+        type: 3}
+      propertyPath: isNumLimitTile
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408847091551043094, guid: 6e61d8845fc69e2418425c2af77e6994,
+        type: 3}
+      propertyPath: LimitNum
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7139138366443139013, guid: 6e61d8845fc69e2418425c2af77e6994,
         type: 3}
       propertyPath: m_RootOrder
@@ -660,12 +670,12 @@ PrefabInstance:
     - target: {fileID: 7139138366443139013, guid: 6e61d8845fc69e2418425c2af77e6994,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.6
+      value: 3.51
       objectReference: {fileID: 0}
     - target: {fileID: 7139138366443139013, guid: 6e61d8845fc69e2418425c2af77e6994,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 7182172423738592665, guid: 6e61d8845fc69e2418425c2af77e6994,
         type: 3}
@@ -756,6 +766,11 @@ PrefabInstance:
         type: 3}
       propertyPath: movingRange
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761438515446397765, guid: 6e61d8845fc69e2418425c2af77e6994,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e61d8845fc69e2418425c2af77e6994, type: 3}
@@ -951,10 +966,20 @@ PrefabInstance:
       propertyPath: movingRange
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3874661881505601383, guid: 2d82ac4268efdbd42b3d4e56d5a507ac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5524434157517905648, guid: 2d82ac4268efdbd42b3d4e56d5a507ac,
         type: 3}
       propertyPath: m_Name
       value: MetalPlane2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524434157517905648, guid: 2d82ac4268efdbd42b3d4e56d5a507ac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5524434157517905652, guid: 2d82ac4268efdbd42b3d4e56d5a507ac,
         type: 3}
