@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class CommentUIManager : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer; // SpriteRenderer를 쓰기위한 객체 생성
