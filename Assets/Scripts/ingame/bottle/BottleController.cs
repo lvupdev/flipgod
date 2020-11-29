@@ -7,212 +7,249 @@ using UnityEngine.UI;
 */
 public class BottleController : MonoBehaviour
 {
-    public PadStrength padStrength;
-    public PadDirection padDirection;
-    public Rigidbody2D rb;                  // rigidbody component of bottle
+	// static list of bottle controller
+	public static List<BottleController> bottleControllers = new List<BottleController>();
 
-    /*==========<variable about state of bottle>================================*/
-    public bool isSuperPowerAvailabe { get; set; }     // 물병에 기본 초능력을 사용할 수 있는가
-    public bool isAct;                      // 물병이 콜라이더에 충돌하기 전인가
-    public bool isStanding;                 // 물병이 현재 서 있는가
-    // (New) public bool isStandingAtTheMoment
-    public bool tensionGaugeUp;             // 콤보로 인한 텐션게이지 상승이 발생하여야 하는가
-    public bool onFloor;                    // 물병이 바닥 위에 있는가
-    public bool standingBySkill;            // 필살기에 의해 세워지는 중인가;
-    public float Timeout;
-    public static int combo = 0;                // 물병이 몇번째 콤보를 달성하였는가
-    public bool isStructure = false;        //스테이지 구조물의 일부인지의 여부. 간혹 스테이지에 구조물로서 배치되는 경우를 상정
+	public PadStrength padStrength;
+	public PadDirection padDirection;
+	public Rigidbody2D rb;                  // rigidbody component of bottle
 
-    private float rotateSpeed; //회전속도
-    private float zRotation; //NEW: 물병의 z회전축 값
-    private int key; //물병의 회전 방향 결정 요소
-    private float delta; //NEW: 물병이 구조물에 부딪히고 지난 시간
-    private float destroyDelay; //NEW: 물병이 땅에 닿고 파괴되기까지의 딜레이 시간
-    private float standingDelay; // 물병이 필살기에 의해 세워지기까지의 시간
-    private BottleGenerator bottleGenerator;
-    private PlayerImageController playerImageController;
-    private GameObject player;
-    private BottleSelectController bottleSelectController;
-    private TensionGaugeManager tensionGaugeManager;
-    private ControllButtonsUIManager controllButtonsUIManager;
-    private UsefullOperation usefullOperation;
-    private ScreenEffectController screenEffectController;
-    private bool padStrengthTouched; //힘 버튼이 한 번이라도 눌렸는가
-    private bool padDirectionTouched; //힘 버튼이 한 번이라도 눌렸는가
-    private bool isDestroying; //물병이 현재 파괴되고있는 중인지의 여부
+	/*==========<variable about state of bottle>================================*/
+	public bool isSuperPowerAvailabe { get; set; }     // 물병에 기본 초능력을 사용할 수 있는가
+	public bool isAct;                      // 물병이 콜라이더에 충돌하기 전인가
+	public bool isStanding;                 // 물병이 현재 서 있는가
+											// (New) public bool isStandingAtTheMoment
+	public bool tensionGaugeUp;             // 콤보로 인한 텐션게이지 상승이 발생하여야 하는가
+	public bool onFloor;                    // 물병이 바닥 위에 있는가
+	public bool standingBySkill;            // 필살기에 의해 세워지는 중인가;
+	public float Timeout;
+	public static int combo = 0;                // 물병이 몇번째 콤보를 달성하였는가
+	public bool isStructure = false;        //스테이지 구조물의 일부인지의 여부. 간혹 스테이지에 구조물로서 배치되는 경우를 상정
 
-
-    private TrajectoryLine trajectoryLine; //포물선 스크립트 분리
-    private SpriteRenderer transparent;
-
-    void Start()
-    {
-        //오브젝트 받아오기
-        rb = GetComponent<Rigidbody2D>();
-        bottleGenerator = GameObject.Find("BottleManager").GetComponent<BottleGenerator>();
-        player = GameObject.Find("Player");
-        bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
-        playerImageController = player.GetComponent<PlayerImageController>();
-        padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
-        padDirection = GameObject.Find("Joystick").GetComponent<PadDirection>();
-        trajectoryLine = GameObject.Find("Trajectory").GetComponent<TrajectoryLine>();
-        transparent = GetComponent<SpriteRenderer>(); // 물병의 스프라이트 렌더러(투명도)
-        tensionGaugeManager = GameObject.Find("Image_TensionGaugeBar").GetComponent<TensionGaugeManager>();
-        controllButtonsUIManager = GameObject.Find("UIManager").GetComponent<ControllButtonsUIManager>();
-        usefullOperation = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
-        screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>(); ;
+	private float rotateSpeed; //회전속도
+	private float zRotation; //NEW: 물병의 z회전축 값
+	private int key; //물병의 회전 방향 결정 요소
+	private float delta; //NEW: 물병이 구조물에 부딪히고 지난 시간
+	private float destroyDelay; //NEW: 물병이 땅에 닿고 파괴되기까지의 딜레이 시간
+	private float standingDelay; // 물병이 필살기에 의해 세워지기까지의 시간
+	private BottleGenerator bottleGenerator;
+	private PlayerImageController playerImageController;
+	private GameObject player;
+	private BottleSelectController bottleSelectController;
+	private TensionGaugeManager tensionGaugeManager;
+	private ControllButtonsUIManager controllButtonsUIManager;
+	private UsefullOperation usefullOperation;
+	private ScreenEffectController screenEffectController;
+	private bool padStrengthTouched; //힘 버튼이 한 번이라도 눌렸는가
+	private bool padDirectionTouched; //힘 버튼이 한 번이라도 눌렸는가
+	private bool isDestroying; //물병이 현재 파괴되고있는 중인지의 여부
 
 
-        //값 초기화
-        if (isStructure)
-        {
-            rb.gravityScale = 1;
-        }
-        else
-        {
-            rb.gravityScale = 0;
-            transform.position = playerImageController.getBottlePosition();
-        }
-        isSuperPowerAvailabe = false; //물병에 초능력을 적용할 수 있는지의 여부
-        isStanding = false;
-        onFloor = false;
-        standingBySkill = false;
-        rotateSpeed = 0.5f; //회전속도
-        delta = 0;
-        destroyDelay = 1;
-        standingDelay = 2;
-        padStrengthTouched = false;
-        padDirectionTouched = false;
-        tensionGaugeUp = true;
-        isDestroying = false;
+	private TrajectoryLine trajectoryLine; //포물선 스크립트 분리
+	private SpriteRenderer transparent;
 
-    }
-    void FixedUpdate()
-    {
-        if (padStrength.isTouch) padStrengthTouched = true;
-        if (padDirection.getIsTouch()) padDirectionTouched = true; //오타 수정
-        if ((padStrength.isTouch || padDirectionTouched) && (!isSuperPowerAvailabe) && gameObject.CompareTag("isActBottle"))
-        // 방향 패드만 눌렸을 때 기본 힘으로 포물선 그리기, 후에 힘버튼으로 포물선 조정
-        {
-            trajectoryLine.Draw(padStrengthTouched, padDirection.getDirection(), padStrength.totalStrength);
-            transform.position = playerImageController.getBottlePosition(); // 물병 위치 갱신
-        }
+	void Start()
+	{
+		// Add this script to list
+		bottleControllers.Add(this);
 
-        if (gameObject.CompareTag("unActBottle"))
-        {
-            Vector2 distance = gameObject.transform.position - playerImageController.getBottlePosition();
-            zRotation = gameObject.transform.eulerAngles.z;
-            delta += Time.fixedDeltaTime;
-            if (distance.magnitude < 2) gameObject.SetActive(false); //던져진 물병이 물병 생성 위치와 너무 가까이 있으면 비활성화
-
-            if ((delta < 0.11f) && ((zRotation > 340) || (zRotation < 20))) //NEW: 처음 충돌했을 때 각도가 30도 이하 또는 330도 이상이면 0.1초동안
-            {
-                rb.centerOfMass = new Vector3(0, -0.7f, 0); //물병의 무게 중심
-                rb.drag = 10f;
-                rb.angularDrag = 30f;
-            }
-            else if (standingBySkill) //필살기 발동에 의해 물병이 세워짐
-            {
-                standingDelay -= Time.fixedDeltaTime;
-                rb.WakeUp();
-                rb.centerOfMass = new Vector3(0, -1f,0); //물병의 무게 중심
-                
-                if (standingDelay < 0)
-                {
-                    standingDelay = 2;
-                    standingBySkill = false;
-                    if(!isDestroying) usefullOperation.FadeOut(false, this.transform.GetChild(0).GetComponent<SpriteRenderer>()); //파괴 도중에 실행되면 오류 발생
-                }
-            }
-            else
-            {
-                rb.centerOfMass = new Vector3(0, (-0.4f / (180f * 180f)) * (zRotation - 180) * (zRotation - 180) + 0.2f, 0); //NEW: 1초 후에 물병의 무게 중심이 각도에 따라 변함
-                rb.drag = 0;
-                rb.angularDrag = 0.05f;
-            }
+		//오브젝트 받아오기
+		rb = GetComponent<Rigidbody2D>();
+		bottleGenerator = GameObject.Find("BottleManager").GetComponent<BottleGenerator>();
+		player = GameObject.Find("Player");
+		bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
+		playerImageController = player.GetComponent<PlayerImageController>();
+		padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
+		padDirection = GameObject.Find("Joystick").GetComponent<PadDirection>();
+		trajectoryLine = GameObject.Find("Trajectory").GetComponent<TrajectoryLine>();
+		transparent = GetComponent<SpriteRenderer>(); // 물병의 스프라이트 렌더러(투명도)
+		tensionGaugeManager = GameObject.Find("Image_TensionGaugeBar").GetComponent<TensionGaugeManager>();
+		controllButtonsUIManager = GameObject.Find("UIManager").GetComponent<ControllButtonsUIManager>();
+		usefullOperation = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
+		screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>(); ;
 
 
-            // 세워져 있는지의 여부 수정 및 텐션게이지 상승
-            if (((delta > 1.49f) && !((zRotation > 340) || (zRotation < 20))) || onFloor)
-            {
-                isStanding = false;
-                tensionGaugeUp = false;
-                if (delta < 1.5f)
-                {
-                    combo = 0;
-                    tensionGaugeManager.comboText = "";
-                }
-            }
-            else if ((delta > 1f) && (rb.angularVelocity == 0) && ((zRotation > 340) || (zRotation < 20)))
-            {
-                isStanding = true;
-                if (tensionGaugeUp)
-                {
-                    combo++;
-                    tensionGaugeManager.IncreaseTensionGauge(2, combo); //10% * 콤보수 만큼 상승
-                    tensionGaugeUp = false;
-                }
-            }
-        }
+		//값 초기화
+		if (isStructure)
+		{
+			rb.gravityScale = 1;
+		}
+		else
+		{
+			rb.gravityScale = 0;
+			transform.position = playerImageController.getBottlePosition();
+		}
+		isSuperPowerAvailabe = false; //물병에 초능력을 적용할 수 있는지의 여부
+		isStanding = false;
+		onFloor = false;
+		standingBySkill = false;
+		rotateSpeed = 0.5f; //회전속도
+		delta = 0;
+		destroyDelay = 1;
+		standingDelay = 2;
+		padStrengthTouched = false;
+		padDirectionTouched = false;
+		tensionGaugeUp = true;
+		isDestroying = false;
 
-        if (onFloor) //NEW: 땅바닥에 닿았을 때 물병 파괴
-        {
-            destroyDelay -= Time.fixedDeltaTime;
-            if (destroyDelay < 0)
-            {
-                usefullOperation.FadeOut(false, this.transform.GetChild(0).GetComponent<SpriteRenderer>());
-                usefullOperation.FadeOut(true, transparent);
-            }
-            isDestroying = true;
-        }
+	}
+
+	void FixedUpdate()
+	{
+		if (padStrength.isTouch) padStrengthTouched = true;
+		if (padDirection.getIsTouch()) padDirectionTouched = true; //오타 수정
+		if ((padStrength.isTouch || padDirectionTouched) && (!isSuperPowerAvailabe) && gameObject.CompareTag("isActBottle"))
+		// 방향 패드만 눌렸을 때 기본 힘으로 포물선 그리기, 후에 힘버튼으로 포물선 조정
+		{
+			trajectoryLine.Draw(padStrengthTouched, padDirection.getDirection(), padStrength.totalStrength);
+			transform.position = playerImageController.getBottlePosition(); // 물병 위치 갱신
+		}
+
+		if (gameObject.CompareTag("unActBottle"))
+		{
+			Vector2 distance = gameObject.transform.position - playerImageController.getBottlePosition();
+			zRotation = gameObject.transform.eulerAngles.z;
+			delta += Time.fixedDeltaTime;
+			if (distance.magnitude < 2) gameObject.SetActive(false); //던져진 물병이 물병 생성 위치와 너무 가까이 있으면 비활성화
+
+			if ((delta < 0.11f) && ((zRotation > 340) || (zRotation < 20))) //NEW: 처음 충돌했을 때 각도가 30도 이하 또는 330도 이상이면 0.1초동안
+			{
+				rb.centerOfMass = new Vector3(0, -0.7f, 0); //물병의 무게 중심
+				rb.drag = 10f;
+				rb.angularDrag = 30f;
+			}
+			else if (standingBySkill) //필살기 발동에 의해 물병이 세워짐
+			{
+				standingDelay -= Time.fixedDeltaTime;
+				rb.WakeUp();
+				rb.centerOfMass = new Vector3(0, -1f, 0); //물병의 무게 중심
+
+				if (standingDelay < 0)
+				{
+					standingDelay = 2;
+					standingBySkill = false;
+					if (!isDestroying) usefullOperation.FadeOut(false, this.transform.GetChild(0).GetComponent<SpriteRenderer>()); //파괴 도중에 실행되면 오류 발생
+				}
+			}
+			else
+			{
+				rb.centerOfMass = new Vector3(0, (-0.4f / (180f * 180f)) * (zRotation - 180) * (zRotation - 180) + 0.2f, 0); //NEW: 1초 후에 물병의 무게 중심이 각도에 따라 변함
+				rb.drag = 0;
+				rb.angularDrag = 0.05f;
+			}
 
 
-        if (gameObject.transform.position.y < -10 && !isDestroying) // 물병이 화면 밖으로 날아갔을 때
-        {
-            if (gameObject.CompareTag("unActBottle")) Destroy(gameObject); // 어딘가 부딪히고 화면 밖으로 튕겨나갔을 때
-            else
-            {
-                if (Time.timeScale != 1) //염력 사용하다가 화면 밖으로 날아간 경우
-                {
-                    Time.timeScale = 1;
-                    Time.fixedDeltaTime = 0.02f * Time.timeScale;
-                    screenEffectController.shadowEffect.enabled = false;
-                    screenEffectController.screenEffectNum = 1;
-                }
-                gameObject.tag = "unActBottle";//태그가 사라짐
-                bottleSelectController.bottleSelected = false;
-                bottleGenerator.GenerateBottleWithDelay(0.75f);//물병 생성
-                bottleSelectController.ReselectBottleWithDelay(0.75f); //물병 재선택
-                Destroy(gameObject); //해당 물병 파괴
-            }
-        }
-    }
+			// 세워져 있는지의 여부 수정 및 텐션게이지 상승
+			if (((delta > 1.49f) && !((zRotation > 340) || (zRotation < 20))) || onFloor)
+			{
+				isStanding = false;
+				tensionGaugeUp = false;
+				if (delta < 1.5f)
+				{
+					combo = 0;
+					tensionGaugeManager.comboText = "";
+				}
+			}
+			else if ((delta > 1f) && (rb.angularVelocity == 0) && ((zRotation > 340) || (zRotation < 20)))
+			{
+				isStanding = true;
+				if (tensionGaugeUp)
+				{
+					combo++;
+					tensionGaugeManager.IncreaseTensionGauge(2, combo); //10% * 콤보수 만큼 상승
+					tensionGaugeUp = false;
+				}
+			}
+		}
 
-    public void Jump()
-    {
-        if (padDirection.getDirection().x >= 0) key = 1;
-        if (padDirection.getDirection().x < 0) key = -1;
+		if (onFloor) //NEW: 땅바닥에 닿았을 때 물병 파괴
+		{
+			destroyDelay -= Time.fixedDeltaTime;
+			if (destroyDelay < 0)
+			{
+				usefullOperation.FadeOut(false, this.transform.GetChild(0).GetComponent<SpriteRenderer>());
+				usefullOperation.FadeOut(true, transparent);
+			}
+			isDestroying = true;
+		}
 
-        isSuperPowerAvailabe = true;
 
-        rb.gravityScale = 1;
+		if (gameObject.transform.position.y < -10 && !isDestroying) // 물병이 화면 밖으로 날아갔을 때
+		{
+			if (gameObject.CompareTag("unActBottle")) DestroyBottle(); // 어딘가 부딪히고 화면 밖으로 튕겨나갔을 때
+			else
+			{
+				if (Time.timeScale != 1) //염력 사용하다가 화면 밖으로 날아간 경우
+				{
+					Time.timeScale = 1;
+					Time.fixedDeltaTime = 0.02f * Time.timeScale;
+					screenEffectController.shadowEffect.enabled = false;
+					screenEffectController.screenEffectNum = 1;
+				}
+				gameObject.tag = "unActBottle";//태그가 사라짐
+				bottleSelectController.bottleSelected = false;
+				bottleGenerator.GenerateBottleWithDelay(0.75f);//물병 생성
+				bottleSelectController.ReselectBottleWithDelay(0.75f); //물병 재선택
+				DestroyBottle(); //해당 물병 파괴
+			}
+		}
+	}
 
-        player.GetComponent<MembraneCreator>().presentStrength = padStrength.totalStrength; //물병에 현재 가해진 힘 전달
-        MembraneUsingSkillEffect.presentStrength = padStrength.totalStrength; //물병에 현재 가해진 힘 전달
+	public void Jump()
+	{
+		if (padDirection.getDirection().x >= 0) key = 1;
+		if (padDirection.getDirection().x < 0) key = -1;
 
-        //뛰면서 회전
-        rb.velocity = padDirection.getDirection() * padStrength.totalStrength;
-        rb.AddTorque(key * rotateSpeed, ForceMode2D.Impulse);
+		isSuperPowerAvailabe = true;
 
-        playerImageController.ChangePlayerImage(1); //던지는 동작으로 스프라이트 교체
+		rb.gravityScale = 1;
 
-        controllButtonsUIManager.setHideButtons(true, 0); // 화면을 깔끔하게 하기 위해 컨트롤 UI 버튼들을 일시적으로 전부 숨김
+		player.GetComponent<MembraneCreator>().presentStrength = padStrength.totalStrength; //물병에 현재 가해진 힘 전달
+		MembraneUsingSkillEffect.presentStrength = padStrength.totalStrength; //물병에 현재 가해진 힘 전달
 
-        trajectoryLine.Delete();
-        if (playerImageController.getPlayingChr() == 2)
-        {
-            usefullOperation.FadeIn(transform.Find("FreezeRange").gameObject.GetComponent<SpriteRenderer>());
-        }
-        tensionGaugeManager.IncreaseTensionGauge(1, 1); //텐션 게이지 10% 상승
-    }
+		//뛰면서 회전
+		rb.velocity = padDirection.getDirection() * padStrength.totalStrength;
+		rb.AddTorque(key * rotateSpeed, ForceMode2D.Impulse);
+
+		playerImageController.ChangePlayerImage(1); //던지는 동작으로 스프라이트 교체
+
+		controllButtonsUIManager.setHideButtons(true, 0); // 화면을 깔끔하게 하기 위해 컨트롤 UI 버튼들을 일시적으로 전부 숨김
+
+		trajectoryLine.Delete();
+		if (playerImageController.getPlayingChr() == 2)
+		{
+			usefullOperation.FadeIn(transform.Find("FreezeRange").gameObject.GetComponent<SpriteRenderer>());
+		}
+		tensionGaugeManager.IncreaseTensionGauge(1, 1); //텐션 게이지 10% 상승
+	}
+
+	public static int CountStandingBottle()
+	{
+		int count = 0;
+		foreach (var bottleController in bottleControllers)
+		{
+			if (bottleController.gameObject.tag == "unActBottle")
+			{
+				if (bottleController.isStanding == true)
+				{
+					count += 1;
+				}
+			}
+		}
+		return count;
+	}
+
+	public bool DestroyBottle()
+	{
+		bool isDestroyed = false;
+
+		if (bottleControllers.Contains(this))
+		{
+			bottleControllers.Remove(this);
+		}
+
+		Destroy(this.gameObject);
+
+		return isDestroyed;
+	}
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fbe2f53b4fd44541a7a98c6f770321e, type: 3}
   m_Name: StageData-1
   m_EditorClassIdentifier: 
-  stageIndexNumber: 0
+  stageIndexNumber: 1
   limitedBottleNumber: 2
   limitedTime: 20
   comment:
@@ -20,4 +20,4 @@ MonoBehaviour:
   - 
   - 
   missionIndexNumber: 0
-  targetNumber: 2
+  goalNumber: 2

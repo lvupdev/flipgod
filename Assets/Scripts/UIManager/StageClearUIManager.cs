@@ -66,9 +66,9 @@ public class StageClearUIManager : MonoBehaviour
     public void SetRecordTexts()
     {
         testTitle.text = stageData.StageIndexNumber + "#" + " " + "RESULT";
-        missionContent.text = MissionUIFunction.FormatMissionContent(stageData.MissionIndexNumber, stageData.TargetNumber);
+        missionContent.text = MissionUIFunction.FormatMissionContent(stageData.MissionIndexNumber, stageData.GoalNumber);
         timeRecord.text = MissionUIFunction.FormatTimeText(userRecord.usedTime) + "/" + MissionUIFunction.FormatTimeText(stageData.LimitedTime);
-        bottleCountRecord.text = MissionUIFunction.FormatBottleText(userRecord.usedBottleNumber, stageData.LimitedBottleNumber);
+        bottleCountRecord.text = MissionUIFunction.FormatBottleText(userRecord.usedBottleNumber,stageData.LimitedBottleNumber);
         comment.text = stageData.Comment[0];
     }
 

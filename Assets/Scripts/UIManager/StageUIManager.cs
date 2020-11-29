@@ -86,13 +86,14 @@ public class StageUIManager : MonoBehaviour
 	{
 		if (StageGameManager.Instance.StageData != null)
 		{
-			totalTarget = StageGameManager.Instance.StageData.TargetNumber;
+			totalTarget = StageGameManager.Instance.StageData.GoalNumber;
 			totalBottle = StageGameManager.Instance.StageData.LimitedBottleNumber;
 			totalTime = StageGameManager.Instance.StageData.LimitedTime;
 		}
-        else{
-            Debug.Log("==============Stage Data is not referenced==============");
-        }
+		else
+		{
+			Debug.Log("==============Stage Data is not referenced==============");
+		}
 	}
 
 	private void Update()
@@ -218,6 +219,10 @@ public class StageUIManager : MonoBehaviour
 	public void GoToSelectScene()
 	{
 		SceneManager.LoadScene("SelectStage");
+		if (Time.timeScale == 0.0f)
+		{
+			Time.timeScale = 1.0f;
+		}
 	}
 
 }
