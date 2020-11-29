@@ -35,23 +35,6 @@ public class StageGameManager : MonoBehaviour
         // itself
         instance = this;
 
-
-        // (TO DO) 이게 왜 안 되는지 모르겠네
-        //======Init static instance of StageGameManager=========
-        // If instance already exists, then destroy this
-        // if not, set instance to this
-        /*
-        if (instance = null)
-        {
-            instance = this;
-        }
-        else if (instance != null)
-        {
-            Destroy(gameObject);
-        }       
-         */
-
-
         // Init
         InitializeStage();
     }
