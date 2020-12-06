@@ -8,7 +8,7 @@ using UnityEngine;
 public class UsefullOperation : MonoBehaviour
 {
 
-	private List<ObjectInformation> targetObject = new List<ObjectInformation>(); //메서드를 적용할 오브젝트들을 담는 리스트
+	private static List<ObjectInformation> targetObject = new List<ObjectInformation>(); //메서드를 적용할 오브젝트들을 담는 리스트
 
 	// Start is called before the first frame update
 	void Start()
@@ -31,9 +31,7 @@ public class UsefullOperation : MonoBehaviour
 					{
 						if (targetObject[i].destroy)
 						{
-                            BottleController bottleController = targetObject[i].transform.GetComponent<BottleController>();
-							if ( bottleController != null) bottleController.DestroyBottle();
-							else Destroy(targetObject[i].spriteRenderer.gameObject);
+							Destroy(targetObject[i].spriteRenderer.gameObject);
 						}
 						else targetObject[i].spriteRenderer.gameObject.SetActive(false);
 						targetObject.RemoveAt(i);
@@ -87,7 +85,6 @@ public class UsefullOperation : MonoBehaviour
 
 class ObjectInformation
 {
-
 	public bool destroy; //오브젝트를 파괴할지의 여부
 	public bool fadeIn; //페이드인 효과를 적용할 지의 여부
 	public bool fadeOut; //페이드 아웃 효과를 적용할지의 여부
