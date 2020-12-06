@@ -7,6 +7,7 @@ using UnityEngine.UI;
 */
 public class BottleController : MonoBehaviour
 {
+	private static List<BottleController> bottleControllers = new List<BottleController>();
     public PadStrength padStrength;
     public PadDirection padDirection;
     public Rigidbody2D rb { get; set; }                  // rigidbody component of bottle
@@ -207,4 +208,34 @@ public class BottleController : MonoBehaviour
         }
         tensionGaugeManager.IncreaseTensionGauge(1, 1); //텐션 게이지 10% 상승
     }
+
+	public static int CountStandingBottle()
+	{
+		int count = 0;
+		foreach (var bottleController in bottleControllers)
+		{
+			if (bottleController.gameObject.tag == "unActBottle")
+			{
+				if (bottleController.isStanding == true)
+				{
+					count += 1;
+				}
+			}
+		}
+		return count;
+	}
+
+	public bool DestroyBottle()
+	{
+		bool isDestroyed = false;
+
+		if (bottleControllers.Contains(this))
+		{
+			bottleControllers.Remove(this);
+		}
+
+		Destroy(this.gameObject);
+
+		return isDestroyed;
+	}
 }

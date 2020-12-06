@@ -32,12 +32,11 @@ public class StageClearUIManager : MonoBehaviour
     // a Text that shows commets of characters
     private Text comment;
 
-    // TO DO : private
     // stage data of passed stage
     public StageData stageData;
 
     // user record of passed stage
-    public UserRecord userRecord;
+    public UserRecordManager.UserRecord userRecord;
 
     private void Awake()
     {
@@ -63,11 +62,14 @@ public class StageClearUIManager : MonoBehaviour
         
     }
 
-    private void SetRecordTexts()
+    // Set texts of Record
+    public void SetRecordTexts()
     {
         testTitle.text = stageData.StageIndexNumber + "#" + " " + "RESULT";
-        
-//        timeRecord.text = 
+        missionContent.text = MissionUIFunction.FormatMissionContent(stageData.MissionIndexNumber, stageData.GoalNumber);
+        timeRecord.text = MissionUIFunction.FormatTimeText(userRecord.usedTime) + "/" + MissionUIFunction.FormatTimeText(stageData.LimitedTime);
+        bottleCountRecord.text = MissionUIFunction.FormatBottleText(userRecord.usedBottleNumber,stageData.LimitedBottleNumber);
+        comment.text = stageData.Comment[0];
     }
 
     //================[Call-back Method]=====================================

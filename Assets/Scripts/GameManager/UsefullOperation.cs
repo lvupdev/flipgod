@@ -8,13 +8,13 @@ using UnityEngine;
 public class UsefullOperation : MonoBehaviour
 {
 
-    private List<ObjectInformation> targetObject = new List<ObjectInformation>(); //메서드를 적용할 오브젝트들을 담는 리스트
+	private static List<ObjectInformation> targetObject = new List<ObjectInformation>(); //메서드를 적용할 오브젝트들을 담는 리스트
 
-    // Start is called before the first frame update
-    void Start()
-    {
+	// Start is called before the first frame update
+	void Start()
+	{
 
-    }
+	}
 
     // Update is called once per frame
     void Update()
@@ -37,7 +37,9 @@ public class UsefullOperation : MonoBehaviour
                                 targetObject[i].spriteRenderer.gameObject.SetActive(false);
                                 break;
                             case 2:
-                                Destroy(targetObject[i].spriteRenderer.gameObject);
+								BottleController bottleController = targetObject[i].spriteRenderer.gameObject.GetComponent<BottleController>();
+								if (bottleController != null) bottleController.DestroyBottle();
+                                else Destroy(targetObject[i].spriteRenderer.gameObject);
                                 break;
                         }
                         targetObject.RemoveAt(i);
@@ -73,20 +75,20 @@ public class UsefullOperation : MonoBehaviour
         targetObject.Add(objectInformation);
     }
 
-    public void FadeIn(SpriteRenderer spriteRenderer) //매개변수 스프라이트에 페이드인 효과를 준다.
-    {
-        ObjectInformation objectInformation = new ObjectInformation(spriteRenderer, true);
-        objectInformation.color.a = 0;
-        spriteRenderer.color = objectInformation.color;
-        spriteRenderer.gameObject.SetActive(true);
-        targetObject.Add(objectInformation);
-    }
+	public void FadeIn(SpriteRenderer spriteRenderer) //매개변수 스프라이트에 페이드인 효과를 준다.
+	{
+		ObjectInformation objectInformation = new ObjectInformation(spriteRenderer, true);
+		objectInformation.color.a = 0;
+		spriteRenderer.color = objectInformation.color;
+		spriteRenderer.gameObject.SetActive(true);
+		targetObject.Add(objectInformation);
+	}
 
-    public void ShakeObject(Transform transform, float shakeTime, float shakeAmount) //매개변수로 전달된 트랜스폼의 게임오브젝트를 진동시킨다.
-    {
-        ObjectInformation objectInformation = new ObjectInformation(transform, shakeTime, shakeAmount);
-        targetObject.Add(objectInformation);
-    }
+	public void ShakeObject(Transform transform, float shakeTime, float shakeAmount) //매개변수로 전달된 트랜스폼의 게임오브젝트를 진동시킨다.
+	{
+		ObjectInformation objectInformation = new ObjectInformation(transform, shakeTime, shakeAmount);
+		targetObject.Add(objectInformation);
+	}
 }
 
 class ObjectInformation {
@@ -97,10 +99,10 @@ class ObjectInformation {
     public float shakeAmount; // 진동 세기
     public float shakeTime; // 진동 시간
 
-    public Vector3 initialPosition; //처음 위치
-    public Transform transform; //오브젝트 트랜스폼
-    public SpriteRenderer spriteRenderer;
-    public Color color;
+	public Vector3 initialPosition; //처음 위치
+	public Transform transform; //오브젝트 트랜스폼
+	public SpriteRenderer spriteRenderer;
+	public Color color;
 
     public ObjectInformation(SpriteRenderer spriteRenderer, bool fadeIn) //페이드 효과 전용 생성자
     {
@@ -120,15 +122,15 @@ class ObjectInformation {
         }
     }
 
-    public ObjectInformation(Transform transform, float shakeTime, float shakeAmount) //진동 효과 전용 생성자
-    {
-        this.transform = transform;
-        this.shakeTime = shakeTime;
-        this.shakeAmount = shakeAmount;
-        initialPosition = transform.position;
+	public ObjectInformation(Transform transform, float shakeTime, float shakeAmount) //진동 효과 전용 생성자
+	{
+		this.transform = transform;
+		this.shakeTime = shakeTime;
+		this.shakeAmount = shakeAmount;
+		initialPosition = transform.position;
 
-        fadeIn = false;
-        fadeOut = false;
-    }
+		fadeIn = false;
+		fadeOut = false;
+	}
 }
 

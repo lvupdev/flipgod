@@ -44,9 +44,9 @@ public class StageData : ScriptableObject
     private int missionIndexNumber = 0;
     public int MissionIndexNumber { get { return missionIndexNumber; } }
 
-    // number of target
+    // number of goal
     [SerializeField]
-    private int targetNumber = 0;
-    public int TargetNumber { get { return targetNumber; } }
+    private int goalNumber = 0;
+    public int GoalNumber { get { return goalNumber; } }
 
 }
