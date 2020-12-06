@@ -31,7 +31,9 @@ public class UsefullOperation : MonoBehaviour
 					{
 						if (targetObject[i].destroy)
 						{
-							Destroy(targetObject[i].spriteRenderer.gameObject);
+							BottleController bottleController = targetObject[i].spriteRenderer.gameObject.GetComponent<BottleController>();
+							if (bottleController != null) bottleController.DestroyBottle();
+							else Destroy(targetObject[i].spriteRenderer.gameObject);
 						}
 						else targetObject[i].spriteRenderer.gameObject.SetActive(false);
 						targetObject.RemoveAt(i);
