@@ -43,6 +43,7 @@ public class StageGameManager : MonoBehaviour
 	void Update()
 	{
 		Timer();
+		CountCompleteMission();
 		JudgeGame();
 	}
 
@@ -102,8 +103,13 @@ public class StageGameManager : MonoBehaviour
 		// If complete mission number is smaller than tartget number
 		if (CompleteMissionNumber < StageData.GoalNumber)
 		{
-			// then Add 1 to complete mission number
-			completeMissionNumber += 1;
+			switch (StageData.MissionIndexNumber)
+			{
+				case 0:
+					completeMissionNumber = BottleController.CountStandingBottle();
+					break;
+			}
+
 		}
 	}
 
@@ -114,7 +120,6 @@ public class StageGameManager : MonoBehaviour
 		// if user complete the mission,
 		if (StageData.MissionIndexNumber == 0)
 		{
-            completeMissionNumber = BottleController.CountStandingBottle();
 			if (CompleteMissionNumber == StageData.GoalNumber)
 			{
 				Time.timeScale = 0.0f;
