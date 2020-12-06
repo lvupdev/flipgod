@@ -5,6 +5,7 @@ using UnityEngine;
 public class BottleBottom : MonoBehaviour
 {
     private GameObject bottle;
+    private Rigidbody2D bottleRb;
     private float zRotation; //물병의 z회전값
     private bool standBottle; //물병을 세울건지의 여부
     private float delta;
@@ -13,6 +14,7 @@ public class BottleBottom : MonoBehaviour
     void Start()
     {
         bottle = transform.parent.gameObject;
+        bottleRb = bottle.GetComponent<Rigidbody2D>();
         standBottle = false;
         delta = 0;
     }
@@ -22,14 +24,24 @@ public class BottleBottom : MonoBehaviour
     {
 		if (standBottle)
 		{
-            bottle.transform.eulerAngles = new Vector3(0, 0, Mathf.Lerp(bottle.transform.eulerAngles.z, 0, Time.deltaTime)); //물병의 z축 값을 0으로 수렴
-            delta += Time.deltaTime;
-
-            if((delta > 1f) &&((bottle.transform.eulerAngles.z > 359) || (bottle.transform.eulerAngles.z < 1))) //1초가 지나고 물병의 z축 값이 0에 가까우면
-			{
+            if (delta > 1)
+            {
                 standBottle = false;
+                bottleRb.constraints = RigidbodyConstraints2D.None;
                 delta = 0;
-			}
+            }
+            else if((bottle.transform.eulerAngles.z > 355) || (bottle.transform.eulerAngles.z < 5))
+			{
+                if(bottle.transform.eulerAngles != Vector3.zero)bottle.transform.rotation = Quaternion.Euler(Vector3.zero);
+                bottleRb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                delta += Time.deltaTime;
+            }
+			else
+			{
+                if (zRotation > 340) bottle.transform.Rotate(new Vector3(0, 0, Time.deltaTime), Space.World); //물병의 z축 값을 360으로 수렴
+                else bottle.transform.Rotate(new Vector3(0, 0, -1 * Time.deltaTime), Space.World); //물병의 z축 값을 0으로 수렴
+                delta += Time.deltaTime;;
+            }
 		}
         
     }
