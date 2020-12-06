@@ -108,6 +108,9 @@ public class StageGameManager : MonoBehaviour
 				case 0:
 					completeMissionNumber = BottleController.CountStandingBottle();
 					break;
+				case 3:
+					completeMissionNumber = PlaneTile.CountStandingBottleOnPlaneTile();
+					break;
 			}
 
 		}
@@ -118,17 +121,16 @@ public class StageGameManager : MonoBehaviour
 	{
 		// TODO: add condition for complete
 		// if user complete the mission,
-		if (StageData.MissionIndexNumber == 0)
+
+		if (CompleteMissionNumber == StageData.GoalNumber)
 		{
-			if (CompleteMissionNumber == StageData.GoalNumber)
-			{
-				Time.timeScale = 0.0f;
-				// then Save current stage data and user record to show result in stage clear scene
-				// and Go to stage clear scene
-				// SaveStageDataAndUserRecord();
-				GoToStageClearScene();
-			}
+			Time.timeScale = 0.0f;
+			// then Save current stage data and user record to show result in stage clear scene
+			// and Go to stage clear scene
+			// SaveStageDataAndUserRecord();
+			GoToStageClearScene();
 		}
+
 	}
 
 	// Save current stage data and user record
