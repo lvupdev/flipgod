@@ -115,10 +115,10 @@ public class BottleController : MonoBehaviour
 
             if (standBottle) //물병이 세워지는 경우
             {
-                if (delta < 0.5f && transform.eulerAngles.z < 340 && transform.eulerAngles.z > 20)
+                if (delta < 0.6f && transform.eulerAngles.z < 340 && transform.eulerAngles.z > 20)
                 {
-                    if (zRotation > 340) transform.Rotate(new Vector3(0, 0, 140 * Time.deltaTime), Space.World); //물병의 z축 값을 360으로 수렴
-                    else transform.Rotate(new Vector3(0, 0, -140 * Time.deltaTime), Space.World); //물병의 z축 값을 0으로 수렴
+                    if (zRotation > 340) transform.Rotate(new Vector3(0, 0, 180 * Time.deltaTime), Space.World); //물병의 z축 값을 360으로 수렴
+                    else transform.Rotate(new Vector3(0, 0, -180 * Time.deltaTime), Space.World); //물병의 z축 값을 0으로 수렴
                 }
                 else if (delta < 0.9f)
                 {
