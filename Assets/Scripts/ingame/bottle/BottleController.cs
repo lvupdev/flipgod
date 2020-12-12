@@ -115,21 +115,24 @@ public class BottleController : MonoBehaviour
 
             if (standBottle) //물병이 세워지는 경우
             {
-                if (delta > 0.9f)
+                if (delta < 0.5f && transform.eulerAngles.z < 340 && transform.eulerAngles.z > 20)
                 {
-                    standBottle = false;
-                    rb.constraints = RigidbodyConstraints2D.None; //z축 회전고정 해제
+                    if (zRotation > 340) transform.Rotate(new Vector3(0, 0, 140 * Time.deltaTime), Space.World); //물병의 z축 값을 360으로 수렴
+                    else transform.Rotate(new Vector3(0, 0, -140 * Time.deltaTime), Space.World); //물병의 z축 값을 0으로 수렴
                 }
-                else if ((transform.eulerAngles.z > 355) || (transform.eulerAngles.z < 5))
+                else if (delta < 0.9f)
                 {
-                    if (transform.eulerAngles != Vector3.zero) transform.rotation = Quaternion.Euler(Vector3.zero);
-                    rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                    if (transform.eulerAngles != Vector3.zero)
+                    {
+                        transform.rotation = Quaternion.Euler(Vector3.zero);
+                        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                    }
                     rb.AddForce(new Vector2(0, -1000 * Time.deltaTime)); // 물병이 튀어오르지 않도록 아래로 힘 작용
                 }
                 else
                 {
-                    if (zRotation > 340) transform.Rotate(new Vector3(0, 0, 140 * Time.deltaTime), Space.World); //물병의 z축 값을 360으로 수렴
-                    else transform.Rotate(new Vector3(0, 0, -140 * Time.deltaTime), Space.World); //물병의 z축 값을 0으로 수렴
+                    standBottle = false;
+                    rb.constraints = RigidbodyConstraints2D.None; //z축 회전고정 해제
                 }
             }
 
@@ -144,7 +147,7 @@ public class BottleController : MonoBehaviour
                     tensionGaugeManager.comboText = "";
                 }
             }
-            else if ((delta > 1f) && (Mathf.Abs(rb.angularVelocity) < 1) && ((zRotation > 340) || (zRotation < 20)))
+            else if ((delta > 1f) && (Mathf.Abs(rb.angularVelocity) < 0.1f) && ((zRotation > 340) || (zRotation < 20)))
             {
                 isStanding = true;
                 if (tensionGaugeUp)
