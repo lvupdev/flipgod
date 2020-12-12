@@ -22,6 +22,7 @@ public class BottleController : MonoBehaviour
     public bool standingBySkill;            // 필살기에 의해 세워지는 중인가;
     public float Timeout;
     public static int combo = 0;                // 물병이 몇번째 콤보를 달성하였는가
+    public bool standBottle; //물병을 세울건지의 여부
 
     private float rotateSpeed; //회전속도
     private float zRotation; //NEW: 물병의 z회전축 값
@@ -78,7 +79,7 @@ public class BottleController : MonoBehaviour
         padDirectionTouched = false;
         tensionGaugeUp = true;
         isDestroying = false;
-
+        standBottle = false;
     }
     void FixedUpdate()
     {
@@ -98,21 +99,11 @@ public class BottleController : MonoBehaviour
             delta += Time.fixedDeltaTime;
 
             if (distance.magnitude < 2) gameObject.SetActive(false); //던져진 물병이 물병 생성 위치와 너무 가까이 있으면 비활성화
-
-            /*
-            if ((delta < 0.11f) && ((zRotation > 340) || (zRotation < 20))) //NEW: 처음 충돌했을 때 각도가 30도 이하 또는 330도 이상이면 0.1초동안
-            {
-                rb.centerOfMass = new Vector3(0, -0.7f, 0); //물병의 무게 중심
-                rb.drag = 10f;
-                rb.angularDrag = 30f;
-            }
-            */
             
             if (standingBySkill) //필살기 발동에 의해 물병이 세워짐
             {
                 standingDelay -= Time.fixedDeltaTime;
                 rb.WakeUp();
-                rb.centerOfMass = new Vector3(0, -1f,0); //물병의 무게 중심
                 
                 if (standingDelay < 0)
                 {
@@ -121,15 +112,26 @@ public class BottleController : MonoBehaviour
                     if(!isDestroying) usefullOperation.FadeOut(1, this.transform.GetChild(0).GetComponent<SpriteRenderer>()); //파괴 도중에 실행되면 오류 발생
                 }
             }
-            /*
-            else
-            {
-                rb.centerOfMass = new Vector3(0, -0.1f, 0); //new Vector3(0, (-0.4f / (180f * 180f)) * (zRotation - 180) * (zRotation - 180) + 0.2f, 0); //NEW: 1초 후에 물병의 무게 중심이 각도에 따라 변함
-                rb.drag = 0;
-                rb.angularDrag = 0.05f;
-            }
-            */
 
+            if (standBottle) //물병이 세워지는 경우
+            {
+                if (delta > 0.9f)
+                {
+                    standBottle = false;
+                    rb.constraints = RigidbodyConstraints2D.None; //z축 회전고정 해제
+                }
+                else if ((transform.eulerAngles.z > 355) || (transform.eulerAngles.z < 5))
+                {
+                    if (transform.eulerAngles != Vector3.zero) transform.rotation = Quaternion.Euler(Vector3.zero);
+                    rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                    rb.AddForce(new Vector2(0, -1000 * Time.deltaTime)); // 물병이 튀어오르지 않도록 아래로 힘 작용
+                }
+                else
+                {
+                    if (zRotation > 340) transform.Rotate(new Vector3(0, 0, 140 * Time.deltaTime), Space.World); //물병의 z축 값을 360으로 수렴
+                    else transform.Rotate(new Vector3(0, 0, -140 * Time.deltaTime), Space.World); //물병의 z축 값을 0으로 수렴
+                }
+            }
 
             // 세워져 있는지의 여부 수정 및 텐션게이지 상승
             if (((delta > 1.49f) && !((zRotation > 340) || (zRotation < 20))) || onFloor)
@@ -142,7 +144,7 @@ public class BottleController : MonoBehaviour
                     tensionGaugeManager.comboText = "";
                 }
             }
-            else if ((delta > 1f) && (rb.angularVelocity == 0) && ((zRotation > 340) || (zRotation < 20)))
+            else if ((delta > 1f) && (Mathf.Abs(rb.angularVelocity) < 1) && ((zRotation > 340) || (zRotation < 20)))
             {
                 isStanding = true;
                 if (tensionGaugeUp)
