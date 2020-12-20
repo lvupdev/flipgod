@@ -20,6 +20,7 @@ public class PlaneTile : Structure
     public List<BottleCollision> bottleAbove { get; set; } = new List<BottleCollision>(); //위에 올려져 있는 물병들의 리스트
 
     private Vector3 originPos; //처음 배치 위치
+    private Vector3 spinAxis; //회전 축
     private PolygonCollider2D col;
     private int key; //이동 방향 전환 키
     private bool turnSucees; //성공적으로 방향을 전환했는지의 여부
@@ -34,6 +35,7 @@ public class PlaneTile : Structure
         key = 1;
         direction = Vector3.ClampMagnitude(direction, 1);
         originPos = transform.position;
+        spinAxis = transform.GetChild(1).transform.position;
         turnSucees = false;
         isInvisible = false;
         numFullfilled = false;
@@ -98,8 +100,8 @@ public class PlaneTile : Structure
 
     public void MoveDynamicStructure()
     {
-        if(isSpinning)
-            transform.Rotate(new Vector3(0, 0, -360 * spinningSpeed * Time.deltaTime));
+        if (isSpinning)
+            transform.RotateAround(spinAxis, new Vector3(0,0,1) , -360 * spinningSpeed * Time.deltaTime);
 
         if (isMoving)
         {

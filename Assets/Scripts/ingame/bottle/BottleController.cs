@@ -104,11 +104,13 @@ public class BottleController : MonoBehaviour
             {
                 standingDelay -= Time.fixedDeltaTime;
                 rb.WakeUp();
+                rb.centerOfMass = new Vector3(0, -0.6f, 0);
                 
                 if (standingDelay < 0)
                 {
                     standingDelay = 2;
                     standingBySkill = false;
+                    rb.centerOfMass = Vector3.zero;
                     if(!isDestroying) usefullOperation.FadeOut(1, this.transform.GetChild(0).GetComponent<SpriteRenderer>()); //파괴 도중에 실행되면 오류 발생
                 }
             }

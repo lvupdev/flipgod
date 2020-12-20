@@ -276,6 +276,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3955677586668522082, guid: 942da4462714fc74a8c8e0c8e826f572,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3955677586936043351, guid: 942da4462714fc74a8c8e0c8e826f572,
         type: 3}
       propertyPath: m_FillAmount
@@ -290,6 +295,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3955677587393474453, guid: 942da4462714fc74a8c8e0c8e826f572,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3955677587393474459, guid: 942da4462714fc74a8c8e0c8e826f572,
         type: 3}
@@ -974,12 +984,12 @@ PrefabInstance:
     - target: {fileID: 6857719482362172027, guid: 2d82ac4268efdbd42b3d4e56d5a507ac,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 2
+      value: 0.68
       objectReference: {fileID: 0}
     - target: {fileID: 6857719482362172027, guid: 2d82ac4268efdbd42b3d4e56d5a507ac,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.84
+      value: 2.04
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d82ac4268efdbd42b3d4e56d5a507ac, type: 3}
@@ -1228,12 +1238,12 @@ PrefabInstance:
     - target: {fileID: 6857719482362172027, guid: 2d82ac4268efdbd42b3d4e56d5a507ac,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 6.19
+      value: 4.73
       objectReference: {fileID: 0}
     - target: {fileID: 6857719482362172027, guid: 2d82ac4268efdbd42b3d4e56d5a507ac,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.41
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d82ac4268efdbd42b3d4e56d5a507ac, type: 3}
@@ -1404,7 +1414,7 @@ GameObject:
   - component: {fileID: 1553800198}
   m_Layer: 0
   m_Name: MetalCeiling
-  m_TagString: floor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
