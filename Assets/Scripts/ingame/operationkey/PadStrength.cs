@@ -10,6 +10,8 @@ public class PadStrength : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
 
     private BottleSelectController bottleSelectController;
+    private CameraMovement mainCamera;
+    private CameraMovement colorCamera;
     public bool isTouch = false;
     public bool isThrowing = false; //캐릭터가 물병을 던지는 동작을 진행중인가의 여부
 
@@ -36,6 +38,8 @@ public class PadStrength : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         strengthGauge = GameObject.Find("StrengthGauge");
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
+        mainCamera = Camera.main.gameObject.GetComponent<CameraMovement>();
+        colorCamera = GameObject.Find("Color Camera").GetComponent<CameraMovement>();
         totalStrength = 0;
         count = 0;
         
@@ -75,6 +79,10 @@ public class PadStrength : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         if ((!bottleSelectController.bottleController.isSuperPowerAvailabe) && (!isThrowing))
         {
+            //물병의 위치에 따라 카메라 이동
+            mainCamera.autoMoving = true; 
+            colorCamera.autoMoving = true;
+
             delayTime = 1f; //딜레이 타임 초기화
             isTouch = true;
             strengthGauge.gameObject.SetActive(true); //힘 게이지를 화면에 표시한다.

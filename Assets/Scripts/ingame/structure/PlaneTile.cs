@@ -9,39 +9,41 @@ public class PlaneTile : Structure
 	//=================[private static field]=========================
 	private static List<PlaneTile> planeTiles = new List<PlaneTile>();
 	//=================[private static field]=========================
+	
+    public bool isSpinning; //타일이 회전하는지의 여부
+    public float spinningSpeed;  //타일이 회전하는 속도
+    public bool isMoving; //타일이 이동하는지의 여부
+    public Vector3 direction; //이동방향
+    public float movingSpeed; //타일이 이동하는 속도
+    public float movingRange; //이동 범위
+    public bool isNumLimitTile; //개수 제한 타일인지의 여부
+    public int LimitNum; //개수 제한 타일에 올라갈수 있는 최대 물병의 개수
+    public bool isFlagTile; //깃발 타일인지의 여부
+    public int requiredNum; //깃발 타일에서 세워져야 하는 물병의 개수
+    public bool numFullfilled; //깃발 타일에서 요구하는 개수만큼의 물병이 위에 세워져 있는지의 여부
+    public List<BottleCollision> bottleAbove { get; set; } = new List<BottleCollision>(); //위에 올려져 있는 물병들의 리스트
 
-	public bool isSpinning; //타일이 회전하는지의 여부
-	public float spinningSpeed;  //타일이 회전하는 속도
-	public bool isMoving; //타일이 이동하는지의 여부
-	public Vector3 direction; //이동방향
-	public float movingSpeed; //타일이 이동하는 속도
-	public float movingRange; //이동 범위
-	public bool isNumLimitTile; //개수 제한 타일인지의 여부
-	public int LimitNum; //개수 제한 타일에 올라갈수 있는 최대 물병의 개수
-	public bool isFlagTile; //깃발 타일인지의 여부
-	public int requiredNum; //깃발 타일에서 세워져야 하는 물병의 개수
-	public bool numFullfilled; //깃발 타일에서 요구하는 개수만큼의 물병이 위에 세워져 있는지의 여부
-	public List<BottleCollision> bottleAbove { get; set; } = new List<BottleCollision>(); //위에 올려져 있는 물병들의 리스트
+    private Vector3 originPos; //처음 배치 위치
+    private Vector3 spinAxis; //회전 축
+    private PolygonCollider2D col;
+    private int key; //이동 방향 전환 키
+    private bool turnSucees; //성공적으로 방향을 전환했는지의 여부
+    private bool isInvisible; //현재 타일이 투명한 지의 여부
+    private float timeGap; //개수 제한 타일이 사라졌다가 나타나기까지의 시간 
 
-	private Vector3 originPos; //처음 배치 위치
-	private PolygonCollider2D col;
-	private int key; //이동 방향 전환 키
-	private bool turnSucees; //성공적으로 방향을 전환했는지의 여부
-	private bool isInvisible; //현재 타일이 투명한 지의 여부
-	private float timeGap; //개수 제한 타일이 사라졌다가 나타나기까지의 시간 
+    public new void Start()
+    {
+        base.Start();
 
-	public new void Start()
-	{
-		base.Start();
-
-		col = GetComponent<PolygonCollider2D>();
-		key = 1;
-		direction = Vector3.ClampMagnitude(direction, 1);
-		originPos = transform.position;
-		turnSucees = false;
-		isInvisible = false;
-		numFullfilled = false;
-		timeGap = 1;
+        col = GetComponent<PolygonCollider2D>();
+        key = 1;
+        direction = Vector3.ClampMagnitude(direction, 1);
+        originPos = transform.position;
+        spinAxis = transform.GetChild(1).transform.position;
+        turnSucees = false;
+        isInvisible = false;
+        numFullfilled = false;
+        timeGap = 1;
 
 		if (isMoving)
 		{
@@ -102,10 +104,10 @@ public class PlaneTile : Structure
 		}
 	}
 
-	public void MoveDynamicStructure()
-	{
-		if (isSpinning)
-			transform.Rotate(new Vector3(0, 0, -360 * spinningSpeed * Time.deltaTime));
+    public void MoveDynamicStructure()
+    {
+        if (isSpinning)
+            transform.RotateAround(spinAxis, new Vector3(0,0,1) , -360 * spinningSpeed * Time.deltaTime);
 
 		if (isMoving)
 		{

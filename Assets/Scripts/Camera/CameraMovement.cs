@@ -8,6 +8,7 @@ public class CameraMovement : MonoBehaviour
 {
 
     public GameObject backgroud; //스테이지의 배경 오브젝트 (rect Transform을 가지고 있어야 함)
+    public bool autoMoving; //카메라가 자동으로 이동하고 있는 상태인지의 여부
 
     private GameObject membranes;
     private BottleSelectController bottleSelectController;
@@ -58,6 +59,7 @@ public class CameraMovement : MonoBehaviour
         defaultCameraSize = presentCamera.orthographicSize;
         hold = false;
         membraneHold = false;
+        autoMoving = false;
         SetCameraSize();
     }
 
@@ -71,7 +73,8 @@ public class CameraMovement : MonoBehaviour
 
     void Update()
     {
-        if ((!bottleSelectController.bottleController.isSuperPowerAvailabe) && superPowerPanelController.GetIsTouch()) //초능력 사용 중(물병이 날아가는 도중)에는 스와이프나 줌인/아웃 사용 불가, superpowe패널을 터치해야 스와이프 가능
+        //초능력 사용 중(물병이 날아가는 도중)에는 스와이프나 줌인/아웃 사용 불가, superpower패널을 터치해야 스와이프 가능, 카메라가 autoMoving상태이면 안 됨
+        if ((!bottleSelectController.bottleController.isSuperPowerAvailabe) && superPowerPanelController.GetIsTouch() && !autoMoving)
         {
             //swipe
             if (!membraneHold && Input.touchCount == 1)
@@ -200,7 +203,7 @@ public class CameraMovement : MonoBehaviour
             membraneHold = false;
         }
 
-        if (bottleSelectController.bottleSelected && bottleSelectController.bottleController.isSuperPowerAvailabe)
+        if (bottleSelectController.bottleSelected && bottleSelectController.bottleController.isSuperPowerAvailabe) //물병의 이동에 따라 카메라가 함께 이동함
         {
             distance = bottleSelectController.bottle.transform.position - transform.position;
             if ((Math.Abs(distance.x) > presentCamera.orthographicSize * presentCamera.aspect - bottleMoveGap) || (Math.Abs(distance.y) > presentCamera.orthographicSize - bottleMoveGap))
@@ -228,12 +231,79 @@ public class CameraMovement : MonoBehaviour
                 }
             }
         }
+
+		if (autoMoving) //힘 버튼을 눌렀을 때 물병이 이동하는 것
+		{
+            distance = bottleSelectController.bottle.transform.position - transform.position;
+            if ((Math.Abs(distance.x) > presentCamera.orthographicSize * presentCamera.aspect - bottleMoveGap) || (Math.Abs(distance.y) > presentCamera.orthographicSize - bottleMoveGap))
+            {
+                switch (CheckBoundary())
+                {
+                    case 0: //x좌표가 최대이고 y좌표 최소 또는 최대 상태일 때
+                        if (key_Y > 0)
+						{
+                            transform.position = Vector3.Lerp(transform.position, new Vector3(key_X * Max_X, Max_Y, transform.position.z), 8 * Time.deltaTime);
+                            if ((transform.position - new Vector3(key_X * Max_X, Max_Y, transform.position.z)).magnitude < 0.1f)
+                            {
+                                transform.position = new Vector3(key_X * Max_X, Max_Y, transform.position.z);
+                                autoMoving = false;
+                            }
+                        }
+						else
+						{
+                            transform.position = Vector3.Lerp(transform.position, new Vector3(key_X * Max_X, Min_Y, transform.position.z), 8 * Time.deltaTime);
+                            if ((transform.position - new Vector3(key_X * Max_X, Min_Y, transform.position.z)).magnitude < 0.1f)
+                            {
+                                transform.position = new Vector3(key_X * Max_X, Min_Y, transform.position.z);
+                                autoMoving = false;
+                            }
+                        }
+                        break;
+                    case 1: //y좌표가 최대 혹은 최소 상태일 때. 즉 x좌표는 이동할 수 있을 때
+                        if (key_Y > 0)
+						{
+                            transform.position = Vector3.Lerp(transform.position, new Vector3(expectPosition.x, Max_Y, transform.position.z), 8 * Time.deltaTime);
+                            if ((transform.position - new Vector3(expectPosition.x, Max_Y, transform.position.z)).magnitude < 0.1f)
+                            {
+                                transform.position = new Vector3(expectPosition.x, Max_Y, transform.position.z);
+                                autoMoving = false;
+                            }
+                        }
+						else
+						{
+                            transform.position = Vector3.Lerp(transform.position, new Vector3(expectPosition.x, Min_Y, transform.position.z), 8 * Time.deltaTime);
+                            if ((transform.position - new Vector3(expectPosition.x, Min_Y, transform.position.z)).magnitude < 0.1f)
+                            {
+                                transform.position = new Vector3(expectPosition.x, Min_Y, transform.position.z);
+                                autoMoving = false;
+                            }
+                        }
+                        break;
+                    case 2: //x좌표만 최대 상태일 때. 즉 y좌표는 이동할 수 있을 때
+                        transform.position = Vector3.Lerp(transform.position, new Vector3(key_X * Max_X, expectPosition.y, transform.position.z), 8 * Time.deltaTime);
+                        if ((transform.position - new Vector3(key_X * Max_X, expectPosition.y, transform.position.z)).magnitude < 0.1f)
+                        {
+                            transform.position = new Vector3(key_X * Max_X, expectPosition.y, transform.position.z);
+                            autoMoving = false;
+                        }
+                        break;
+                    case 3: //둘 다 이동할 수 있을 때
+                        transform.position = Vector3.Lerp(transform.position, expectPosition, 8 * Time.deltaTime);
+                        if ((transform.position - expectPosition).magnitude < 0.1f)
+                        {
+                            transform.position = expectPosition;
+                            autoMoving = false;
+                        }
+                        break;
+                }
+            }
+        }
     }
 
     // check if outside the boundary
     public int CheckBoundary()  // 카메라의 시점을 제한해서 게임화면만 보여주기 위함.
     {
-        if (bottleSelectController.bottleController.isSuperPowerAvailabe) //물병을 따라 이동하는 경우
+        if (bottleSelectController.bottleController.isSuperPowerAvailabe || autoMoving) //물병을 따라 이동하는 경우
         {
             expectPosition = transform.position;
             if(Math.Abs(distance.x) > presentCamera.orthographicSize * presentCamera.aspect - bottleMoveGap)
