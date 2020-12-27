@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 9283549}
   - component: {fileID: 9283548}
   - component: {fileID: 9283547}
+  - component: {fileID: 9283550}
   m_Layer: 0
   m_Name: Structure_8-1 (1)
   m_TagString: Untagged
@@ -255,6 +256,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &9283550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9283545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55ec6f31dcc6c2545bf5f0ed49ac17a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseSprite: {fileID: 21300000, guid: c86c879bfd050b64b96b70e5dbaad88c, type: 3}
+  freezedSprite: {fileID: 21300000, guid: c86c879bfd050b64b96b70e5dbaad88c, type: 3}
+  spriteRenderer: {fileID: 0}
+  usefullOperation: {fileID: 0}
+  isFreezable: 0
+  isFreezed: 0
+  getFreezeBonus: 0
+  delta: 0
 --- !u!1 &37033901
 GameObject:
   m_ObjectHideFlags: 0
@@ -1763,6 +1784,7 @@ GameObject:
   - component: {fileID: 1379453941}
   - component: {fileID: 1379453940}
   - component: {fileID: 1379453939}
+  - component: {fileID: 1379453942}
   m_Layer: 0
   m_Name: Structure_8-1
   m_TagString: Untagged
@@ -1885,6 +1907,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1379453942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379453937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55ec6f31dcc6c2545bf5f0ed49ac17a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseSprite: {fileID: 21300000, guid: c86c879bfd050b64b96b70e5dbaad88c, type: 3}
+  freezedSprite: {fileID: 21300000, guid: c86c879bfd050b64b96b70e5dbaad88c, type: 3}
+  spriteRenderer: {fileID: 0}
+  usefullOperation: {fileID: 0}
+  isFreezable: 0
+  isFreezed: 0
+  getFreezeBonus: 0
+  delta: 0
 --- !u!1001 &1585231178
 PrefabInstance:
   m_ObjectHideFlags: 0
