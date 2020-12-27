@@ -26,6 +26,10 @@ public class StageUIManager : MonoBehaviour
 	private static Dictionary<string, Transform> uis = new Dictionary<string, Transform>();
 
 	// Elements of UI
+	private Button pauseButton;
+	private Button resumeButton;
+	private Button retryButton;
+	private Button selectStageButton;
 	private Transform pausePanel;
 	private Transform missionPanel;
 
@@ -55,6 +59,10 @@ public class StageUIManager : MonoBehaviour
 		// Initialize ui
 		RecursiveRegisterChild(canvas.transform, uis);
 
+		pauseButton = Find("Button_Pause").GetComponent<Button>();
+		resumeButton = Find("Button_Resume").GetComponent<Button>();
+		retryButton = Find("Button_Retry").GetComponent<Button>();
+		selectStageButton = Find("Button_SelectStage").GetComponent<Button>();
 		pausePanel = Find("Panel_Pause");
 		scorePanel = Find("Panel_Score");
 		completeMissionCountText = scorePanel.GetChild(0).GetChild(1).GetComponent<Text>();
@@ -66,6 +74,11 @@ public class StageUIManager : MonoBehaviour
 
 		tensionValueImg = Find("Image_TensionGaugeBar").GetComponent<Image>();
 		tensionValueImg.fillAmount = 0.0f;
+
+		pauseButton.onClick.AddListener(ShowPausePanel);
+		resumeButton.onClick.AddListener(ResumeGame);
+		retryButton.onClick.AddListener(RetryStage);
+		selectStageButton.onClick.AddListener(GoToSelectScene);
 
 		Init();
 	}

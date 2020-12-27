@@ -107,11 +107,12 @@ public class PlaneTile : Structure
     public void MoveDynamicStructure()
     {
         if (isSpinning)
-            transform.RotateAround(spinAxis, new Vector3(0,0,1) , -360 * spinningSpeed * Time.deltaTime);
+            transform.RotateAround(spinAxis, new Vector3(0,0,1) , -360 * spinningSpeed * Time.smoothDeltaTime);
 
 		if (isMoving)
 		{
-			transform.Translate(key * direction * movingSpeed * Time.deltaTime);
+			transform.Translate(key * direction * movingSpeed * Time.smoothDeltaTime);
+			// 물병에 velocity 더해주는 방법으로 변경
 
 			if ((originPos - transform.position).magnitude > movingRange)
 			{

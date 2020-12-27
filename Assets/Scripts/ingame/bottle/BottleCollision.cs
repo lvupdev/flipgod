@@ -93,7 +93,7 @@ public class BottleCollision : MonoBehaviour
                     break;
 				}
 			}
-		}
+        }
         else if (col.gameObject.GetComponent<BottleCollision>() != null) //물병과 무딛혔을 경우
 		{
             BottleCollision bottle = col.gameObject.GetComponent<BottleCollision>();
