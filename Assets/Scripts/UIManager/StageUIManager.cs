@@ -31,7 +31,7 @@ public class StageUIManager : MonoBehaviour
 
 	// Elements of score panel
 	private Transform scorePanel;
-	private Text missionTargetText;
+	private Text completeMissionCountText;
 	private Text timeText;
 	private Text bottleCountText;
 
@@ -39,7 +39,7 @@ public class StageUIManager : MonoBehaviour
 	private Image tensionValueImg;
 	private float lerpSpeed = 0.5f;
 
-	private int completeTarget, totalTarget = 0;
+	private int completeMissionNumber, totalMissionNumber = 0;
 	private int usedBottle, totalBottle = 0;
 	private float usedTime, totalTime = .0f;
 
@@ -57,7 +57,7 @@ public class StageUIManager : MonoBehaviour
 
 		pausePanel = Find("Panel_Pause");
 		scorePanel = Find("Panel_Score");
-		missionTargetText = scorePanel.GetChild(0).GetChild(1).GetComponent<Text>();
+		completeMissionCountText = scorePanel.GetChild(0).GetChild(1).GetComponent<Text>();
 		timeText = scorePanel.GetChild(1).GetChild(1).GetComponent<Text>();
 		bottleCountText = scorePanel.GetChild(2).GetChild(1).GetComponent<Text>();
 
@@ -86,7 +86,7 @@ public class StageUIManager : MonoBehaviour
 	{
 		if (StageGameManager.Instance.StageData != null)
 		{
-			totalTarget = StageGameManager.Instance.StageData.GoalNumber;
+			totalMissionNumber = StageGameManager.Instance.StageData.GoalNumber;
 			totalBottle = StageGameManager.Instance.StageData.LimitedBottleNumber;
 			totalTime = StageGameManager.Instance.StageData.LimitedTime;
 		}
@@ -104,19 +104,19 @@ public class StageUIManager : MonoBehaviour
 	/*=================<Update texts of score panel>================================*/
 	private void UpdateScoreTexts()
 	{
-		completeTarget = StageGameManager.Instance.CompleteMissionNumber;
+		completeMissionNumber = StageGameManager.Instance.CompleteMissionNumber;
 		usedBottle = StageGameManager.Instance.UsedBottleNumber;
 		usedTime = StageGameManager.Instance.UsedTime;
 
-		UpdateMissionTargetText(completeTarget, totalTarget);
+		UpdateCompleteMissionNumberText(completeMissionNumber, totalMissionNumber);
 		UpdateBottleText(usedBottle, totalBottle);
 		UpdateTimeText(usedTime, totalTime);
 	}
 
 	// Update mission target text
-	private void UpdateMissionTargetText(int complete, int total)
+	private void UpdateCompleteMissionNumberText(int complete, int total)
 	{
-		missionTargetText.text = complete + "/" + total;
+		completeMissionCountText.text = complete + "/" + total;
 	}
 
 	// Update time text
