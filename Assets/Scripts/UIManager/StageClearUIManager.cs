@@ -10,79 +10,87 @@ using UnityEngine.SceneManagement;
 
 public class StageClearUIManager : MonoBehaviour
 {
-    //================[Static Field]=====================================
-    // Static instance of StageGameManager
-    private static StageClearUIManager instance;
-    public static StageClearUIManager Instance { get { return instance; } }
-    //===================================================================
+	//================[Static Field]=====================================
+	// Static instance of StageGameManager
+	private static StageClearUIManager instance;
+	public static StageClearUIManager Instance { get { return instance; } }
+	//===================================================================
 
-    // a Transform of canvas of Stage Clear scene
-    public Transform canvasTransform;
+	// a Transform of canvas of Stage Clear scene
+	public Transform canvasTransform;
 
-    // a Text that shows the passed test
-    private Text testTitle;
+	// a Text that shows the passed test
+	private Text testTitle;
 
-    //=======Texts of record panel========================================
-    private Transform recordPanel;
-    private Text missionContent;
-    private Text timeRecord;
-    private Text bottleCountRecord;
-    //====================================================================
+	//=======Texts of record panel========================================
+	private Transform recordPanel;
+	private Text missionContent;
+	private Text timeRecord;
+	private Text bottleCountRecord;
+	//====================================================================
 
-    // a Text that shows commets of characters
-    private Text comment;
+	// a Text that shows commets of characters
+	private Text comment;
 
-    // stage data of passed stage
-    public StageData stageData;
+	// stage data of passed stage
+	private StageData stageData;
 
-    // user record of passed stage
-    public UserRecordManager.UserRecord userRecord;
+	// user record of passed stage
+	private UserRecordManager.UserRecord userRecord;
 
-    private void Awake()
-    {
-        instance = this;
-    }
+	private void Awake()
+	{
+		instance = this;
+	}
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        testTitle = canvasTransform.GetChild(0).GetComponent<Text>();
+	// Start is called before the first frame update
+	void Start()
+	{
+		testTitle = canvasTransform.GetChild(0).GetComponent<Text>();
 
-        recordPanel = canvasTransform.GetChild(1);
-        missionContent = recordPanel.GetChild(0).GetChild(1).GetComponent<Text>();
-        timeRecord = recordPanel.GetChild(1).GetChild(1).GetComponent<Text>();
-        bottleCountRecord = recordPanel.GetChild(2).GetChild(1).GetComponent<Text>();
+		recordPanel = canvasTransform.GetChild(1);
+		missionContent = recordPanel.GetChild(0).GetChild(1).GetComponent<Text>();
+		timeRecord = recordPanel.GetChild(1).GetChild(1).GetComponent<Text>();
+		bottleCountRecord = recordPanel.GetChild(2).GetChild(1).GetComponent<Text>();
 
-        comment = canvasTransform.GetChild(4).GetChild(2).GetComponent<Text>();
-    }
+		comment = canvasTransform.GetChild(4).GetChild(2).GetComponent<Text>();
+        Initialize();
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	// Update is called once per frame
+	void Update()
+	{
 
-    // Set texts of Record
-    public void SetRecordTexts()
-    {
-        testTitle.text = stageData.StageIndexNumber + "#" + " " + "RESULT";
-        missionContent.text = MissionUIFunction.FormatMissionContent(stageData.MissionIndexNumber, stageData.GoalNumber);
-        timeRecord.text = MissionUIFunction.FormatTimeText(userRecord.usedTime) + "/" + MissionUIFunction.FormatTimeText(stageData.LimitedTime);
-        bottleCountRecord.text = MissionUIFunction.FormatBottleText(userRecord.usedBottleNumber,stageData.LimitedBottleNumber);
-        comment.text = stageData.Comment[0];
-    }
+	}
 
-    //================[Call-back Method]=====================================
+	private void Initialize()
+	{
+		userRecord = UserRecordManager.GetRecentlyPlayInformation();
+		stageData = Resources.Load<StageData>("StageDatas/StageData-" + userRecord.stageNumber);
+        SetRecordTexts();
+	}
 
-    // Show comment of clicked character
-    public void OnClickCommentButton(int index)
-    {
-        comment.text = stageData.Comment[index];
-    }
+	// Set texts of Record
+	public void SetRecordTexts()
+	{
+		testTitle.text = stageData.StageIndexNumber + "#" + " " + "RESULT";
+		missionContent.text = MissionUIFunction.FormatMissionContent(stageData.MissionIndexNumber, stageData.GoalNumber);
+		timeRecord.text = MissionUIFunction.FormatTimeText(userRecord.usedTime) + "/" + MissionUIFunction.FormatTimeText(stageData.LimitedTime);
+		bottleCountRecord.text = MissionUIFunction.FormatBottleText(userRecord.usedBottleNumber, stageData.LimitedBottleNumber);
+		comment.text = stageData.Comment[0];
+	}
 
-    public void GoSelectStageScene()
-    {
+	//================[Call-back Method]=====================================
 
-    }
-    //=======================================================================
+	// Show comment of clicked character
+	public void OnClickCommentButton(int index)
+	{
+		comment.text = stageData.Comment[index];
+	}
+
+	public void GoSelectStageScene()
+	{
+
+	}
+	//=======================================================================
 }

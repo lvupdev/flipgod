@@ -127,7 +127,7 @@ public class StageGameManager : MonoBehaviour
 			Time.timeScale = 0.0f;
 			// then Save current stage data and user record to show result in stage clear scene
 			// and Go to stage clear scene
-			// SaveStageDataAndUserRecord();
+			SaveStageDataAndUserRecord();
 			GoToStageClearScene();
 		}
 
@@ -136,11 +136,8 @@ public class StageGameManager : MonoBehaviour
 	// Save current stage data and user record
 	public void SaveStageDataAndUserRecord()
 	{
-		// Save current stage data at Instance of Stage Clear UI Manager
-		StageClearUIManager.Instance.stageData = StageData;
-		// Save current user record at Instance of Stage Clear UI Manager       
-		StageClearUIManager.Instance.userRecord
-			= UserRecordManager.SaveCurrentRecord(StageData.StageIndexNumber, UsedBottleNumber, UsedTime);
+		Debug.Log(StageData.StageIndexNumber);
+		UserRecordManager.SaveRecentlyPlayInformation(StageData.StageIndexNumber, UsedBottleNumber, UsedTime);
 	}
 
 	// Go to stage clear scene
