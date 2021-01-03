@@ -112,7 +112,7 @@ public class PlaneTile : Structure
 		if (isMoving)
 		{
 			transform.Translate(key * direction * movingSpeed * Time.smoothDeltaTime);
-			// 물병에 velocity 더해주는 방법으로 변경
+		
 
 			if ((originPos - transform.position).magnitude > movingRange)
 			{

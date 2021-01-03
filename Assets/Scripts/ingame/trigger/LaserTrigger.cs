@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FanTrigger : TriggerFunction
+public class LaserTrigger : TriggerFunction
 {
 
     private new void Start()
@@ -17,7 +17,7 @@ public class FanTrigger : TriggerFunction
     {
         if (actBool && isFreezable && structure.isFreezed)
         {
-            shouldBeFreezed = isActTrigger? true : false; //빙결되기 전에 isActTrigger 상태였는지 shouldBeFreezed에 저장
+            shouldBeFreezed = isActTrigger ? true : false; //빙결되기 전에 isActTrigger 상태였는지 shouldBeFreezed에 저장
             isActTrigger = false;
             actBool = false;
         }
@@ -39,7 +39,7 @@ public class FanTrigger : TriggerFunction
             if (conditionFullfilled)
             {
                 //트리거 발동 효과 함수
-                BottleMagnet(1, 30);
+                BottleDestroy();
             }
 
             /*
