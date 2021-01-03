@@ -65,7 +65,7 @@ public class StageClearUIManager : MonoBehaviour
 
 	private void Initialize()
 	{
-		userRecord = UserRecordManager.GetRecentlyPlayInformation();
+		userRecord = UserRecordManager.GetRecentlyPlayRecord();
 		stageData = Resources.Load<StageData>("StageDatas/StageData-" + userRecord.stageNumber);
         SetRecordTexts();
 	}

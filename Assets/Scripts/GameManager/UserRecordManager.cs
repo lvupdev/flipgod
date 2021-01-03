@@ -38,10 +38,39 @@ public class UserRecordManager : MonoBehaviour
 		return currentUserRecord;
 	}
 
-	// Save data with stage number as key
-	//============================[PlayerPrefs]===================================
+	// Judge whether current user record is the new record
+	// and Set new Record
+	public static void JudgeNewRecord(UserRecord currentUserRecord)
+	{
+		// Evaluate current user record
+		float currentScore = EvaluateUserRecord(currentUserRecord);
+		// Get current best user record
+		UserRecord currentBestUserRecord = GetUserRecord(currentUserRecord.stageNumber);
+		// Evaluate current best user record
+		float currentBestScore = EvaluateUserRecord(currentBestUserRecord);
+
+		// If score of current user record is larger than score of current best record
+		if (currentScore > currentBestScore)
+		{
+			// then Set new record to current user record 
+			SaveUserRecord(currentUserRecord);
+		}
+	}
+
+	// Evaluate user record
+	private static float EvaluateUserRecord(UserRecord userRecord)
+	{
+		float score = 0.0f;
+
+		return score;
+	}
+
+	//===================================================================================================
+	//=======================[PlayerPrefs : 씬 하나에 대한 최종적인 플레이 기록]===========================
 	// key(string)   : "[int : stage number]"
 	// value(string) : "[int : used bottle number]/[float : used time]"
+	//===================================================================================================
+	// Save data with stage number as key
 	public static void SaveUserRecord(UserRecord userRecord)
 	{
 		string stageNumberKey;
@@ -68,12 +97,6 @@ public class UserRecordManager : MonoBehaviour
 	public static void RemoveUserRecord(string stageNumber)
 	{
 		PlayerPrefs.DeleteKey(stageNumber);
-	}
-
-	// Remove all record data
-	public static void RemoveAllUserRecord()
-	{
-		PlayerPrefs.DeleteAll();
 	}
 
 	// Get value with stage number
@@ -110,35 +133,16 @@ public class UserRecordManager : MonoBehaviour
 		// Return user record
 		return userRecord;
 	}
+	//===================================================================================================
+	//===================================================================================================
 
-	// Judge whether current user record is the new record
-	// and Set new Record
-	public static void JudgeNewRecord(UserRecord currentUserRecord)
-	{
-		// Evaluate current user record
-		float currentScore = EvaluateUserRecord(currentUserRecord);
-		// Get current best user record
-		UserRecord currentBestUserRecord = GetUserRecord(currentUserRecord.stageNumber);
-		// Evaluate current best user record
-		float currentBestScore = EvaluateUserRecord(currentBestUserRecord);
-
-		// If score of current user record is larger than score of current best record
-		if (currentScore > currentBestScore)
-		{
-			// then Set new record to current user record 
-			SaveUserRecord(currentUserRecord);
-		}
-	}
-
-	// Evaluate user record
-	private static float EvaluateUserRecord(UserRecord userRecord)
-	{
-		float score = 0.0f;
-
-		return score;
-	}
-
-	public static void SaveRecentlyPlayInformation(int stageIndexNumber, int usedBottleNumber, float usedTime)
+	//===================================================================================================
+	//=======================[PlayerPrefs : 가장 최근에 플레이한 씬 기록]==================================
+	// key(string)   : "recentlyPlayInformation"
+	// value(string) : "[int : index number of stage]/[int : used bottle number]/[float : used time]"
+	//===================================================================================================
+	// Save data of recently play record
+	public static void SaveRecentlyPlayRecord(int stageIndexNumber, int usedBottleNumber, float usedTime)
 	{
 		string key = "recentlyPlayInformation";
 		string value = stageIndexNumber + "/" + usedBottleNumber + "/" + usedTime;
@@ -153,7 +157,7 @@ public class UserRecordManager : MonoBehaviour
 		PlayerPrefs.Save();
 	}
 
-	public static UserRecord GetRecentlyPlayInformation()
+	public static UserRecord GetRecentlyPlayRecord()
 	{
 		UserRecord userRecord = new UserRecord(0, 0, 0f);
 		string key = "recentlyPlayInformation";
@@ -172,5 +176,46 @@ public class UserRecordManager : MonoBehaviour
 		}
 
         return userRecord;
+	}
+	//===================================================================================================
+	//===================================================================================================
+
+	//===================================================================================================
+	//=======================[PlayerPrefs : 가장 마지막으로 클리어한 씬 기록]================================
+	// key(string)   : "IndexNumberOfClearScene"
+	// value(int) : [int : index number of stage]
+	//===================================================================================================
+	// Save index number of last clear scene
+	public static void SaveIndexOfClearScene(int currentSceneIndex)
+	{
+		string key = "IndexNumberOfClearScene";
+		int savedIndex = GetIndexOfClearScene();
+
+		if (currentSceneIndex > savedIndex)
+		{
+			PlayerPrefs.SetInt(key, currentSceneIndex);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int GetIndexOfClearScene()
+	{
+		int clearSceneIndex = 0;
+		string key = "IndexNumberOfClearScene";
+
+		if (PlayerPrefs.HasKey(key) == true)
+		{
+			clearSceneIndex = PlayerPrefs.GetInt(key);
+		}
+
+		return clearSceneIndex;
+	}
+	//===================================================================================================
+	//===================================================================================================
+
+	// Remove all playerprefs data
+	public static void RemoveAllSavedRecord()
+	{
+		PlayerPrefs.DeleteAll();
 	}
 }

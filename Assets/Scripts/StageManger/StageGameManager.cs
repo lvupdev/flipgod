@@ -137,7 +137,7 @@ public class StageGameManager : MonoBehaviour
 	public void SaveStageDataAndUserRecord()
 	{
 		Debug.Log(StageData.StageIndexNumber);
-		UserRecordManager.SaveRecentlyPlayInformation(StageData.StageIndexNumber, UsedBottleNumber, UsedTime);
+		UserRecordManager.SaveRecentlyPlayRecord(StageData.StageIndexNumber, UsedBottleNumber, UsedTime);
 	}
 
 	// Go to stage clear scene
