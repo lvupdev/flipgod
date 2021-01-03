@@ -21,7 +21,7 @@ public class StageUIManager : MonoBehaviour
 	//===================================================================
 
 	// Canvas of stage UI
-	public Canvas canvas;
+	public Transform canvas;
 	// Transform of canvas element
 	private static Dictionary<string, Transform> uis = new Dictionary<string, Transform>();
 
@@ -52,37 +52,26 @@ public class StageUIManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		// Initialize ui
-		RecursiveRegisterChild(canvas.transform, uis);
+		if (Time.timeScale == 0.0f)
+		{
+			Time.timeScale = 1.0f;
+		}
+		
+		pausePanel = GameObject.Find("Panel_Pause").transform;
+		pausePanel.gameObject.SetActive(false);
 
-		pausePanel = Find("Panel_Pause");
-		scorePanel = Find("Panel_Score");
+		scorePanel = GameObject.Find("Panel_Score").transform;
 		completeMissionCountText = scorePanel.GetChild(0).GetChild(1).GetComponent<Text>();
 		timeText = scorePanel.GetChild(1).GetChild(1).GetComponent<Text>();
 		bottleCountText = scorePanel.GetChild(2).GetChild(1).GetComponent<Text>();
 
-
-		missionPanel = Find("Panel_Mission");
-
-		tensionValueImg = Find("Image_TensionGaugeBar").GetComponent<Image>();
+		tensionValueImg = GameObject.Find("Image_TensionGaugeBar").GetComponent<Image>();
 		tensionValueImg.fillAmount = 0.0f;
 
-		Init();
+		InitStageData();
 	}
 
-	// Find object using transform
-	public static Transform Find(string uiName)
-	{
-		return uis[uiName];
-	}
-
-	private static void RecursiveRegisterChild(Transform parent, Dictionary<string, Transform> dict)
-	{
-		if (!dict.ContainsKey(parent.name)) dict.Add(parent.name, parent);
-		foreach (Transform child in parent) RecursiveRegisterChild(child, dict);
-	}
-
-	public void Init()
+	public void InitStageData()
 	{
 		if (StageGameManager.Instance.StageData != null)
 		{
@@ -204,25 +193,15 @@ public class StageUIManager : MonoBehaviour
 	// Retry stage
 	public void RetryStage()
 	{
-		// (오류) 재시작 이후 일시정지 버튼 누르면 할당이 안 되어 있음.
-		// 현재 방식으로는 rect transform을 찾을 수 없는 문제가 있음
-		// 아래와 같은 메서드로는 스크립트가 다시 실행되지 않음. (score panel 초기화 안 됨)
-		// (To Do) 또한 stage를 특정하면 확장성이 없으므로 수정해야 함.
 		int index = StageGameManager.Instance.GetCurrentStageNumber();
 		SceneManager.LoadScene("Stage" + "-" + index);
 		StageGameManager.Instance.InitializeStage();
-		// (To Do) 게임 재시작을 씬을 다시 로드하는 방식 말고 변수들을 초기화하는 방식으로 할 것.
-		// StageGameManager.InitializeStage();
 	}
 
 	// Go to select stage
 	public void GoToSelectScene()
 	{
 		SceneManager.LoadScene("SelectStage");
-		if (Time.timeScale == 0.0f)
-		{
-			Time.timeScale = 1.0f;
-		}
 	}
 
 }
