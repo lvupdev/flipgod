@@ -8,7 +8,7 @@ public class TriggerFunction : MonoBehaviour
     public List<GameObject> TargetObject = new List<GameObject>(); //트리거와 상호작용 중인 오브젝트 배열
     public GameObject bottles;
     public Structure structure; //트리거가 적용될 구조물
-    public GameObject targetTrigger; //효과를 적용할 목표 트리거
+    public GameObject targetTrigger; //효과를 적용할 목표 트리거(트리거 활성화/비활성화 효과 때 사용)
 	public TensionGaugeManager tensionGaugeManager;
     public UsefullOperation usefullOperation;
 
@@ -191,10 +191,17 @@ public class TriggerFunction : MonoBehaviour
      */
     public void BottleDestroy()
 	{
-        foreach(GameObject gameObject in TargetObject)
+        var list = new List<GameObject>();
+        list.AddRange(TargetObject);
+
+        foreach (GameObject gameObject in list)
 		{
             if (gameObject.GetComponent<BottleController>() == null) continue;
-            else Destroy(gameObject);
+			else
+			{
+                TargetObject.Remove(gameObject);
+                Destroy(gameObject);
+            }
 		}
 	}
 

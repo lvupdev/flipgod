@@ -9,14 +9,14 @@ public class LaserLight : MonoBehaviour
 	void Start()
 	{
 		laserTrigger = transform.parent.GetComponent<LaserTrigger>();
+		laserTrigger.laserLight = gameObject;
 	}
 
     void OnTriggerEnter2D(Collider2D col)
 	{
 		BottleCollision bottle = col.gameObject.GetComponent<BottleCollision>();
 
-		if (bottle == null) return;
-		else
+		if (bottle != null)
 		{
 			laserTrigger.TargetObject.Add(bottle.gameObject);
 		}

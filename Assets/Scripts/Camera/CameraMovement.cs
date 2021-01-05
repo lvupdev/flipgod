@@ -203,7 +203,7 @@ public class CameraMovement : MonoBehaviour
             membraneHold = false;
         }
 
-        if (bottleSelectController.bottleSelected && bottleSelectController.bottleController.isSuperPowerAvailabe) //물병의 이동에 따라 카메라가 함께 이동함
+        if (bottleSelectController.bottleSelected && bottleSelectController.bottleController.isSuperPowerAvailabe &&bottleSelectController.bottle != null) //물병의 이동에 따라 카메라가 함께 이동함
         {
             distance = bottleSelectController.bottle.transform.position - transform.position;
             if ((Math.Abs(distance.x) > presentCamera.orthographicSize * presentCamera.aspect - bottleMoveGap) || (Math.Abs(distance.y) > presentCamera.orthographicSize - bottleMoveGap))

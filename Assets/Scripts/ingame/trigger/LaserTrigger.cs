@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LaserTrigger : TriggerFunction
 {
+    public GameObject laserLight; //스테이지에서 사용될 레이저 빛
 
     private new void Start()
     {
@@ -11,6 +12,8 @@ public class LaserTrigger : TriggerFunction
 
         isActTrigger = true; //해당 트리거가 처음에 활성화 상태인지 비활성화 상태인지 start함수에서 반드시 명시해줘야 한다.
         isFreezable = true; //해당 트리거가 얼릴 수 있는 트리거인지여 여부를 반드시 명시해줘야 한다.
+
+        if (isActTrigger) laserLight.SetActive(true);
     }
 
     void Update()
@@ -49,5 +52,9 @@ public class LaserTrigger : TriggerFunction
             }
             */
         }
+		else
+		{
+            laserLight.SetActive(false);
+		}
     }
 }
