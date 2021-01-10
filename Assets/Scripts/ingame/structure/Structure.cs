@@ -13,13 +13,14 @@ public class Structure : MonoBehaviour
     public bool isFreezable; //얼릴 수 있는지의 여부
     public bool isFreezed;
     public bool getFreezeBonus; //해당 구조물을 얼림으로써 빙결 보너스를 받는지의 여부
+    public float freezeTime = 20; //빙결되는 시간
     public float delta; //빙결 시간 변수
 
     public void Start()
     {
         usefullOperation = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
         spriteRenderer = transform.GetComponent<SpriteRenderer>();
-        delta = 0;
+        delta = freezeTime;
         collisionNum = 0;
 
     }
@@ -32,11 +33,11 @@ public class Structure : MonoBehaviour
         if (isFreezed)
         {
             spriteRenderer.sprite = freezedSprite;
-            delta += Time.deltaTime;
-            if (delta > 20)
+            delta -= Time.deltaTime;
+            if (delta <= 0)
             {
                 this.isFreezed = false;
-                delta = 0;
+                delta = freezeTime;
                 spriteRenderer.sprite = baseSprite;
             }
         }
