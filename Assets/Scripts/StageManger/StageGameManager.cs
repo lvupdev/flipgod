@@ -138,6 +138,7 @@ public class StageGameManager : MonoBehaviour
 	{
 		Debug.Log(StageData.StageIndexNumber);
 		UserRecordManager.SaveRecentlyPlayRecord(StageData.StageIndexNumber, UsedBottleNumber, UsedTime);
+		UserRecordManager.SaveIndexOfClearScene(StageData.StageIndexNumber);
 	}
 
 	// Go to stage clear scene

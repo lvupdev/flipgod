@@ -60,6 +60,8 @@ public class StageUIManager : MonoBehaviour
 		pausePanel = GameObject.Find("Panel_Pause").transform;
 		pausePanel.gameObject.SetActive(false);
 
+		missionPanel = GameObject.Find("Panel_Mission").transform;
+
 		scorePanel = GameObject.Find("Panel_Score").transform;
 		completeMissionCountText = scorePanel.GetChild(0).GetChild(1).GetComponent<Text>();
 		timeText = scorePanel.GetChild(1).GetChild(1).GetComponent<Text>();

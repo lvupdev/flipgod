@@ -189,7 +189,7 @@ public class UserRecordManager : MonoBehaviour
 	public static void SaveIndexOfClearScene(int currentSceneIndex)
 	{
 		string key = "IndexNumberOfClearScene";
-		int savedIndex = GetIndexOfClearScene();
+		int savedIndex = GetSavedIndexOfClearScene();
 
 		if (currentSceneIndex > savedIndex)
 		{
@@ -198,17 +198,17 @@ public class UserRecordManager : MonoBehaviour
 		}
 	}
 
-	public static int GetIndexOfClearScene()
+	public static int GetSavedIndexOfClearScene()
 	{
-		int clearSceneIndex = 0;
+		int savedIndex = 0;
 		string key = "IndexNumberOfClearScene";
 
 		if (PlayerPrefs.HasKey(key) == true)
 		{
-			clearSceneIndex = PlayerPrefs.GetInt(key);
+			savedIndex = PlayerPrefs.GetInt(key);
 		}
 
-		return clearSceneIndex;
+		return savedIndex;
 	}
 	//===================================================================================================
 	//===================================================================================================
