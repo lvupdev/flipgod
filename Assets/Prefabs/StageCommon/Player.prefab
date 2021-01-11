@@ -1,35 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2182763336941264511
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2182763336941264510}
-  m_Layer: 8
-  m_Name: BottlePosition_2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2182763336941264510
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2182763336941264511}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.527, y: -0.406, z: -0.3778477}
-  m_LocalScale: {x: 1.875, y: 2, z: 0.5}
-  m_Children: []
-  m_Father: {fileID: 2182763337113127207}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2182763337112989153
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,7 +65,7 @@ Transform:
   m_Children:
   - {fileID: 2182763337196888764}
   - {fileID: 2182763337112989152}
-  - {fileID: 2182763336941264510}
+  - {fileID: 2136904209092156624}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -190,7 +160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42f84120cf19a4c4190e1dc499f37ff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  freezeAvailable: 1
   freezeParticlePrefab: {fileID: 1924247249100686214, guid: 338557d3595fea84e927a2c78e47443a,
     type: 3}
 --- !u!114 &2182763337113127201
@@ -313,3 +282,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &3559166177183857512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2136904209092156624}
+  m_Layer: 8
+  m_Name: BottlePosition_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2136904209092156624
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3559166177183857512}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.83, y: -2.69, z: -0.3778477}
+  m_LocalScale: {x: 1.875, y: 2, z: 0.5}
+  m_Children: []
+  m_Father: {fileID: 2182763337113127207}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

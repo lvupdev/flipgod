@@ -81,7 +81,7 @@ public class BottleController : MonoBehaviour
         isDestroying = false;
         standBottle = false;
     }
-    void FixedUpdate()
+    void Update()
     {
         if (padStrength.isTouch) padStrengthTouched = true;
         if (padDirection.getIsTouch()) padDirectionTouched = true; //오타 수정
@@ -96,13 +96,13 @@ public class BottleController : MonoBehaviour
         {
             Vector2 distance = gameObject.transform.position - playerImageController.getBottlePosition();
             zRotation = gameObject.transform.eulerAngles.z;
-            delta += Time.fixedDeltaTime;
+            delta += Time.deltaTime;
 
             if (distance.magnitude < 2) gameObject.SetActive(false); //던져진 물병이 물병 생성 위치와 너무 가까이 있으면 비활성화
             
             if (standingBySkill) //필살기 발동에 의해 물병이 세워짐
             {
-                standingDelay -= Time.fixedDeltaTime;
+                standingDelay -= Time.deltaTime;
                 rb.WakeUp();
                 rb.centerOfMass = new Vector3(0, -0.6f, 0);
                 
@@ -119,8 +119,8 @@ public class BottleController : MonoBehaviour
             {
                 if (delta < 0.6f && transform.eulerAngles.z < 340 && transform.eulerAngles.z > 20)
                 {
-                    if (zRotation > 340) transform.Rotate(new Vector3(0, 0, 180 * Time.deltaTime), Space.World); //물병의 z축 값을 360으로 수렴
-                    else transform.Rotate(new Vector3(0, 0, -180 * Time.deltaTime), Space.World); //물병의 z축 값을 0으로 수렴
+                    if (zRotation > 340) transform.Rotate(new Vector3(0, 0, 180 * Time.smoothDeltaTime), Space.World); //물병의 z축 값을 360으로 수렴
+                    else transform.Rotate(new Vector3(0, 0, -180 * Time.smoothDeltaTime), Space.World); //물병의 z축 값을 0으로 수렴
                 }
                 else if (delta < 0.9f)
                 {
@@ -129,7 +129,7 @@ public class BottleController : MonoBehaviour
                         transform.rotation = Quaternion.Euler(Vector3.zero);
                         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                     }
-                    rb.AddForce(new Vector2(0, -1000 * Time.deltaTime)); // 물병이 튀어오르지 않도록 아래로 힘 작용
+                    rb.AddForce(new Vector2(0, -1000 * Time.smoothDeltaTime)); // 물병이 튀어오르지 않도록 아래로 힘 작용
                 }
                 else
                 {
@@ -163,7 +163,7 @@ public class BottleController : MonoBehaviour
 
         if (onFloor) //NEW: 땅바닥에 닿았을 때 물병 파괴
         {
-            destroyDelay -= Time.fixedDeltaTime;
+            destroyDelay -= Time.deltaTime;
             if (destroyDelay < 0)
             {
                 usefullOperation.FadeOut(1, this.transform.GetChild(0).GetComponent<SpriteRenderer>());

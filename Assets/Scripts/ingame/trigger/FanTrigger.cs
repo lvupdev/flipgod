@@ -13,7 +13,7 @@ public class FanTrigger : TriggerFunction
         isFreezable = true; //해당 트리거가 얼릴 수 있는 트리거인지여 여부를 반드시 명시해줘야 한다.
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (actBool && isFreezable && structure.isFreezed)
         {

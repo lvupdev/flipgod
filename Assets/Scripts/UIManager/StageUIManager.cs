@@ -26,6 +26,10 @@ public class StageUIManager : MonoBehaviour
 	private static Dictionary<string, Transform> uis = new Dictionary<string, Transform>();
 
 	// Elements of UI
+	private Button pauseButton;
+	private Button resumeButton;
+	private Button retryButton;
+	private Button selectStageButton;
 	private Transform pausePanel;
 	private Transform missionPanel;
 
@@ -63,6 +67,10 @@ public class StageUIManager : MonoBehaviour
 		missionPanel = GameObject.Find("Panel_Mission").transform;
 
 		scorePanel = GameObject.Find("Panel_Score").transform;
+		pauseButton = GameObject.Find("Button_Pause").GetComponent<Button>();
+		resumeButton = GameObject.Find("Button_Resume").GetComponent<Button>();
+		retryButton = GameObject.Find("Button_Retry").GetComponent<Button>();
+		selectStageButton = GameObject.Find("Button_SelectStage").GetComponent<Button>();
 		completeMissionCountText = scorePanel.GetChild(0).GetChild(1).GetComponent<Text>();
 		timeText = scorePanel.GetChild(1).GetChild(1).GetComponent<Text>();
 		bottleCountText = scorePanel.GetChild(2).GetChild(1).GetComponent<Text>();
@@ -71,8 +79,12 @@ public class StageUIManager : MonoBehaviour
 		tensionValueImg.fillAmount = 0.0f;
 
 		InitStageData();
+		pauseButton.onClick.AddListener(ShowPausePanel);
+		resumeButton.onClick.AddListener(ResumeGame);
+		retryButton.onClick.AddListener(RetryStage);
+		selectStageButton.onClick.AddListener(GoToSelectScene);
 	}
-
+	
 	public void InitStageData()
 	{
 		if (StageGameManager.Instance.StageData != null)

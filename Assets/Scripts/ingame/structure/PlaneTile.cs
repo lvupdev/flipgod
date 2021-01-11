@@ -39,7 +39,6 @@ public class PlaneTile : Structure
         key = 1;
         direction = Vector3.ClampMagnitude(direction, 1);
         originPos = transform.position;
-        spinAxis = transform.GetChild(1).transform.position;
         turnSucees = false;
         isInvisible = false;
         numFullfilled = false;
@@ -49,6 +48,8 @@ public class PlaneTile : Structure
 		{
 			transform.GetChild(0).gameObject.SetActive(true);
 		}
+
+		if(isSpinning) spinAxis = transform.GetChild(1).transform.position;
 
 		planeTiles.Add(this);
 	}
@@ -107,11 +108,12 @@ public class PlaneTile : Structure
     public void MoveDynamicStructure()
     {
         if (isSpinning)
-            transform.RotateAround(spinAxis, new Vector3(0,0,1) , -360 * spinningSpeed * Time.deltaTime);
+            transform.RotateAround(spinAxis, new Vector3(0,0,1) , -360 * spinningSpeed * Time.smoothDeltaTime);
 
 		if (isMoving)
 		{
-			transform.Translate(key * direction * movingSpeed * Time.deltaTime);
+			transform.Translate(key * direction * movingSpeed * Time.smoothDeltaTime);
+		
 
 			if ((originPos - transform.position).magnitude > movingRange)
 			{

@@ -8,7 +8,9 @@ public class TriggerFunction : MonoBehaviour
     public List<GameObject> TargetObject = new List<GameObject>(); //트리거와 상호작용 중인 오브젝트 배열
     public GameObject bottles;
     public Structure structure; //트리거가 적용될 구조물
-    public TensionGaugeManager tensionGaugeManager;
+    public GameObject targetTrigger; //효과를 적용할 목표 트리거(트리거 활성화/비활성화 효과 때 사용)
+	public TensionGaugeManager tensionGaugeManager;
+    public UsefullOperation usefullOperation;
 
     public PadStrength padStrength;
 
@@ -34,6 +36,7 @@ public class TriggerFunction : MonoBehaviour
         bottles = GameObject.Find("Bottles");
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
         tensionGaugeManager = GameObject.Find("Image_TensionGaugeBar").GetComponent<TensionGaugeManager>();
+        usefullOperation = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
 
         conditionFullfilled = false;
         shouldBeFreezed = false;
@@ -166,24 +169,41 @@ public class TriggerFunction : MonoBehaviour
 
     /*
      * 트리거 비활성화
-     * name에 비활성화할 트리거의 오브적트 명을 전달한다.
      */
-    public void Unactivate(string name)
+    public void Unactivate()
     {
-        GameObject.Find(name).GetComponent<TriggerFunction>().isActTrigger = false;
+        targetTrigger.GetComponent<TriggerFunction>().isActTrigger = false;
     }
 
 
     /*
      * 트리거 활성화
-     * name에 활성화할 트리거의 이름을 전달한다.
      */
-    public void Activate(string name)
+    public void Activate()
     {
-        if(GameObject.Find(name).GetComponent<TriggerFunction>().actBool) //해당 트리거가 얼어있는 상태가 아니어야 한다.
-            GameObject.Find(name).GetComponent<TriggerFunction>().isActTrigger = true;
+        if(targetTrigger.GetComponent<TriggerFunction>().actBool) //해당 트리거가 얼어있는 상태가 아니어야 한다.
+            targetTrigger.GetComponent<TriggerFunction>().isActTrigger = true;
     }
 
+    /*
+     * 물병 제거
+     * 트리거 범위 안에 들어온 물병을 제거한다.
+     */
+    public void BottleDestroy()
+	{
+        var list = new List<GameObject>();
+        list.AddRange(TargetObject);
+
+        foreach (GameObject gameObject in list)
+		{
+            if (gameObject.GetComponent<BottleController>() == null) continue;
+			else
+			{
+                TargetObject.Remove(gameObject);
+                Destroy(gameObject);
+            }
+		}
+	}
 
 
     //트리거 발동 중단 함수
