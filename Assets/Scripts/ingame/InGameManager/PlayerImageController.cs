@@ -81,6 +81,16 @@ public class PlayerImageController : MonoBehaviour
     {
         if((!bottleSelectController.bottleController.isSuperPowerAvailabe) && (!padStrength.isThrowing) &&(!padStrength.isTouch))
         {
+            //빙결자 스프라이트 높이 문제로 캐릭터 이미지 변경 때마다 높이 재설정
+            if (firstSlotChr == 2) 
+			{
+                gameObject.transform.position += new Vector3(0, 0.2f, 0);
+			}
+            else if(playingChr == 2)
+			{
+                gameObject.transform.position -= new Vector3(0, 0.2f, 0);
+            }
+
             int temp;
             temp = playingChr;
             playingChr = firstSlotChr;
@@ -97,6 +107,16 @@ public class PlayerImageController : MonoBehaviour
     {
         if ((!bottleSelectController.bottleController.isSuperPowerAvailabe) && (!padStrength.isThrowing) && (!padStrength.isTouch))
         {
+            //빙결자 스프라이트 높이 문제로 캐릭터 이미지 변경 때마다 높이 재설정
+            if (secondSlotChr == 2)
+            {
+                gameObject.transform.position += new Vector3(0, 0.2f, 0);
+            }
+            else if (playingChr == 2)
+            {
+                gameObject.transform.position -= new Vector3(0, 0.2f, 0);
+            }
+
             int temp;
             temp = playingChr;
             playingChr = secondSlotChr;

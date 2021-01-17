@@ -46,6 +46,9 @@ public class BottleController : MonoBehaviour
     private TrajectoryLine trajectoryLine; //포물선 스크립트 분리
     private SpriteRenderer transparent;
 
+    private LeftBottom leftBottom;
+    private RightBottom rightBottom;
+
     void Start()
     {
         //오브젝트 받아오기
@@ -61,7 +64,9 @@ public class BottleController : MonoBehaviour
         tensionGaugeManager = GameObject.Find("Image_TensionGaugeBar").GetComponent<TensionGaugeManager>();
         controllButtonsUIManager = GameObject.Find("UIManager").GetComponent<ControllButtonsUIManager>();
         usefullOperation = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
-        screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>(); ;
+        screenEffectController = GameObject.Find("Main Camera").GetComponent<ScreenEffectController>();
+        leftBottom = transform.Find("BottleBottom").Find("LeftBottom").GetComponent<LeftBottom>();
+        rightBottom = transform.Find("BottleBottom").Find("RightBottom").GetComponent<RightBottom>();
 
 
         //값 초기화
@@ -117,16 +122,16 @@ public class BottleController : MonoBehaviour
 
             if (standBottle) //물병이 세워지는 경우
             {
-                if (delta < 0.6f && transform.eulerAngles.z < 340 && transform.eulerAngles.z > 20)
+                if (delta < 0.6f && transform.eulerAngles.z < 350 && transform.eulerAngles.z > 10 && leftBottom.isLeftBottomTouched && rightBottom.isRightBottomTouched)
                 {
-                    if (zRotation > 340) transform.Rotate(new Vector3(0, 0, 180 * Time.smoothDeltaTime), Space.World); //물병의 z축 값을 360으로 수렴
+                    if (zRotation > 350) transform.Rotate(new Vector3(0, 0, 180 * Time.smoothDeltaTime), Space.World); //물병의 z축 값을 360으로 수렴
                     else transform.Rotate(new Vector3(0, 0, -180 * Time.smoothDeltaTime), Space.World); //물병의 z축 값을 0으로 수렴
                 }
-                else if (delta < 0.9f)
+                else if (delta < 0.9f && leftBottom.isLeftBottomTouched && rightBottom.isRightBottomTouched)
                 {
                     if (transform.eulerAngles != Vector3.zero)
                     {
-                        transform.rotation = Quaternion.Euler(Vector3.zero);
+                        transform.rotation = Quaternion.Euler(Vector3.zero); //물병의 z축 값을 0으로 설정
                         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                     }
                     rb.AddForce(new Vector2(0, -1000 * Time.smoothDeltaTime)); // 물병이 튀어오르지 않도록 아래로 힘 작용
