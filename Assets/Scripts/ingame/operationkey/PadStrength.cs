@@ -68,7 +68,6 @@ public class PadStrength : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 isThrowing = false;
                 totalStrength = 0;
                 count++;
-                print(count);
 
             }
         }

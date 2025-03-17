@@ -146,7 +146,7 @@ public class TestButtonController : MonoBehaviour
         StageData stageData     = Resources.Load<StageData>( "StageDatas/StageData-" + stageNum );
         UserRecord userRecord   = GetUserRecord(stageNum);
         testNum.text            = "TEST#" + stageNum;
-        missionText.text        = FormatMissionContent( stageData.MissionIndexNumber, stageData.GoalNumber );
+        missionText.text        = FormatMissionContent( stageData.MissionType, stageData.GoalNumber );
 
         if ( null == userRecord) // Stage which is not cleared yet
         {

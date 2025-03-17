@@ -96,7 +96,7 @@ public class PlaneTile : Structure
 
 				foreach (BottleCollision bottle in list)
 				{
-					if (bottle.gameObject.GetComponent<BottleController>().isStanding) count++;
+					if (bottle.gameObject.GetComponent<BottleController>().IsStanding) count++;
 				}
 
 				if (count >= requiredNum) numFullfilled = true;

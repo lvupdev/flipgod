@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+using static StageData;
+
 /*====================[ Mission UI Function]===============
  * Mission UI Function은 mission에 관련한 값들을 UI에 표시할 때
  * 자주 사용하는 메서드들을 관리합니다.
@@ -16,22 +19,22 @@ public class MissionUIFunction : MonoBehaviour
     * (4) 특정 발판 위에 세우기      3
     */
     // Return mission content using index number
-    public static string FormatMissionContent(int missionIndexNumber, int targetNumber)
+    public static string FormatMissionContent(Mission missionType, int targetNumber)
     {
         string missionContent;
 
-        switch (missionIndexNumber)
+        switch (missionType)
         {
-            case 0:
+            case Mission.StandBottle:
                 missionContent = "물병 " + targetNumber + "개 세우기";
                 break;
-            case 1:
+            case Mission.FreezeTarget:
                 missionContent = "특정 물체" + targetNumber + "개 얼리기";
                 break;
-            case 2:
+            case Mission.ActivateTrigger:
                 missionContent = "특정 트리거 " + targetNumber + "개 발동시키기";
                 break;
-            case 3:
+            case Mission.StandBottleOnTheTarget:
                 missionContent = "특정 발판 위에 물병 " + targetNumber + "개 발동시키기";
                 break;
             default:

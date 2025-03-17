@@ -1,28 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 /*
 물병을 점프시키는 스크립트
 */
 public class BottleController : MonoBehaviour
 {
-	private static List<BottleController> bottleControllers = new List<BottleController>();
     public PadStrength padStrength;
     public PadDirection padDirection;
     public Rigidbody2D rb { get; set; }                  // rigidbody component of bottle
+    public static BottleController ControllingBottle { get; private set; }
+    public static List<BottleController> BottleControllerList { get { return bottleControllerList; } }
 
     /*==========<variable about state of bottle>================================*/
     public bool isSuperPowerAvailabe { get; set; }     // 물병에 기본 초능력을 사용할 수 있는가
+    public bool IsStanding { get; private set; }                // 물병이 현재 서 있는가
+
     public bool isAct;                      // 물병이 콜라이더에 충돌하기 전인가
-    public bool isStanding;                 // 물병이 현재 서 있는가
     // (New) public bool isStandingAtTheMoment
     public bool tensionGaugeUp;             // 콤보로 인한 텐션게이지 상승이 발생하여야 하는가
     public bool onFloor;                    // 물병이 바닥 위에 있는가
     public bool standingBySkill;            // 필살기에 의해 세워지는 중인가;
     public float Timeout;
-    public static int combo = 0;                // 물병이 몇번째 콤보를 달성하였는가
     public bool standBottle; //물병을 세울건지의 여부
+
+    private static List<BottleController> bottleControllerList = new List<BottleController>();
+    private static int combo = 0;                // 물병이 몇번째 콤보를 달성하였는가
 
     private float rotateSpeed; //회전속도
     private float zRotation; //NEW: 물병의 z회전축 값
@@ -49,7 +54,15 @@ public class BottleController : MonoBehaviour
     private LeftBottom leftBottom;
     private RightBottom rightBottom;
 
-    void Start()
+    private void Awake()
+    {
+        Assert.IsTrue(null == ControllingBottle, "이미 조작 중인 물병이 있는데 새로운 물병이 생성되면 안 됩니다.");
+        
+        ControllingBottle = this;
+        bottleControllerList.Add(this);
+    }
+
+    private void Start()
     {
         //오브젝트 받아오기
         rb = GetComponent<Rigidbody2D>();
@@ -68,12 +81,11 @@ public class BottleController : MonoBehaviour
         leftBottom = transform.Find("BottleBottom").Find("LeftBottom").GetComponent<LeftBottom>();
         rightBottom = transform.Find("BottleBottom").Find("RightBottom").GetComponent<RightBottom>();
 
-
         //값 초기화
         rb.gravityScale = 0;
         transform.position = playerImageController.getBottlePosition();
         isSuperPowerAvailabe = false; //물병에 초능력을 적용할 수 있는지의 여부
-        isStanding = false;
+        IsStanding = false;
         onFloor = false;
         standingBySkill = false;
         rotateSpeed = 0.8f; //회전속도
@@ -86,18 +98,18 @@ public class BottleController : MonoBehaviour
         isDestroying = false;
         standBottle = false;
     }
-    void Update()
+    private void Update()
     {
         if (padStrength.isTouch) padStrengthTouched = true;
         if (padDirection.getIsTouch()) padDirectionTouched = true; //오타 수정
-        if ((padStrength.isTouch || padDirectionTouched) && (!isSuperPowerAvailabe) && gameObject.CompareTag("isActBottle"))
+        if ((padStrength.isTouch || padDirectionTouched) && (!isSuperPowerAvailabe) && (this == ControllingBottle))
         // 방향 패드만 눌렸을 때 기본 힘으로 포물선 그리기, 후에 힘버튼으로 포물선 조정
         {
             trajectoryLine.Draw(padStrengthTouched, padDirection.getDirection(), padStrength.totalStrength);
             transform.position = playerImageController.getBottlePosition(); // 물병 위치 갱신
         }
 
-        if (gameObject.CompareTag("unActBottle"))
+        if ( this != ControllingBottle )
         {
             Vector2 distance = gameObject.transform.position - playerImageController.getBottlePosition();
             zRotation = gameObject.transform.eulerAngles.z;
@@ -146,7 +158,7 @@ public class BottleController : MonoBehaviour
             // 세워져 있는지의 여부 수정 및 텐션게이지 상승
             if (((delta > 1.49f) && !((zRotation > 340) || (zRotation < 20))) || onFloor)
             {
-                isStanding = false;
+                IsStanding = false;
                 tensionGaugeUp = false;
                 if (delta < 1.5f)
                 {
@@ -156,7 +168,7 @@ public class BottleController : MonoBehaviour
             }
             else if ((delta > 1f) && (Mathf.Abs(rb.angularVelocity) < 0.1f) && ((zRotation > 340) || (zRotation < 20)))
             {
-                isStanding = true;
+                IsStanding = true;
                 if (tensionGaugeUp)
                 {
                     combo++;
@@ -180,7 +192,7 @@ public class BottleController : MonoBehaviour
 
         if (gameObject.transform.position.y < -10 && !isDestroying) // 물병이 화면 밖으로 날아갔을 때
         {
-            if (gameObject.CompareTag("unActBottle")) Destroy(gameObject); // 어딘가 부딪히고 화면 밖으로 튕겨나갔을 때
+            if (this != ControllingBottle) Destroy(gameObject); // 어딘가 부딪히고 화면 밖으로 튕겨나갔을 때
             else
             {
                 if (Time.timeScale != 1) //염력 사용하다가 화면 밖으로 날아간 경우
@@ -190,7 +202,7 @@ public class BottleController : MonoBehaviour
                     screenEffectController.shadowEffect.enabled = false;
                     screenEffectController.screenEffectNum = 1;
                 }
-                gameObject.tag = "unActBottle";//태그가 사라짐
+                ControllingBottle = null;
                 bottleSelectController.bottleSelected = false;
                 bottleGenerator.GenerateBottleWithDelay(0.75f);//물병 생성
                 bottleSelectController.ReselectBottleWithDelay(0.75f); //물병 재선택
@@ -227,18 +239,23 @@ public class BottleController : MonoBehaviour
         tensionGaugeManager.IncreaseTensionGauge(1, 1); //텐션 게이지 10% 상승
     }
 
+    public static void ClearControllingBottle(GameObject thisBottle)
+    {
+        Assert.IsTrue(thisBottle == ControllingBottle.gameObject, "같은 물병 오브젝트 안에 있는 컴포넌트만 Controlling Bottle을 초기화할 수 있습니다.");
+
+        ControllingBottle = null;
+    }
+
 	public static int CountStandingBottle()
 	{
 		int count = 0;
-		foreach (var bottleController in bottleControllers)
+		foreach (var bottleController in bottleControllerList)
 		{
-			if (bottleController.gameObject.tag == "unActBottle")
-			{
-				if (bottleController.isStanding == true)
-				{
-					count += 1;
-				}
-			}
+            if ( bottleController == ControllingBottle )
+                continue;
+
+			if (bottleController.IsStanding == true)
+				count++;
 		}
 		return count;
 	}
@@ -247,9 +264,9 @@ public class BottleController : MonoBehaviour
 	{
 		bool isDestroyed = false;
 
-		if (bottleControllers.Contains(this))
+		if (bottleControllerList.Contains(this))
 		{
-			bottleControllers.Remove(this);
+			bottleControllerList.Remove(this);
 		}
 
 		Destroy(this.gameObject);

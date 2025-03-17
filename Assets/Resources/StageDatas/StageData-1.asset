@@ -17,7 +17,5 @@ MonoBehaviour:
   limitedTime: 20
   comment:
   - "\uBB54\uAC00 \uD3C9\uAC00 \uBC29\uC2DD\uC774 \uCC38\uC2E0\uD558\uB124\uC694!"
-  - 
-  - 
-  missionIndexNumber: 0
+  missionType: 0
   goalNumber: 2

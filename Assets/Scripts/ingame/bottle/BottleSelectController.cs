@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class BottleSelectController : MonoBehaviour
 {
@@ -17,10 +18,12 @@ public class BottleSelectController : MonoBehaviour
 
     private void Start()
     {
+        Assert.IsTrue(null != BottleController.ControllingBottle, "조작 대상 물병의 초기화가 먼저 진행되어야 합니다.");
+
         membraneCreator = GameObject.Find("Player").GetComponent<MembraneCreator>();
         freezer = GameObject.Find("Player").GetComponent<Freezer>();
         psychokinesis = GameObject.Find("Player").GetComponent<Psychokinesis>();
-        bottle = GameObject.FindWithTag("isActBottle");
+        bottle = BottleController.ControllingBottle.gameObject;
         bottleController = bottle.GetComponent<BottleController>();
         bottleSkillOperation = bottle.GetComponent<BottleSkillOperation>();
         bottleSelected = true;
@@ -41,7 +44,9 @@ public class BottleSelectController : MonoBehaviour
 
     public void ReselectBottle()
     {
-        bottle = GameObject.FindWithTag("isActBottle");
+        Assert.IsTrue(null != BottleController.ControllingBottle, "조작 대상 물병의 초기화가 먼저 진행되어야 합니다.");
+
+        bottle = BottleController.ControllingBottle.gameObject;
         bottleController = bottle.GetComponent<BottleController>();//힘을 적용할 물병을 태그에 따라 재설정
         bottleSkillOperation = bottle.GetComponent<BottleSkillOperation>();
         membraneCreator.membraneNum = membraneCreator.getSuperPowerLV();

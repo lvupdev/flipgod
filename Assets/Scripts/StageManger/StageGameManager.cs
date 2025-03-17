@@ -103,12 +103,12 @@ public class StageGameManager : MonoBehaviour
 		// If complete mission number is smaller than tartget number
 		if (CompleteMissionNumber < StageData.GoalNumber)
 		{
-			switch (StageData.MissionIndexNumber)
+			switch (StageData.MissionType)
 			{
-				case 0:
+				case StageData.Mission.StandBottle:
 					completeMissionNumber = BottleController.CountStandingBottle();
 					break;
-				case 3:
+				case StageData.Mission.StandBottleOnTheTarget:
 					completeMissionNumber = PlaneTile.CountStandingBottleOnPlaneTile();
 					break;
 			}
