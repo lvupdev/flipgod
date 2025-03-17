@@ -9,7 +9,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StageData-", menuName = "Scriptable Object/Stage Data")]
 public class StageData : ScriptableObject
 {
-    // index number of current stage
+    // index number of current stage. start from 1.
     [SerializeField]
     private int stageIndexNumber = 0;
     public int StageIndexNumber { get { return stageIndexNumber; } }

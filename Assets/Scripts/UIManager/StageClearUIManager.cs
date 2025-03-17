@@ -36,7 +36,7 @@ public class StageClearUIManager : MonoBehaviour
     public StageData stageData;
 
     // user record of passed stage
-    public UserRecordManager.UserRecord userRecord;
+    public UserRecord userRecord;
 
     private void Awake()
     {
@@ -67,8 +67,8 @@ public class StageClearUIManager : MonoBehaviour
     {
         testTitle.text = stageData.StageIndexNumber + "#" + " " + "RESULT";
         missionContent.text = MissionUIFunction.FormatMissionContent(stageData.MissionIndexNumber, stageData.GoalNumber);
-        timeRecord.text = MissionUIFunction.FormatTimeText(userRecord.usedTime) + "/" + MissionUIFunction.FormatTimeText(stageData.LimitedTime);
-        bottleCountRecord.text = MissionUIFunction.FormatBottleText(userRecord.usedBottleNumber,stageData.LimitedBottleNumber);
+        timeRecord.text = MissionUIFunction.FormatTimeText(userRecord.UsedTime) + "/" + MissionUIFunction.FormatTimeText(stageData.LimitedTime);
+        bottleCountRecord.text = MissionUIFunction.FormatBottleText(userRecord.UsedBottleNumber,stageData.LimitedBottleNumber);
         comment.text = stageData.Comment[0];
     }
 

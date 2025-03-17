@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 /*===========[ User Record Manager ]==========================
  * User Record Manager는 user의 스테이지 완료 기록을 관리합니다.
@@ -9,47 +10,46 @@ using UnityEngine;
  * 어떤 data도 저장하지 않습니다.
  ============================================================*/
 
+// This class is used to save record of passed stage
+public class UserRecord
+{
+    public int StageNumber { get; private set; }
+    public int UsedBottleNumber { get; private set; }
+    public float UsedTime { get; private set; }
+
+    public UserRecord(int stageNumber, int usedBottleNumber, float usedTime)
+    {
+        StageNumber         = stageNumber;
+        UsedBottleNumber    = usedBottleNumber;
+        UsedTime            = usedTime;
+    }
+
+    public void UpdateRecord(int usedBottleNumber, float usedTime)
+    {
+        Assert.IsTrue( UsedBottleNumber <= usedBottleNumber,    "사용한 물병 개수가 감소할 수는 없습니다." );
+        Assert.IsTrue( UsedTime <= usedTime,                    "사용한 시간이 감소할 수는 없습니다." );
+
+        UsedBottleNumber    = usedBottleNumber;
+        UsedTime            = usedTime;
+    }
+}
+
 public class UserRecordManager : MonoBehaviour
 {
-    // This struct is used to save record of passed stage
-    public struct UserRecord
-    {
-        public int stageNumber;
-        public int usedBottleNumber;
-        public float usedTime;
-
-        public UserRecord(int stageNumber, int usedBottleNumber, float usedTime)
-        {
-            this.stageNumber = stageNumber;
-            this.usedBottleNumber = usedBottleNumber;
-            this.usedTime = usedTime;
-        }
-    }
-
-    // Save data of current passed stage
-    // and Return it
-    public static UserRecord SaveCurrentRecord(int stageNumber, int usedBottleNumber, float usedTime)
-    {
-        UserRecord currentUserRecord;
-        currentUserRecord.stageNumber = stageNumber;
-        currentUserRecord.usedBottleNumber = usedBottleNumber;
-        currentUserRecord.usedTime = usedTime;
-
-        return currentUserRecord;
-    }
-
     // Save data with stage number as key
     //============================[PlayerPrefs]===================================
     // key(string)   : "[int : stage number]"
     // value(string) : "[int : used bottle number]/[float : used time]"
     public static void SaveUserRecord(UserRecord userRecord)
     {
+        Assert.IsTrue( userRecord != null, "저장할 UserRecord는 null이면 안 됩니다." );
+
         string stageNumberKey;
         string userRecordValue;
 
         // In PlayerPrefs, the key and value is saved as string
-        stageNumberKey = userRecord.stageNumber.ToString();
-        userRecordValue = userRecord.usedBottleNumber + "/" + userRecord.usedTime;
+        stageNumberKey = userRecord.StageNumber.ToString();
+        userRecordValue = userRecord.UsedBottleNumber + "/" + userRecord.UsedTime;
 
         // If the data is already saved in stage number
         if (PlayerPrefs.HasKey(stageNumberKey) == true)
@@ -82,7 +82,7 @@ public class UserRecordManager : MonoBehaviour
     {
         // In PlayerPrefs, the key and value is saved as string
         string stageNumberStr = stageNum.ToString();
-        UserRecord userRecord;
+        UserRecord userRecord = null;
         
         // If there is the saved data in stage number
         if (PlayerPrefs.HasKey(stageNumberStr) == true)
@@ -96,15 +96,7 @@ public class UserRecordManager : MonoBehaviour
             float usedTime = float.Parse(parsed[1]);
 
             // Set user record with value
-            userRecord.stageNumber = stageNum;
-            userRecord.usedBottleNumber = usedBottleNum;
-            userRecord.usedTime = usedTime;
-        }
-        // If there is no data in stage number
-        else
-        {
-            // then Initialize user record to zero
-            userRecord = new UserRecord(0, 0, 0f);
+            userRecord = new UserRecord(stageNum, usedBottleNum, usedTime);
         }
 
         // Return user record
@@ -118,7 +110,7 @@ public class UserRecordManager : MonoBehaviour
         // Evaluate current user record
         float currentScore = EvaluateUserRecord(currentUserRecord);
         // Get current best user record
-        UserRecord currentBestUserRecord = GetUserRecord(currentUserRecord.stageNumber);
+        UserRecord currentBestUserRecord = GetUserRecord(currentUserRecord.StageNumber);
         // Evaluate current best user record
         float currentBestScore = EvaluateUserRecord(currentBestUserRecord);
 

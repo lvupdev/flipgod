@@ -1,7 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.iOS;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
+using static UserRecordManager;
+using static MissionUIFunction;
 /*
 * 스테이지 선택 버튼을 관리하는 스크립트입니다
 */
@@ -9,13 +14,17 @@ public class TestButtonController : MonoBehaviour
 {
     public Sprite defaultImage; //선택 전 이미지
     public Sprite stretchedImage; //선택 후 이미지
-    public int stageNum { get; set; } //연결되는 스테이지 번호
+
+    private const float defaultHeight = 140; // 선택 전 버튼의 기본 높이
+    private const float defaultWidth = 830; // 선택 전 버튼의 기본 넓이
+    private const float stretchedPadding = 60; // 버튼이 늘어났을 때 ScrollView와 갖는 padding크기
 
     private RectTransform rect_ScrollView;
     private RectTransform rect_Button;
-    private Button button;
+    private Button testButton;
     private Slider slider;
     private Image image;
+    private int stageNum; //연결되는 스테이지 번호
     private float speed; //버튼 사이즈 변경 속도
     private float colorSpeed; //버튼 색깔 변경 속도
     private bool isSelected; //이 버튼이 선택되었는지의 여부
@@ -32,15 +41,15 @@ public class TestButtonController : MonoBehaviour
     private Text bottleNumText;
     private Image playImage;
     private Image commentImage;
+    private Button playButton;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        Debug.Log(Time.timeScale);
         rect_ScrollView = GameObject.Find("Scroll View").GetComponent<RectTransform>();
         rect_Button = GetComponent<RectTransform>();
         slider = transform.parent.GetComponent<Slider>();
-        button = GetComponent<Button>();
+        testButton = GetComponent<Button>();
         image = GetComponent<Image>();
         testNum = transform.Find("Text_TestNum").GetComponent<Text>();
         missionImage = transform.Find("Image_Mission").GetComponent<Image>();
@@ -51,8 +60,11 @@ public class TestButtonController : MonoBehaviour
         bottleNumText = transform.Find("Text_BottleNum").GetComponent<Text>();
         playImage = transform.Find("Button_Play").GetComponent<Image>();
         commentImage = transform.Find("Button_Comment").GetComponent<Image>();
+        playButton = transform.Find("Button_Play").GetComponent<Button>();
         
-        button.onClick.AddListener(Pushed);
+        testButton.onClick.AddListener(ResizeTestButton);
+        playButton.onClick.AddListener(MoveToStage);
+
         speed = 10;
         colorSpeed = 4;
         isSelected = false;
@@ -68,17 +80,15 @@ public class TestButtonController : MonoBehaviour
             } 
         }
 
-        //버튼 자식 오브젝트 초기화
-        testNum.text = "TEST#" + stageNum;
-
+        SetTestInfo();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (isShrinking)
         {
-            rect_Button.sizeDelta = Vector2.Lerp(rect_Button.sizeDelta, new Vector2(830, 140), Time.deltaTime * speed);
+            rect_Button.sizeDelta = Vector2.Lerp(rect_Button.sizeDelta, new Vector2(defaultWidth, defaultHeight), Time.deltaTime * speed);
 
 
             //버튼 자식 오브제트 투명도 조절
@@ -96,7 +106,7 @@ public class TestButtonController : MonoBehaviour
 
             if (rect_Button.sizeDelta.y < 141)
             {
-                rect_Button.sizeDelta = new Vector2(830, 140);
+                rect_Button.sizeDelta = new Vector2(defaultWidth, defaultHeight);
                 isShrinking = false;
                 for (int i = 1; i < transform.childCount; i++)
                 {
@@ -107,7 +117,7 @@ public class TestButtonController : MonoBehaviour
 
         if (isStretching)
         {
-            rect_Button.sizeDelta = Vector2.Lerp(rect_Button.sizeDelta, new Vector2(830, rect_ScrollView.rect.height), Time.deltaTime * speed);
+            rect_Button.sizeDelta = Vector2.Lerp(rect_Button.sizeDelta, new Vector2(defaultWidth, rect_ScrollView.rect.height - stretchedPadding), Time.deltaTime * speed);
 
             //버튼 자식 오브제트 투명도 조절
             if(missionImage.color.a < 1)
@@ -122,15 +132,35 @@ public class TestButtonController : MonoBehaviour
                 commentImage.color += new Color(0, 0, 0, Time.deltaTime * colorSpeed);
             }
 
-            if (rect_Button.sizeDelta.y > rect_ScrollView.rect.height - 1)
+            if (rect_Button.sizeDelta.y > rect_ScrollView.rect.height - stretchedPadding - 1)
             {
-                rect_Button.sizeDelta = new Vector2(830, rect_ScrollView.rect.height);
+                rect_Button.sizeDelta = new Vector2(defaultWidth, rect_ScrollView.rect.height - stretchedPadding);
                 isStretching = false;
             }
         }
     }
 
-    public void Pushed()
+
+    private void SetTestInfo()
+    {
+        StageData stageData     = Resources.Load<StageData>( "StageDatas/StageData-" + stageNum );
+        UserRecord userRecord   = GetUserRecord(stageNum);
+        testNum.text            = "TEST#" + stageNum;
+        missionText.text        = FormatMissionContent( stageData.MissionIndexNumber, stageData.GoalNumber );
+
+        if ( null == userRecord) // Stage which is not cleared yet
+        {
+            timeText.text       = "- / " + FormatTimeText( stageData.LimitedTime );
+            bottleNumText.text  = "- / " + stageData.LimitedBottleNumber;
+        }
+        else
+        {
+            timeText.text       = FormatTimeText( userRecord.UsedTime ) + " / " + FormatTimeText( stageData.LimitedTime );
+            bottleNumText.text  = FormatBottleText( userRecord.UsedBottleNumber, stageData.LimitedBottleNumber );
+        }
+    }
+
+    private void ResizeTestButton()
     {
         if (!isStretching && !isShrinking) //사이즈 변경 중의 중복 클릭 방지
         {
@@ -153,5 +183,10 @@ public class TestButtonController : MonoBehaviour
             }
             slider.SetPadding(isSelected, stageNum);
         }
+    }
+
+    private void MoveToStage()
+    {
+        SceneManager.LoadScene("Stage-" + stageNum);
     }
 }

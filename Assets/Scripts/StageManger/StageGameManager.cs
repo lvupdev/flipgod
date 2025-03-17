@@ -139,8 +139,7 @@ public class StageGameManager : MonoBehaviour
 		// Save current stage data at Instance of Stage Clear UI Manager
 		StageClearUIManager.Instance.stageData = StageData;
 		// Save current user record at Instance of Stage Clear UI Manager       
-		StageClearUIManager.Instance.userRecord
-			= UserRecordManager.SaveCurrentRecord(StageData.StageIndexNumber, UsedBottleNumber, UsedTime);
+		StageClearUIManager.Instance.userRecord.UpdateRecord(UsedBottleNumber, UsedTime);
 	}
 
 	// Go to stage clear scene
