@@ -187,6 +187,7 @@ public class TestButtonController : MonoBehaviour
 
     private void MoveToStage()
     {
+		ResourceManager.Instance.RecentlyTriedStage = stageNum;
         SceneManager.LoadScene("Stage-" + stageNum);
     }
 }

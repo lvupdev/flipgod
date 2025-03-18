@@ -1678,12 +1678,22 @@ PrefabInstance:
       propertyPath: backgroud
       value: 
       objectReference: {fileID: 79589929}
+    - target: {fileID: 3955677586372760367, guid: 942da4462714fc74a8c8e0c8e826f572,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3955677586619095218, guid: 942da4462714fc74a8c8e0c8e826f572,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3955677586668522082, guid: 942da4462714fc74a8c8e0c8e826f572,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3955677586819515594, guid: 942da4462714fc74a8c8e0c8e826f572,
         type: 3}
       propertyPath: m_IsActive
       value: 0

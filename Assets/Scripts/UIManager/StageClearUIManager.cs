@@ -14,6 +14,8 @@ public class StageClearUIManager : MonoBehaviour
     // Static instance of StageGameManager
     private static StageClearUIManager instance;
     public static StageClearUIManager Instance { get { return instance; } }
+
+    private static Dictionary<string, Transform> uis = new Dictionary<string, Transform>();
     //===================================================================
 
     // a Transform of canvas of Stage Clear scene
@@ -23,11 +25,15 @@ public class StageClearUIManager : MonoBehaviour
     private Text testTitle;
 
     //=======Texts of record panel========================================
-    private Transform recordPanel;
     private Text missionContent;
     private Text timeRecord;
     private Text bottleCountRecord;
     //====================================================================
+
+    private Button resumeButton;
+    private Button retryButton;
+    private Button selectStageButton;
+    private List<Button> commentButtonList;
 
     // a Text that shows commets of characters
     private Text comment;
@@ -40,36 +46,79 @@ public class StageClearUIManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (null == instance)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        testTitle = canvasTransform.GetChild(0).GetComponent<Text>();
+        int stageNum    = ResourceManager.Instance.RecentlyTriedStage;
+        stageData       = Resources.Load<StageData>("StageDatas/StageData-" + stageNum);
+        userRecord      = UserRecordManager.GetUserRecord(stageNum);
 
-        recordPanel = canvasTransform.GetChild(1);
-        missionContent = recordPanel.GetChild(0).GetChild(1).GetComponent<Text>();
-        timeRecord = recordPanel.GetChild(1).GetChild(1).GetComponent<Text>();
-        bottleCountRecord = recordPanel.GetChild(2).GetChild(1).GetComponent<Text>();
+        commentButtonList = new List<Button>();
 
-        comment = canvasTransform.GetChild(4).GetChild(2).GetComponent<Text>();
+        // Initialize ui
+		uis.Clear();
+		RecursiveRegisterChild(canvasTransform, uis);
+
+        testTitle           = Find("Text_TestResult").GetComponent<Text>();
+        missionContent      = Find("Text_Mission").GetComponent<Text>();
+        timeRecord          = Find("Text_TimeRecord").GetComponent<Text>();
+        bottleCountRecord   = Find("Text_BottleRecord").GetComponent<Text>();
+        comment             = Find("Text_CommentContent").GetComponent<Text>();
+
+        resumeButton        = Find("Button_Resume").GetComponent<Button>();
+        retryButton         = Find("Button_Retry").GetComponent<Button>();
+        selectStageButton   = Find("Button_SelectStage").GetComponent<Button>();
+
+        resumeButton.onClick.AddListener(MoveToNextStage);
+        retryButton.onClick.AddListener(RetryStage);
+        selectStageButton.onClick.AddListener(GoToSelectScene);
+
+        int i = 0;
+        foreach (Button button in Find("Panel_CommentButtons").GetComponentsInChildren<Button>())
+        {
+            int idx = i++;
+            commentButtonList.Add(button);
+            button.onClick.AddListener(()=>OnClickCommentButton(idx));
+        }
+
+        SetRecordTexts();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	// Find object using transform
+	public static Transform Find(string uiName)
+	{
+		return uis[uiName];
+	}
+
+	private static void RecursiveRegisterChild(Transform parent, Dictionary<string, Transform> dict)
+	{
+		if (!dict.ContainsKey(parent.name)) dict.Add(parent.name, parent);
+		foreach (Transform child in parent) RecursiveRegisterChild(child, dict);
+	}
 
     // Set texts of Record
     public void SetRecordTexts()
     {
-        testTitle.text = stageData.StageIndexNumber + "#" + " " + "RESULT";
-        missionContent.text = MissionUIFunction.FormatMissionContent(stageData.MissionType, stageData.GoalNumber);
-        timeRecord.text = MissionUIFunction.FormatTimeText(userRecord.UsedTime) + "/" + MissionUIFunction.FormatTimeText(stageData.LimitedTime);
-        bottleCountRecord.text = MissionUIFunction.FormatBottleText(userRecord.UsedBottleNumber,stageData.LimitedBottleNumber);
-        comment.text = stageData.Comment[0];
+        testTitle.text          = stageData.StageIndexNumber + "#" + " " + "RESULT";
+        missionContent.text     = MissionUIFunction.FormatMissionContent(stageData.MissionType, stageData.GoalNumber);
+        timeRecord.text         = MissionUIFunction.FormatTimeText(userRecord.UsedTime) + "/" + MissionUIFunction.FormatTimeText(stageData.LimitedTime);
+        bottleCountRecord.text  = MissionUIFunction.FormatBottleText(userRecord.UsedBottleNumber,stageData.LimitedBottleNumber);
+        comment.text            = stageData.Comment[0];
+    }
+
+    private void SetCommentButtons()
+    {
+        
     }
 
     //================[Call-back Method]=====================================
@@ -80,9 +129,20 @@ public class StageClearUIManager : MonoBehaviour
         comment.text = stageData.Comment[index];
     }
 
-    public void GoSelectStageScene()
-    {
+	public void MoveToNextStage()
+	{
+        int nextStageNum = stageData.StageIndexNumber + 1;
+        SceneManager.LoadScene("Stage" + "-" + nextStageNum);
+	}
 
-    }
+	public void RetryStage()
+	{
+		SceneManager.LoadScene("Stage" + "-" + stageData.StageIndexNumber);
+	}
+
+	public void GoToSelectScene()
+	{
+		SceneManager.LoadScene("SelectStage");
+	}
     //=======================================================================
 }

@@ -23,15 +23,6 @@ public class UserRecord
         UsedBottleNumber    = usedBottleNumber;
         UsedTime            = usedTime;
     }
-
-    public void UpdateRecord(int usedBottleNumber, float usedTime)
-    {
-        Assert.IsTrue( UsedBottleNumber <= usedBottleNumber,    "사용한 물병 개수가 감소할 수는 없습니다." );
-        Assert.IsTrue( UsedTime <= usedTime,                    "사용한 시간이 감소할 수는 없습니다." );
-
-        UsedBottleNumber    = usedBottleNumber;
-        UsedTime            = usedTime;
-    }
 }
 
 public class UserRecordManager : MonoBehaviour
@@ -105,28 +96,18 @@ public class UserRecordManager : MonoBehaviour
     
     // Judge whether current user record is the new record
     // and Set new Record
-    public static void JudgeNewRecord(UserRecord currentUserRecord)
+    public static void JudgeNewRecord(int stageNum, int usedBottleNumber, float usedTime)
     {
-        // Evaluate current user record
-        float currentScore = EvaluateUserRecord(currentUserRecord);
-        // Get current best user record
-        UserRecord currentBestUserRecord = GetUserRecord(currentUserRecord.StageNumber);
-        // Evaluate current best user record
-        float currentBestScore = EvaluateUserRecord(currentBestUserRecord);
+        UserRecord currentBestUserRecord = GetUserRecord(stageNum);
+        int newUsedBottleNum = usedBottleNumber;
+        float newUsedTime = usedTime;
 
-        // If score of current user record is larger than score of current best record
-        if (currentScore > currentBestScore)
+        if ( null != currentBestUserRecord )
         {
-            // then Set new record to current user record 
-            SaveUserRecord(currentUserRecord);
+            newUsedBottleNum = newUsedBottleNum < currentBestUserRecord.UsedBottleNumber ? newUsedBottleNum : currentBestUserRecord.UsedBottleNumber;
+            newUsedTime = newUsedTime < currentBestUserRecord.UsedTime ? newUsedTime : currentBestUserRecord.UsedTime;
         }
-    }
 
-    // Evaluate user record
-    private static float EvaluateUserRecord(UserRecord userRecord)
-    {
-        float score = 0.0f;
-
-        return score;
+        SaveUserRecord(new UserRecord(stageNum, newUsedBottleNum, newUsedTime));
     }
 }

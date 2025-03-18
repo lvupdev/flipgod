@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 /*
  * 자주 사용되는 메서드들을 담은 스크립트
  */
@@ -13,7 +14,7 @@ public class UsefullOperation : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-
+        SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 
     // Update is called once per frame
@@ -89,6 +90,16 @@ public class UsefullOperation : MonoBehaviour
 		ObjectInformation objectInformation = new ObjectInformation(transform, shakeTime, shakeAmount);
 		targetObject.Add(objectInformation);
 	}
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        targetObject.Clear();
+    }
 }
 
 class ObjectInformation {

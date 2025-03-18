@@ -246,6 +246,11 @@ public class BottleController : MonoBehaviour
         ControllingBottle = null;
     }
 
+    public static void ClearBottleControllerList()
+    {
+        bottleControllerList.Clear();
+    }
+
 	public static int CountStandingBottle()
 	{
 		int count = 0;
@@ -269,7 +274,7 @@ public class BottleController : MonoBehaviour
 			bottleControllerList.Remove(this);
 		}
 
-		Destroy(this.gameObject);
+		Destroy(gameObject);
 
 		return isDestroyed;
 	}

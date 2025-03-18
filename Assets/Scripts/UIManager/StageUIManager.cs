@@ -25,13 +25,15 @@ public class StageUIManager : MonoBehaviour
 	// Transform of canvas element
 	private static Dictionary<string, Transform> uis = new Dictionary<string, Transform>();
 
-	// Elements of UI
 	private Button pauseButton;
+
+	// Elements of pause panel
+	private Transform pausePanel;
 	private Button resumeButton;
 	private Button retryButton;
 	private Button selectStageButton;
-	private Transform pausePanel;
-	private Transform missionPanel;
+	private Text missionText;
+
 
 	// Elements of score panel
 	private Transform scorePanel;
@@ -57,6 +59,7 @@ public class StageUIManager : MonoBehaviour
 	void Start()
 	{
 		// Initialize ui
+		uis.Clear();
 		RecursiveRegisterChild(canvas.transform, uis);
 
 		pauseButton = Find("Button_Pause").GetComponent<Button>();
@@ -64,13 +67,11 @@ public class StageUIManager : MonoBehaviour
 		retryButton = Find("Button_Retry").GetComponent<Button>();
 		selectStageButton = Find("Button_SelectStage").GetComponent<Button>();
 		pausePanel = Find("Panel_Pause");
+		missionText = pausePanel.GetChild(0).GetChild(0).GetComponent<Text>();
 		scorePanel = Find("Panel_Score");
 		completeMissionCountText = scorePanel.GetChild(0).GetChild(1).GetComponent<Text>();
 		timeText = scorePanel.GetChild(1).GetChild(1).GetComponent<Text>();
 		bottleCountText = scorePanel.GetChild(2).GetChild(1).GetComponent<Text>();
-
-
-		missionPanel = Find("Panel_Mission");
 
 		tensionValueImg = Find("Image_TensionGaugeBar").GetComponent<Image>();
 		tensionValueImg.fillAmount = 0.0f;
@@ -99,9 +100,12 @@ public class StageUIManager : MonoBehaviour
 	{
 		if (StageGameManager.Instance.StageData != null)
 		{
-			totalMissionNumber = StageGameManager.Instance.StageData.GoalNumber;
-			totalBottle = StageGameManager.Instance.StageData.LimitedBottleNumber;
-			totalTime = StageGameManager.Instance.StageData.LimitedTime;
+			StageData stageData = StageGameManager.Instance.StageData;
+			totalMissionNumber = stageData.GoalNumber;
+			totalBottle = stageData.LimitedBottleNumber;
+			totalTime = stageData.LimitedTime;
+			missionText.text = "TEST#" + stageData.StageIndexNumber + " - " +
+				MissionUIFunction.FormatMissionContent(stageData.MissionType, totalMissionNumber);
 		}
 		else
 		{
@@ -146,7 +150,7 @@ public class StageUIManager : MonoBehaviour
 		second = Mathf.FloorToInt(total);
 		minute = second / 60;
 		second = second % 60;
-		temp += (minute + ":" + second);
+		temp += minute + ":" + second;
 
 		timeText.text = temp;
 	}
@@ -186,16 +190,6 @@ public class StageUIManager : MonoBehaviour
 		}
 	}
 
-	// Close mission panel with window and
-	// Start game
-	public void CloseMissionWindow()
-	{
-		// Unactivate mission panel
-		missionPanel.gameObject.SetActive(false);
-		// Set time scale to 1, then start game
-		Time.timeScale = 1.0f;
-	}
-
 	// Activate pause panel with window
 	public void ShowPausePanel()
 	{
@@ -217,15 +211,11 @@ public class StageUIManager : MonoBehaviour
 	// Retry stage
 	public void RetryStage()
 	{
-		// (오류) 재시작 이후 일시정지 버튼 누르면 할당이 안 되어 있음.
-		// 현재 방식으로는 rect transform을 찾을 수 없는 문제가 있음
-		// 아래와 같은 메서드로는 스크립트가 다시 실행되지 않음. (score panel 초기화 안 됨)
-		// (To Do) 또한 stage를 특정하면 확장성이 없으므로 수정해야 함.
 		int index = StageGameManager.Instance.GetCurrentStageNumber();
 		SceneManager.LoadScene("Stage" + "-" + index);
-		StageGameManager.Instance.InitializeStage();
-		// (To Do) 게임 재시작을 씬을 다시 로드하는 방식 말고 변수들을 초기화하는 방식으로 할 것.
-		// StageGameManager.InitializeStage();
+
+		if (Time.timeScale == 0.0f)
+			Time.timeScale = 1.0f;
 	}
 
 	// Go to select stage

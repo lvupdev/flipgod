@@ -51,6 +51,8 @@ public class StageGameManager : MonoBehaviour
 	public void InitializeStage()
 	{
 		InitializeCurrentStageData(GetCurrentStageNumber());
+		
+		BottleController.ClearBottleControllerList();
 
 		usedBottleNumber = 0;
 		usedTime = 0;
@@ -125,21 +127,10 @@ public class StageGameManager : MonoBehaviour
 		if (CompleteMissionNumber == StageData.GoalNumber)
 		{
 			Time.timeScale = 0.0f;
-			// then Save current stage data and user record to show result in stage clear scene
-			// and Go to stage clear scene
-			// SaveStageDataAndUserRecord();
+
+			UserRecordManager.JudgeNewRecord(stageData.StageIndexNumber, UsedBottleNumber, UsedTime);
 			GoToStageClearScene();
 		}
-
-	}
-
-	// Save current stage data and user record
-	public void SaveStageDataAndUserRecord()
-	{
-		// Save current stage data at Instance of Stage Clear UI Manager
-		StageClearUIManager.Instance.stageData = StageData;
-		// Save current user record at Instance of Stage Clear UI Manager       
-		StageClearUIManager.Instance.userRecord.UpdateRecord(UsedBottleNumber, UsedTime);
 	}
 
 	// Go to stage clear scene
