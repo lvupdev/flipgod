@@ -104,7 +104,7 @@ public class Slider : MonoBehaviour
         {
             int targetPadding = GetCenterPadding();
             AnimateToPadding(targetPadding);
-            if (layoutGroup.padding.top >= targetPadding - 5)
+            if (layoutGroup.padding.top >= targetPadding)
             {
                 isStretching = false;
                 layoutGroup.padding.top = targetPadding;
@@ -115,9 +115,30 @@ public class Slider : MonoBehaviour
 
     private void AnimateToPadding(int target)
     {
-        layoutGroup.padding.top = (int)Mathf.Lerp(layoutGroup.padding.top, target, Time.deltaTime * paddingSpeed);
-        layoutGroup.padding.bottom = (int)Mathf.Lerp(layoutGroup.padding.bottom, target, Time.deltaTime * paddingSpeed);
+        float currentTop = layoutGroup.padding.top;
+        float currentBottom = layoutGroup.padding.bottom;
+
+        // 90% 이상 크기일 때 Lerp 사용
+        if (Mathf.Abs(currentTop - target) > target * 0.1f)
+        {
+            layoutGroup.padding.top = Mathf.RoundToInt(Mathf.Lerp(currentTop, target, Time.deltaTime * paddingSpeed));
+            layoutGroup.padding.bottom = Mathf.RoundToInt(Mathf.Lerp(currentBottom, target, Time.deltaTime * paddingSpeed));
+        }
+        else // 90% 이하로 줄어들면 MoveTowards 사용
+        {
+            layoutGroup.padding.top = Mathf.RoundToInt(Mathf.MoveTowards(currentTop, target, Time.deltaTime * paddingSpeed * 10));
+            layoutGroup.padding.bottom = Mathf.RoundToInt(Mathf.MoveTowards(currentBottom, target, Time.deltaTime * paddingSpeed * 10));
+        }
+
+        // 목표값에 거의 도달하면 강제로 설정
+        if (Mathf.Abs(layoutGroup.padding.top - target) < 1)
+        {
+            layoutGroup.padding.top = target;
+            layoutGroup.padding.bottom = target;
+            isStretching = false;
+        }
     }
+
 
     private bool IsWithinRange(float value, float target, float range)
     {
@@ -149,12 +170,14 @@ public class Slider : MonoBehaviour
             clickedButtonIndex = stageNum - 1;
             scrollPos = buttonPos[clickedButtonIndex];
             isShrinking = true;
+            isStretching = false;
             scrollbar.interactable = false;
             scrollRect_ScrollView.vertical = false;
         }
         else
         {
             isStretching = true;
+            isShrinking = false;
             scrollbar.interactable = true;
             scrollRect_ScrollView.vertical = true;
         }
