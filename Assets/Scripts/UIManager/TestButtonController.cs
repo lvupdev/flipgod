@@ -114,8 +114,7 @@ public class TestButtonController : MonoBehaviour
                 }
             }
         }
-
-        if (isStretching)
+        else if (isStretching)
         {
             rect_Button.sizeDelta = Vector2.Lerp(rect_Button.sizeDelta, new Vector2(defaultWidth, rect_ScrollView.rect.height - stretchedPadding), Time.deltaTime * speed);
 

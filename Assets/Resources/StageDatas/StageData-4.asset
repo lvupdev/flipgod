@@ -19,5 +19,5 @@ MonoBehaviour:
   - 
   - 
   - 
-  missionIndexNumber: 0
+  missionType: 0
   goalNumber: 6
