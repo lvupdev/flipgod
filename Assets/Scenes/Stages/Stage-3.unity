@@ -190,6 +190,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6ac69a5fd01d71449e2338a02ba86ac, type: 3}
+--- !u!114 &235714564 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 536427658343804334, guid: ebea825c52605644eadc8e02c5240939,
+    type: 3}
+  m_PrefabInstance: {fileID: 1205665449}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25ddbaae2cafe9e4782999dbc7efc061, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!224 &402064248 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3955677586619095218, guid: 942da4462714fc74a8c8e0c8e826f572,
+    type: 3}
+  m_PrefabInstance: {fileID: 2123372997}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &414597429
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1238,7 +1256,7 @@ PrefabInstance:
         type: 3}
       propertyPath: canvas
       value: 
-      objectReference: {fileID: 2123372998}
+      objectReference: {fileID: 402064248}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebea825c52605644eadc8e02c5240939, type: 3}
 --- !u!1001 &1371525133
@@ -1705,6 +1723,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3955677586819515594, guid: 942da4462714fc74a8c8e0c8e826f572,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3955677586936043351, guid: 942da4462714fc74a8c8e0c8e826f572,
         type: 3}
       propertyPath: m_FillAmount
@@ -1819,25 +1842,24 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 235714564}
+    - target: {fileID: 3955677587841224857, guid: 942da4462714fc74a8c8e0c8e826f572,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RetryStage
       objectReference: {fileID: 0}
     - target: {fileID: 3955677588347989991, guid: 942da4462714fc74a8c8e0c8e826f572,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 235714564}
     - target: {fileID: 3955677588347989991, guid: 942da4462714fc74a8c8e0c8e826f572,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: ShowPausePanel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 942da4462714fc74a8c8e0c8e826f572, type: 3}
---- !u!223 &2123372998 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 3955677586619095223, guid: 942da4462714fc74a8c8e0c8e826f572,
-    type: 3}
-  m_PrefabInstance: {fileID: 2123372997}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2141834743
 GameObject:
   m_ObjectHideFlags: 0

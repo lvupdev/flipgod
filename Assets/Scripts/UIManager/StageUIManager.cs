@@ -21,7 +21,7 @@ public class StageUIManager : MonoBehaviour
 	//===================================================================
 
 	// Canvas of stage UI
-	public Canvas canvas;
+	public Transform canvas;
 	// Transform of canvas element
 	private static Dictionary<string, Transform> uis = new Dictionary<string, Transform>();
 
@@ -79,27 +79,14 @@ public class StageUIManager : MonoBehaviour
 		tensionValueImg = Find("Image_TensionGaugeBar").GetComponent<Image>();
 		tensionValueImg.fillAmount = 0.0f;
 
+		InitStageData();
 		pauseButton.onClick.AddListener(ShowPausePanel);
 		resumeButton.onClick.AddListener(ResumeGame);
 		retryButton.onClick.AddListener(RetryStage);
 		selectStageButton.onClick.AddListener(GoToSelectScene);
-
-		Init();
 	}
-
-	// Find object using transform
-	public static Transform Find(string uiName)
-	{
-		return uis[uiName];
-	}
-
-	private static void RecursiveRegisterChild(Transform parent, Dictionary<string, Transform> dict)
-	{
-		if (!dict.ContainsKey(parent.name)) dict.Add(parent.name, parent);
-		foreach (Transform child in parent) RecursiveRegisterChild(child, dict);
-	}
-
-	public void Init()
+	
+	public void InitStageData()
 	{
 		StageGameManager.Instance.OnStageCleared += HandleStageClear;
 

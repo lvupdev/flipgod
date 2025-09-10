@@ -42,30 +42,24 @@ public class UserRecordManager : MonoBehaviour
         stageNumberKey = userRecord.StageNumber.ToString();
         userRecordValue = userRecord.UsedBottleNumber + "/" + userRecord.UsedTime;
 
-        // If the data is already saved in stage number
-        if (PlayerPrefs.HasKey(stageNumberKey) == true)
-        {
-            // then Remove existing data
-            RemoveUserRecord(stageNumberKey);
-        }
+		// If the data is already saved in stage number
+		if (PlayerPrefs.HasKey(stageNumberKey) == true)
+		{
+			// then Remove existing data
+			RemoveUserRecord(stageNumberKey);
+		}
 
-        // Set new record data in stage number
-        PlayerPrefs.SetString(stageNumberKey, userRecordValue);
-        // and Save data
-        PlayerPrefs.Save();
-    }
+		// Set new record data in stage number
+		PlayerPrefs.SetString(stageNumberKey, userRecordValue);
+		// and Save data
+		PlayerPrefs.Save();
+	}
 
-    // Remove record data in given stage number
-    public static void RemoveUserRecord(string stageNumber)
-    {
-        PlayerPrefs.DeleteKey(stageNumber);
-    }
-
-    // Remove all record data
-    public static void RemoveAllUserRecord()
-    {
-        PlayerPrefs.DeleteAll();
-    }
+	// Remove record data in given stage number
+	public static void RemoveUserRecord(string stageNumber)
+	{
+		PlayerPrefs.DeleteKey(stageNumber);
+	}
 
     // Get value with stage number
     // and Parse it to return as user record

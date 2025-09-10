@@ -18,11 +18,11 @@ public class StageClearUIManager : MonoBehaviour
     private static Dictionary<string, Transform> uis = new Dictionary<string, Transform>();
     //===================================================================
 
-    // a Transform of canvas of Stage Clear scene
-    public Transform canvasTransform;
+	// a Transform of canvas of Stage Clear scene
+	public Transform canvasTransform;
 
-    // a Text that shows the passed test
-    private Text testTitle;
+	// a Text that shows the passed test
+	private Text testTitle;
 
     //=======Texts of record panel========================================
     private Text missionContent;
@@ -39,8 +39,8 @@ public class StageClearUIManager : MonoBehaviour
     private Text comment;
     private Image commentLabel;
 
-    // stage data of passed stage
-    public StageData stageData;
+	// stage data of passed stage
+	private StageData stageData;
 
     // user record of passed stage
     public UserRecord userRecord;
@@ -125,7 +125,7 @@ public class StageClearUIManager : MonoBehaviour
         
     }
 
-    //================[Call-back Method]=====================================
+	//================[Call-back Method]=====================================
 
     // Show comment of clicked character
     public void OnClickCommentButton(int index)
