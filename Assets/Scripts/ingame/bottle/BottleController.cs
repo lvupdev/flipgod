@@ -26,7 +26,7 @@ public class BottleController : MonoBehaviour
     public float Timeout;
     public bool standBottle; //물병을 세울건지의 여부
 
-    private static List<BottleController> bottleControllerList = new List<BottleController>();
+    [SerializeField] private static List<BottleController> bottleControllerList = new List<BottleController>();
     private static int combo = 0;                // 물병이 몇번째 콤보를 달성하였는가
 
     private float rotateSpeed; //회전속도
@@ -57,13 +57,13 @@ public class BottleController : MonoBehaviour
     private void Awake()
     {
         Assert.IsTrue(null == ControllingBottle, "이미 조작 중인 물병이 있는데 새로운 물병이 생성되면 안 됩니다.");
-        
         ControllingBottle = this;
-        bottleControllerList.Add(this);
     }
 
     private void Start()
     {
+        bottleControllerList.Add(this);
+
         //오브젝트 받아오기
         rb = GetComponent<Rigidbody2D>();
         bottleGenerator = GameObject.Find("BottleManager").GetComponent<BottleGenerator>();
@@ -98,7 +98,8 @@ public class BottleController : MonoBehaviour
         isDestroying = false;
         standBottle = false;
     }
-    private void Update()
+    
+    private void FixedUpdate()
     {
         if (padStrength.isTouch) padStrengthTouched = true;
         if (padDirection.getIsTouch()) padDirectionTouched = true; //오타 수정
@@ -109,26 +110,26 @@ public class BottleController : MonoBehaviour
             transform.position = playerImageController.getBottlePosition(); // 물병 위치 갱신
         }
 
-        if ( this != ControllingBottle )
+        if (this != ControllingBottle)
         {
             Vector2 distance = gameObject.transform.position - playerImageController.getBottlePosition();
             zRotation = gameObject.transform.eulerAngles.z;
-            delta += Time.deltaTime;
+            delta += Time.fixedDeltaTime;
 
             if (distance.magnitude < 2) gameObject.SetActive(false); //던져진 물병이 물병 생성 위치와 너무 가까이 있으면 비활성화
-            
+
             if (standingBySkill) //필살기 발동에 의해 물병이 세워짐
             {
-                standingDelay -= Time.deltaTime;
+                standingDelay -= Time.fixedDeltaTime;
                 rb.WakeUp();
                 rb.centerOfMass = new Vector3(0, -0.6f, 0);
-                
+
                 if (standingDelay < 0)
                 {
                     standingDelay = 2;
                     standingBySkill = false;
                     rb.centerOfMass = Vector3.zero;
-                    if(!isDestroying) usefullOperation.FadeOut(1, this.transform.GetChild(0).GetComponent<SpriteRenderer>()); //파괴 도중에 실행되면 오류 발생
+                    if (!isDestroying) usefullOperation.FadeOut(1, this.transform.GetChild(0).GetComponent<SpriteRenderer>()); //파괴 도중에 실행되면 오류 발생
                 }
             }
 
@@ -180,7 +181,7 @@ public class BottleController : MonoBehaviour
 
         if (onFloor) //NEW: 땅바닥에 닿았을 때 물병 파괴
         {
-            destroyDelay -= Time.deltaTime;
+            destroyDelay -= Time.fixedDeltaTime;
             if (destroyDelay < 0)
             {
                 usefullOperation.FadeOut(1, this.transform.GetChild(0).GetComponent<SpriteRenderer>());
@@ -198,7 +199,6 @@ public class BottleController : MonoBehaviour
                 if (Time.timeScale != 1) //염력 사용하다가 화면 밖으로 날아간 경우
                 {
                     Time.timeScale = 1;
-                    Time.fixedDeltaTime = 0.02f * Time.timeScale;
                     screenEffectController.shadowEffect.enabled = false;
                     screenEffectController.screenEffectNum = 1;
                 }

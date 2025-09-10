@@ -85,6 +85,18 @@ public class StageUIManager : MonoBehaviour
 		retryButton.onClick.AddListener(RetryStage);
 		selectStageButton.onClick.AddListener(GoToSelectScene);
 	}
+
+	// Find object using transform
+	public static Transform Find(string uiName)
+	{
+		return uis[uiName];
+	}
+
+	private static void RecursiveRegisterChild(Transform parent, Dictionary<string, Transform> dict)
+	{
+		if (!dict.ContainsKey(parent.name)) dict.Add(parent.name, parent);
+		foreach (Transform child in parent) RecursiveRegisterChild(child, dict);
+	}
 	
 	public void InitStageData()
 	{

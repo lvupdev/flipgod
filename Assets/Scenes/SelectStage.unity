@@ -4086,16 +4086,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1722345395}
     m_Modifications:
-    - target: {fileID: 2126412848786340238, guid: c2b4e071f7e4b4849b72a38abf62444a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4197519997570164153, guid: c2b4e071f7e4b4849b72a38abf62444a,
-        type: 3}
-      propertyPath: m_Name
-      value: Button_Test (6)
-      objectReference: {fileID: 0}
     - target: {fileID: 4407107541097652729, guid: 92f8d178ade9e3445b45696ae47a15eb,
         type: 3}
       propertyPath: m_Pivot.x
@@ -4140,6 +4130,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 140
+      objectReference: {fileID: 0}
+    - target: {fileID: 2126412848786340238, guid: c2b4e071f7e4b4849b72a38abf62444a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4197519997570164153, guid: c2b4e071f7e4b4849b72a38abf62444a,
+        type: 3}
+      propertyPath: m_Name
+      value: Button_Test (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4197519997570164154, guid: c2b4e071f7e4b4849b72a38abf62444a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4197519997570164154, guid: c2b4e071f7e4b4849b72a38abf62444a,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4197519997570164154, guid: c2b4e071f7e4b4849b72a38abf62444a,
         type: 3}
