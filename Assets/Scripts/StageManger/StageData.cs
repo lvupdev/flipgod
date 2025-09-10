@@ -9,7 +9,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StageData-", menuName = "Scriptable Object/Stage Data")]
 public class StageData : ScriptableObject
 {
-    // index number of current stage
+    // index number of current stage. start from 1.
     [SerializeField]
     private int stageIndexNumber = 0;
     public int StageIndexNumber { get { return stageIndexNumber; } }
@@ -40,9 +40,24 @@ public class StageData : ScriptableObject
      * (3) 특정 트리거 발동시키기     2
      * (4) 특정 발판 위에 세우기      3
      */
+    //[SerializeField]
+    //private int missionIndexNumber = 0;
+    //public int MissionIndexNumber { get { return missionIndexNumber; } }
+
+    public enum Mission
+    {
+        StandBottle,                // 물병 n개 세우기
+        FreezeTarget,               // 어떤 물체 얼리기
+        ActivateTrigger,            // 특정 트리거 발동시키기
+        StandBottleOnTheTarget,     // 특정 발판 위에 세우기
+
+        MissionNum
+    }
+
     [SerializeField]
-    private int missionIndexNumber = 0;
-    public int MissionIndexNumber { get { return missionIndexNumber; } }
+    private Mission missionType = Mission.MissionNum;
+    public Mission MissionType { get { return missionType; } }
+
 
     // number of goal
     [SerializeField]

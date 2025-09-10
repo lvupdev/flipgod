@@ -56,7 +56,7 @@ public class Bird : Structure
 
     void OnTriggerEnter2D(Collider2D other) //충돌시 불리는 함수
     {
-        if (other.tag == "isActBottle") //부딪히면 떨어져야지
+        if (TryGetComponent(out BottleController _)) //부딪히면 떨어져야지
         {
             damaged = true;
             rb.gravityScale = 1;

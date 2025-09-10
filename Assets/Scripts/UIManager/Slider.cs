@@ -1,154 +1,180 @@
-﻿using gamemgr;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-/*
- * This script is used for scroll view control in Select Stage Scene
- */
+/// <summary>
+/// Scroll view control for stage selection.
+/// </summary>
 public class Slider : MonoBehaviour
 {
-    // Variable about scroll bar
     public GameObject scrollbarObj;
-    private Scrollbar scrollbar;
-
-    // Current position of scroll bar
-    private float scrollPos;
-
-    // Positions of every button
-    private float[] buttonPos;
-
-    // new!! Variables about the array of buttons
     public GameObject buttonPrefab;
+
+    private Scrollbar scrollbar;
     private RectTransform rect_ScrollView;
     private RectTransform rect_Button;
     private ScrollRect scrollRect_ScrollView;
     private VerticalLayoutGroup layoutGroup;
 
-    private float distance; //Distance between buttons
+    private float[] buttonPos;
+    private float scrollPos;
+    private float distance;
+    private const int stretchedPadding = 60; // 버튼이 늘어났을 때 ScrollView와 갖는 padding크기
+    private const float shrinkRatio = 0.8f;
+    private const float scaleSpeed = 10f;
+    private const float paddingSpeed = 10f;
+    private int clickedButtonIndex;
 
-    private float shrinkRatio; // Buttons shrink with this ratio when it's not focused 
-
-    private float speed; // Speed of changing size of buttons
-    private float paddingSpeed; // Speed of changing values of padding setting
-    private int clickedButtonNum; // Stage Number of the clicked button
-
-    // Variables about shrinking or stretching
-    private bool isStretching;
-    private bool isShrinking;
+    private bool isStretching = false;
+    private bool isShrinking = false;
 
     private void Start()
     {
-
         Time.timeScale = 1.0f;
 
-        // Init
+        // Init UI references
         scrollbar = scrollbarObj.GetComponent<Scrollbar>();
-        rect_ScrollView = transform.parent.transform.parent.gameObject.GetComponent<RectTransform>();
+        rect_ScrollView = transform.parent.parent.GetComponent<RectTransform>();
         rect_Button = buttonPrefab.GetComponent<RectTransform>();
-        layoutGroup = transform.GetComponent<VerticalLayoutGroup>();
-        scrollRect_ScrollView = rect_ScrollView.gameObject.GetComponent<ScrollRect>();
+        scrollRect_ScrollView = rect_ScrollView.GetComponent<ScrollRect>();
+        layoutGroup = GetComponent<VerticalLayoutGroup>();
 
-        scrollPos = 0; //When the Scene is loaded, this locates scroll bar at the bottom
-        speed = 10;
-        paddingSpeed = 10;
-        shrinkRatio = 0.8f;
+        // Init layout padding to center first/last buttons
+        int centerPadding = GetCenterPadding();
+        layoutGroup.padding.top = centerPadding;
+        layoutGroup.padding.bottom = centerPadding;
 
-        isShrinking = false;
-        isStretching = false;
-
-        // Place first button and last button in the center 
-        layoutGroup.padding.bottom = (int)((rect_ScrollView.rect.height / 2) - (rect_Button.rect.height / 2) * shrinkRatio);
-        layoutGroup.padding.top = (int)((rect_ScrollView.rect.height / 2) - (rect_Button.rect.height / 2) * shrinkRatio);
-
-        SetButtonPos();
+        SetButtonPositions();
     }
-    
+
     private void Update()
     {
+        HandleScrollInput();
+        AdjustButtonScales();
+        AnimatePadding();
+    }
 
+    private void HandleScrollInput()
+    {
         if (Input.GetMouseButton(0))
         {
-            if (scrollbar.value > 1) scrollPos = 1;
-            else if (scrollbar.value < 0) scrollPos = 0;
-            else if (isShrinking) scrollPos = buttonPos[clickedButtonNum];
-            else scrollPos = scrollbar.value;
+            scrollPos = Mathf.Clamp(scrollbar.value, 0f, 1f);
+            if (isShrinking) scrollPos = buttonPos[clickedButtonIndex];
         }
         else
         {
             for (int i = 0; i < buttonPos.Length; i++)
             {
-                if ((scrollPos < buttonPos[i] + (distance / 2) && scrollPos > buttonPos[i] - (distance / 2)))
+                if (IsWithinRange(scrollPos, buttonPos[i], distance / 2))
                 {
-                    scrollbar.value = Mathf.Lerp(scrollbar.value, buttonPos[i], Time.deltaTime * speed);
+                    scrollbar.value = Mathf.Lerp(scrollbar.value, buttonPos[i], Time.deltaTime * scaleSpeed);
+                    break;
                 }
             }
         }
+    }
 
+    private void AdjustButtonScales()
+    {
         for (int i = 0; i < buttonPos.Length; i++)
         {
-            if (scrollPos < buttonPos[i] + (distance / 2) && scrollPos > buttonPos[i] - (distance / 2))
+            Transform button = transform.GetChild(i);
+            if (IsWithinRange(scrollPos, buttonPos[i], distance / 2))
             {
-                transform.GetChild(i).localScale = Vector2.Lerp(transform.GetChild(i).localScale, new Vector2(1f, 1f), Time.deltaTime * speed);
-                for (int j = 0; j < buttonPos.Length; j++)
-                {
-                    if (j != i)
-                    {
-                        transform.GetChild(j).localScale = Vector2.Lerp(transform.GetChild(j).localScale, new Vector2(shrinkRatio, shrinkRatio), Time.deltaTime * speed);
-                    }
-                }
+                button.localScale = Vector2.Lerp(button.localScale, Vector2.one, Time.deltaTime * scaleSpeed);
+            }
+            else
+            {
+                button.localScale = Vector2.Lerp(button.localScale, Vector2.one * shrinkRatio, Time.deltaTime * scaleSpeed);
             }
         }
+    }
 
-        if (isShrinking) // Set the bottom and top value of the padding setting
+    private void AnimatePadding()
+    {
+        if (isShrinking)
         {
-            layoutGroup.padding.top = (int)Mathf.Lerp(layoutGroup.padding.top, 0f, Time.deltaTime * paddingSpeed);
-            layoutGroup.padding.bottom = (int)Mathf.Lerp(layoutGroup.padding.bottom, 0f, Time.deltaTime * paddingSpeed);
-
-            if (layoutGroup.padding.top == 0 && layoutGroup.padding.bottom == 0)
-            {
+            AnimateToPadding(stretchedPadding/2);
+            if (layoutGroup.padding.top == stretchedPadding / 2 && layoutGroup.padding.bottom == stretchedPadding/2)
                 isShrinking = false;
-            }
         }
-
-        if (isStretching) // Set the bottom and top value of the padding setting
+        else if (isStretching)
         {
-            layoutGroup.padding.top = (int)Mathf.Lerp(layoutGroup.padding.top, (int)((rect_ScrollView.rect.height / 2) - (rect_Button.rect.height / 2) * shrinkRatio) + 10, Time.deltaTime * paddingSpeed);
-            layoutGroup.padding.bottom = (int)Mathf.Lerp(layoutGroup.padding.bottom, (int)((rect_ScrollView.rect.height / 2) - (rect_Button.rect.height / 2) * shrinkRatio) + 10, Time.deltaTime * paddingSpeed);
-            if (layoutGroup.padding.top > (int)((rect_ScrollView.rect.height / 2) - (rect_Button.rect.height / 2) * shrinkRatio))
+            int targetPadding = GetCenterPadding();
+            AnimateToPadding(targetPadding);
+            if (layoutGroup.padding.top >= targetPadding)
             {
                 isStretching = false;
-                layoutGroup.padding.top = (int)((rect_ScrollView.rect.height / 2) - (rect_Button.rect.height / 2) * shrinkRatio);
-                layoutGroup.padding.bottom = (int)((rect_ScrollView.rect.height / 2) - (rect_Button.rect.height / 2) * shrinkRatio);
+                layoutGroup.padding.top = targetPadding;
+                layoutGroup.padding.bottom = targetPadding;
             }
         }
     }
-    
 
-    public void SetButtonPos()
+    private void AnimateToPadding(int target)
     {
-        buttonPos = new float[transform.childCount];
-        distance = 1f / (buttonPos.Length - 1f);
-        for (int i = 0; i < buttonPos.Length; i++) // Assign button position 
+        float currentTop = layoutGroup.padding.top;
+        float currentBottom = layoutGroup.padding.bottom;
+
+        // 90% 이상 크기일 때 Lerp 사용
+        if (Mathf.Abs(currentTop - target) > target * 0.1f)
         {
-            buttonPos[(buttonPos.Length - 1) - i] = distance * i;
+            layoutGroup.padding.top = Mathf.RoundToInt(Mathf.Lerp(currentTop, target, Time.deltaTime * paddingSpeed));
+            layoutGroup.padding.bottom = Mathf.RoundToInt(Mathf.Lerp(currentBottom, target, Time.deltaTime * paddingSpeed));
+        }
+        else // 90% 이하로 줄어들면 MoveTowards 사용
+        {
+            layoutGroup.padding.top = Mathf.RoundToInt(Mathf.MoveTowards(currentTop, target, Time.deltaTime * paddingSpeed * 10));
+            layoutGroup.padding.bottom = Mathf.RoundToInt(Mathf.MoveTowards(currentBottom, target, Time.deltaTime * paddingSpeed * 10));
+        }
+
+        // 목표값에 거의 도달하면 강제로 설정
+        if (Mathf.Abs(layoutGroup.padding.top - target) < 1)
+        {
+            layoutGroup.padding.top = target;
+            layoutGroup.padding.bottom = target;
+            isStretching = false;
         }
     }
 
-    public void SetPadding(bool isSelected, int stageNum) // Called when the 'stageNum'th button is clicked
+
+    private bool IsWithinRange(float value, float target, float range)
+    {
+        return value < target + range && value > target - range;
+    }
+
+    private int GetCenterPadding()
+    {
+        return (int)((rect_ScrollView.rect.height / 2) - (rect_Button.rect.height / 2));
+    }
+
+    public void SetButtonPositions()
+    {
+        int count = transform.childCount;
+        buttonPos = new float[count];
+        distance = 1f / (count - 1f);
+
+        for (int i = 0; i < count; i++)
+        {
+            buttonPos[count - 1 - i] = distance * i;
+        }
+    }
+
+    // Called when a stage button is clicked.
+    public void SetPadding(bool isSelected, int stageNum)
     {
         if (isSelected)
         {
-            clickedButtonNum = stageNum - 1;
-            scrollPos = buttonPos[clickedButtonNum];
+            clickedButtonIndex = stageNum - 1;
+            scrollPos = buttonPos[clickedButtonIndex];
             isShrinking = true;
+            isStretching = false;
             scrollbar.interactable = false;
             scrollRect_ScrollView.vertical = false;
         }
         else
         {
             isStretching = true;
+            isShrinking = false;
             scrollbar.interactable = true;
             scrollRect_ScrollView.vertical = true;
         }

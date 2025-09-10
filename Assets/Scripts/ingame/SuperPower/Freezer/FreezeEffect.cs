@@ -24,20 +24,21 @@ public class FreezeEffect : MonoBehaviour
     }
 
     public void Freeze(int whichCase) //0이면 기본 초능력 사용시, 1이면 필살기 사용시
-    {   
+    {
         for (int i = 0; i < TargetObject.Count; i++)
         {
             Structure structure = TargetObject[i].GetComponent<Structure>();
 
             if (!structure.isFreezed) //구조물이 이미 얼어있는 상태가 아닐 떄
 			{
+                Debug.Log("얼려짐");
                 structure.isFreezed = true;
 				if (structure.getFreezeBonus)
 				{
                     newFreezedCount++;
                 }
             }
-            structure.delta = 0;
+            structure.delta = structure.freezeTime;
         }
 
         if(whichCase == 0 && newFreezedCount != 0) tensionGaugeManager.IncreaseTensionGauge(3, newFreezedCount); //기본 초능력으로 구조물을 얼렸을 때만 텐션게이지 상승

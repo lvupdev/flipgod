@@ -8,17 +8,19 @@ using UnityEngine;
 
 public class TrajectoryLine : MonoBehaviour
 {
+    private const int trajectoryNumber = 15; //포물선 점 개수
+    private const float fadingNum = 5.0f; //흐려지는 점의 개수
+
     private GameObject bottle;
     
     //포물선
     public GameObject trajectoryDotPrefab;
     private GameObject[] trajectoryDots;
-    private int trajectoryNumber = 15; //포물선 점 개수
-    private float fadingNum = 5.0f; //흐려지는 점의 개수
+
 
     public void Start()
     {
-        bottle = GameObject.FindWithTag("isActBottle");
+        bottle = BottleController.ControllingBottle.gameObject;
         trajectoryDots = new GameObject[trajectoryNumber];
         for (int i = 0; i < trajectoryNumber; i++)
         {

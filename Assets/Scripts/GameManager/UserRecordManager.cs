@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 /*===========[ User Record Manager ]==========================
  * User Record Manager는 user의 스테이지 완료 기록을 관리합니다.
@@ -9,76 +10,37 @@ using UnityEngine;
  * 어떤 data도 저장하지 않습니다.
  ============================================================*/
 
+// This class is used to save record of passed stage
+public class UserRecord
+{
+    public int StageNumber { get; private set; }
+    public int UsedBottleNumber { get; private set; }
+    public float UsedTime { get; private set; }
+
+    public UserRecord(int stageNumber, int usedBottleNumber, float usedTime)
+    {
+        StageNumber         = stageNumber;
+        UsedBottleNumber    = usedBottleNumber;
+        UsedTime            = usedTime;
+    }
+}
+
 public class UserRecordManager : MonoBehaviour
 {
-	// This struct is used to save record of passed stage
-	public struct UserRecord
-	{
-		public int stageNumber;
-		public int usedBottleNumber;
-		public float usedTime;
+    // Save data with stage number as key
+    //============================[PlayerPrefs]===================================
+    // key(string)   : "[int : stage number]"
+    // value(string) : "[int : used bottle number]/[float : used time]"
+    public static void SaveUserRecord(UserRecord userRecord)
+    {
+        Assert.IsTrue( userRecord != null, "저장할 UserRecord는 null이면 안 됩니다." );
 
-		public UserRecord(int stageNumber, int usedBottleNumber, float usedTime)
-		{
-			this.stageNumber = stageNumber;
-			this.usedBottleNumber = usedBottleNumber;
-			this.usedTime = usedTime;
-		}
-	}
+        string stageNumberKey;
+        string userRecordValue;
 
-	// Save data of current passed stage
-	// and Return it
-	public static UserRecord CreateRecord(int stageNumber, int usedBottleNumber, float usedTime)
-	{
-		UserRecord currentUserRecord;
-		currentUserRecord.stageNumber = stageNumber;
-		currentUserRecord.usedBottleNumber = usedBottleNumber;
-		currentUserRecord.usedTime = usedTime;
-
-		return currentUserRecord;
-	}
-
-	// Judge whether current user record is the new record
-	// and Set new Record
-	public static void JudgeNewRecord(UserRecord currentUserRecord)
-	{
-		// Evaluate current user record
-		float currentScore = EvaluateUserRecord(currentUserRecord);
-		// Get current best user record
-		UserRecord currentBestUserRecord = GetUserRecord(currentUserRecord.stageNumber);
-		// Evaluate current best user record
-		float currentBestScore = EvaluateUserRecord(currentBestUserRecord);
-
-		// If score of current user record is larger than score of current best record
-		if (currentScore > currentBestScore)
-		{
-			// then Set new record to current user record 
-			SaveUserRecord(currentUserRecord);
-		}
-	}
-
-	// Evaluate user record
-	private static float EvaluateUserRecord(UserRecord userRecord)
-	{
-		float score = 0.0f;
-
-		return score;
-	}
-
-	//===================================================================================================
-	//=======================[PlayerPrefs : 씬 하나에 대한 최종적인 플레이 기록]===========================
-	// key(string)   : "[int : stage number]"
-	// value(string) : "[int : used bottle number]/[float : used time]"
-	//===================================================================================================
-	// Save data with stage number as key
-	public static void SaveUserRecord(UserRecord userRecord)
-	{
-		string stageNumberKey;
-		string userRecordValue;
-
-		// In PlayerPrefs, the key and value is saved as string
-		stageNumberKey = userRecord.stageNumber.ToString();
-		userRecordValue = userRecord.usedBottleNumber + "/" + userRecord.usedTime;
+        // In PlayerPrefs, the key and value is saved as string
+        stageNumberKey = userRecord.StageNumber.ToString();
+        userRecordValue = userRecord.UsedBottleNumber + "/" + userRecord.UsedTime;
 
 		// If the data is already saved in stage number
 		if (PlayerPrefs.HasKey(stageNumberKey) == true)
@@ -99,123 +61,47 @@ public class UserRecordManager : MonoBehaviour
 		PlayerPrefs.DeleteKey(stageNumber);
 	}
 
-	// Get value with stage number
-	// and Parse it to return as user record
-	public static UserRecord GetUserRecord(int stageNum)
-	{
-		// In PlayerPrefs, the key and value is saved as string
-		string stageNumberStr = stageNum.ToString();
-		UserRecord userRecord;
+    // Get value with stage number
+    // and Parse it to return as user record
+    public static UserRecord GetUserRecord(int stageNum)
+    {
+        // In PlayerPrefs, the key and value is saved as string
+        string stageNumberStr = stageNum.ToString();
+        UserRecord userRecord = null;
+        
+        // If there is the saved data in stage number
+        if (PlayerPrefs.HasKey(stageNumberStr) == true)
+        {
+            // then Get value with stage number
+            string userRecordStr = PlayerPrefs.GetString(stageNumberStr);
+            // and Parse string to get value
+            // value(string) : "[int : used bottle number]/[float : used time]"
+            string[] parsed = userRecordStr.Split('/');
+            int usedBottleNum = int.Parse(parsed[0]);
+            float usedTime = float.Parse(parsed[1]);
 
-		// If there is the saved data in stage number
-		if (PlayerPrefs.HasKey(stageNumberStr) == true)
-		{
-			// then Get value with stage number
-			string userRecordStr = PlayerPrefs.GetString(stageNumberStr);
-			// and Parse string to get value
-			// value(string) : "[int : used bottle number]/[float : used time]"
-			string[] parsed = userRecordStr.Split('/');
-			int usedBottleNum = int.Parse(parsed[0]);
-			float usedTime = float.Parse(parsed[1]);
+            // Set user record with value
+            userRecord = new UserRecord(stageNum, usedBottleNum, usedTime);
+        }
 
-			// Set user record with value
-			userRecord.stageNumber = stageNum;
-			userRecord.usedBottleNumber = usedBottleNum;
-			userRecord.usedTime = usedTime;
-		}
-		// If there is no data in stage number
-		else
-		{
-			// then Initialize user record to zero
-			userRecord = new UserRecord(0, 0, 0f);
-		}
-
-		// Return user record
-		return userRecord;
-	}
-	//===================================================================================================
-	//===================================================================================================
-
-	//===================================================================================================
-	//=======================[PlayerPrefs : 가장 최근에 플레이한 씬 기록]==================================
-	// key(string)   : "recentlyPlayInformation"
-	// value(string) : "[int : index number of stage]/[int : used bottle number]/[float : used time]"
-	//===================================================================================================
-	// Save data of recently play record
-	public static void SaveRecentlyPlayRecord(int stageIndexNumber, int usedBottleNumber, float usedTime)
-	{
-		string key = "recentlyPlayInformation";
-		string value = stageIndexNumber + "/" + usedBottleNumber + "/" + usedTime;
-		if (PlayerPrefs.HasKey(key) == true)
-		{
-			// then Remove existing data
-			RemoveUserRecord(key);
-		}
-
-		PlayerPrefs.SetString(key, value);
-		// Save data
-		PlayerPrefs.Save();
-	}
-
-	public static UserRecord GetRecentlyPlayRecord()
-	{
-		UserRecord userRecord = new UserRecord(0, 0, 0f);
-		string key = "recentlyPlayInformation";
-
-		if (PlayerPrefs.HasKey(key) == true)
-		{
-			string userRecordStr = PlayerPrefs.GetString(key);
-			// and Parse string to get value
-			// value(string) : "[int : stage index number]/[int : used bottle number]/[float : used time]"
-			string[] parsed = userRecordStr.Split('/');
-            int stageIndexNumber = int.Parse(parsed[0]);
-			int usedBottleNum = int.Parse(parsed[1]);
-			float usedTime = float.Parse(parsed[2]);
-
-            userRecord = new UserRecord(stageIndexNumber, usedBottleNum, usedTime);
-		}
-
+        // Return user record
         return userRecord;
-	}
-	//===================================================================================================
-	//===================================================================================================
+    }
+    
+    // Judge whether current user record is the new record
+    // and Set new Record
+    public static void JudgeNewRecord(int stageNum, int usedBottleNumber, float usedTime)
+    {
+        UserRecord currentBestUserRecord = GetUserRecord(stageNum);
+        int newUsedBottleNum = usedBottleNumber;
+        float newUsedTime = usedTime;
 
-	//===================================================================================================
-	//=======================[PlayerPrefs : 가장 마지막으로 클리어한 씬 기록]================================
-	// key(string)   : "IndexNumberOfClearScene"
-	// value(int) : [int : index number of stage]
-	//===================================================================================================
-	// Save index number of last clear scene
-	public static void SaveIndexOfClearScene(int currentSceneIndex)
-	{
-		string key = "IndexNumberOfClearScene";
-		int savedIndex = GetSavedIndexOfClearScene();
+        if ( null != currentBestUserRecord )
+        {
+            newUsedBottleNum = newUsedBottleNum < currentBestUserRecord.UsedBottleNumber ? newUsedBottleNum : currentBestUserRecord.UsedBottleNumber;
+            newUsedTime = newUsedTime < currentBestUserRecord.UsedTime ? newUsedTime : currentBestUserRecord.UsedTime;
+        }
 
-		if (currentSceneIndex > savedIndex)
-		{
-			PlayerPrefs.SetInt(key, currentSceneIndex);
-			PlayerPrefs.Save();
-		}
-	}
-
-	public static int GetSavedIndexOfClearScene()
-	{
-		int savedIndex = 0;
-		string key = "IndexNumberOfClearScene";
-
-		if (PlayerPrefs.HasKey(key) == true)
-		{
-			savedIndex = PlayerPrefs.GetInt(key);
-		}
-
-		return savedIndex;
-	}
-	//===================================================================================================
-	//===================================================================================================
-
-	// Remove all playerprefs data
-	public static void RemoveAllSavedRecord()
-	{
-		PlayerPrefs.DeleteAll();
-	}
+        SaveUserRecord(new UserRecord(stageNum, newUsedBottleNum, newUsedTime));
+    }
 }

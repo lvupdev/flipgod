@@ -25,13 +25,17 @@ public class StageUIManager : MonoBehaviour
 	// Transform of canvas element
 	private static Dictionary<string, Transform> uis = new Dictionary<string, Transform>();
 
-	// Elements of UI
 	private Button pauseButton;
+	private Transform StageClearPanel;
+
+
+	// Elements of pause panel
+	private Transform pausePanel;
 	private Button resumeButton;
 	private Button retryButton;
 	private Button selectStageButton;
-	private Transform pausePanel;
-	private Transform missionPanel;
+	private Text missionText;
+
 
 	// Elements of score panel
 	private Transform scorePanel;
@@ -56,26 +60,23 @@ public class StageUIManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		if (Time.timeScale == 0.0f)
-		{
-			Time.timeScale = 1.0f;
-		}
-		
-		pausePanel = GameObject.Find("Panel_Pause").transform;
-		pausePanel.gameObject.SetActive(false);
+		// Initialize ui
+		uis.Clear();
+		RecursiveRegisterChild(canvas.transform, uis);
 
-		missionPanel = GameObject.Find("Panel_Mission").transform;
-
-		scorePanel = GameObject.Find("Panel_Score").transform;
-		pauseButton = GameObject.Find("Button_Pause").GetComponent<Button>();
-		resumeButton = GameObject.Find("Button_Resume").GetComponent<Button>();
-		retryButton = GameObject.Find("Button_Retry").GetComponent<Button>();
-		selectStageButton = GameObject.Find("Button_SelectStage").GetComponent<Button>();
+		pauseButton = Find("Button_Pause").GetComponent<Button>();
+		StageClearPanel = Find("Panel_StageClear");
+		resumeButton = Find("Button_Resume").GetComponent<Button>();
+		retryButton = Find("Button_Retry").GetComponent<Button>();
+		selectStageButton = Find("Button_SelectStage").GetComponent<Button>();
+		pausePanel = Find("Panel_Pause");
+		missionText = pausePanel.GetChild(0).GetChild(0).GetComponent<Text>();
+		scorePanel = Find("Panel_Score");
 		completeMissionCountText = scorePanel.GetChild(0).GetChild(1).GetComponent<Text>();
 		timeText = scorePanel.GetChild(1).GetChild(1).GetComponent<Text>();
 		bottleCountText = scorePanel.GetChild(2).GetChild(1).GetComponent<Text>();
 
-		tensionValueImg = GameObject.Find("Image_TensionGaugeBar").GetComponent<Image>();
+		tensionValueImg = Find("Image_TensionGaugeBar").GetComponent<Image>();
 		tensionValueImg.fillAmount = 0.0f;
 
 		InitStageData();
@@ -84,14 +85,31 @@ public class StageUIManager : MonoBehaviour
 		retryButton.onClick.AddListener(RetryStage);
 		selectStageButton.onClick.AddListener(GoToSelectScene);
 	}
+
+	// Find object using transform
+	public static Transform Find(string uiName)
+	{
+		return uis[uiName];
+	}
+
+	private static void RecursiveRegisterChild(Transform parent, Dictionary<string, Transform> dict)
+	{
+		if (!dict.ContainsKey(parent.name)) dict.Add(parent.name, parent);
+		foreach (Transform child in parent) RecursiveRegisterChild(child, dict);
+	}
 	
 	public void InitStageData()
 	{
+		StageGameManager.Instance.OnStageCleared += HandleStageClear;
+
 		if (StageGameManager.Instance.StageData != null)
 		{
-			totalMissionNumber = StageGameManager.Instance.StageData.GoalNumber;
-			totalBottle = StageGameManager.Instance.StageData.LimitedBottleNumber;
-			totalTime = StageGameManager.Instance.StageData.LimitedTime;
+			StageData stageData = StageGameManager.Instance.StageData;
+			totalMissionNumber = stageData.GoalNumber;
+			totalBottle = stageData.LimitedBottleNumber;
+			totalTime = stageData.LimitedTime;
+			missionText.text = "TEST#" + stageData.StageIndexNumber + " - " +
+				MissionUIFunction.FormatMissionContent(stageData.MissionType, totalMissionNumber);
 		}
 		else
 		{
@@ -136,7 +154,7 @@ public class StageUIManager : MonoBehaviour
 		second = Mathf.FloorToInt(total);
 		minute = second / 60;
 		second = second % 60;
-		temp += (minute + ":" + second);
+		temp += minute + ":" + second;
 
 		timeText.text = temp;
 	}
@@ -176,16 +194,6 @@ public class StageUIManager : MonoBehaviour
 		}
 	}
 
-	// Close mission panel with window and
-	// Start game
-	public void CloseMissionWindow()
-	{
-		// Unactivate mission panel
-		missionPanel.gameObject.SetActive(false);
-		// Set time scale to 1, then start game
-		Time.timeScale = 1.0f;
-	}
-
 	// Activate pause panel with window
 	public void ShowPausePanel()
 	{
@@ -209,13 +217,24 @@ public class StageUIManager : MonoBehaviour
 	{
 		int index = StageGameManager.Instance.GetCurrentStageNumber();
 		SceneManager.LoadScene("Stage" + "-" + index);
-		StageGameManager.Instance.InitializeStage();
+
+		if (Time.timeScale == 0.0f)
+			Time.timeScale = 1.0f;
 	}
 
 	// Go to select stage
 	public void GoToSelectScene()
 	{
 		SceneManager.LoadScene("SelectStage");
+		if (Time.timeScale == 0.0f)
+		{
+			Time.timeScale = 1.0f;
+		}
+	}
+
+	private void HandleStageClear()
+	{
+		StageClearPanel.gameObject.SetActive(true);
 	}
 
 }

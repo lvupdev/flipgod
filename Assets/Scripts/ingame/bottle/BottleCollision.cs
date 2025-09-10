@@ -29,7 +29,7 @@ public class BottleCollision : MonoBehaviour
         bottleSelectController = GameObject.Find("BottleManager").GetComponent<BottleSelectController>();
         bottleGenerator = GameObject.Find("BottleManager").GetComponent<BottleGenerator>();
         padStrength = GameObject.Find("Pad_Strength").GetComponent<PadStrength>();
-        bottleController = GameObject.FindWithTag("isActBottle").GetComponent<BottleController>(); //NEW: 처음에 시작할 때 태그로 찾아줘야 함
+        bottleController = gameObject.GetComponent<BottleController>(); //NEW: 처음에 시작할 때 태그로 찾아줘야 함
         thisBottleCollision = gameObject.GetComponent<BottleCollision>();
         usefullOperation = GameObject.Find("GameResource").GetComponent<UsefullOperation>();
         redAura = transform.Find("RedAura").gameObject;
@@ -55,7 +55,7 @@ public class BottleCollision : MonoBehaviour
         if(!(col.gameObject.CompareTag("Membrane"))) //반사막 생성 필살기로 생겨난 반사막을 제외하고
         {
             bottleController.isSuperPowerAvailabe = false; //더 이상 초능력을 적용할 수 없음
-            if (gameObject.CompareTag("isActBottle"))
+            if ( BottleController.ControllingBottle == bottleController)
             {
                 if (Time.timeScale != 1)
                 {
@@ -68,7 +68,7 @@ public class BottleCollision : MonoBehaviour
                     psychokinesis.psychoAvailable = false;
                 }
 
-                gameObject.tag = "unActBottle";//태그 변경
+                BottleController.ClearControllingBottle(gameObject);
                 freezeRange.SetActive(false);
 
                 bottleSelectController.bottleSelected = false;

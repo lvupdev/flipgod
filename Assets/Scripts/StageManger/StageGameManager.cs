@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -30,6 +31,8 @@ public class StageGameManager : MonoBehaviour
 	private int completeMissionNumber = 0;
 	public int CompleteMissionNumber { get { return completeMissionNumber; } }
 
+	public event Action OnStageCleared;
+
 	private void Awake()
 	{
 		// itself
@@ -51,6 +54,8 @@ public class StageGameManager : MonoBehaviour
 	public void InitializeStage()
 	{
 		InitializeCurrentStageData(GetCurrentStageNumber());
+		
+		BottleController.ClearBottleControllerList();
 
 		usedBottleNumber = 0;
 		usedTime = 0;
@@ -103,12 +108,12 @@ public class StageGameManager : MonoBehaviour
 		// If complete mission number is smaller than tartget number
 		if (CompleteMissionNumber < StageData.GoalNumber)
 		{
-			switch (StageData.MissionIndexNumber)
+			switch (StageData.MissionType)
 			{
-				case 0:
+				case StageData.Mission.StandBottle:
 					completeMissionNumber = BottleController.CountStandingBottle();
 					break;
-				case 3:
+				case StageData.Mission.StandBottleOnTheTarget:
 					completeMissionNumber = PlaneTile.CountStandingBottleOnPlaneTile();
 					break;
 			}
@@ -124,32 +129,18 @@ public class StageGameManager : MonoBehaviour
 
 		if (CompleteMissionNumber == StageData.GoalNumber)
 		{
-			Time.timeScale = 0.0f;
-			// then Save current stage data and user record to show result in stage clear scene
-			// and Go to stage clear scene
-			SaveStageDataAndUserRecord();
-			GoToStageClearScene();
+			UserRecordManager.JudgeNewRecord(stageData.StageIndexNumber, UsedBottleNumber, UsedTime);
+			OnStageCleared?.Invoke();
+			StartCoroutine(GoToStageClearSceneAsync());
 		}
-
-	}
-
-	// Save current stage data and user record
-	public void SaveStageDataAndUserRecord()
-	{
-		Debug.Log(StageData.StageIndexNumber);
-		UserRecordManager.SaveRecentlyPlayRecord(StageData.StageIndexNumber, UsedBottleNumber, UsedTime);
-		UserRecordManager.SaveIndexOfClearScene(StageData.StageIndexNumber);
 	}
 
 	// Go to stage clear scene
-	public void GoToStageClearScene()
+	public IEnumerator GoToStageClearSceneAsync()
 	{
-		SceneManager.LoadScene("StageClear");
+		yield return new WaitForSeconds(2.0f);
 
-		if (Time.timeScale == 0.0f)
-		{
-			Time.timeScale = 1.0f;
-		}
+		SceneManager.LoadScene("StageClear");
 	}
 
 

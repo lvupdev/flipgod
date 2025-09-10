@@ -39,9 +39,6 @@ public class CameraMovement : MonoBehaviour
 
     float zoomModifierspeed = 0.01f;// 속도
 
-    [SerializeField]
-    Text text;
-
     private Vector2 distance; //물병과 카메라 포지션 사이의 거리
 
 
