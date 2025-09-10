@@ -26,6 +26,8 @@ public class StageUIManager : MonoBehaviour
 	private static Dictionary<string, Transform> uis = new Dictionary<string, Transform>();
 
 	private Button pauseButton;
+	private Transform StageClearPanel;
+
 
 	// Elements of pause panel
 	private Transform pausePanel;
@@ -63,6 +65,7 @@ public class StageUIManager : MonoBehaviour
 		RecursiveRegisterChild(canvas.transform, uis);
 
 		pauseButton = Find("Button_Pause").GetComponent<Button>();
+		StageClearPanel = Find("Panel_StageClear");
 		resumeButton = Find("Button_Resume").GetComponent<Button>();
 		retryButton = Find("Button_Retry").GetComponent<Button>();
 		selectStageButton = Find("Button_SelectStage").GetComponent<Button>();
@@ -98,6 +101,8 @@ public class StageUIManager : MonoBehaviour
 
 	public void Init()
 	{
+		StageGameManager.Instance.OnStageCleared += HandleStageClear;
+
 		if (StageGameManager.Instance.StageData != null)
 		{
 			StageData stageData = StageGameManager.Instance.StageData;
@@ -226,6 +231,11 @@ public class StageUIManager : MonoBehaviour
 		{
 			Time.timeScale = 1.0f;
 		}
+	}
+
+	private void HandleStageClear()
+	{
+		StageClearPanel.gameObject.SetActive(true);
 	}
 
 }

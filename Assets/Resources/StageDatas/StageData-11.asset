@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fbe2f53b4fd44541a7a98c6f770321e, type: 3}
-  m_Name: StageData-13
+  m_Name: StageData-11
   m_EditorClassIdentifier: 
-  stageIndexNumber: 13
-  limitedBottleNumber: 8
-  limitedTime: 40
+  stageIndexNumber: 8
+  limitedBottleNumber: 3
+  limitedTime: 60
   comment:
-  - "\uC800 \uB808\uC774\uC800 \uC9C4\uC9DC\uC778\uAC00?"
-  - "\uB9DE\uC73C\uBA74 \uC544\uD504\uACA0\uB2E4..."
-  - "\uC544\uD508 \uAC78\uB85C \uB05D\uB0A0\uAE4C?"
-  missionType: 3
-  goalNumber: 2
+  - 
+  - 
+  - 
+  missionIndexNumber: 0
+  goalNumber: 1

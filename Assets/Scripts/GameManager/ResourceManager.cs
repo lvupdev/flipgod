@@ -26,6 +26,8 @@ public class ResourceManager : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = 60;
+
         RecentlyTriedStage = 1;   
     }
 

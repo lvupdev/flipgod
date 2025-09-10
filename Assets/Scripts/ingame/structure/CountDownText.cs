@@ -12,7 +12,7 @@ public class CountDownText : MonoBehaviour
 
 	void Start()
 	{
-		st = FindObjectOfType<Structure>();
+		st = FindFirstObjectByType<Structure>();
 		Transform parentTransform = this.transform.parent;
 		parentTransform = this.transform;
 		Transform childTransform = transform.Find("Countdown");

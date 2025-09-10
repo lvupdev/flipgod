@@ -58,7 +58,7 @@ public class MembraneUsingSkillEffect : MonoBehaviour
 
     public void Avtivate(int key, BottleController bottleController) //upside에 맞았으면 1이, downside에 맞았으면 -1이 전달된다.
     {
-        bottleController.rb.velocity = key * membraneDirection * presentStrength; //물병 튕겨냄
+        bottleController.rb.linearVelocity = key * membraneDirection * presentStrength; //물병 튕겨냄
     }
 
     private void OnMouseDown() // 탄성막을 터치했을 때

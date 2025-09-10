@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,6 +30,8 @@ public class StageGameManager : MonoBehaviour
 	// the number of complete mission
 	private int completeMissionNumber = 0;
 	public int CompleteMissionNumber { get { return completeMissionNumber; } }
+
+	public event Action OnStageCleared;
 
 	private void Awake()
 	{
@@ -126,22 +129,18 @@ public class StageGameManager : MonoBehaviour
 
 		if (CompleteMissionNumber == StageData.GoalNumber)
 		{
-			Time.timeScale = 0.0f;
-
 			UserRecordManager.JudgeNewRecord(stageData.StageIndexNumber, UsedBottleNumber, UsedTime);
-			GoToStageClearScene();
+			OnStageCleared?.Invoke();
+			StartCoroutine(GoToStageClearSceneAsync());
 		}
 	}
 
 	// Go to stage clear scene
-	public void GoToStageClearScene()
+	public IEnumerator GoToStageClearSceneAsync()
 	{
-		SceneManager.LoadScene("StageClear");
+		yield return new WaitForSeconds(2.0f);
 
-		if (Time.timeScale == 0.0f)
-		{
-			Time.timeScale = 1.0f;
-		}
+		SceneManager.LoadScene("StageClear");
 	}
 
 

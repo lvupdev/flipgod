@@ -35,14 +35,17 @@ public class StageClearUIManager : MonoBehaviour
     private Button selectStageButton;
     private List<Button> commentButtonList;
 
-    // a Text that shows commets of characters
+    // Comment Section
     private Text comment;
+    private Image commentLabel;
 
     // stage data of passed stage
     public StageData stageData;
 
     // user record of passed stage
     public UserRecord userRecord;
+
+    public Sprite[] commentSprites;
 
     private void Awake()
     {
@@ -74,6 +77,7 @@ public class StageClearUIManager : MonoBehaviour
         timeRecord          = Find("Text_TimeRecord").GetComponent<Text>();
         bottleCountRecord   = Find("Text_BottleRecord").GetComponent<Text>();
         comment             = Find("Text_CommentContent").GetComponent<Text>();
+        commentLabel        = Find("Image_CommentLabel").GetComponent<Image>();
 
         resumeButton        = Find("Button_Resume").GetComponent<Button>();
         retryButton         = Find("Button_Retry").GetComponent<Button>();
@@ -127,6 +131,7 @@ public class StageClearUIManager : MonoBehaviour
     public void OnClickCommentButton(int index)
     {
         comment.text = stageData.Comment[index];
+        commentLabel.sprite = commentSprites[index];
     }
 
 	public void MoveToNextStage()

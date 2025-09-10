@@ -224,7 +224,7 @@ public class BottleController : MonoBehaviour
         MembraneUsingSkillEffect.presentStrength = padStrength.totalStrength; //물병에 현재 가해진 힘 전달
 
         //뛰면서 회전
-        rb.velocity = padDirection.getDirection() * padStrength.totalStrength;
+        rb.linearVelocity = padDirection.getDirection() * padStrength.totalStrength;
         rb.AddTorque(key * rotateSpeed, ForceMode2D.Impulse);
 
         playerImageController.ChangePlayerImage(1); //던지는 동작으로 스프라이트 교체
@@ -273,8 +273,7 @@ public class BottleController : MonoBehaviour
 		{
 			bottleControllerList.Remove(this);
 		}
-
-		Destroy(gameObject);
+        Destroy(gameObject);
 
 		return isDestroyed;
 	}

@@ -35,7 +35,7 @@ public class MissionUIFunction : MonoBehaviour
                 missionContent = "특정 트리거 " + targetNumber + "개 발동시키기";
                 break;
             case Mission.StandBottleOnTheTarget:
-                missionContent = "특정 발판 위에 물병 " + targetNumber + "개 발동시키기";
+                missionContent = "특정 발판 위에 물병 " + targetNumber + "개 세우기";
                 break;
             default:
                 missionContent = "지정 미션이 없습니다";

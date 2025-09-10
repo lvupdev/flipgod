@@ -11,9 +11,9 @@ public class UsefullOperation : MonoBehaviour
 
 	private static List<ObjectInformation> targetObject = new List<ObjectInformation>(); //메서드를 적용할 오브젝트들을 담는 리스트
 
-	// Start is called before the first frame update
-	void Start()
-	{
+    // Start is called before the first frame update
+    void Start()
+    {
         SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 
