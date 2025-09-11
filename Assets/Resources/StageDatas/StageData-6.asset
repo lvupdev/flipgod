@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: StageData-6
   m_EditorClassIdentifier: 
   stageIndexNumber: 6
-  limitedBottleNumber: 4
-  limitedTime: 60
+  limitedBottleNumber: 8
+  limitedTime: 40
   comment:
-  - 
-  - 
-  - 
-  missionIndexNumber: 0
+  - "\uC800 \uB808\uC774\uC800 \uC9C4\uC9DC\uC778\uAC00?"
+  - "\uB9DE\uC73C\uBA74 \uC544\uD504\uACA0\uB2E4..."
+  - "\uC544\uD508 \uAC78\uB85C \uB05D\uB0A0\uAE4C?"
+  missionType: 3
   goalNumber: 2

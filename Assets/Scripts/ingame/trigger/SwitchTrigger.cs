@@ -11,9 +11,7 @@ public class SwitchTrigger : TriggerFunction
         base.Start();
 
         isActTrigger = true; //해당 트리거가 처음에 활성화 상태인지 비활성화 상태인지 start함수에서 반드시 명시해줘야 한다.
-        isFreezable = true; //해당 트리거가 얼릴 수 있는 트리거인지여 여부를 반드시 명시해줘야 한다.
-
-
+        isFreezable = false; //해당 트리거가 얼릴 수 있는 트리거인지여 여부를 반드시 명시해줘야 한다.
     }
 
     void Update()
@@ -36,21 +34,12 @@ public class SwitchTrigger : TriggerFunction
             // 트리거 발동 조건 함수
             if (EnoughCrash(1)) //스위치에 한 번 부딛히면 발동
             {
-                conditionFullfilled = true; //트리거 작동 권한 부여
-            }
-
-            if (conditionFullfilled)
-            {
                 //트리거 발동 효과 함수
                 Unactivate();
 
                 structure.GetComponent<SpriteRenderer>().sprite = pushedImage;
-            }
-
-            
-            if(TimeOut(1)) //1초가 지나면 비활성화
-            {
-                conditionFullfilled = false;
+        
+                isActTrigger = false;
             }
         }
     }

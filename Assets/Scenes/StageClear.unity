@@ -233,8 +233,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -220.45, y: 0.0000007748604}
-  m_SizeDelta: {x: 440.9, y: 74.4}
+  m_AnchoredPosition: {x: -347.0161, y: 0.0000007748604}
+  m_SizeDelta: {x: 694.032, y: 74.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &118452275
 MonoBehaviour:
@@ -260,12 +260,12 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 712a443f1898339428b67ff2c99560a5, type: 3}
     m_FontSize: 50
     m_FontStyle: 1
-    m_BestFit: 0
-    m_MinSize: 5
+    m_BestFit: 1
+    m_MinSize: 30
     m_MaxSize: 50
     m_Alignment: 3
     m_AlignByGeometry: 0
-    m_RichText: 1
+    m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
@@ -1679,7 +1679,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 578.4, y: 93.2}
+  m_SizeDelta: {x: 830, y: 93.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &986892346
 MonoBehaviour:
@@ -1983,7 +1983,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasTransform: {fileID: 714857467}
-  stageData: {fileID: 11400000, guid: cdb9dfdc6bf90784eb631dd542f111fa, type: 2}
   commentSprites:
   - {fileID: 21300000, guid: 2f5c66e380716b843a51fb3de12cca86, type: 3}
   - {fileID: 21300000, guid: 86545db5b9fff6c469aa965ace58a1de, type: 3}

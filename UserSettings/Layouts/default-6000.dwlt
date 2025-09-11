@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2545.3335
     height: 1334.6667
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 237
+  controlID: 48
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 138
+  controlID: 17
   draggingID: 0
 --- !u!114 &7
 MonoBehaviour:
@@ -226,7 +226,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 162
+  controlID: 49
   draggingID: 0
 --- !u!114 &10
 MonoBehaviour:
@@ -304,7 +304,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 238
+  controlID: 125
   draggingID: 0
 --- !u!114 &13
 MonoBehaviour:
@@ -500,11 +500,11 @@ MonoBehaviour:
       displayed: 1
       id: Tool Settings
       index: 1
-      contents: '{"m_Layout":1,"m_Collapsed":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":-166.0,"y":-26.666656494140626},"m_SnapOffsetDelta":{"x":0.0,"y":0.000030517578125},"m_FloatingSnapCorner":3,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":1,"m_Collapsed":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":-166.0,"y":-26.6666259765625},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":3,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
-      snapOffset: {x: -166, y: -26.666656}
-      snapOffsetDelta: {x: 0, y: 0.000030517578}
+      snapOffset: {x: -166, y: -26.666626}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 3
       layout: 1
       size: {x: 0, y: 0}
@@ -1054,9 +1054,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 3.4397597, y: 1.1204094, z: 0}
+    m_Target: {x: -8, y: -1.99, z: 0}
     speed: 2
-    m_Value: {x: 3.4397597, y: 1.1204094, z: 0}
+    m_Value: {x: -8, y: -1.99, z: 0}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1106,9 +1106,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 0.7348476
+    m_Target: 0.78421944
     speed: 2
-    m_Value: 0.7348476
+    m_Value: 0.78421944
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1256,7 +1256,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 39898
+  m_LastSelectedObjectID: 52550
 --- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1299,7 +1299,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: aca6ffffd2a6ffff6aabffff6ef5ffff06f9ffff3c7a0000507a00006a7a0000b07a0000c07a000088bf0000
+      m_ExpandedIDs: 5819ffff8021ffff9c32ffff6a35ffff0a38ffff1c38ffff8c39ffff2c3cffff763effff9640ffffb242ffffd044fffffe46ffff2249ffff2054ffffc056ffffd256ffff4a58fffff25affff445dffff6c5fffff9061ffffb663ffffee65ffff2268ffff7e6bffff026effff5a70ffffb072ffffd674ffff2e77ffff8479ffffdc7bffff6a7effff7c7effff8c7effff147fffff6c81ffff9283ffff7686ffff8886ffff9886fffffc86ffff2289ffff828bffffda8dfffffc8effff9c91ffffae91ffff1e93ffffbe95ffff0898ffff289affff449cffff6a9effff98a0ffffbca2fffffeb6ffff44b7ffffd8daffff52dbffffb2ddffff86e1ffff0ae4ffff68e7ffff7ae7ffffc0e7ffff50ebffffe2ecfffff4ecffff8cedffff86efffffb0f1ffff8ef5ffff9ef5ffffecf5ffff4cf8ffff16fbffffdc8b0000f08b00000a8c0000508c0000608c000012b00000b2b0000022b20000c8cc000016ce000026d00000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1372,7 +1372,7 @@ MonoBehaviour:
     m_SkipHidden: 1
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/StageDatas
+    - Assets/Scenes/Stages
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1382,16 +1382,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Resources/StageDatas
+  - Assets/Scenes/Stages
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\Projects\flipgod
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: ba7c0000
-    m_LastClickedID: 31930
-    m_ExpandedIDs: 0000000076770000787700007a7700007c770000
+    m_SelectedIDs: d2750000
+    m_LastClickedID: 30162
+    m_ExpandedIDs: 00000000aa780000ac780000ae780000b0780000b2780000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1420,7 +1420,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000076770000787700007a7700007c770000
+    m_ExpandedIDs: 00000000aa780000ac780000ae780000b0780000b2780000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

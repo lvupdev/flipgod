@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: StageData-2
   m_EditorClassIdentifier: 
   stageIndexNumber: 2
-  limitedBottleNumber: 5
+  limitedBottleNumber: 2
   limitedTime: 30
   comment:
-  - "\uBB3C\uBCD1 \uB9D0\uACE0 \uB2E4\uB978 \uC0AC\uBB3C\uC5D0\uB294 \uC9C1\uC811\uC801\uC778
-    \uCD08\uB2A5\uB825 \uC0AC\uC6A9\uC744 \uAE08\uC9C0\uD558\uB294 \uC81C\uC57D\uC774
-    \uC880 \uAE4C\uB2E4\uB85C\uC6CC\uC694."
+  - "\uADFC\uB370 \uBB3C\uBCD1 \uC548\uC5D0 \uC774\uAC70 \uB9C8\uC154\uB3C4 \uB418\uB294
+    \uBB3C\uC77C\uAE4C\uC694?"
   - 
   - 
   missionType: 0

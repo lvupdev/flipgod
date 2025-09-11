@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 /*
 물병을 점프시키는 스크립트
@@ -246,9 +247,10 @@ public class BottleController : MonoBehaviour
         ControllingBottle = null;
     }
 
-    public static void ClearBottleControllerList()
+    public static void InitializeBottleController()
     {
         bottleControllerList.Clear();
+        combo = 0;
     }
 
 	public static int CountStandingBottle()

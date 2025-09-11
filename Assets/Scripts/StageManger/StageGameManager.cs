@@ -55,7 +55,7 @@ public class StageGameManager : MonoBehaviour
 	{
 		InitializeCurrentStageData(GetCurrentStageNumber());
 		
-		BottleController.ClearBottleControllerList();
+		BottleController.InitializeBottleController();
 
 		usedBottleNumber = 0;
 		usedTime = 0;
