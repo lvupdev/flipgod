@@ -16,9 +16,8 @@ MonoBehaviour:
   limitedBottleNumber: 6
   limitedTime: 60
   comment:
-  - "\uB2E4\uB978 \uB450 \uBA85\uC740 \uC5B8\uC81C \uD569\uB958\uD558\uB098\uC694?
-    \uC800 \uD63C\uC7A3\uB9D0\uC774 \uC810\uC810 \uB290\uB294 \uAC83 \uAC19\uC740\uB370."
-  - 
-  - 
+  - "\uC0DD\uAC01\uBCF4\uB2E4 \uC7AC\uBBF8\uC788\uB294 \uAC70 \uAC19\uC544."
+  - "\uB098\uB3C4..."
+  - "\uC5BC\uB978 \uB05D\uB0B4\uACE0 \uAC00\uC790."
   missionType: 0
   goalNumber: 6
